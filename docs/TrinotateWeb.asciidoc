@@ -1,0 +1,93 @@
+TrinotateWeb: Graphical Interface for Navigating Trinotate Annotations and Expression Analyses
+==============================================================================================
+
+== Background ==
+
+TrinotateWeb provides a web-based graphical interface to support local user-based navigation of Trinotate annotations and differential expression data. Simply run the included light-weight webserver, open your web browser and point it to your Trinotate SQLite database, and begin your data exploration.  Note, Trinotate is not yet a full-featured application, but is instead in a very early state of development. As an open source community-driven software development project, contributions are always welcome.
+
+image::images/canvasXpressLogoBig.png["CanvasXpress logo",width=200] 
+Trinotate makes extensive use of the http://canvasxpress.org[CanvasXpress] infrastructure, as developed and made publicly available by Isaac Neuhaus. "CanvasXpress was developed as the core visualization component for bioinformatics and systems biology analysis at Bristol-Myers Squibb" (http://canvasxpress.org/about.html[More about CanvasXpress]).
+
+== TrinotateWeb Showcase ==
+
+The current capabilities of TrinotateWeb are showcased below:
+
+image::images/TrinotateWebCollage.png[TrinotateWebCollage image]
+
+
+== Populating Trinotate.sqlite with Expression Data ==
+
+TrinotateWeb currently revolves around using the differential expression analysis pipeline supported by the Trinity suite, as described http://trinityrnaseq.sourceforge.net/#Downstream_analyses[here], specifically first generating abundance estimates using the http://trinityrnaseq.sourceforge.net/analysis/abundance_estimation.html[RSEM pipeline] and then performing the http://trinityrnaseq.sourceforge.net/analysis/diff_expression_analysis.html[DE analysis using Bioconductor].
+
+After having run the above abundance estimation and DE analysis steps, you can begin loading the expression data like so:
+
+  # import the fpkm and DE analysis stuff
+  $TRINOTATE_HOME/util/transcript_expression/import_expression_and_DE_results.pl --sqlite Trinotate.sqlite \
+                                                                   --samples_file samples_n_reads_described.txt \
+                                                                   --count_matrix Trinity_trans.counts.matrix \
+                                                                   --fpkm_matrix Trinity_trans.counts.matrix.TMM_normalized.FPKM \
+                                                                   --DE_dir edgeR_trans/ \
+                                                                   --transcript_mode
+[NOTE]
+The above is based on using the transcript-level abundance estimates and corresponding DE analyses.  Abundance estimation and DE analysis can be performed at the 'gene' level as well.  Optionally, run the above using '--component_mode' (gene mode) with the corresponding gene-based files.  Both transcript-level and gene-level data can be loaded into the single Trinotate.sqlite instance for analysis.
+
+== Populate Trinotate.sqlite with Transcript Expression Clusters ==
+
+The Trinity analysis framework describes methods for clustering transcripts based on related expression patterns http://trinityrnaseq.sourceforge.net/analysis/diff_expression_analysis.html[here].  After defining clusters, load these into the Trinotate.sqlite database like so:
+
+  # import transcript clusters
+  $TRINOTATE_HOME/util/transcript_expression/import_transcript_clusters.pl \
+       --group_name edgeR_DE_analysis \
+       --analysis_name edgeR_trans/diffExpr.P0.001_C2.matrix.R.all.RData.clusters_fixed_P_20 \
+       --sqlite Trinotate.sqlite \
+       edgeR_trans/diffExpr.P0.001_C2.matrix.R.all.RData.clusters_fixed_P_20/*matrix
+
+The step of defining expression clusters can be run multiple times using different parameters according to the http://trinityrnaseq.sourceforge.net/analysis/diff_expression_analysis.html[Trinity documentation].  Each set of clusters can be loaded in separately as above and then separately studied within TrinotateWeb.
+
+
+== Populate Trinotate.sqlite with Annotation Text ==
+
+Any free-text annotation can be applied to your input transcripts, and these data can then be queried by text searches within TrinotateWeb.  This was the simplest way to get text-searching up and running in a flexible way, and more sophisticated methods for querying the data will be included in future releases.  If you've used Trinotate to generate annotations (ex. generated the Trinotate_report.xls tab-delimited summary data file), you can simply import that data table back into Trinotate as the textual annotation for the transcripts.  Alternatively, if you have a file containing a tab delimited format of:
+
+    gene_id (tab) transcript_id (tab) annotation text
+
+you can use that file instead.  Just realize that the TrinotateWeb text-querying is currently soley based on this 'annotation text'.  Load the annotations into the Trinotate.sqlite database like so:
+
+   # Load annotations
+   $TRINOTATE_HOME/util/annotation_importer/import_transcript_names.pl Trinotate.sqlite Trinotate_report.xls
+
+
+== Sample data ==
+
+A full set of sample data for loading a Trinotate.sqlite database and populating it with expression and annotation data according to the above steps is provided at
+
+  $TRINOTATE_HOME/sample_data/
+
+Simply './runMe.sh' in that directory to generate the fully populated 'Trinotate.sqlite' database that's ready for exploration using TrinotateWeb.
+
+== Running TrinotateWeb ==
+
+To run TrinotateWeb, start the light-weight webserver by doing the following within a terminal window:
+
+   cd $TRINOTATE_HOME/TrinotateWeb/
+
+   ./httpserver.py
+
+and leave it running within your terminal window.  To stop it, type cntrl-C or exit the terminal.
+
+Then, go to your web browser and visit the URL:  'http://localhost:8080/cgi-bin/index.cgi'
+
+You should see the following:
+
+image::images/TrinotateWebEntrypageEmpty.png[Trinotate Web Entry Page unfilled]
+
+Enter in the full path to your Trinotate.sqlite database file and click submit.
+
+image::images/TrinotateWebEntrypageFilled.png[Trinotate Web Entry Page Filled]
+
+And now you should find the TrinotateWeb entry page, which is your starting point for data exploration. 
+
+image::images/TrinotateWebSiteEntry.png[TrinotateWeb Site Entry]
+
+Click and explore - and remind yourself that this is the early release version and there is way more work to be done. :)
+

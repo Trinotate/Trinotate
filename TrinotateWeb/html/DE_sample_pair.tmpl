@@ -1,0 +1,49 @@
+<form action="DE_sample_pair.cgi" method="get">
+  <fieldset class="plot-form">
+    Show:  
+    <label>
+      <input type="radio" name="feature_type" value="G" <TMPL_VAR NAME="GENES_SELECTED">>
+        Genes
+      </input>
+    </label>
+    <label>
+      <input type="radio" name="feature_type" value="T" <TMPL_VAR NAME="TRANSCRIPTS_SELECTED">>
+        Transcripts
+      </input>
+    </label>
+    <label>
+      <input type="radio" name="feature_type" value="B" <TMPL_VAR NAME="BOTH_SELECTED">>
+        Both
+      </input>
+    </label>
+    <input type="submit" class="btn btn-default" value="Go"/>
+    <input type="hidden" name="sqlite" class="sqlite"/>
+    <input type="hidden" name="pair" value="<TMPL_VAR NAME="SAMPLE_PAIR">"/>
+  </fieldset>
+</form>
+
+
+<TMPL_IF NAME="ERROR">
+
+  <div class="well well-lg DE-plot-container">
+    <div class="alert alert-danger fade in">
+      <h4>Error</h4>
+      <p><TMPL_VAR NAME="ERROR"></p>
+    </div>
+  </div>
+
+<TMPL_ELSE>
+
+  <div class="well well-sm DE-plot-container">
+  <h3>MA plot: <TMPL_VAR NAME="SAMPLE_A"> vs. <TMPL_VAR NAME="SAMPLE_B"></h3>
+  <TMPL_VAR NAME="MA_PLOT_DRAW">
+  </div>
+
+  <hr style="clear:both;" />
+
+  <div class="well well-sm DE-plot-container">
+  <h3>Volcano plot: <TMPL_VAR NAME="SAMPLE_A"> vs. <TMPL_VAR NAME="SAMPLE_B"></h3>
+  <TMPL_VAR NAME="VOLCANO_PLOT_DRAW">
+  </div>
+
+</TMPL_IF>

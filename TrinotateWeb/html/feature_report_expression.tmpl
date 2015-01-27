@@ -1,0 +1,19 @@
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="heading-expression-info">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#expression-info" aria-expanded="true" aria-controls="expression-info">
+          Expression Information
+        </a>
+      </h4>
+    </div>
+    <div id="expression-info" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-expression-info">
+      <div class="panel-body">
+        <TMPL_IF NAME="HEATMAP_PLOT">
+          <TMPL_VAR NAME="HEATMAP_PLOT">
+          <TMPL_VAR NAME="LINE_PLOT">
+        <TMPL_ELSE>
+          <p>Sorry, no expression data stored for: <TMPL_VAR NAME="FEATURE_NAME"></p>
+        </TMPL_IF>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,120 @@
+<h3><TMPL_VAR NAME="TITLE"></h3>
+
+<div id="control_box">
+  <form id=":control_form" method="get" action="HeatmapNav.cgi" >
+    <fieldset class="plot-form">
+      <ul class="no-list">
+
+        <li>
+          <label for="min_FC">min_FC:</label>
+          <input type="text" name="min_FC" value="<TMPL_VAR NAME="MIN_FC">" />
+        </li>
+
+        <li>
+          <label for="max_FDR">max_FDR:</label>
+          <input type="text" name="max_FDR" value="<TMPL_VAR NAME="MAX_FDR">" />
+        </li>
+
+        <li>
+          <label for="min_any_feature_expr">min_any_expr_per_gene:</label>
+          <input type="text" name="min_any_feature_expr" value="<TMPL_VAR NAME="MIN_ANY_FEATURE_EXPR">" />
+        </li>
+
+        <li>
+          <label for="min_sum_feature_expr">min_sum_feature_expr:</label>
+          <input type="text" name="min_sum_feature_expr" value="<TMPL_VAR NAME="MIN_SUM_FEATURE_EXPR">" />
+        </li>
+      
+        <li>
+          <label for="scale_range">Heatmap scale range:</label>
+          <input type="text" name="scale_range" value="<TMPL_VAR NAME="SCALE_RANGE">" size="8" /> 
+        </li>
+      
+        <li>
+          <label for="center_vals">Center expression values:</label>
+          <label>
+            <input type="radio" name="center_vals" value="average"
+              <TMPL_IF NAME="CENTER_AVERAGE"> checked </TMPL_IF>
+            /> average
+          </label>
+          <label>
+            <input type="radio" name="center_vals" value="median"
+              <TMPL_IF NAME="CENTER_MEDIAN"> checked </TMPL_IF>
+            /> median
+          </label>
+          <label>
+            <input type="radio" name="center_vals" value="none"
+              <TMPL_IF NAME="CENTER_NONE"> checked </TMPL_IF>
+            /> none
+          </label>
+        </li>
+
+        <li>
+          <label>Feature type:</label>
+          <label>
+            <input type="radio" name="feature_type" value="G"
+              <TMPL_IF NAME="FEATURE_TYPE_G"> checked </TMPL_IF>
+            /> Genes
+          </label>
+          <label>
+            <input type="radio" name="feature_type" value="T"
+              <TMPL_IF NAME="FEATURE_TYPE_T"> checked </TMPL_IF>
+            /> Transcripts
+          </label>
+        </li>
+
+        <li>
+          <label>
+            <input type="checkbox" name="all_features" value="1"
+              <TMPL_IF NAME="ALL_FEATURES"> checked </TMPL_IF>
+            /> All features (ignore min_FC, max_FDR)
+          </label>
+        </li>
+
+        <li>
+          <label>
+            <input type="checkbox" name="cluster_transcripts" value="1"
+              <TMPL_IF NAME="CLUSTER_TRANSCRIPTS"> checked </TMPL_IF>
+            /> Cluster transcripts
+          </label>
+        </li>
+
+        <li>
+          <label>
+            <input type="checkbox" name="top_expressed_flag" value="1"
+               <TMPL_IF NAME="TOP_EXPRESSED_FLAG"> checked </TMPL_IF>
+            /> Restrict to top-most expressed in any given sample.
+          </label>
+        </li>
+
+        <TMPL_IF NAME="SAMPLE_PAIR">
+          <input type="hidden" name="sample_pair" value="<TMPL_VAR NAME="SAMPLE_PAIR">" />
+          
+          <li>
+            <label>
+              <input type="checkbox" name="restrict_to_sample_pair_flag" value="1"
+                <TMPL_IF NAME="RESTRICT_TO_SAMPLE_PAIR_FLAG"> checked </TMPL_IF>
+              /> Restrict heatmap to sample pair
+            </label>
+          </li>
+        </TMPL_IF>
+
+        <li>
+          <label for="max_genes_show">Max genes to show:</label>
+          <input type="text" name="max_genes_show" value="<TMPL_VAR NAME="MAX_GENES_SHOW">" size="4" />
+        </li>
+        <li><input type="submit" class="btn btn-default"/></li>
+      </ul>
+    </fieldset>
+
+    <input type="hidden" name="sqlite" class="sqlite"/>
+        
+  </form>
+</div>
+
+<div class="well well-lg">
+  <div class="alert alert-info fade in"><TMPL_VAR NAME="MESSAGE"></div>
+  <div class="DE-heatmap-plot-container">
+    <TMPL_VAR NAME="HEATMAP_DRAWING">
+  </div>
+</div>

@@ -1,0 +1,38 @@
+
+## Release: 2014-07-08
+
+-added support for Uniref90 in addition to swissprot.
+-updated boilerplate databases to use current TrEMBL and Swissprot dat files.
+-updated Gene Ontology to current obo
+-updated eggNog definitions to current
+-incorporated Pfam2GO
+
+
+
+## Release: 2013-11-10
+
+-overhaul of sqlite loaders to use faster bulk loading of data.
+-ability to incorporate custom sets of gene/transcript clusters for navigation using TrinotateWeb
+-sqlite database name is parameterized so multiple different trinotate sqlite dbs can be used and stored in the same directory.
+-various updates to the TrinotateWeb to improve data navigation
+-use Trinotate instead of Trinotate.pl
+
+## Release: 2013-08-26
+
+Trinotate:
+    -added BLASTX for transcript-based homology search, in addition to the BLASTP protein-based analyses
+    -added RNAMMER support to include rRNA transcript annotations/identification.
+    -expanded database structure to accommodate genome annotations and IGV integration (still in testing phase - to be further built out and incorporated into a future release).
+
+TrinotateWeb:
+    -httpserver includes menu and can have port value set as the parameter. Also, can use local js or pull js over http
+    -sample/replicate blockings shown in heatmaps
+    -heatmap scaling can be user-adjusted.
+    -CanvasXpress upgrade
+    -cluster view: limit initial view to 50 randomly sampled genes for quicker interactive loading. User can reset the max to show.
+
+
+
+## Release: trinotate_r20130706.tgz
+
+Trinotate and TrinotateWeb migrated out of Trinity source and into separate sourceforge project.

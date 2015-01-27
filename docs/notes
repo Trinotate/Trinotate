@@ -1,0 +1,1 @@
+asciidoc.py -b html5 -a icons -a toc2 -a theme=flask Trinotate.asciidoc

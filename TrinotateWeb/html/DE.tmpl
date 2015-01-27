@@ -1,0 +1,37 @@
+              <div role="tabpanel" class="tab-pane" id="DE">
+                <div class="well well-lg">
+                  <h3>Pairwise Expression Comparisons (Volcano and MA plots)</h3>
+                  <p>Select a pair of samples to compare.</p>
+                  <form class="expression-form">
+                    <select id="expression-sample1">
+                      <option disabled selected>Sample 1</option>
+                      <TMPL_LOOP NAME="SAMPLES">
+                        <option><TMPL_VAR NAME="SAMPLE"></option>
+                      </TMPL_LOOP>
+                    </select>
+                    <select id="expression-sample2">
+                      <option disabled selected>Sample 2</option>
+                      <TMPL_LOOP NAME="SAMPLES">
+                        <option><TMPL_VAR NAME="SAMPLE"></option>
+                      </TMPL_LOOP>
+                    </select>
+
+                    <div id="expression-plot-buttons" class="btn-group" role="group" aria-label="Expression Plots">
+                      <button id="DE-ma-vo" type="button" class="btn btn-default" disabled="disabled">MA, Volcano</button>
+                      <button id="DE-heatmap" type="button" class="btn btn-default" disabled="disabled">Heatmap</button>
+                    </div>
+                  </form>
+                </div>
+
+                <hr/>
+
+                <div class="well well-lg">
+                  <h3>Multi-sample Comparisons (Expression Profiling)</h3>
+                  <div class="well well-sm">
+                    <p>Go to the interactive <a id="heatmapnav-link" href="/cgi-bin/HeatmapNav.cgi?sqlite=">heatmap for all DE transcripts</a>.</p>
+                  </div>
+                  <div class="well well-sm">
+                    <TMPL_VAR NAME="CLUSTER_HTML">
+                  </div>
+                </div>
+              </div>

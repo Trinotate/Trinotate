@@ -1,0 +1,5000 @@
+HMMER3/b [3.0 | March 2010]
+NAME  1-cysPrx_C
+ACC   PF10417.4
+DESC  C-terminal domain of 1-Cys peroxiredoxin
+LENG  40
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Mon Sep 26 01:36:52 2011
+NSEQ  86
+EFFN  26.221497
+CKSUM 2893062708
+GA    20.40 20.40;
+TC    20.40 20.50;
+NC    20.30 20.30;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -7.4458  0.71948
+STATS LOCAL VITERBI   -7.8857  0.71948
+STATS LOCAL FORWARD   -4.3017  0.71948
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  120_Rick_ant
+ACC   PF12574.3
+DESC  120 KDa Rickettsia surface antigen
+LENG  255
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Tue Sep 27 11:43:56 2011
+NSEQ  7
+EFFN  0.796387
+CKSUM 2501422644
+GA    21.00 21.00;
+TC    22.70 21.60;
+NC    19.20 18.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.8310  0.70270
+STATS LOCAL VITERBI  -11.6584  0.70270
+STATS LOCAL FORWARD   -5.2849  0.70270
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  14-3-3
+ACC   PF00244.15
+DESC  14-3-3 protein
+LENG  236
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Fri Sep 23 06:05:00 2011
+NSEQ  85
+EFFN  1.937714
+CKSUM 1083802451
+GA    20.70 20.70;
+TC    20.70 20.70;
+NC    20.50 20.30;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.8163  0.70349
+STATS LOCAL VITERBI  -11.5035  0.70349
+STATS LOCAL FORWARD   -5.2830  0.70349
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  2-Hacid_dh
+ACC   PF00389.25
+DESC  D-isomer specific 2-hydroxyacid dehydrogenase, catalytic domain
+LENG  133
+ALPH  amino
+RF    yes
+CS    yes
+MAP   yes
+DATE  Fri Sep 23 14:50:55 2011
+NSEQ  98
+EFFN  6.145935
+CKSUM 978478491
+GA    24.60 24.60;
+TC    24.60 24.60;
+NC    24.40 24.50;
+BM    hmmbuild  --handHMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.5782  0.71150
+STATS LOCAL VITERBI  -10.4969  0.71150
+STATS LOCAL FORWARD   -4.6879  0.71150
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  2-Hacid_dh_C
+ACC   PF02826.14
+DESC  D-isomer specific 2-hydroxyacid dehydrogenase, NAD binding domain
+LENG  178
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Sat Oct  1 00:36:15 2011
+NSEQ  163
+EFFN  3.606415
+CKSUM 1262843155
+GA    25.10 25.10;
+TC    25.10 25.10;
+NC    25.00 25.00;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.2242  0.70686
+STATS LOCAL VITERBI  -10.9112  0.70686
+STATS LOCAL FORWARD   -5.1162  0.70686
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  2-oxoacid_dh
+ACC   PF00198.18
+DESC  2-oxoacid dehydrogenases acyltransferase (catalytic domain)
+LENG  231
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Mon Sep 26 21:53:12 2011
+NSEQ  100
+EFFN  4.019165
+CKSUM 3055972930
+GA    23.00 23.00;
+TC    23.10 23.50;
+NC    22.90 22.70;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.5983  0.70371
+STATS LOCAL VITERBI  -11.2952  0.70371
+STATS LOCAL FORWARD   -5.0879  0.70371
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  2-ph_phosp
+ACC   PF04029.9
+DESC  2-phosphosulpholactate phosphatase
+LENG  234
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Mon Sep 26 04:42:33 2011
+NSEQ  62
+EFFN  2.902466
+CKSUM 2739902731
+GA    21.70 21.70;
+TC    24.00 23.70;
+NC    21.60 18.80;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.5662  0.70358
+STATS LOCAL VITERBI  -11.3949  0.70358
+STATS LOCAL FORWARD   -5.4127  0.70358
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  2CSK_N
+ACC   PF08521.5
+DESC  Two-component sensor kinase N-terminal
+LENG  146
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Mon Sep 26 02:46:34 2011
+NSEQ  111
+EFFN  4.793243
+CKSUM 1227973627
+GA    20.50 20.50;
+TC    20.50 20.50;
+NC    20.40 20.40;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.9415  0.70987
+STATS LOCAL VITERBI  -10.8091  0.70987
+STATS LOCAL FORWARD   -4.6890  0.70987
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  2C_adapt
+ACC   PF08793.5
+DESC  2-cysteine adaptor domain
+LENG  37
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Thu Sep 22 22:22:13 2011
+NSEQ  38
+EFFN  14.096924
+CKSUM 1278288676
+GA    20.10 20.10;
+TC    21.20 20.10;
+NC    19.40 19.80;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -7.2977  0.71959
+STATS LOCAL VITERBI   -7.6464  0.71959
+STATS LOCAL FORWARD   -4.0704  0.71959
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  2Fe-2S_Ferredox
+ACC   PF11591.3
+DESC  Ferredoxin chloroplastic transit peptide
+LENG  34
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sun Sep 25 10:15:04 2011
+NSEQ  2
+EFFN  1.542969
+CKSUM 4033185922
+GA    25.00 25.00;
+TC    62.90 62.20;
+NC    19.20 17.60;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -7.2598  0.71975
+STATS LOCAL VITERBI   -7.6395  0.71975
+STATS LOCAL FORWARD   -4.3089  0.71975
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  2H-phosphodiest
+ACC   PF08975.5
+DESC  Domain of unknown function (DUF1868)
+LENG  118
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Wed Sep 28 14:15:14 2011
+NSEQ  13
+EFFN  1.488525
+CKSUM 3751343144
+GA    21.00 21.00;
+TC    21.30 22.20;
+NC    20.70 20.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.6544  0.71383
+STATS LOCAL VITERBI  -10.5196  0.71383
+STATS LOCAL FORWARD   -4.3390  0.71383
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  2HCT
+ACC   PF03390.10
+DESC  2-hydroxycarboxylate transporter family
+LENG  414
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sun Sep 25 12:10:52 2011
+NSEQ  36
+EFFN  1.340332
+CKSUM 1489012883
+GA    25.00 25.00;
+TC    25.00 27.90;
+NC    19.00 24.10;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.6437  0.69904
+STATS LOCAL VITERBI  -12.3593  0.69904
+STATS LOCAL FORWARD   -6.0979  0.69904
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  2OG-FeII_Oxy
+ACC   PF03171.15
+DESC  2OG-Fe(II) oxygenase superfamily
+LENG  99
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Wed Sep 28 10:17:32 2011
+NSEQ  139
+EFFN  7.758514
+CKSUM 4224871901
+GA    21.20 21.20;
+TC    21.20 21.20;
+NC    21.10 21.10;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.6050  0.71780
+STATS LOCAL VITERBI  -10.5024  0.71780
+STATS LOCAL FORWARD   -3.6899  0.71780
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  2OG-FeII_Oxy_2
+ACC   PF13532.1
+DESC  2OG-Fe(II) oxygenase superfamily
+LENG  191
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Sep 24 05:26:59 2011
+NSEQ  72
+EFFN  4.495605
+CKSUM 2983261654
+GA    27.00 27.00;
+TC    27.00 27.00;
+NC    26.80 26.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.1332  0.70593
+STATS LOCAL VITERBI  -11.4991  0.70593
+STATS LOCAL FORWARD   -4.4400  0.70593
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  2OG-FeII_Oxy_3
+ACC   PF13640.1
+DESC  2OG-Fe(II) oxygenase superfamily
+LENG  100
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sun Sep 25 18:41:32 2011
+NSEQ  176
+EFFN  9.321533
+CKSUM 3007620674
+GA    27.00 27.00;
+TC    27.00 27.00;
+NC    26.90 26.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.5092  0.71755
+STATS LOCAL VITERBI  -10.8412  0.71755
+STATS LOCAL FORWARD   -3.4927  0.71755
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  2OG-FeII_Oxy_4
+ACC   PF13661.1
+DESC  2OG-Fe(II) oxygenase superfamily
+LENG  70
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sun Sep 25 18:22:31 2011
+NSEQ  40
+EFFN  22.534180
+CKSUM 1148571309
+GA    21.40 21.40;
+TC    21.40 21.40;
+NC    21.30 21.30;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.1280  0.71873
+STATS LOCAL VITERBI   -9.3526  0.71873
+STATS LOCAL FORWARD   -4.3443  0.71873
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  2OG-FeII_Oxy_5
+ACC   PF13759.1
+DESC  Putative 2OG-Fe(II) oxygenase
+LENG  101
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Tue Sep 27 08:45:27 2011
+NSEQ  93
+EFFN  3.016937
+CKSUM 3773427888
+GA    27.00 27.00;
+TC    27.00 27.20;
+NC    26.90 26.80;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.6217  0.71731
+STATS LOCAL VITERBI  -10.3734  0.71731
+STATS LOCAL FORWARD   -3.7239  0.71731
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  2TM
+ACC   PF13239.1
+DESC  2TM domain
+LENG  83
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Fri Sep 23 03:22:11 2011
+NSEQ  128
+EFFN  7.199219
+CKSUM 1693586459
+GA    24.80 22.90;
+TC    24.80 24.70;
+NC    24.50 22.80;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.3001  0.71852
+STATS LOCAL VITERBI   -9.9590  0.71852
+STATS LOCAL FORWARD   -3.9186  0.71852
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  2_5_RNA_ligase2
+ACC   PF13563.1
+DESC  2'-5' RNA ligase superfamily
+LENG  153
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Fri Sep 23 18:52:27 2011
+NSEQ  141
+EFFN  10.340057
+CKSUM 3192796528
+GA    27.00 27.00;
+TC    27.00 27.00;
+NC    26.90 26.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.2582  0.70910
+STATS LOCAL VITERBI  -11.1366  0.70910
+STATS LOCAL FORWARD   -4.5045  0.70910
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  3-alpha
+ACC   PF03475.9
+DESC  3-alpha domain
+LENG  47
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Mon Sep 26 03:28:16 2011
+NSEQ  50
+EFFN  24.191284
+CKSUM 3365030512
+GA    21.70 21.70;
+TC    22.10 21.80;
+NC    21.40 21.50;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -7.3566  0.71926
+STATS LOCAL VITERBI   -7.9237  0.71926
+STATS LOCAL FORWARD   -4.2314  0.71926
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  3-dmu-9_3-mt
+ACC   PF06983.8
+DESC  3-demethylubiquinone-9 3-methyltransferase
+LENG  116
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Wed Sep 28 09:34:06 2011
+NSEQ  25
+EFFN  1.211548
+CKSUM 3250153344
+GA    21.10 21.10;
+TC    21.10 21.10;
+NC    21.00 21.00;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.6897  0.71422
+STATS LOCAL VITERBI  -10.4612  0.71422
+STATS LOCAL FORWARD   -3.7538  0.71422
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  3-HAO
+ACC   PF06052.7
+DESC  3-hydroxyanthranilic acid dioxygenase
+LENG  151
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Tue Sep 27 08:51:08 2011
+NSEQ  5
+EFFN  0.639648
+CKSUM 1297649390
+GA    20.40 20.40;
+TC    20.40 20.40;
+NC    20.30 20.30;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.9786  0.70936
+STATS LOCAL VITERBI  -10.9497  0.70936
+STATS LOCAL FORWARD   -4.7936  0.70936
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  3-PAP
+ACC   PF12578.3
+DESC  Myotubularin-associated protein
+LENG  142
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Wed Sep 28 09:08:18 2011
+NSEQ  21
+EFFN  7.129028
+CKSUM 3065649138
+GA    20.40 20.40;
+TC    20.50 20.60;
+NC    20.20 20.20;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.7935  0.71034
+STATS LOCAL VITERBI  -10.5708  0.71034
+STATS LOCAL FORWARD   -4.3300  0.71034
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  3A
+ACC   PF00803.13
+DESC  3A/RNA2 movement protein family
+LENG  234
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Mon Sep 26 19:49:07 2011
+NSEQ  27
+EFFN  4.736206
+CKSUM 4021839713
+GA    25.00 25.00;
+TC    35.30 33.40;
+NC    22.10 17.40;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.3415  0.70358
+STATS LOCAL VITERBI  -11.2905  0.70358
+STATS LOCAL FORWARD   -5.2994  0.70358
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  3Beta_HSD
+ACC   PF01073.14
+DESC  3-beta hydroxysteroid dehydrogenase/isomerase family
+LENG  280
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Mon Oct  3 03:46:13 2011
+NSEQ  12
+EFFN  1.491211
+CKSUM 973930609
+GA    20.00 20.00;
+TC    20.00 20.00;
+NC    19.90 19.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.9852  0.70186
+STATS LOCAL VITERBI  -11.6816  0.70186
+STATS LOCAL FORWARD   -5.7025  0.70186
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  3D
+ACC   PF06725.6
+DESC  3D domain
+LENG  75
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Wed Sep 28 14:38:11 2011
+NSEQ  41
+EFFN  2.950378
+CKSUM 3970394598
+GA    19.40 19.40;
+TC    19.50 19.40;
+NC    19.30 19.00;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -8.8031  0.71863
+STATS LOCAL VITERBI   -9.4463  0.71863
+STATS LOCAL FORWARD   -4.0020  0.71863
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  3H
+ACC   PF02829.9
+DESC  3H domain
+LENG  98
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Mon Sep 26 03:24:41 2011
+NSEQ  58
+EFFN  2.177124
+CKSUM 1400278191
+GA    25.00 25.00;
+TC    44.80 44.10;
+NC    21.00 19.60;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.5675  0.71803
+STATS LOCAL VITERBI  -10.1710  0.71803
+STATS LOCAL FORWARD   -3.9730  0.71803
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  3HBOH
+ACC   PF10605.4
+DESC  3HB-oligomer hydrolase (3HBOH)
+LENG  690
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Wed Sep 21 16:14:36 2011
+NSEQ  13
+EFFN  0.790283
+CKSUM 1382036475
+GA    25.00 25.00;
+TC    27.00 25.30;
+NC    23.40 24.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -12.4429  0.69669
+STATS LOCAL VITERBI  -13.1620  0.69669
+STATS LOCAL FORWARD   -6.4538  0.69669
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  3HCDH
+ACC   PF00725.17
+DESC  3-hydroxyacyl-CoA dehydrogenase, C-terminal domain
+LENG  97
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Fri Sep 23 21:00:21 2011
+NSEQ  77
+EFFN  4.478821
+CKSUM 3134697046
+GA    21.00 21.00;
+TC    21.20 21.00;
+NC    20.60 20.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.4858  0.71830
+STATS LOCAL VITERBI  -10.1881  0.71830
+STATS LOCAL FORWARD   -3.5872  0.71830
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  3HCDH_N
+ACC   PF02737.13
+DESC  3-hydroxyacyl-CoA dehydrogenase, NAD binding domain
+LENG  180
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Fri Sep 30 23:06:24 2011
+NSEQ  74
+EFFN  2.606079
+CKSUM 2855546608
+GA    20.90 20.90;
+TC    20.90 20.90;
+NC    20.80 20.80;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.2232  0.70671
+STATS LOCAL VITERBI  -10.9477  0.70671
+STATS LOCAL FORWARD   -4.6252  0.70671
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  4F5
+ACC   PF04419.9
+DESC  4F5 protein family
+LENG  38
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Sun Sep 25 00:29:08 2011
+NSEQ  43
+EFFN  27.439270
+CKSUM 1862816175
+GA    22.30 22.30;
+TC    22.60 22.40;
+NC    22.00 22.10;
+BM    hmmbuild --amino HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -7.5297  0.71955
+STATS LOCAL VITERBI   -7.9727  0.71955
+STATS LOCAL FORWARD   -3.2097  0.71955
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  4HBT
+ACC   PF03061.17
+DESC  Thioesterase superfamily
+LENG  79
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Sat Sep 24 02:07:51 2011
+NSEQ  140
+EFFN  21.990356
+CKSUM 453296532
+GA    20.60 20.60;
+TC    20.60 20.60;
+NC    20.50 20.50;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -8.9041  0.71858
+STATS LOCAL VITERBI   -9.1423  0.71858
+STATS LOCAL FORWARD   -3.8536  0.71858
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  4HBT_2
+ACC   PF13279.1
+DESC  Thioesterase-like superfamily
+LENG  121
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Wed Sep 28 15:33:10 2011
+NSEQ  181
+EFFN  14.817276
+CKSUM 168788626
+GA    25.50 25.50;
+TC    25.50 25.50;
+NC    25.40 25.40;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.5437  0.71332
+STATS LOCAL VITERBI  -11.4440  0.71332
+STATS LOCAL FORWARD   -3.6644  0.71332
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  4HBT_3
+ACC   PF13622.1
+DESC  Thioesterase-like superfamily
+LENG  256
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sun Sep 25 18:39:10 2011
+NSEQ  204
+EFFN  17.104797
+CKSUM 815644043
+GA    21.90 21.90;
+TC    21.90 21.90;
+NC    21.80 21.80;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.7214  0.70268
+STATS LOCAL VITERBI  -11.8710  0.70268
+STATS LOCAL FORWARD   -4.6060  0.70268
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  4HB_MCP_1
+ACC   PF12729.2
+DESC  Four helix bundle sensory module for signal transduction
+LENG  181
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Fri Sep 23 13:23:50 2011
+NSEQ  65
+EFFN  7.732239
+CKSUM 1924631948
+GA    27.00 27.00;
+TC    27.00 27.00;
+NC    26.90 26.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.2425  0.70663
+STATS LOCAL VITERBI  -10.6374  0.70663
+STATS LOCAL FORWARD   -4.9278  0.70663
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  4_1_CTD
+ACC   PF05902.8
+DESC  4.1 protein C-terminal domain (CTD)
+LENG  114
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Thu Sep 22 22:58:51 2011
+NSEQ  9
+EFFN  0.821777
+CKSUM 3888058465
+GA    25.00 25.00;
+TC    26.60 26.60;
+NC    23.90 18.30;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.7960  0.71459
+STATS LOCAL VITERBI  -10.6748  0.71459
+STATS LOCAL FORWARD   -4.0278  0.71459
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  5-FTHF_cyc-lig
+ACC   PF01812.15
+DESC  5-formyltetrahydrofolate cyclo-ligase family
+LENG  186
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Sat Sep 24 05:49:57 2011
+NSEQ  24
+EFFN  3.571289
+CKSUM 3020060356
+GA    20.90 20.90;
+TC    20.90 21.30;
+NC    20.70 20.70;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.1659  0.70627
+STATS LOCAL VITERBI  -11.0983  0.70627
+STATS LOCAL FORWARD   -4.5184  0.70627
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  5-nucleotidase
+ACC   PF06189.7
+DESC  5'-nucleotidase
+LENG  264
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Wed Sep 21 07:40:19 2011
+NSEQ  43
+EFFN  1.136414
+CKSUM 3980419948
+GA    19.70 19.70;
+TC    20.20 19.90;
+NC    18.40 19.20;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.8863  0.70240
+STATS LOCAL VITERBI  -11.6901  0.70240
+STATS LOCAL FORWARD   -5.5832  0.70240
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  53-BP1_Tudor
+ACC   PF09038.5
+DESC  Tumour suppressor p53-binding protein-1 Tudor
+LENG  122
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Fri Sep 23 18:53:48 2011
+NSEQ  3
+EFFN  0.407227
+CKSUM 2325721194
+GA    20.50 20.50;
+TC    21.00 21.20;
+NC    19.80 19.40;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.9284  0.71319
+STATS LOCAL VITERBI  -10.4938  0.71319
+STATS LOCAL FORWARD   -4.2900  0.71319
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  5HT_transporter
+ACC   PF03491.8
+DESC  Serotonin (5-HT) neurotransmitter transporter, N-terminus
+LENG  42
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Mon Sep 26 18:18:12 2011
+NSEQ  3
+EFFN  1.245117
+CKSUM 204771610
+GA    20.30 20.30;
+TC    22.60 22.00;
+NC    19.80 16.00;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -7.5232  0.71942
+STATS LOCAL VITERBI   -8.2080  0.71942
+STATS LOCAL FORWARD   -3.9834  0.71942
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  5TM-5TMR_LYT
+ACC   PF07694.7
+DESC  5TMR of 5TMR-LYT
+LENG  169
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Sep 24 14:19:40 2011
+NSEQ  107
+EFFN  5.750336
+CKSUM 3561450521
+GA    21.40 21.40;
+TC    21.40 21.40;
+NC    21.30 21.30;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.1719  0.70759
+STATS LOCAL VITERBI  -11.0356  0.70759
+STATS LOCAL FORWARD   -4.9212  0.70759
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  5_3_exonuc
+ACC   PF01367.15
+DESC  5'-3' exonuclease, C-terminal SAM fold
+LENG  101
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Mon Sep 26 21:34:18 2011
+NSEQ  27
+EFFN  1.941284
+CKSUM 1249295408
+GA    40.00 40.00;
+TC    40.30 40.20;
+NC    38.60 39.80;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.5790  0.71729
+STATS LOCAL VITERBI  -10.1979  0.71729
+STATS LOCAL FORWARD   -3.7797  0.71729
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  5_3_exonuc_N
+ACC   PF02739.11
+DESC  5'-3' exonuclease, N-terminal resolvase-like domain
+LENG  169
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Tue Sep 27 15:21:53 2011
+NSEQ  25
+EFFN  1.480103
+CKSUM 4092998412
+GA    22.10 22.10;
+TC    22.60 22.10;
+NC    21.70 22.00;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.0177  0.70758
+STATS LOCAL VITERBI  -11.0397  0.70758
+STATS LOCAL FORWARD   -4.8786  0.70758
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  5_nucleotid
+ACC   PF05761.9
+DESC  5' nucleotidase family
+LENG  449
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Mon Sep 26 08:00:07 2011
+NSEQ  21
+EFFN  1.238159
+CKSUM 967652034
+GA    27.00 27.00;
+TC    30.40 28.40;
+NC    24.90 24.40;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.6409  0.69858
+STATS LOCAL VITERBI  -12.3952  0.69858
+STATS LOCAL FORWARD   -5.9678  0.69858
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  5_nucleotid_C
+ACC   PF02872.13
+DESC  5'-nucleotidase, C-terminal domain
+LENG  156
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Mon Sep 26 03:42:30 2011
+NSEQ  119
+EFFN  8.087555
+CKSUM 386942530
+GA    23.60 23.60;
+TC    23.70 23.70;
+NC    23.50 23.50;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.0435  0.70879
+STATS LOCAL VITERBI  -11.1062  0.70879
+STATS LOCAL FORWARD   -4.2486  0.70879
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  60KD_IMP
+ACC   PF02096.15
+DESC  60Kd inner membrane protein
+LENG  196
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Tue Sep 27 09:03:39 2011
+NSEQ  149
+EFFN  4.387970
+CKSUM 903560561
+GA    25.40 25.40;
+TC    25.50 25.80;
+NC    25.30 25.30;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.4162  0.70560
+STATS LOCAL VITERBI  -11.4409  0.70560
+STATS LOCAL FORWARD   -4.6566  0.70560
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  6PF2K
+ACC   PF01591.13
+DESC  6-phosphofructo-2-kinase
+LENG  223
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Oct  1 01:36:06 2011
+NSEQ  11
+EFFN  1.211182
+CKSUM 2959548385
+GA    20.80 20.80;
+TC    20.80 20.80;
+NC    20.70 20.70;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.6084  0.70411
+STATS LOCAL VITERBI  -11.3928  0.70411
+STATS LOCAL FORWARD   -5.2759  0.70411
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  6PGD
+ACC   PF00393.14
+DESC  6-phosphogluconate dehydrogenase, C-terminal domain
+LENG  291
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Sun Sep 25 16:34:21 2011
+NSEQ  59
+EFFN  1.105530
+CKSUM 765728764
+GA    20.40 20.40;
+TC    20.40 20.80;
+NC    20.20 20.20;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.0374  0.70153
+STATS LOCAL VITERBI  -11.9154  0.70153
+STATS LOCAL FORWARD   -5.1985  0.70153
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  7kD_coat
+ACC   PF02495.12
+DESC  7kD viral coat protein
+LENG  59
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Mon Sep 26 03:23:13 2011
+NSEQ  61
+EFFN  10.093445
+CKSUM 2123555665
+GA    21.10 21.10;
+TC    21.40 23.50;
+NC    21.00 20.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -8.4921  0.71896
+STATS LOCAL VITERBI   -8.8945  0.71896
+STATS LOCAL FORWARD   -4.5213  0.71896
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  7kD_DNA_binding
+ACC   PF02294.13
+DESC  7kD DNA-binding domain
+LENG  62
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Fri Sep 23 18:45:51 2011
+NSEQ  2
+EFFN  0.683594
+CKSUM 632073091
+GA    25.00 25.00;
+TC    120.30 120.20;
+NC    18.00 16.70;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -8.9358  0.71880
+STATS LOCAL VITERBI   -9.1130  0.71880
+STATS LOCAL FORWARD   -4.2901  0.71880
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  7TM-7TMR_HD
+ACC   PF07698.6
+DESC  7TM receptor with intracellular HD hydrolase
+LENG  194
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Wed Sep 28 17:56:09 2011
+NSEQ  99
+EFFN  7.586334
+CKSUM 3876877217
+GA    27.50 27.50;
+TC    27.60 27.60;
+NC    27.20 27.40;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.6405  0.70573
+STATS LOCAL VITERBI  -11.2673  0.70573
+STATS LOCAL FORWARD   -4.8588  0.70573
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  7TMR-DISMED2
+ACC   PF07696.6
+DESC  7TMR-DISM extracellular 2
+LENG  141
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Thu Sep 22 21:29:53 2011
+NSEQ  114
+EFFN  7.726868
+CKSUM 156294157
+GA    21.30 21.30;
+TC    22.00 22.20;
+NC    21.10 20.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.8948  0.71045
+STATS LOCAL VITERBI  -10.4579  0.71045
+STATS LOCAL FORWARD   -4.7506  0.71045
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  7TMR-DISM_7TM
+ACC   PF07695.6
+DESC  7TM diverse intracellular signalling
+LENG  205
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Thu Sep 22 21:31:01 2011
+NSEQ  179
+EFFN  11.244858
+CKSUM 3993652872
+GA    26.90 26.90;
+TC    26.90 26.90;
+NC    26.80 26.80;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.8700  0.70505
+STATS LOCAL VITERBI  -11.8631  0.70505
+STATS LOCAL FORWARD   -4.6519  0.70505
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  7TMR-HDED
+ACC   PF07697.6
+DESC  7TM-HD extracellular
+LENG  222
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Tue Sep 27 12:53:00 2011
+NSEQ  62
+EFFN  7.080200
+CKSUM 2159751228
+GA    22.60 22.60;
+TC    22.80 22.70;
+NC    22.40 22.00;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.5711  0.70414
+STATS LOCAL VITERBI  -11.1974  0.70414
+STATS LOCAL FORWARD   -4.6142  0.70414
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  7tm_1
+ACC   PF00001.16
+DESC  7 transmembrane receptor (rhodopsin family)
+LENG  257
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Tue Sep 27 16:36:16 2011
+NSEQ  64
+EFFN  4.542969
+CKSUM 1409672479
+GA    23.80 23.80;
+TC    23.80 23.80;
+NC    23.70 23.70;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.1402  0.70265
+STATS LOCAL VITERBI  -11.8137  0.70265
+STATS LOCAL FORWARD   -5.2473  0.70265
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  7tm_2
+ACC   PF00002.19
+DESC  7 transmembrane receptor (Secretin family)
+LENG  243
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Tue Sep 27 14:29:57 2011
+NSEQ  32
+EFFN  2.089844
+CKSUM 4059866448
+GA    20.20 20.20;
+TC    20.30 20.30;
+NC    20.10 20.10;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.1180  0.70318
+STATS LOCAL VITERBI  -11.7754  0.70318
+STATS LOCAL FORWARD   -5.2416  0.70318
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  7tm_3
+ACC   PF00003.17
+DESC  7 transmembrane sweet-taste receptor of 3 GCPR
+LENG  238
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Wed Sep 21 01:02:47 2011
+NSEQ  109
+EFFN  5.039520
+CKSUM 2991894895
+GA    25.80 25.80;
+TC    26.10 26.30;
+NC    25.70 25.70;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.8637  0.70340
+STATS LOCAL VITERBI  -11.9069  0.70340
+STATS LOCAL FORWARD   -5.0230  0.70340
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  7tm_4
+ACC   PF13853.1
+DESC  Olfactory receptor
+LENG  144
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Sep 24 01:49:42 2011
+NSEQ  118
+EFFN  4.281677
+CKSUM 1859042121
+GA    27.00 27.00;
+TC    27.10 27.00;
+NC    26.90 26.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.2102  0.71010
+STATS LOCAL VITERBI  -10.9910  0.71010
+STATS LOCAL FORWARD   -4.3927  0.71010
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  7tm_6
+ACC   PF02949.15
+DESC  7tm Odorant receptor
+LENG  313
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Fri Sep 23 16:34:28 2011
+NSEQ  36
+EFFN  5.559082
+CKSUM 2518822881
+GA    21.50 21.50;
+TC    21.50 21.50;
+NC    21.40 21.40;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.3467  0.70095
+STATS LOCAL VITERBI  -11.6678  0.70095
+STATS LOCAL FORWARD   -5.5681  0.70095
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  7tm_7
+ACC   PF08395.7
+DESC  7tm Chemosensory receptor
+LENG  371
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Fri Sep 23 16:32:22 2011
+NSEQ  78
+EFFN  19.257202
+CKSUM 3146011485
+GA    26.30 26.30;
+TC    26.30 26.30;
+NC    26.20 26.20;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.4170  0.69973
+STATS LOCAL VITERBI  -12.3544  0.69973
+STATS LOCAL FORWARD   -5.4465  0.69973
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  7TM_GPCR_Sra
+ACC   PF02117.11
+DESC  Serpentine type 7TM GPCR chemoreceptor Sra
+LENG  328
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Tue Sep 27 14:01:21 2011
+NSEQ  10
+EFFN  1.059570
+CKSUM 700906573
+GA    18.90 18.90;
+TC    19.40 19.10;
+NC    18.60 18.20;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.2384  0.70058
+STATS LOCAL VITERBI  -11.9595  0.70058
+STATS LOCAL FORWARD   -5.8241  0.70058
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  7TM_GPCR_Srab
+ACC   PF10292.4
+DESC  Serpentine type 7TM GPCR receptor class ab chemoreceptor
+LENG  324
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Sep 24 01:00:50 2011
+NSEQ  17
+EFFN  1.697510
+CKSUM 1867926600
+GA    20.10 20.10;
+TC    20.10 20.10;
+NC    20.00 20.00;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.2794  0.70068
+STATS LOCAL VITERBI  -12.1305  0.70068
+STATS LOCAL FORWARD   -5.7354  0.70068
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  7TM_GPCR_Srb
+ACC   PF02175.11
+DESC  Serpentine type 7TM GPCR chemoreceptor Srb
+LENG  236
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Sep 24 00:58:49 2011
+NSEQ  3
+EFFN  0.594727
+CKSUM 2451145866
+GA    21.10 21.10;
+TC    21.20 21.30;
+NC    21.00 21.00;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.6100  0.70348
+STATS LOCAL VITERBI  -11.6372  0.70348
+STATS LOCAL FORWARD   -4.8104  0.70348
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  7TM_GPCR_Srbc
+ACC   PF10316.4
+DESC  Serpentine type 7TM GPCR chemoreceptor Srbc
+LENG  273
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Sep 24 01:02:30 2011
+NSEQ  66
+EFFN  2.292114
+CKSUM 2960454110
+GA    21.30 21.30;
+TC    21.40 21.40;
+NC    21.10 21.00;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.2294  0.70208
+STATS LOCAL VITERBI  -11.8467  0.70208
+STATS LOCAL FORWARD   -5.1410  0.70208
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  7TM_GPCR_Srd
+ACC   PF10317.4
+DESC  Serpentine type 7TM GPCR chemoreceptor Srd
+LENG  292
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Sep 24 01:02:26 2011
+NSEQ  62
+EFFN  3.863647
+CKSUM 3535019310
+GA    22.80 22.80;
+TC    22.80 22.80;
+NC    22.70 22.70;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.1484  0.70150
+STATS LOCAL VITERBI  -11.7224  0.70150
+STATS LOCAL FORWARD   -5.4486  0.70150
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  7TM_GPCR_Srh
+ACC   PF10318.4
+DESC  Serpentine type 7TM GPCR chemoreceptor Srh
+LENG  302
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Tue Sep 27 08:49:31 2011
+NSEQ  194
+EFFN  4.336700
+CKSUM 3529394226
+GA    24.80 24.80;
+TC    24.80 24.90;
+NC    24.70 24.70;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.1451  0.70123
+STATS LOCAL VITERBI  -11.9677  0.70123
+STATS LOCAL FORWARD   -5.6220  0.70123
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  7TM_GPCR_Sri
+ACC   PF10327.4
+DESC  Serpentine type 7TM GPCR chemoreceptor Sri
+LENG  303
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Sep 24 01:02:37 2011
+NSEQ  54
+EFFN  2.501587
+CKSUM 2351224989
+GA    20.60 20.60;
+TC    20.60 20.60;
+NC    20.50 20.50;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.9687  0.70120
+STATS LOCAL VITERBI  -11.8542  0.70120
+STATS LOCAL FORWARD   -5.4814  0.70120
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  7TM_GPCR_Srj
+ACC   PF10319.4
+DESC  Serpentine type 7TM GPCR chemoreceptor Srj
+LENG  310
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Tue Sep 27 14:03:12 2011
+NSEQ  36
+EFFN  1.261230
+CKSUM 3794077283
+GA    23.90 23.90;
+TC    23.90 23.90;
+NC    23.80 23.80;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.3372  0.70103
+STATS LOCAL VITERBI  -11.9343  0.70103
+STATS LOCAL FORWARD   -5.3216  0.70103
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  7TM_GPCR_Srsx
+ACC   PF10320.4
+DESC  Serpentine type 7TM GPCR chemoreceptor Srsx
+LENG  257
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Sep 24 01:02:46 2011
+NSEQ  26
+EFFN  2.224854
+CKSUM 424949857
+GA    20.40 20.40;
+TC    20.40 20.40;
+NC    20.30 20.30;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.0533  0.70265
+STATS LOCAL VITERBI  -11.7025  0.70265
+STATS LOCAL FORWARD   -5.1736  0.70265
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  7TM_GPCR_Srt
+ACC   PF10321.4
+DESC  Serpentine type 7TM GPCR chemoreceptor Srt
+LENG  314
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Sep 24 01:02:16 2011
+NSEQ  41
+EFFN  1.443909
+CKSUM 2449372321
+GA    20.30 20.30;
+TC    20.30 20.50;
+NC    20.20 20.10;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.4702  0.70092
+STATS LOCAL VITERBI  -11.9961  0.70092
+STATS LOCAL FORWARD   -5.6666  0.70092
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  7TM_GPCR_Sru
+ACC   PF10322.4
+DESC  Serpentine type 7TM GPCR chemoreceptor Sru
+LENG  307
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Sep 24 01:02:09 2011
+NSEQ  39
+EFFN  2.166138
+CKSUM 1305887157
+GA    24.50 24.50;
+TC    24.70 25.00;
+NC    23.20 24.30;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.4064  0.70110
+STATS LOCAL VITERBI  -12.1589  0.70110
+STATS LOCAL FORWARD   -5.3208  0.70110
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  7TM_GPCR_Srv
+ACC   PF10323.4
+DESC  Serpentine type 7TM GPCR chemoreceptor Srv
+LENG  283
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Sep 24 01:01:24 2011
+NSEQ  25
+EFFN  2.322388
+CKSUM 90680180
+GA    20.30 20.30;
+TC    20.30 20.30;
+NC    20.20 20.20;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.1997  0.70178
+STATS LOCAL VITERBI  -11.6386  0.70178
+STATS LOCAL FORWARD   -5.2776  0.70178
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  7TM_GPCR_Srw
+ACC   PF10324.4
+DESC  Serpentine type 7TM GPCR chemoreceptor Srw
+LENG  318
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Sep 24 01:08:52 2011
+NSEQ  94
+EFFN  3.640320
+CKSUM 295598694
+GA    21.10 21.10;
+TC    21.10 21.10;
+NC    21.00 21.00;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.3623  0.70083
+STATS LOCAL VITERBI  -12.1608  0.70083
+STATS LOCAL FORWARD   -5.3275  0.70083
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  7TM_GPCR_Srx
+ACC   PF10328.4
+DESC  Serpentine type 7TM GPCR chemoreceptor Srx
+LENG  275
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Sep 24 01:06:09 2011
+NSEQ  82
+EFFN  3.580994
+CKSUM 3172881210
+GA    20.30 20.30;
+TC    20.30 20.30;
+NC    20.20 20.20;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.3086  0.70202
+STATS LOCAL VITERBI  -11.9121  0.70202
+STATS LOCAL FORWARD   -5.3015  0.70202
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  7TM_GPCR_Srz
+ACC   PF10325.4
+DESC  Serpentine type 7TM GPCR chemoreceptor Srz
+LENG  267
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Sep 24 01:03:16 2011
+NSEQ  62
+EFFN  3.084106
+CKSUM 1307408775
+GA    21.30 21.30;
+TC    21.30 21.60;
+NC    21.10 21.10;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.9450  0.70229
+STATS LOCAL VITERBI  -11.9789  0.70229
+STATS LOCAL FORWARD   -5.2751  0.70229
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  7TM_GPCR_Str
+ACC   PF10326.4
+DESC  Serpentine type 7TM GPCR chemoreceptor Str
+LENG  307
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Wed Sep 28 18:45:19 2011
+NSEQ  188
+EFFN  3.353455
+CKSUM 2518630139
+GA    20.50 20.50;
+TC    20.50 20.50;
+NC    20.40 20.40;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.4098  0.70110
+STATS LOCAL VITERBI  -11.9388  0.70110
+STATS LOCAL FORWARD   -5.3309  0.70110
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  7TM_transglut
+ACC   PF14402.1
+DESC  7 transmembrane helices usually fused to an inactive transglutaminase
+LENG  315
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Wed Sep 21 05:18:19 2011
+NSEQ  90
+EFFN  1.167297
+CKSUM 736557649
+GA    25.00 25.00;
+TC    79.30 79.00;
+NC    19.30 19.20;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.2868  0.70090
+STATS LOCAL VITERBI  -11.9921  0.70090
+STATS LOCAL FORWARD   -5.4232  0.70090
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  A-2_8-polyST
+ACC   PF07388.6
+DESC  Alpha-2,8-polysialyltransferase (POLYST)
+LENG  492
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Thu Sep 22 15:43:50 2011
+NSEQ  3
+EFFN  0.647461
+CKSUM 1379305598
+GA    22.70 22.70;
+TC    23.10 26.90;
+NC    21.90 22.60;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.8099  0.69810
+STATS LOCAL VITERBI  -12.6532  0.69810
+STATS LOCAL FORWARD   -6.1203  0.69810
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  A1_Propeptide
+ACC   PF07966.7
+DESC  A1 Propeptide
+LENG  29
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Thu Sep 22 21:39:05 2011
+NSEQ  85
+EFFN  85.000000
+CKSUM 3742612540
+GA    20.50 20.50;
+TC    20.70 20.50;
+NC    20.40 20.40;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -6.9289  0.72542
+STATS LOCAL VITERBI   -7.1499  0.72542
+STATS LOCAL FORWARD   -4.0103  0.72542
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  A2L_zn_ribbon
+ACC   PF08792.5
+DESC  A2L zinc ribbon domain
+LENG  33
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Wed Sep 28 13:59:40 2011
+NSEQ  14
+EFFN  14.000000
+CKSUM 2344729054
+GA    22.90 22.90;
+TC    22.90 23.00;
+NC    22.80 22.80;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -7.4211  0.72317
+STATS LOCAL VITERBI   -7.8402  0.72317
+STATS LOCAL FORWARD   -4.3994  0.72317
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  A2M
+ACC   PF00207.17
+DESC  Alpha-2-macroglobulin family
+LENG  92
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Sep 24 02:01:28 2011
+NSEQ  131
+EFFN  3.538055
+CKSUM 3345811864
+GA    20.40 20.40;
+TC    20.40 20.40;
+NC    20.30 20.30;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.5014  0.71839
+STATS LOCAL VITERBI  -10.0743  0.71839
+STATS LOCAL FORWARD   -4.4175  0.71839
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  A2M_comp
+ACC   PF07678.9
+DESC  A-macroglobulin complement component
+LENG  246
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Wed Sep 28 10:29:01 2011
+NSEQ  43
+EFFN  1.892273
+CKSUM 563608780
+GA    20.50 20.50;
+TC    20.50 20.50;
+NC    20.40 20.40;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.0338  0.70307
+STATS LOCAL VITERBI  -11.8593  0.70307
+STATS LOCAL FORWARD   -5.1435  0.70307
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  A2M_N
+ACC   PF01835.14
+DESC  MG2 domain
+LENG  99
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Wed Sep 28 18:50:42 2011
+NSEQ  175
+EFFN  5.893326
+CKSUM 3257891481
+GA    25.70 25.70;
+TC    25.70 25.80;
+NC    25.60 25.60;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.4202  0.71780
+STATS LOCAL VITERBI  -10.4083  0.71780
+STATS LOCAL FORWARD   -3.7479  0.71780
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  A2M_N_2
+ACC   PF07703.9
+DESC  Alpha-2-macroglobulin family N-terminal region
+LENG  136
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Mon Sep 26 18:39:30 2011
+NSEQ  184
+EFFN  5.808960
+CKSUM 4069635948
+GA    21.50 21.50;
+TC    21.50 21.50;
+NC    21.20 21.40;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.0469  0.71109
+STATS LOCAL VITERBI  -10.8684  0.71109
+STATS LOCAL FORWARD   -4.3616  0.71109
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  A2M_recep
+ACC   PF07677.9
+DESC  A-macroglobulin receptor
+LENG  91
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Thu Sep 22 21:40:31 2011
+NSEQ  93
+EFFN  3.488068
+CKSUM 3686253699
+GA    21.70 21.70;
+TC    21.80 21.90;
+NC    21.40 21.60;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.0766  0.71841
+STATS LOCAL VITERBI   -9.8476  0.71841
+STATS LOCAL FORWARD   -3.8429  0.71841
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAA
+ACC   PF00004.24
+DESC  ATPase family associated with various cellular activities (AAA)
+LENG  132
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Mon Oct  3 09:20:52 2011
+NSEQ  208
+EFFN  4.789307
+CKSUM 1541027675
+GA    20.80 20.80;
+TC    20.80 20.80;
+NC    20.70 20.70;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.5602  0.71163
+STATS LOCAL VITERBI  -10.7512  0.71163
+STATS LOCAL FORWARD   -3.9558  0.71163
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAA-ATPase_like
+ACC   PF09820.4
+DESC  Predicted AAA-ATPase
+LENG  284
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Oct  1 01:22:29 2011
+NSEQ  84
+EFFN  1.602173
+CKSUM 2977736589
+GA    26.10 26.10;
+TC    26.10 26.10;
+NC    26.00 26.00;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.0136  0.70174
+STATS LOCAL VITERBI  -12.0321  0.70174
+STATS LOCAL FORWARD   -5.2429  0.70174
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAA_10
+ACC   PF12846.2
+DESC  AAA-like domain
+LENG  328
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sun Oct  2 22:23:37 2011
+NSEQ  148
+EFFN  17.592163
+CKSUM 2289691887
+GA    27.50 27.50;
+TC    27.50 27.50;
+NC    27.40 27.40;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.7817  0.70059
+STATS LOCAL VITERBI  -11.9027  0.70059
+STATS LOCAL FORWARD   -5.1848  0.70059
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAA_11
+ACC   PF13086.1
+DESC  AAA domain
+LENG  241
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Oct  1 02:08:22 2011
+NSEQ  118
+EFFN  5.282776
+CKSUM 4186282299
+GA    27.00 27.00;
+TC    27.00 27.00;
+NC    26.90 26.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.5624  0.70328
+STATS LOCAL VITERBI  -11.8378  0.70328
+STATS LOCAL FORWARD   -4.7450  0.70328
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAA_12
+ACC   PF13087.1
+DESC  AAA domain
+LENG  199
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sun Oct  2 22:19:25 2011
+NSEQ  125
+EFFN  2.323151
+CKSUM 542418647
+GA    27.00 27.00;
+TC    27.00 27.00;
+NC    26.90 26.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.5950  0.70542
+STATS LOCAL VITERBI  -11.4023  0.70542
+STATS LOCAL FORWARD   -4.9277  0.70542
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAA_13
+ACC   PF13166.1
+DESC  AAA domain
+LENG  712
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Oct  1 01:16:01 2011
+NSEQ  43
+EFFN  4.243835
+CKSUM 1626008293
+GA    45.20 45.20;
+TC    45.30 45.30;
+NC    45.10 45.10;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -12.5898  0.69658
+STATS LOCAL VITERBI  -13.5349  0.69658
+STATS LOCAL FORWARD   -6.0702  0.69658
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAA_14
+ACC   PF13173.1
+DESC  AAA domain
+LENG  128
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Oct  1 01:45:30 2011
+NSEQ  478
+EFFN  5.678146
+CKSUM 3874947909
+GA    27.00 27.00;
+TC    27.00 27.00;
+NC    26.90 26.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.9053  0.71222
+STATS LOCAL VITERBI  -10.8832  0.71222
+STATS LOCAL FORWARD   -4.2419  0.71222
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAA_15
+ACC   PF13175.1
+DESC  AAA ATPase domain
+LENG  415
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Oct  1 01:23:15 2011
+NSEQ  19
+EFFN  6.146240
+CKSUM 776132616
+GA    27.00 27.00;
+TC    27.00 27.00;
+NC    26.90 26.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.6059  0.69903
+STATS LOCAL VITERBI  -12.5232  0.69903
+STATS LOCAL FORWARD   -5.4286  0.69903
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAA_16
+ACC   PF13191.1
+DESC  AAA ATPase domain
+LENG  166
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Oct  1 02:05:23 2011
+NSEQ  231
+EFFN  27.003342
+CKSUM 696034313
+GA    27.00 27.00;
+TC    27.00 27.00;
+NC    26.90 26.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.1007  0.70785
+STATS LOCAL VITERBI  -11.3743  0.70785
+STATS LOCAL FORWARD   -3.8725  0.70785
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAA_17
+ACC   PF13207.1
+DESC  AAA domain
+LENG  121
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Sat Oct  1 03:31:02 2011
+NSEQ  416
+EFFN  50.136963
+CKSUM 1614143499
+GA    27.00 27.00;
+TC    27.00 27.00;
+NC    26.90 26.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.9108  0.71332
+STATS LOCAL VITERBI  -11.0630  0.71332
+STATS LOCAL FORWARD   -3.3233  0.71332
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAA_18
+ACC   PF13238.1
+DESC  AAA domain
+LENG  129
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Oct  1 01:58:43 2011
+NSEQ  126
+EFFN  17.614929
+CKSUM 2198084091
+GA    25.20 25.20;
+TC    25.20 25.20;
+NC    25.10 25.10;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.5746  0.71207
+STATS LOCAL VITERBI  -10.8245  0.71207
+STATS LOCAL FORWARD   -3.8359  0.71207
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAA_19
+ACC   PF13245.1
+DESC  Part of AAA domain
+LENG  76
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Oct  1 01:41:06 2011
+NSEQ  212
+EFFN  16.798645
+CKSUM 2794952388
+GA    25.00 24.40;
+TC    25.00 24.40;
+NC    24.90 24.30;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -8.9305  0.71863
+STATS LOCAL VITERBI   -9.7434  0.71863
+STATS LOCAL FORWARD   -4.2315  0.71863
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAA_2
+ACC   PF07724.9
+DESC  AAA domain (Cdc48 subfamily)
+LENG  171
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Sat Oct  1 06:19:04 2011
+NSEQ  140
+EFFN  3.131714
+CKSUM 4227652400
+GA    20.60 20.60;
+TC    20.60 20.60;
+NC    20.50 20.50;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.2958  0.70741
+STATS LOCAL VITERBI  -10.9381  0.70741
+STATS LOCAL FORWARD   -4.3474  0.70741
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAA_21
+ACC   PF13304.1
+DESC  AAA domain
+LENG  303
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Mon Oct  3 12:41:56 2011
+NSEQ  221
+EFFN  221.000000
+CKSUM 3109110943
+GA    27.00 27.00;
+TC    27.00 27.00;
+NC    26.90 26.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.9964  0.70155
+STATS LOCAL VITERBI  -11.9622  0.70155
+STATS LOCAL FORWARD   -4.4478  0.70155
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAA_22
+ACC   PF13401.1
+DESC  AAA domain
+LENG  131
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Oct  1 02:18:17 2011
+NSEQ  170
+EFFN  12.189178
+CKSUM 1071379781
+GA    27.00 27.00;
+TC    27.00 27.00;
+NC    26.90 26.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.4918  0.71178
+STATS LOCAL VITERBI  -10.9031  0.71178
+STATS LOCAL FORWARD   -4.0332  0.71178
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAA_23
+ACC   PF13476.1
+DESC  AAA domain
+LENG  202
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Oct  1 02:53:56 2011
+NSEQ  472
+EFFN  27.551819
+CKSUM 1916890045
+GA    27.00 27.00;
+TC    27.00 27.00;
+NC    26.90 26.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.6566  0.70523
+STATS LOCAL VITERBI  -11.8076  0.70523
+STATS LOCAL FORWARD   -3.9829  0.70523
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAA_24
+ACC   PF13479.1
+DESC  AAA domain
+LENG  213
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sun Oct  2 22:11:38 2011
+NSEQ  49
+EFFN  5.344421
+CKSUM 2074350214
+GA    27.00 27.00;
+TC    27.00 27.00;
+NC    26.90 26.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.2457  0.70461
+STATS LOCAL VITERBI  -11.4609  0.70461
+STATS LOCAL FORWARD   -4.7524  0.70461
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAA_25
+ACC   PF13481.1
+DESC  AAA domain
+LENG  194
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Oct  1 02:22:42 2011
+NSEQ  102
+EFFN  11.688538
+CKSUM 2786667529
+GA    27.00 27.00;
+TC    27.00 27.00;
+NC    26.90 26.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.2320  0.70573
+STATS LOCAL VITERBI  -11.1155  0.70573
+STATS LOCAL FORWARD   -4.9157  0.70573
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAA_26
+ACC   PF13500.1
+DESC  AAA domain
+LENG  199
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Oct  1 01:52:35 2011
+NSEQ  55
+EFFN  5.300598
+CKSUM 3226329676
+GA    27.00 27.00;
+TC    27.00 27.00;
+NC    26.90 26.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.4280  0.70541
+STATS LOCAL VITERBI  -11.1618  0.70541
+STATS LOCAL FORWARD   -4.7095  0.70541
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAA_27
+ACC   PF13514.1
+DESC  AAA domain
+LENG  1118
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Oct  1 01:24:14 2011
+NSEQ  11
+EFFN  2.725830
+CKSUM 4269647462
+GA    25.60 25.60;
+TC    25.60 25.60;
+NC    25.50 25.50;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -13.1382  0.69533
+STATS LOCAL VITERBI  -13.8064  0.69533
+STATS LOCAL FORWARD   -6.8826  0.69533
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAA_28
+ACC   PF13521.1
+DESC  AAA domain
+LENG  163
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Oct  1 01:26:28 2011
+NSEQ  115
+EFFN  6.243439
+CKSUM 1804031894
+GA    27.00 27.00;
+TC    27.00 27.00;
+NC    26.90 26.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.8484  0.70812
+STATS LOCAL VITERBI  -11.0971  0.70812
+STATS LOCAL FORWARD   -4.2807  0.70812
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAA_29
+ACC   PF13555.1
+DESC  P-loop containing region of AAA domain
+LENG  62
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sun Oct  2 22:11:44 2011
+NSEQ  68
+EFFN  3.673096
+CKSUM 4237357810
+GA    27.00 27.00;
+TC    27.00 27.00;
+NC    26.90 26.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -8.7424  0.71889
+STATS LOCAL VITERBI   -9.2481  0.71889
+STATS LOCAL FORWARD   -4.4405  0.71889
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAA_3
+ACC   PF07726.6
+DESC  ATPase family associated with various cellular activities (AAA)
+LENG  131
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Oct  1 01:50:36 2011
+NSEQ  55
+EFFN  0.721741
+CKSUM 1842764168
+GA    21.10 21.10;
+TC    21.10 21.10;
+NC    21.00 21.00;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.6894  0.71174
+STATS LOCAL VITERBI  -10.6950  0.71174
+STATS LOCAL FORWARD   -4.5441  0.71174
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAA_30
+ACC   PF13604.1
+DESC  AAA domain
+LENG  196
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sun Oct  2 22:18:35 2011
+NSEQ  86
+EFFN  3.598206
+CKSUM 1088571540
+GA    27.00 27.00;
+TC    27.00 27.00;
+NC    26.90 26.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.6293  0.70560
+STATS LOCAL VITERBI  -11.3144  0.70560
+STATS LOCAL FORWARD   -4.7219  0.70560
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAA_31
+ACC   PF13614.1
+DESC  AAA domain
+LENG  157
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Oct  1 03:10:07 2011
+NSEQ  61
+EFFN  10.167908
+CKSUM 4181244508
+GA    27.00 27.00;
+TC    27.00 27.00;
+NC    26.90 26.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.9347  0.70869
+STATS LOCAL VITERBI  -10.5982  0.70869
+STATS LOCAL FORWARD   -4.2932  0.70869
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAA_32
+ACC   PF13654.1
+DESC  AAA domain
+LENG  509
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Oct  1 02:15:22 2011
+NSEQ  127
+EFFN  2.352570
+CKSUM 1346408321
+GA    25.00 25.00;
+TC    25.00 25.00;
+NC    24.80 24.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.6416  0.69795
+STATS LOCAL VITERBI  -12.6473  0.69795
+STATS LOCAL FORWARD   -5.8444  0.69795
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAA_33
+ACC   PF13671.1
+DESC  AAA domain
+LENG  143
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Oct  1 02:18:22 2011
+NSEQ  147
+EFFN  8.061493
+CKSUM 848108809
+GA    27.00 27.00;
+TC    27.00 27.00;
+NC    26.90 26.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.7960  0.71021
+STATS LOCAL VITERBI  -10.7304  0.71021
+STATS LOCAL FORWARD   -4.3020  0.71021
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAA_34
+ACC   PF13872.1
+DESC  P-loop containing NTP hydrolase pore-1
+LENG  303
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Oct  1 01:13:47 2011
+NSEQ  40
+EFFN  1.040039
+CKSUM 4218216855
+GA    27.00 27.00;
+TC    28.60 27.90;
+NC    26.90 23.10;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.0852  0.70118
+STATS LOCAL VITERBI  -12.0808  0.70118
+STATS LOCAL FORWARD   -5.6540  0.70118
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAA_4
+ACC   PF04326.9
+DESC  Divergent AAA domain
+LENG  122
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Oct  1 01:39:34 2011
+NSEQ  163
+EFFN  6.650726
+CKSUM 756017120
+GA    25.30 25.30;
+TC    25.80 25.30;
+NC    24.80 25.10;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.0717  0.71315
+STATS LOCAL VITERBI  -10.8308  0.71315
+STATS LOCAL FORWARD   -3.9643  0.71315
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAA_5
+ACC   PF07728.9
+DESC  AAA domain (dynein-related subfamily)
+LENG  139
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Mon Oct  3 12:04:11 2011
+NSEQ  34
+EFFN  5.158936
+CKSUM 1502603270
+GA    21.00 21.00;
+TC    21.00 21.00;
+NC    20.90 20.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.7136  0.71070
+STATS LOCAL VITERBI  -10.5405  0.71070
+STATS LOCAL FORWARD   -4.4508  0.71070
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAA_6
+ACC   PF12774.2
+DESC  Hydrolytic ATP binding site of dynein motor region D1
+LENG  231
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sun Oct  2 22:15:30 2011
+NSEQ  3
+EFFN  0.389648
+CKSUM 1949889577
+GA    21.30 21.30;
+TC    21.30 21.50;
+NC    21.10 20.30;
+BM    hmmbuild --amino HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.7005  0.70374
+STATS LOCAL VITERBI  -11.7915  0.70374
+STATS LOCAL FORWARD   -4.8243  0.70374
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAA_7
+ACC   PF12775.2
+DESC  P-loop containing dynein motor region D3
+LENG  272
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Oct  1 01:48:09 2011
+NSEQ  3
+EFFN  0.454102
+CKSUM 4253210290
+GA    20.90 20.90;
+TC    20.90 21.50;
+NC    20.70 20.80;
+BM    hmmbuild --amino HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.1034  0.70211
+STATS LOCAL VITERBI  -11.8305  0.70211
+STATS LOCAL FORWARD   -5.3159  0.70211
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAA_8
+ACC   PF12780.2
+DESC  P-loop containing dynein motor region D4
+LENG  268
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Oct  1 01:48:07 2011
+NSEQ  3
+EFFN  0.442383
+CKSUM 3065602225
+GA    22.90 22.50;
+TC    23.40 22.60;
+NC    22.80 22.40;
+BM    hmmbuild --amino HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.9073  0.70228
+STATS LOCAL VITERBI  -11.6516  0.70228
+STATS LOCAL FORWARD   -5.4163  0.70228
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAA_9
+ACC   PF12781.2
+DESC  ATP-binding dynein motor region D5
+LENG  228
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sun Oct  2 22:13:24 2011
+NSEQ  3
+EFFN  0.448242
+CKSUM 1965258100
+GA    22.20 22.20;
+TC    22.20 22.30;
+NC    22.10 21.90;
+BM    hmmbuild --amino HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.9303  0.70391
+STATS LOCAL VITERBI  -11.6070  0.70391
+STATS LOCAL FORWARD   -5.4992  0.70391
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAA_assoc
+ACC   PF14363.1
+DESC  Domain associated at C-terminal with AAA
+LENG  98
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Tue Sep 20 21:47:57 2011
+NSEQ  102
+EFFN  3.389832
+CKSUM 4290437361
+GA    22.10 22.10;
+TC    22.10 22.50;
+NC    21.50 21.50;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.4136  0.71806
+STATS LOCAL VITERBI  -10.3419  0.71806
+STATS LOCAL FORWARD   -3.9409  0.71806
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAA_PrkA
+ACC   PF08298.6
+DESC  PrkA AAA domain
+LENG  358
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sun Oct  2 22:13:26 2011
+NSEQ  7
+EFFN  0.734863
+CKSUM 361020411
+GA    19.70 19.70;
+TC    19.70 19.70;
+NC    19.60 19.60;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.2442  0.69998
+STATS LOCAL VITERBI  -12.1782  0.69998
+STATS LOCAL FORWARD   -5.7619  0.69998
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AalphaY_MDB
+ACC   PF04611.7
+DESC  Mating type protein A alpha Y mating type dependent binding region
+LENG  147
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Fri Sep 23 02:21:17 2011
+NSEQ  5
+EFFN  0.727539
+CKSUM 1557976205
+GA    25.00 25.00;
+TC    57.40 234.00;
+NC    20.30 17.70;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.2384  0.70980
+STATS LOCAL VITERBI  -10.8048  0.70980
+STATS LOCAL FORWARD   -4.3097  0.70980
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAL_decarboxy
+ACC   PF03306.8
+DESC  Alpha-acetolactate decarboxylase
+LENG  221
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Mon Sep 26 03:27:36 2011
+NSEQ  74
+EFFN  2.100220
+CKSUM 3516134262
+GA    25.00 25.00;
+TC    29.90 28.90;
+NC    21.20 21.10;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.5869  0.70418
+STATS LOCAL VITERBI  -11.1518  0.70418
+STATS LOCAL FORWARD   -5.2966  0.70418
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAR2
+ACC   PF05282.6
+DESC  AAR2 protein
+LENG  360
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Thu Sep 22 22:57:33 2011
+NSEQ  42
+EFFN  4.596313
+CKSUM 1151744731
+GA    18.60 18.60;
+TC    19.40 19.20;
+NC    18.50 18.20;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.2357  0.69993
+STATS LOCAL VITERBI  -12.3239  0.69993
+STATS LOCAL FORWARD   -5.5215  0.69993
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AARP2CN
+ACC   PF08142.7
+DESC  AARP2CN (NUC121) domain
+LENG  84
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Wed Sep 21 04:41:09 2011
+NSEQ  74
+EFFN  3.364868
+CKSUM 3923214904
+GA    21.20 21.20;
+TC    21.20 25.30;
+NC    20.80 21.10;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.0836  0.71848
+STATS LOCAL VITERBI   -9.6127  0.71848
+STATS LOCAL FORWARD   -4.4695  0.71848
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AAT
+ACC   PF03417.11
+DESC  Acyl-coenzyme A:6-aminopenicillanic acid acyl-transferase
+LENG  225
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Sun Sep 25 16:10:56 2011
+NSEQ  18
+EFFN  4.249512
+CKSUM 243564875
+GA    20.40 20.40;
+TC    20.40 20.40;
+NC    20.30 20.30;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.5003  0.70400
+STATS LOCAL VITERBI  -11.2820  0.70400
+STATS LOCAL FORWARD   -4.9012  0.70400
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AATase
+ACC   PF07247.7
+DESC  Alcohol acetyltransferase
+LENG  479
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sun Sep 25 15:51:55 2011
+NSEQ  9
+EFFN  2.307129
+CKSUM 2410370053
+GA    20.40 20.40;
+TC    20.40 20.40;
+NC    20.30 20.30;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.3661  0.69824
+STATS LOCAL VITERBI  -12.4516  0.69824
+STATS LOCAL FORWARD   -5.9230  0.69824
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AATF-Che1
+ACC   PF13339.1
+DESC  Apoptosis antagonizing transcription factor
+LENG  133
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sun Sep 25 13:15:31 2011
+NSEQ  66
+EFFN  3.927612
+CKSUM 43872895
+GA    23.00 23.00;
+TC    23.10 23.10;
+NC    22.20 22.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.7510  0.71149
+STATS LOCAL VITERBI  -11.0285  0.71149
+STATS LOCAL FORWARD   -4.0064  0.71149
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AA_kinase
+ACC   PF00696.23
+DESC  Amino acid kinase family
+LENG  241
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Mon Sep 26 21:51:47 2011
+NSEQ  136
+EFFN  12.745850
+CKSUM 2632002851
+GA    23.50 23.50;
+TC    23.60 23.60;
+NC    23.40 23.40;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.3616  0.70328
+STATS LOCAL VITERBI  -11.7712  0.70328
+STATS LOCAL FORWARD   -4.8162  0.70328
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AA_permease
+ACC   PF00324.16
+DESC  Amino acid permease
+LENG  479
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sun Sep 25 16:46:05 2011
+NSEQ  27
+EFFN  5.949097
+CKSUM 3265205200
+GA    19.60 19.60;
+TC    19.60 19.60;
+NC    19.50 19.50;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.4316  0.69824
+STATS LOCAL VITERBI  -12.4730  0.69824
+STATS LOCAL FORWARD   -6.1580  0.69824
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AA_permease_2
+ACC   PF13520.1
+DESC  Amino acid permease
+LENG  426
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sun Sep 25 17:06:35 2011
+NSEQ  61
+EFFN  10.346619
+CKSUM 2719462819
+GA    27.00 27.00;
+TC    27.00 27.00;
+NC    26.90 26.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.7836  0.69888
+STATS LOCAL VITERBI  -12.7829  0.69888
+STATS LOCAL FORWARD   -5.9438  0.69888
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AA_permease_C
+ACC   PF13906.1
+DESC  C-terminus of AA_permease
+LENG  51
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Wed Sep 28 09:15:47 2011
+NSEQ  58
+EFFN  4.039185
+CKSUM 504004445
+GA    27.00 27.00;
+TC    27.00 27.00;
+NC    26.90 26.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -8.2270  0.71916
+STATS LOCAL VITERBI   -8.6352  0.71916
+STATS LOCAL FORWARD   -4.0998  0.71916
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AA_permease_N
+ACC   PF08403.5
+DESC  Amino acid permease N-terminal
+LENG  74
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Wed Sep 21 05:17:15 2011
+NSEQ  16
+EFFN  2.589844
+CKSUM 38819272
+GA    21.00 21.00;
+TC    21.10 21.00;
+NC    20.90 20.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -8.9652  0.71868
+STATS LOCAL VITERBI   -9.6521  0.71868
+STATS LOCAL FORWARD   -4.6616  0.71868
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AA_synth
+ACC   PF06684.6
+DESC  Amino acid synthesis
+LENG  175
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Wed Sep 21 10:29:59 2011
+NSEQ  55
+EFFN  1.406555
+CKSUM 4177466900
+GA    20.00 20.00;
+TC    24.00 35.60;
+NC    18.70 16.70;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.3353  0.70711
+STATS LOCAL VITERBI  -10.9983  0.70711
+STATS LOCAL FORWARD   -4.9098  0.70711
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Aa_trans
+ACC   PF01490.13
+DESC  Transmembrane amino acid transporter protein
+LENG  410
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Mon Sep 26 20:31:09 2011
+NSEQ  25
+EFFN  4.574585
+CKSUM 1345581323
+GA    19.60 19.60;
+TC    19.60 19.60;
+NC    19.50 19.50;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.3532  0.69910
+STATS LOCAL VITERBI  -12.1865  0.69910
+STATS LOCAL FORWARD   -6.0042  0.69910
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  ABA_GPCR
+ACC   PF12430.3
+DESC  Abscisic acid G-protein coupled receptor
+LENG  196
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Mon Sep 26 01:27:11 2011
+NSEQ  45
+EFFN  4.276428
+CKSUM 2539071975
+GA    22.10 22.10;
+TC    23.00 30.00;
+NC    21.00 21.30;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.5685  0.70560
+STATS LOCAL VITERBI  -11.2174  0.70560
+STATS LOCAL FORWARD   -5.1656  0.70560
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  ABA_WDS
+ACC   PF02496.11
+DESC  ABA/WDS induced protein
+LENG  80
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sun Sep 25 11:24:05 2011
+NSEQ  17
+EFFN  0.967041
+CKSUM 919267867
+GA    25.00 25.00;
+TC    28.10 28.10;
+NC    23.00 19.50;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.4032  0.71862
+STATS LOCAL VITERBI   -9.9261  0.71862
+STATS LOCAL FORWARD   -3.8108  0.71862
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AbbA_antirepres
+ACC   PF14156.1
+DESC  Antirepressor AbbA
+LENG  63
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Tue Sep 20 23:14:07 2011
+NSEQ  6
+EFFN  1.192383
+CKSUM 3307734076
+GA    27.00 27.00;
+TC    54.50 54.40;
+NC    23.20 21.30;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -8.6034  0.71891
+STATS LOCAL VITERBI   -9.0547  0.71891
+STATS LOCAL FORWARD   -4.3157  0.71891
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  ABC-3
+ACC   PF00950.12
+DESC  ABC 3 transport family
+LENG  258
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Mon Sep 26 08:10:54 2011
+NSEQ  16
+EFFN  1.605469
+CKSUM 233638178
+GA    19.80 19.80;
+TC    19.80 19.80;
+NC    19.70 19.70;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.0072  0.70262
+STATS LOCAL VITERBI  -11.4970  0.70262
+STATS LOCAL FORWARD   -5.0941  0.70262
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  ABC1
+ACC   PF03109.11
+DESC  ABC1 family
+LENG  119
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Thu Sep 29 16:41:03 2011
+NSEQ  32
+EFFN  2.449219
+CKSUM 2364665444
+GA    20.60 20.60;
+TC    20.60 20.60;
+NC    20.50 20.50;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.4713  0.71364
+STATS LOCAL VITERBI  -10.3960  0.71364
+STATS LOCAL FORWARD   -4.1306  0.71364
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  ABC2_membrane
+ACC   PF01061.19
+DESC  ABC-2 type transporter
+LENG  209
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Sep 24 01:53:33 2011
+NSEQ  300
+EFFN  13.005066
+CKSUM 2444432506
+GA    25.50 25.50;
+TC    25.50 25.50;
+NC    25.40 25.40;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.6274  0.70483
+STATS LOCAL VITERBI  -11.5058  0.70483
+STATS LOCAL FORWARD   -5.1639  0.70483
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  ABC2_membrane_2
+ACC   PF12679.2
+DESC  ABC-2 family transporter protein
+LENG  277
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Mon Sep 26 07:35:20 2011
+NSEQ  35
+EFFN  7.113647
+CKSUM 1181446481
+GA    26.80 26.80;
+TC    26.80 26.80;
+NC    26.70 26.70;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.1182  0.70196
+STATS LOCAL VITERBI  -11.8609  0.70196
+STATS LOCAL FORWARD   -5.5420  0.70196
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  ABC2_membrane_3
+ACC   PF12698.2
+DESC  ABC-2 family transporter protein
+LENG  344
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Sep 24 02:10:46 2011
+NSEQ  222
+EFFN  29.609711
+CKSUM 2559213453
+GA    31.60 31.60;
+TC    31.60 31.60;
+NC    31.50 31.50;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.3486  0.70024
+STATS LOCAL VITERBI  -12.6117  0.70024
+STATS LOCAL FORWARD   -5.4282  0.70024
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  ABC2_membrane_4
+ACC   PF12730.2
+DESC  ABC-2 family transporter protein
+LENG  232
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Tue Sep 27 01:23:29 2011
+NSEQ  293
+EFFN  27.893478
+CKSUM 3640690888
+GA    27.00 27.00;
+TC    27.00 27.00;
+NC    26.90 26.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.9344  0.70367
+STATS LOCAL VITERBI  -12.0478  0.70367
+STATS LOCAL FORWARD   -5.1953  0.70367
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  ABC2_membrane_5
+ACC   PF13346.1
+DESC  ABC-2 family transporter protein
+LENG  206
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Tue Sep 27 14:12:46 2011
+NSEQ  128
+EFFN  8.535156
+CKSUM 2030489106
+GA    22.30 22.00;
+TC    22.30 22.00;
+NC    22.20 21.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.9030  0.70499
+STATS LOCAL VITERBI  -11.7848  0.70499
+STATS LOCAL FORWARD   -5.0396  0.70499
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  ABC2_membrane_6
+ACC   PF06182.6
+DESC  ABC-2 family transporter protein
+LENG  229
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Tue Sep 27 00:45:37 2011
+NSEQ  12
+EFFN  2.399414
+CKSUM 1088971179
+GA    22.00 22.00;
+TC    22.10 22.10;
+NC    21.90 21.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.4473  0.70380
+STATS LOCAL VITERBI  -11.4332  0.70380
+STATS LOCAL FORWARD   -4.8061  0.70380
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  ABC_ATPase
+ACC   PF09818.4
+DESC  Predicted ATPase of the ABC class
+LENG  448
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Oct  1 01:15:30 2011
+NSEQ  44
+EFFN  1.796631
+CKSUM 1586384286
+GA    19.30 19.30;
+TC    19.30 19.30;
+NC    19.20 19.20;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.5270  0.69860
+STATS LOCAL VITERBI  -12.2937  0.69860
+STATS LOCAL FORWARD   -5.9009  0.69860
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  ABC_cobalt
+ACC   PF09819.4
+DESC  ABC-type cobalt transport system, permease component
+LENG  129
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Tue Sep 27 23:43:43 2011
+NSEQ  52
+EFFN  2.167725
+CKSUM 2367276667
+GA    20.30 20.30;
+TC    20.70 21.50;
+NC    19.70 20.00;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.9515  0.71208
+STATS LOCAL VITERBI  -10.6845  0.71208
+STATS LOCAL FORWARD   -4.1908  0.71208
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  ABC_membrane
+ACC   PF00664.18
+DESC  ABC transporter transmembrane region
+LENG  275
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Mon Sep 26 11:05:33 2011
+NSEQ  70
+EFFN  12.650757
+CKSUM 9777171
+GA    22.00 22.00;
+TC    22.00 22.00;
+NC    21.90 21.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.7726  0.70202
+STATS LOCAL VITERBI  -11.4114  0.70202
+STATS LOCAL FORWARD   -4.9845  0.70202
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  ABC_membrane_2
+ACC   PF06472.10
+DESC  ABC transporter transmembrane region 2
+LENG  282
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Tue Sep 27 00:40:04 2011
+NSEQ  26
+EFFN  3.050049
+CKSUM 421271952
+GA    21.20 21.20;
+TC    21.20 21.20;
+NC    21.10 21.10;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.0490  0.70180
+STATS LOCAL VITERBI  -11.5069  0.70180
+STATS LOCAL FORWARD   -5.2815  0.70180
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  ABC_membrane_3
+ACC   PF13748.1
+DESC  ABC transporter transmembrane region
+LENG  237
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Fri Sep 23 23:53:01 2011
+NSEQ  20
+EFFN  1.557617
+CKSUM 2827574910
+GA    27.00 27.00;
+TC    27.00 27.30;
+NC    26.90 26.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.6813  0.70346
+STATS LOCAL VITERBI  -11.3692  0.70346
+STATS LOCAL FORWARD   -5.3317  0.70346
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  ABC_sub_bind
+ACC   PF04392.7
+DESC  ABC transporter substrate binding protein
+LENG  294
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Fri Sep 23 18:55:40 2011
+NSEQ  9
+EFFN  2.228027
+CKSUM 3682900750
+GA    23.70 23.70;
+TC    23.70 23.70;
+NC    23.60 23.60;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.6809  0.70145
+STATS LOCAL VITERBI  -11.4876  0.70145
+STATS LOCAL FORWARD   -5.4579  0.70145
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  ABC_tran
+ACC   PF00005.22
+DESC  ABC transporter
+LENG  118
+ALPH  amino
+RF    yes
+CS    yes
+MAP   yes
+DATE  Thu Oct  6 15:35:27 2011
+NSEQ  60
+EFFN  5.628662
+CKSUM 1456945187
+GA    23.10 23.10;
+TC    23.10 23.10;
+NC    23.00 23.00;
+BM    hmmbuild  --handHMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.5658  0.71383
+STATS LOCAL VITERBI  -10.6725  0.71383
+STATS LOCAL FORWARD   -3.7272  0.71383
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  ABC_transp
+ACC   PF09821.4
+DESC  ABC nitrate/sulfonate/bicarbonate family transporter, ATPase subunit
+LENG  120
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Tue Sep 27 06:42:39 2011
+NSEQ  49
+EFFN  2.826233
+CKSUM 363324464
+GA    21.30 21.30;
+TC    21.30 21.40;
+NC    21.20 20.80;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.2813  0.71348
+STATS LOCAL VITERBI  -10.0448  0.71348
+STATS LOCAL FORWARD   -3.8386  0.71348
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  ABC_transp_aux
+ACC   PF09822.4
+DESC  ABC-type uncharacterized transport system
+LENG  271
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Mon Sep 26 02:43:41 2011
+NSEQ  88
+EFFN  4.938721
+CKSUM 2299732853
+GA    27.70 27.70;
+TC    27.70 28.00;
+NC    27.60 27.60;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.8231  0.70215
+STATS LOCAL VITERBI  -11.6163  0.70215
+STATS LOCAL FORWARD   -4.9391  0.70215
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  ABC_tran_2
+ACC   PF12848.2
+DESC  ABC transporter
+LENG  85
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Oct  1 02:26:50 2011
+NSEQ  246
+EFFN  6.542633
+CKSUM 3892116807
+GA    21.50 21.50;
+TC    21.50 21.50;
+NC    21.40 21.40;
+BM    hmmbuild --amino HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.5794  0.71848
+STATS LOCAL VITERBI   -9.9708  0.71848
+STATS LOCAL FORWARD   -4.1404  0.71848
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Abdominal-A
+ACC   PF12407.3
+DESC  Homeobox protein
+LENG  24
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Mon Sep 26 18:10:17 2011
+NSEQ  5
+EFFN  3.842773
+CKSUM 1105411660
+GA    25.00 25.00;
+TC    26.20 33.70;
+NC    19.80 18.00;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -7.0306  0.72019
+STATS LOCAL VITERBI   -7.0599  0.72019
+STATS LOCAL FORWARD   -4.4236  0.72019
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AbfB
+ACC   PF05270.8
+DESC  Alpha-L-arabinofuranosidase B (ABFB)
+LENG  143
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Fri Sep 23 18:26:06 2011
+NSEQ  11
+EFFN  1.200439
+CKSUM 1841612801
+GA    21.30 21.30;
+TC    22.80 21.90;
+NC    21.20 21.10;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.9793  0.71020
+STATS LOCAL VITERBI  -10.9490  0.71020
+STATS LOCAL FORWARD   -4.4908  0.71020
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  ABG_transport
+ACC   PF03806.8
+DESC  AbgT putative transporter family
+LENG  502
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sun Sep 25 15:56:38 2011
+NSEQ  9
+EFFN  0.848145
+CKSUM 3106768435
+GA    19.60 19.60;
+TC    19.70 19.70;
+NC    19.50 19.50;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.9410  0.69800
+STATS LOCAL VITERBI  -12.7348  0.69800
+STATS LOCAL FORWARD   -6.4992  0.69800
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Abhydrolase_1
+ACC   PF00561.15
+DESC  alpha/beta hydrolase fold
+LENG  230
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Sat Sep 24 16:59:31 2011
+NSEQ  48
+EFFN  17.897461
+CKSUM 353536888
+GA    23.50 23.50;
+TC    23.50 23.50;
+NC    23.40 23.40;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.4286  0.70376
+STATS LOCAL VITERBI  -11.0764  0.70376
+STATS LOCAL FORWARD   -4.7977  0.70376
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Abhydrolase_2
+ACC   PF02230.11
+DESC  Phospholipase/Carboxylesterase
+LENG  216
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sun Sep 25 21:44:51 2011
+NSEQ  12
+EFFN  2.463867
+CKSUM 1811618081
+GA    23.00 23.00;
+TC    23.00 23.00;
+NC    22.90 22.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.7061  0.70444
+STATS LOCAL VITERBI  -11.3051  0.70444
+STATS LOCAL FORWARD   -4.8984  0.70444
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Abhydrolase_3
+ACC   PF07859.8
+DESC  alpha/beta hydrolase fold
+LENG  211
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Sat Sep 24 16:52:17 2011
+NSEQ  130
+EFFN  4.328308
+CKSUM 338961175
+GA    20.70 20.70;
+TC    20.70 20.70;
+NC    20.60 20.60;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.3271  0.70472
+STATS LOCAL VITERBI  -11.4470  0.70472
+STATS LOCAL FORWARD   -4.7582  0.70472
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Abhydrolase_4
+ACC   PF08386.5
+DESC  TAP-like protein
+LENG  103
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Sep 24 14:08:15 2011
+NSEQ  38
+EFFN  3.576416
+CKSUM 3754552210
+GA    21.00 21.00;
+TC    21.00 21.00;
+NC    20.90 20.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.6074  0.71683
+STATS LOCAL VITERBI  -10.4087  0.71683
+STATS LOCAL FORWARD   -4.1314  0.71683
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Abhydrolase_5
+ACC   PF12695.2
+DESC  Alpha/beta hydrolase family
+LENG  142
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Wed Sep 28 01:55:56 2011
+NSEQ  309
+EFFN  9.840134
+CKSUM 1183340999
+GA    27.00 27.00;
+TC    27.00 27.00;
+NC    26.90 26.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.5884  0.71033
+STATS LOCAL VITERBI  -11.1523  0.71033
+STATS LOCAL FORWARD   -4.4210  0.71033
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Abhydrolase_6
+ACC   PF12697.2
+DESC  Alpha/beta hydrolase family
+LENG  228
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Sat Oct  1 12:19:39 2011
+NSEQ  795
+EFFN  41.247540
+CKSUM 85788279
+GA    24.80 24.80;
+TC    24.80 24.80;
+NC    24.70 24.70;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.6014  0.70385
+STATS LOCAL VITERBI  -11.7149  0.70385
+STATS LOCAL FORWARD   -4.4588  0.70385
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Abhydrolase_7
+ACC   PF12715.2
+DESC  Abhydrolase family
+LENG  390
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Sat Sep 24 14:24:14 2011
+NSEQ  4
+EFFN  0.527344
+CKSUM 1527220909
+GA    20.70 20.70;
+TC    20.70 21.10;
+NC    20.60 20.20;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.5612  0.69938
+STATS LOCAL VITERBI  -12.2895  0.69938
+STATS LOCAL FORWARD   -5.5415  0.69938
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Abhydrolase_8
+ACC   PF06259.7
+DESC  Alpha/beta hydrolase
+LENG  178
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Wed Sep 28 09:13:44 2011
+NSEQ  6
+EFFN  1.116211
+CKSUM 4286015103
+GA    20.50 20.50;
+TC    20.50 20.50;
+NC    20.40 20.40;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.3628  0.70686
+STATS LOCAL VITERBI  -11.3015  0.70686
+STATS LOCAL FORWARD   -4.7761  0.70686
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Abhydro_lipase
+ACC   PF04083.11
+DESC  Partial alpha/beta-hydrolase lipase region
+LENG  63
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Sep 24 14:14:56 2011
+NSEQ  83
+EFFN  4.004608
+CKSUM 3995807229
+GA    20.20 20.20;
+TC    20.30 20.20;
+NC    20.00 19.80;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -8.6271  0.71887
+STATS LOCAL VITERBI   -9.1877  0.71887
+STATS LOCAL FORWARD   -4.6082  0.71887
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Abi
+ACC   PF02517.11
+DESC  CAAX protease self-immunity
+LENG  92
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Wed Sep 28 18:58:54 2011
+NSEQ  1341
+EFFN  7.374006
+CKSUM 3668655830
+GA    20.90 20.90;
+TC    20.90 20.90;
+NC    20.80 20.80;
+BM    hmmbuild --amino HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.3864  0.71838
+STATS LOCAL VITERBI  -10.2910  0.71838
+STATS LOCAL FORWARD   -3.8466  0.71838
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AbiH
+ACC   PF14253.1
+DESC  Bacteriophage abortive infection AbiH
+LENG  270
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Tue Sep 20 22:36:28 2011
+NSEQ  44
+EFFN  3.907471
+CKSUM 406491017
+GA    24.90 24.90;
+TC    24.90 24.90;
+NC    24.70 24.70;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.9523  0.70219
+STATS LOCAL VITERBI  -12.1237  0.70219
+STATS LOCAL FORWARD   -4.7936  0.70219
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Abi_2
+ACC   PF07751.6
+DESC  Abi-like protein
+LENG  191
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Thu Sep 22 21:30:44 2011
+NSEQ  111
+EFFN  6.453094
+CKSUM 1833730975
+GA    20.80 20.80;
+TC    20.90 20.80;
+NC    20.60 20.70;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.4871  0.70592
+STATS LOCAL VITERBI  -11.4311  0.70592
+STATS LOCAL FORWARD   -4.1156  0.70592
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Abi_C
+ACC   PF14355.1
+DESC  Abortive infection C-terminus
+LENG  80
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Tue Sep 20 21:48:16 2011
+NSEQ  95
+EFFN  10.149994
+CKSUM 2799838463
+GA    24.00 24.00;
+TC    25.60 24.40;
+NC    23.70 19.30;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.0122  0.71856
+STATS LOCAL VITERBI   -9.6821  0.71856
+STATS LOCAL FORWARD   -4.0428  0.71856
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Abi_HHR
+ACC   PF07815.9
+DESC  Abl-interactor HHR
+LENG  79
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Thu Sep 22 21:25:01 2011
+NSEQ  11
+EFFN  1.259521
+CKSUM 681697357
+GA    19.60 19.60;
+TC    20.50 19.70;
+NC    18.40 17.30;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.1614  0.71855
+STATS LOCAL VITERBI   -9.8000  0.71855
+STATS LOCAL FORWARD   -3.8655  0.71855
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  ABM
+ACC   PF03992.11
+DESC  Antibiotic biosynthesis monooxygenase
+LENG  78
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Fri Sep 23 14:48:40 2011
+NSEQ  115
+EFFN  13.655548
+CKSUM 1562047295
+GA    21.90 20.90;
+TC    21.90 20.90;
+NC    21.80 20.80;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -8.8389  0.71860
+STATS LOCAL VITERBI   -9.3853  0.71860
+STATS LOCAL FORWARD   -3.9482  0.71860
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Abp2
+ACC   PF09441.5
+DESC  ARS binding protein 2
+LENG  176
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Mon Sep 26 02:04:31 2011
+NSEQ  7
+EFFN  0.659668
+CKSUM 3673221109
+GA    25.00 25.00;
+TC    26.30 36.10;
+NC    19.30 19.00;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.4674  0.70697
+STATS LOCAL VITERBI  -11.1093  0.70697
+STATS LOCAL FORWARD   -4.3811  0.70697
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AbrB-like
+ACC   PF14250.1
+DESC  AbrB-like transcriptional regulator
+LENG  71
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Tue Sep 20 22:37:50 2011
+NSEQ  31
+EFFN  1.373657
+CKSUM 2109010170
+GA    25.00 25.00;
+TC    25.30 27.30;
+NC    23.40 24.10;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -8.9699  0.71874
+STATS LOCAL VITERBI   -9.3989  0.71874
+STATS LOCAL FORWARD   -4.0656  0.71874
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Acatn
+ACC   PF13000.2
+DESC  Acetyl-coenzyme A transporter 1
+LENG  544
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Tue Sep 27 06:41:17 2011
+NSEQ  2
+EFFN  0.527344
+CKSUM 2185672104
+GA    102.60 99.30;
+TC    112.10 100.90;
+NC    102.50 99.20;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.9103  0.69761
+STATS LOCAL VITERBI  -12.7942  0.69761
+STATS LOCAL FORWARD   -5.9896  0.69761
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  ACBP
+ACC   PF00887.14
+DESC  Acyl CoA binding protein
+LENG  87
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Mon Sep 26 04:40:46 2011
+NSEQ  103
+EFFN  3.379059
+CKSUM 4273403919
+GA    21.70 21.70;
+TC    22.20 21.70;
+NC    21.40 21.60;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.2178  0.71845
+STATS LOCAL VITERBI  -10.0535  0.71845
+STATS LOCAL FORWARD   -4.3311  0.71845
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  ACCA
+ACC   PF03255.9
+DESC  Acetyl co-enzyme A carboxylase carboxyltransferase alpha subunit
+LENG  145
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Fri Sep 23 18:28:49 2011
+NSEQ  15
+EFFN  1.014404
+CKSUM 2403621587
+GA    21.30 21.30;
+TC    21.40 21.30;
+NC    21.20 21.00;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.0361  0.70994
+STATS LOCAL VITERBI  -10.6582  0.70994
+STATS LOCAL FORWARD   -4.6445  0.70994
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  ACC_central
+ACC   PF08326.7
+DESC  Acetyl-CoA carboxylase, central region
+LENG  708
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Mon Sep 26 19:27:46 2011
+NSEQ  38
+EFFN  3.149658
+CKSUM 3929439081
+GA    18.50 18.50;
+TC    22.80 19.40;
+NC    18.30 18.20;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -12.1810  0.69659
+STATS LOCAL VITERBI  -13.1402  0.69659
+STATS LOCAL FORWARD   -6.4297  0.69659
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  ACC_epsilon
+ACC   PF13822.1
+DESC  Acyl-CoA carboxylase epsilon subunit
+LENG  62
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Wed Sep 21 01:35:39 2011
+NSEQ  85
+EFFN  10.139923
+CKSUM 3136109054
+GA    25.00 25.00;
+TC    25.30 28.70;
+NC    24.70 24.40;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -8.6270  0.71889
+STATS LOCAL VITERBI   -9.1784  0.71889
+STATS LOCAL FORWARD   -3.6550  0.71889
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AceK
+ACC   PF06315.6
+DESC  Isocitrate dehydrogenase kinase/phosphatase (AceK)
+LENG  562
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Wed Sep 21 08:06:14 2011
+NSEQ  39
+EFFN  1.299683
+CKSUM 67430760
+GA    20.80 20.80;
+TC    20.80 27.90;
+NC    20.60 20.70;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -12.0279  0.69750
+STATS LOCAL VITERBI  -12.8553  0.69750
+STATS LOCAL FORWARD   -6.2310  0.69750
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Acetate_kinase
+ACC   PF00871.12
+DESC  Acetokinase family
+LENG  388
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Sun Sep 25 01:17:48 2011
+NSEQ  11
+EFFN  1.270264
+CKSUM 4225358570
+GA    22.00 22.00;
+TC    22.00 22.70;
+NC    21.80 21.80;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.4653  0.69944
+STATS LOCAL VITERBI  -12.1048  0.69944
+STATS LOCAL FORWARD   -5.9269  0.69944
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AcetDehyd-dimer
+ACC   PF09290.6
+DESC  Prokaryotic acetaldehyde dehydrogenase, dimerisation
+LENG  137
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Mon Sep 26 02:10:02 2011
+NSEQ  62
+EFFN  1.048218
+CKSUM 3865419711
+GA    25.70 25.70;
+TC    26.10 32.80;
+NC    19.00 25.60;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.2190  0.71094
+STATS LOCAL VITERBI  -10.8241  0.71094
+STATS LOCAL FORWARD   -4.2691  0.71094
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Acetone_carb_G
+ACC   PF08882.6
+DESC  Acetone carboxylase gamma subunit
+LENG  112
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Mon Sep 26 02:41:03 2011
+NSEQ  24
+EFFN  1.069336
+CKSUM 3866074055
+GA    20.80 20.80;
+TC    21.30 37.70;
+NC    19.60 20.10;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.7959  0.71494
+STATS LOCAL VITERBI  -10.5168  0.71494
+STATS LOCAL FORWARD   -4.0452  0.71494
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AcetylCoA_hydro
+ACC   PF02550.10
+DESC  Acetyl-CoA hydrolase/transferase N-terminal domain
+LENG  198
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Tue Sep 27 18:00:33 2011
+NSEQ  5
+EFFN  1.459961
+CKSUM 27200045
+GA    20.70 20.70;
+TC    20.70 21.40;
+NC    20.60 20.60;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.5035  0.70550
+STATS LOCAL VITERBI  -11.1954  0.70550
+STATS LOCAL FORWARD   -4.5491  0.70550
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AcetylCoA_hyd_C
+ACC   PF13336.1
+DESC  Acetyl-CoA hydrolase/transferase C-terminal domain
+LENG  154
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sat Sep 24 05:37:57 2011
+NSEQ  253
+EFFN  2.358749
+CKSUM 2217722593
+GA    21.60 21.60;
+TC    21.60 21.60;
+NC    21.50 21.50;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.1416  0.70901
+STATS LOCAL VITERBI  -10.6734  0.70901
+STATS LOCAL FORWARD   -4.5465  0.70901
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Acetyltransf_1
+ACC   PF00583.19
+DESC  Acetyltransferase (GNAT) family
+LENG  83
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Sun Sep 25 04:00:06 2011
+NSEQ  243
+EFFN  18.446732
+CKSUM 4075759952
+GA    20.70 20.70;
+TC    20.70 20.70;
+NC    20.60 20.60;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -8.7040  0.71851
+STATS LOCAL VITERBI   -9.4465  0.71851
+STATS LOCAL FORWARD   -3.9433  0.71851
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Acetyltransf_10
+ACC   PF13673.1
+DESC  Acetyltransferase (GNAT) domain
+LENG  117
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sun Sep 25 00:59:18 2011
+NSEQ  47
+EFFN  7.558899
+CKSUM 1012288660
+GA    22.00 22.00;
+TC    22.00 22.00;
+NC    21.90 21.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.1744  0.71401
+STATS LOCAL VITERBI  -10.4534  0.71401
+STATS LOCAL FORWARD   -3.9718  0.71401
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Acetyltransf_11
+ACC   PF13720.1
+DESC  Udp N-acetylglucosamine O-acyltransferase; Domain 2
+LENG  83
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Wed Sep 21 02:53:16 2011
+NSEQ  350
+EFFN  4.499435
+CKSUM 3305945310
+GA    24.50 24.50;
+TC    24.70 24.60;
+NC    24.40 24.40;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -8.9987  0.71851
+STATS LOCAL VITERBI   -9.6775  0.71851
+STATS LOCAL FORWARD   -3.7566  0.71851
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Acetyltransf_13
+ACC   PF13880.1
+DESC  ESCO1/2 acetyl-transferase
+LENG  70
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sun Sep 25 00:26:48 2011
+NSEQ  41
+EFFN  2.099548
+CKSUM 3338735180
+GA    21.60 21.60;
+TC    21.60 22.00;
+NC    21.40 21.40;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -8.8514  0.71874
+STATS LOCAL VITERBI   -9.0825  0.71874
+STATS LOCAL FORWARD   -4.2311  0.71874
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Acetyltransf_2
+ACC   PF00797.12
+DESC  N-acetyltransferase
+LENG  240
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Sat Sep 24 01:37:16 2011
+NSEQ  33
+EFFN  2.469360
+CKSUM 243991182
+GA    20.50 20.50;
+TC    20.50 20.60;
+NC    20.20 20.30;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.6088  0.70331
+STATS LOCAL VITERBI  -11.4915  0.70331
+STATS LOCAL FORWARD   -4.7948  0.70331
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Acetyltransf_3
+ACC   PF13302.1
+DESC  Acetyltransferase (GNAT) domain
+LENG  142
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sun Sep 25 01:58:05 2011
+NSEQ  413
+EFFN  10.483177
+CKSUM 4018251170
+GA    25.40 25.40;
+TC    25.40 25.40;
+NC    25.30 25.30;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.9949  0.71033
+STATS LOCAL VITERBI  -11.0664  0.71033
+STATS LOCAL FORWARD   -3.8827  0.71033
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Acetyltransf_4
+ACC   PF13420.1
+DESC  Acetyltransferase (GNAT) domain
+LENG  155
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sun Sep 25 00:58:08 2011
+NSEQ  21
+EFFN  5.329468
+CKSUM 875030926
+GA    21.90 21.90;
+TC    21.90 21.90;
+NC    21.80 21.80;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.1045  0.70890
+STATS LOCAL VITERBI  -10.8383  0.70890
+STATS LOCAL FORWARD   -4.2744  0.70890
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Acetyltransf_5
+ACC   PF13444.1
+DESC  Acetyltransferase (GNAT) domain
+LENG  101
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sun Sep 25 00:38:12 2011
+NSEQ  247
+EFFN  4.895828
+CKSUM 2164971264
+GA    22.40 22.40;
+TC    22.40 22.40;
+NC    22.30 22.30;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.4082  0.71731
+STATS LOCAL VITERBI  -10.6109  0.71731
+STATS LOCAL FORWARD   -3.4397  0.71731
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Acetyltransf_6
+ACC   PF13480.1
+DESC  Acetyltransferase (GNAT) domain
+LENG  142
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sun Sep 25 00:38:59 2011
+NSEQ  217
+EFFN  13.724747
+CKSUM 1208070768
+GA    21.90 21.90;
+TC    21.90 21.90;
+NC    21.80 21.80;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.6950  0.71033
+STATS LOCAL VITERBI  -10.6146  0.71033
+STATS LOCAL FORWARD   -4.2188  0.71033
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Acetyltransf_7
+ACC   PF13508.1
+DESC  Acetyltransferase (GNAT) domain
+LENG  79
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sun Sep 25 01:29:27 2011
+NSEQ  163
+EFFN  16.022430
+CKSUM 3620475144
+GA    27.00 27.00;
+TC    27.00 27.00;
+NC    26.90 26.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -8.7547  0.71858
+STATS LOCAL VITERBI   -9.3811  0.71858
+STATS LOCAL FORWARD   -3.8169  0.71858
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Acetyltransf_8
+ACC   PF13523.1
+DESC  Acetyltransferase (GNAT) domain
+LENG  152
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sun Sep 25 00:52:25 2011
+NSEQ  54
+EFFN  7.254272
+CKSUM 689470829
+GA    27.00 27.00;
+TC    27.00 27.00;
+NC    26.90 26.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.9134  0.70920
+STATS LOCAL VITERBI  -10.6955  0.70920
+STATS LOCAL FORWARD   -4.3338  0.70920
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Acetyltransf_9
+ACC   PF13527.1
+DESC  Acetyltransferase (GNAT) domain
+LENG  128
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sun Sep 25 00:59:26 2011
+NSEQ  106
+EFFN  7.152283
+CKSUM 551252264
+GA    25.00 25.00;
+TC    25.00 25.00;
+NC    24.90 24.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.5450  0.71222
+STATS LOCAL VITERBI  -10.3010  0.71222
+STATS LOCAL FORWARD   -4.2767  0.71222
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  AChE_tetra
+ACC   PF08674.5
+DESC  Acetylcholinesterase tetramerisation domain
+LENG  37
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Thu Sep 22 22:33:58 2011
+NSEQ  6
+EFFN  2.006836
+CKSUM 3330192632
+GA    25.00 25.00;
+TC    28.10 28.10;
+NC    21.00 19.30;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -7.6235  0.71958
+STATS LOCAL VITERBI   -8.0425  0.71958
+STATS LOCAL FORWARD   -4.4252  0.71958
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Acid_phosphat_B
+ACC   PF03767.9
+DESC  HAD superfamily, subfamily IIIB (Acid phosphatase)
+LENG  230
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Sat Sep 24 01:28:11 2011
+NSEQ  31
+EFFN  3.114380
+CKSUM 2425877289
+GA    27.00 27.00;
+TC    27.00 27.30;
+NC    26.90 26.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.7420  0.70376
+STATS LOCAL VITERBI  -11.4728  0.70376
+STATS LOCAL FORWARD   -4.9894  0.70376
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Acid_PPase
+ACC   PF12689.2
+DESC  Acid Phosphatase
+LENG  169
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Sat Sep 24 01:10:58 2011
+NSEQ  46
+EFFN  1.872681
+CKSUM 877781990
+GA    27.00 27.00;
+TC    27.00 27.10;
+NC    26.90 26.80;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.0372  0.70759
+STATS LOCAL VITERBI  -11.0518  0.70759
+STATS LOCAL FORWARD   -4.6078  0.70759
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Aconitase
+ACC   PF00330.15
+DESC  Aconitase family (aconitate hydratase)
+LENG  465
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Wed Sep 28 15:53:07 2011
+NSEQ  11
+EFFN  1.205811
+CKSUM 3836686301
+GA    20.10 20.10;
+TC    21.30 20.10;
+NC    19.90 19.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -11.8490  0.69839
+STATS LOCAL VITERBI  -12.5332  0.69839
+STATS LOCAL FORWARD   -6.0163  0.69839
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Aconitase_2_N
+ACC   PF06434.8
+DESC  Aconitate hydratase 2 N-terminus
+LENG  204
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Sun Sep 25 13:26:43 2011
+NSEQ  94
+EFFN  0.932312
+CKSUM 1853300302
+GA    20.50 20.50;
+TC    20.50 20.50;
+NC    20.40 20.40;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.7183  0.70510
+STATS LOCAL VITERBI  -11.2720  0.70510
+STATS LOCAL FORWARD   -4.9070  0.70510
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Aconitase_B_N
+ACC   PF11791.3
+DESC  Aconitate B N-terminal domain
+LENG  154
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Mon Sep 26 01:32:32 2011
+NSEQ  94
+EFFN  1.133118
+CKSUM 2624272530
+GA    21.70 21.70;
+TC    21.70 25.90;
+NC    21.50 20.60;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.2628  0.70900
+STATS LOCAL VITERBI  -10.9088  0.70900
+STATS LOCAL FORWARD   -4.3986  0.70900
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Aconitase_C
+ACC   PF00694.14
+DESC  Aconitase C-terminal domain
+LENG  131
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Tue Sep 27 09:29:58 2011
+NSEQ  18
+EFFN  1.990723
+CKSUM 3211587826
+GA    22.80 22.80;
+TC    22.80 22.90;
+NC    22.70 22.70;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.7010  0.71177
+STATS LOCAL VITERBI  -10.5430  0.71177
+STATS LOCAL FORWARD   -4.0413  0.71177
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  ACOX
+ACC   PF01756.14
+DESC  Acyl-CoA oxidase
+LENG  187
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Mon Sep 26 19:54:17 2011
+NSEQ  37
+EFFN  3.175171
+CKSUM 2411855910
+GA    21.40 21.40;
+TC    21.50 21.40;
+NC    21.10 21.20;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.3108  0.70619
+STATS LOCAL VITERBI  -10.9855  0.70619
+STATS LOCAL FORWARD   -4.9167  0.70619
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  ACP
+ACC   PF06857.6
+DESC  Malonate decarboxylase delta subunit (MdcD)
+LENG  87
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Wed Sep 21 12:12:22 2011
+NSEQ  40
+EFFN  2.182617
+CKSUM 4200542593
+GA    25.10 25.10;
+TC    29.20 26.00;
+NC    22.90 22.20;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.2911  0.71848
+STATS LOCAL VITERBI   -9.7998  0.71848
+STATS LOCAL FORWARD   -4.0700  0.71848
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Acp26Ab
+ACC   PF05777.7
+DESC  Drosophila accessory gland-specific peptide 26Ab (Acp26Ab)
+LENG  90
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Mon Sep 26 19:07:30 2011
+NSEQ  4
+EFFN  0.425781
+CKSUM 1572681356
+GA    25.00 25.00;
+TC    31.40 30.60;
+NC    22.10 18.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.5142  0.71860
+STATS LOCAL VITERBI  -10.0518  0.71860
+STATS LOCAL FORWARD   -3.5404  0.71860
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  ACP53EA
+ACC   PF06313.6
+DESC  Drosophila ACP53EA protein
+LENG  93
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Wed Sep 21 08:05:39 2011
+NSEQ  6
+EFFN  1.110352
+CKSUM 931595926
+GA    25.00 25.00;
+TC    34.90 30.30;
+NC    19.40 22.50;
+BM    hmmbuild --amino HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.3583  0.71832
+STATS LOCAL VITERBI  -10.3005  0.71832
+STATS LOCAL FORWARD   -4.0452  0.71832
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  ACPS
+ACC   PF01648.15
+DESC  4'-phosphopantetheinyl transferase superfamily
+LENG  113
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Mon Sep 26 05:12:35 2011
+NSEQ  156
+EFFN  10.078491
+CKSUM 587305436
+GA    21.10 21.10;
+TC    21.10 21.10;
+NC    20.60 21.00;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.8218  0.71475
+STATS LOCAL VITERBI  -10.7714  0.71475
+STATS LOCAL FORWARD   -4.1731  0.71475
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  ACP_syn_III
+ACC   PF08545.5
+DESC  3-Oxoacyl-[acyl-carrier-protein (ACP)] synthase III
+LENG  80
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Tue Sep 27 09:58:42 2011
+NSEQ  170
+EFFN  4.936371
+CKSUM 1280603982
+GA    20.60 20.60;
+TC    20.60 20.60;
+NC    20.50 20.50;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.0207  0.71856
+STATS LOCAL VITERBI   -9.6946  0.71856
+STATS LOCAL FORWARD   -4.3170  0.71856
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  ACP_syn_III_C
+ACC   PF08541.5
+DESC  3-Oxoacyl-[acyl-carrier-protein (ACP)] synthase III C terminal
+LENG  90
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Mon Sep 26 21:25:12 2011
+NSEQ  187
+EFFN  4.950638
+CKSUM 4203255614
+GA    20.60 20.60;
+TC    20.60 20.60;
+NC    20.50 20.50;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -9.2625  0.71841
+STATS LOCAL VITERBI   -9.6416  0.71841
+STATS LOCAL FORWARD   -3.9684  0.71841
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  ACR_tran
+ACC   PF00873.14
+DESC  AcrB/AcrD/AcrF family
+LENG  1021
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Tue Sep 27 02:38:23 2011
+NSEQ  16
+EFFN  1.761719
+CKSUM 1162587487
+GA    28.00 28.00;
+TC    28.00 28.00;
+NC    27.90 27.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -12.6768  0.69554
+STATS LOCAL VITERBI  -13.5022  0.69554
+STATS LOCAL FORWARD   -7.1517  0.69554
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  ACT
+ACC   PF01842.20
+DESC  ACT domain
+LENG  66
+ALPH  amino
+RF    no
+CS    yes
+MAP   yes
+DATE  Sun Sep 25 14:26:57 2011
+NSEQ  180
+EFFN  180.000000
+CKSUM 1431221869
+GA    20.80 20.20;
+TC    20.80 20.20;
+NC    20.70 20.10;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV       -8.4775  0.72100
+STATS LOCAL VITERBI   -8.8328  0.72100
+STATS LOCAL FORWARD   -4.4255  0.72100
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  Act-Frag_cataly
+ACC   PF09192.5
+DESC  Actin-fragmin kinase, catalytic
+LENG  275
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Tue Sep 27 11:43:45 2011
+NSEQ  7
+EFFN  1.473145
+CKSUM 1818785716
+GA    20.30 20.30;
+TC    21.40 20.30;
+NC    20.10 20.20;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -10.9927  0.70202
+STATS LOCAL VITERBI  -11.7938  0.70202
+STATS LOCAL FORWARD   -5.4249  0.70202
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  ActA
+ACC   PF05058.7
+DESC  ActA Protein
+LENG  633
+ALPH  amino
+RF    no
+CS    no
+MAP   yes
+DATE  Tue Sep 27 12:53:30 2011
+NSEQ  2
+EFFN  0.449219
+CKSUM 671291471
+GA    23.80 23.80;
+TC    31.70 23.80;
+NC    21.10 22.90;
+BM    hmmbuild HMM.ann SEED.ann
+SM    hmmsearch -Z 15929002 -E 1000 --cpu 4 HMM pfamseq
+STATS LOCAL MSV      -12.7409  0.69699
+STATS LOCAL VITERBI  -13.0507  0.69699
+STATS LOCAL FORWARD   -6.5234  0.69699
+HMM          A        C        D        E        F        G        H        I        K        L        M        N        P        Q        R        S        T        V        W        Y   
+//
+HMMER3/b [3.0 | March 2010]
+NAME  ACTH_domain
+ACC   PF00976.13
+DESC  Corticotropin ACTH domain
+LENG  39
+ALPH  amino
+RF    no
+CS    no
+MAP   yes

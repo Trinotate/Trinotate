@@ -1,0 +1,75 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>Testing Line plot</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body onload="load_plots();">
+<!--[if IE]><script type="text/javascript" src="canvasXpress-SF/js/excanvas.js"></script><![endif]-->
+<script type="text/javascript" src="http://canvasxpress.org/js/canvasXpress.min.js"></script>
+<script>
+    var make_Line_test_canvas = function() {
+    var cx = new CanvasXpress("test_canvas", {
+            "y": {
+                 "vars": [ 
+                      "gene4"
+                ],
+                "smps": [
+                    "sampleA",
+                    "sampleB",
+                    "sampleC",
+                    "sampleD"
+                          ],
+            "data": [
+                  [ 4,5,13,14]
+                   ]
+    }
+,
+        "x": {
+              "sample_type": [
+                      "liver",
+                      "liver",
+                      "kidney",
+                      "kidney"
+      ]
+ }
+,
+        "z": {
+              "annots": [
+                      "gene1:name",
+                      "gene2:name",
+                      "gene3:name",
+                      "gene4:name",
+                      "gene5:name"
+      ]
+ }
+},
+ {
+     "graphType": "Line",
+},
+{
+click : function(o) { var gene = o['y']['vars'][0];
+document.location.href='feature_report.cgi?feature_name=' + gene;
+ } });
+cx.draw();
+
+}
+
+    
+    </script>
+        
+      <div>
+          <canvas id="test_canvas" width="613" height="500"></canvas> 
+      </div>
+
+        
+<script>
+ var load_plots = function() {
+        make_Line_test_canvas();
+}
+</script>
+
+</body>
+</html>

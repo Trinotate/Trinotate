@@ -1,0 +1,124 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>Testing Heatmap</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body onload="load_plots();">
+<!--[if IE]><script type="text/javascript" src="canvasXpress-SF/js/excanvas.js"></script><![endif]-->
+<script type="text/javascript" src="http://canvasxpress.org/js/canvasXpress.min.js"></script>
+<script>
+
+var make_Heatmap_test_canvas = function() {
+
+var cx = new CanvasXpress("canvasID", {
+  "x": {
+    "sample_type": [
+      "liver",
+      "liver",
+      "kidney",
+      "kidney"
+    ]
+  },
+  "y": {
+    "vars": [
+      "gene4",
+      "gene9",
+      "gene1",
+      "gene7",
+      "gene5",
+      "gene2",
+      "gene6",
+      "gene8"
+    ],
+    "smps": [
+      "sampleA",
+      "sampleB",
+      "sampleC",
+      "sampleD"
+    ],
+    "data": [
+      [
+        4,
+        5,
+        13,
+        14
+      ],
+      [
+        12,
+        18,
+        4,
+        1
+      ],
+      [
+        1,
+        2,
+        10,
+        11
+      ],
+      [
+        11,
+        12,
+        3,
+        1
+      ],
+      [
+        5,
+        6,
+        14,
+        15
+      ],
+      [
+        2,
+        3,
+        11,
+        12
+      ],
+      [
+        12,
+        13,
+        1,
+        2
+      ],
+      [
+        16,
+        12,
+        1,
+        4
+      ]
+    ]
+  }
+}, {
+  "graphType": "Heatmap",
+  "zoomSamplesDisable": true,
+  "smpLabelScaleFontFactor": 2,
+  "smpOverlays": [
+    "sample_type"
+  ],
+  "showVarDendrogram": false,
+  "setMinX": 4,
+  "setMaxX": 12,
+  "showSmpDendrogram": false
+});
+
+cx.clusterVariables();
+cx.showVarDendrogram = false;
+
+
+}
+
+var load_plots = function() {
+        make_Heatmap_test_canvas();
+}
+
+</script>
+ <div>                                                                                                                         
+                                                                                                                                    
+         <canvas id="canvasID" width="800" height="500"></canvas>                                                                
+                                                                                                                                    
+      </div>  
+
+</body>
+</html>

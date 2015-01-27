@@ -1,0 +1,70 @@
+#!/bin/bash
+
+### Automated the annotation of Trinity transcriptome assemblies via the Trinotate pipeline
+### This script is meant to be run in a directory containing at least one Trinity assembly
+### Since the for loop will operate on any file ending in .fasta, best to run it in a directory with just the Trinity assemblies you are interested in annotating
+### printf statements in the for loop append start times of each step to a log in the parent directory where the script was executed
+### Written November 17th, 2013 by S.R. Santos, Department of Biological Sciences, Auburn University
+### Developed under funding from the National Science Foundation [NSF-DEB #0949855 (S.R.S.); NSF-DEB #1036537 (K.M.H. & S.R.S.)]
+
+### ***** Follow the Trinotate set-up tutorial (http://trinotate.sourceforge.net/) AND read the comments below PRIOR to running this script!!
+
+### Keep bash shell from globbing unless explicitly told to
+shopt -s nullglob
+
+### Create variables for Trinity installation and other binaries
+### While some of the below is portable between different system configurations, adjust where needed
+### IF YOU HAVE JUST CREATED YOUR DATABASES AND HAVE mlocate INSTALLED ON YOUR SYSTEM, RUN updatedb AS SUPERUSER SO locate PICKS THEM UP BELOW (OTHERWISE HARDCODE THEIR LOCATIONS IN THE VARIABLES).
+TRINITY_HOME=/usr/local/genome/trinityrnaseq_r2013-11-10
+UNIPROT_DB_NAME=`locate uniprot_sprot.fasta | grep -v "\.p"`
+PFAM_DB_NAME=`locate Pfam-A.hmm | grep -v "\.h3"`
+BLASTX=`which blastx`
+BLASTP=`which blastp`
+HMMSCAN=`which hmmscan`
+SIGNALP=`which signalp`
+TMHMM=`which tmhmm`
+
+### Start looping through the Trinity assemblies that are *.fasta files
+for FILENAME in *.fasta
+do
+	### Create a variable for the date and species whose transcriptome is being annotated
+	MTHYR=`date | awk '{print ($2$6)}'`
+	### THIS "SPECIES" VARIABLE WILL NEED TO BE ADJUSTED TO HOW YOU HAVE SPECIFICALLY ANNOTATED YOUR TRANSCRIPTOME FASTA ENTRIES
+	### I USE sed -i TO MAKE EACH FASTA ENTRY LIKE SO: >Genus_species_TRI_MTH_YR_NON_NORM_comp67691_c0_seq1 len=254 path=[112162446:0-253] FOLLOWING ASSEMBLY
+	### THE BELOW EXTRACTS THE Genus_species INFO FROM THE 1ST FASTA ENTRY LIKE THE ABOVE AND CREATES THE VARIABLE
+	SPECIES=`head -1 $FILENAME | sed -e 's/>//;s/_TRI_.*$//'`
+	### nOW set up a specific directory for the annotation to be done in (keeps things tidy) and get to work
+	mkdir ${SPECIES}_Trinotate_${MTHYR}
+	mv $FILENAME ${SPECIES}_Trinotate_${MTHYR}
+	cd ${SPECIES}_Trinotate_${MTHYR}
+	PARENT_DIR=`pwd | awk -F"/" {'print $(NF-1)'}`
+	### Extract the most likely longest-ORF peptide candidates from the Trinity assembly using TransDecoder and remove the empty tmp directory when done
+	printf "Started transdecoder for ${SPECIES} on `date` ......\n" >> ../Trinotate_run_${PARENT_DIR}_${MTHYR}.log
+	$TRINITY_HOME/trinity-plugins/TransDecoder_r20131110/TransDecoder -t $FILENAME
+	rm -rf *.tmp*
+	### BLAST the raw transcripts (blastx) and peptide candidates (blastp) against the UNIProt database; save single best hit in tab delimited format
+        ### ADJUST -num_threads OPTION TO YOUR ENVIRONMENT!!
+	printf "Started blastp for ${SPECIES} on `date` ......\n" >> ../Trinotate_run_${PARENT_DIR}_${MTHYR}.log
+        ${BLASTP} -query ${FILENAME}.transdecoder.pep -db ${UNIPROT_DB_NAME} -num_threads 10 -max_target_seqs 1 -outfmt 6 > ${SPECIES}_blastp.outfmt6
+	printf "Started blastx for ${SPECIES} on `date` ......\n" >> ../Trinotate_run_${PARENT_DIR}_${MTHYR}.log
+	${BLASTX} -query $FILENAME -db ${UNIPROT_DB_NAME} -num_threads 10 -max_target_seqs 1 -outfmt 6 > ${SPECIES}_blastx.outfmt6
+	### ADJUST --cpu OPTION BELOW TO YOUR ENVIRONMENT!!
+	### Run HMMER to identify protein domains in the most likely longest-ORF peptide candidates from the Trinity assembly
+	printf "Started hmmscan for ${SPECIES} on `date` ......\n" >> ../Trinotate_run_${PARENT_DIR}_${MTHYR}.log
+	${HMMSCAN} --cpu 10 --domtblout ${SPECIES}_TrinotatePFAM.out ${PFAM_DB_NAME} ${FILENAME}.transdecoder.pep > ${SPECIES}_pfam.log
+	### Run signalP to predict signal peptides in the most likely longest-ORF peptide candidates from the Trinity assembly
+	printf "Started signalp for ${SPECIES} on `date` ......\n" >> ../Trinotate_run_${PARENT_DIR}_${MTHYR}.log
+	${SIGNALP} -f short -n ${SPECIES}_signalp.out ${FILENAME}.transdecoder.pep
+	### Run tmHMM to predict transmembrane regions in the most likely longest-ORF peptide candidates from the Trinity assembly
+	printf "Started tmhmm for ${SPECIES} on `date` ......\n" >> ../Trinotate_run_${PARENT_DIR}_${MTHYR}.log
+	${TMHMM} --short < ${FILENAME}.transdecoder.pep > ${SPECIES}_tmhmm.out
+	### Remove the empty tmp directory left by tmhmm and move up into the parent directory
+	rm -rf TMHMM_*
+	printf "DONE - Trinotate annotation of ${SPECIES} completed at `date` \n" >> ../Trinotate_run_${PARENT_DIR}_${MTHYR}.log
+	cd ..
+	### Now .tar.gz to save space and delete original directory/files
+	tar -pczf ${SPECIES}_Trinotate_${MTHYR}.tar.gz ${SPECIES}_Trinotate_${MTHYR}/
+	rm -rf ${SPECIES}_Trinotate_${MTHYR}/
+	### Now continue back to beginning of da_loop for any remaining Trinity assemblies
+done
+

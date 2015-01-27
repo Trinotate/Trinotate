@@ -1,0 +1,5 @@
+svn checkout --username=bhaas svn+ssh://bhaas@svn.code.sf.net/p/trinotate/code/trunk trinotate-code
+
+
+RO:
+svn checkout svn://svn.code.sf.net/p/trinotate/code/trunk trinotate-code

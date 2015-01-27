@@ -1,0 +1,411 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+use Carp;
+use Getopt::Long qw(:config no_ignore_case bundling);
+use FindBin;
+use lib ("$FindBin::Bin/../../PerlLib");
+use DBI;
+use Sqlite_connect;
+use Data::Dumper;
+
+my $usage = <<__EOUSAGE__;
+
+#################################################################################################
+#
+# Required:
+#
+#  --sqlite <string>         path to the Trinotate sqlite database
+#
+#  --count_matrix <string>        raw fragment counts matrix
+#  --fpkm_matrix <string>         fpkm normalized expression value matrix
+#
+#  AND
+#
+#  --transcript_mode              analysis is performed based on Trinity transcripts (isoforms)
+#  OR
+#  --component_mode               analysis is performed based on Trinity components (genes)
+#
+# Optional:
+#  
+#  --restrict <string>            features to restrict loading to (first column should be the feature ID)
+#
+#  --min_rowSum_counts <int>      minimum number of raw fragment counts for a feature (gene or trans)
+#
+#  --bulk_load                    use sqlite bulk loading feature   ** highly recommended for large matrices **
+#
+##################################################################################################
+
+
+__EOUSAGE__
+
+    ;
+
+
+my $sqlite;
+my $count_matrix_file;
+my $fpkm_matrix_file;
+my $transcript_mode = 0;
+my $component_mode = 0;
+my $help_flag;
+my $samples_file;
+my $restrict;
+my $bulk_load_flag = 0;
+
+my $min_rowSum_counts = 0;
+
+&GetOptions (  'h' => \$help_flag,
+               
+               'sqlite=s' => \$sqlite,
+
+               'count_matrix=s' => \$count_matrix_file,
+               'fpkm_matrix=s' => \$fpkm_matrix_file,
+                
+               'transcript_mode' => \$transcript_mode,
+               'component_mode' => \$component_mode,
+               
+               'restrict=s' => \$restrict,
+               
+               'bulk_load' => \$bulk_load_flag,
+               
+               'min_rowSum_counts=i' => \$min_rowSum_counts,
+
+               );
+
+
+if ($help_flag) {
+    die $usage;
+}
+
+unless ($sqlite
+        &&
+        $count_matrix_file && $fpkm_matrix_file
+        && ($transcript_mode || $component_mode) ) {
+    die $usage;
+}
+
+
+unless (-s $sqlite) {
+    die "Error, cannot find db: $sqlite ";
+}
+
+our $SEE = 0;
+
+
+main: {
+
+    my $dbproc = DBI->connect( "dbi:SQLite:$sqlite" ) || die "Cannot connect: $DBI::errstr";
+
+
+    $dbproc->do("PRAGMA synchronous=OFF");
+    $dbproc->{AutoCommit} = 0;
+    
+
+    my $feature_type = ($transcript_mode) ? 'T' : 'G';
+    
+    my %samples_n_reps_to_ID = &get_sample_ids($dbproc);
+
+    print STDERR "Samples and replicates: " . Dumper(\%samples_n_reps_to_ID);
+    
+    my %restricted_ids;
+    if ($restrict) {
+        %restricted_ids = &get_restricted_ids($restrict);
+    }
+    
+    print STDERR "-parsing counts matrix: $count_matrix_file\n";
+    my %counts_matrix = &parse_matrix($count_matrix_file, \%samples_n_reps_to_ID, \%restricted_ids, $min_rowSum_counts);
+    
+    print STDERR "-parsing fpkm matrix: $fpkm_matrix_file\n";
+    my %fpkm_matrix = &parse_matrix($fpkm_matrix_file, \%samples_n_reps_to_ID, \%restricted_ids);
+    
+    print STDERR "-populating Expression table\n";
+    &populate_expression_table($dbproc, \%samples_n_reps_to_ID, \%counts_matrix, \%fpkm_matrix, $feature_type);
+    
+    exit(0);
+                        
+}
+
+
+####
+sub parse_column_headers {
+    my ($DE_result_file) = @_;
+
+    open (my $fh, $DE_result_file) or die "Error, cannot open file $DE_result_file";
+    my $top_line = <$fh>;
+    my $second_line = <$fh>;
+    close $fh;
+
+    chomp $top_line;
+    #$top_line =~ s/\.(genes|isoforms)\.results//g;
+    my @columns = split(/\t/, $top_line);
+    
+    chomp $second_line;
+    my @second_line_columns = split(/\t/, $second_line);
+    if (scalar(@columns) == scalar(@second_line_columns) -1) {
+        # weird R thing where the header can be off by one due to row.names
+        unshift (@columns, "id");
+    }
+    
+    my %indices;
+    for (my $i = 0; $i <= $#columns; $i++) {
+        $indices{$columns[$i]} = $i;
+    }
+
+    return(%indices);
+}
+    
+####
+sub parse_samples_file {
+    my ($samples_file) = @_;
+
+    my %sample_to_reps;
+
+    open (my $fh, $samples_file) or die "Error, cannot open file: $samples_file";
+    while (<$fh>) {
+        chomp;
+        unless (/\w/) { next; }
+        if (/^\#/) { next; }
+        
+        my ($sample, $rep_name, @rest) = split(/\t/);
+        
+        if (defined ($sample) && defined ($rep_name) ) {
+            $sample_to_reps{$sample}->{$rep_name} = 1;
+        }
+    }
+    close $fh;
+    
+    return(%sample_to_reps);
+}
+
+####
+sub get_sample_ids {
+    my ($dbproc, $samples_href) = @_;
+
+    my %sample_and_rep_ids;
+    
+    ## get existing assignments
+    {
+        my $query = "select sample_id, sample_name from Samples";
+        my @results = &do_sql_2D($dbproc, $query);
+        foreach my $result (@results) {
+            my ($sample_id, $sample_name) = @$result;
+            $sample_and_rep_ids{sample}->{$sample_name} = $sample_id;
+        }
+    }
+    
+    {
+        my $query = "select replicate_id, replicate_name from Replicates";
+        my @results = &do_sql_2D($dbproc, $query);
+        foreach my $result (@results) {
+            my ($replicate_id, $replicate_name) = @$result;
+            $sample_and_rep_ids{replicate}->{$replicate_name} = $replicate_id;
+        }
+    }
+
+    return(%sample_and_rep_ids);
+}
+
+
+####
+sub parse_matrix {
+    my ($matrix_file, $samples_n_reps_href, $restricted_ids_href, $min_rowSum_counts) = @_;
+
+    my %matrix;
+    
+    open (my $fh, $matrix_file) or die "Error, cannot open file $matrix_file";
+    my $header = <$fh>;
+    chomp $header;
+    $header =~ s/^\s+//;
+    #$header =~ s/\.(genes|isoforms)\.results//g;
+    my @fields = split(/\t/, $header);
+
+    ## Ensure that each column value is a recognizable replicate name
+    my %replicates = %{$samples_n_reps_href->{replicate}};
+    my $rep_name_ok = 1;
+    for my $i (1..$#fields) {
+        my $replicate_name = $fields[$i];
+        unless (exists $replicates{$replicate_name}) {
+            print STDERR "ERROR: Do not recognize column name \"$replicate_name\" as a replicate name as specified in the sampels description file.\n";
+            $rep_name_ok = 0;
+        }
+    }
+    if (! $rep_name_ok) {
+        die "Error, at least one column name in file $matrix_file could not be recognized as a replicate name.  Please check for consistency between your samples description file and your matrix column headers.\n";
+    }
+    
+    my %sufficient_counts;
+
+    while (<$fh>) {
+        chomp;
+        my @x = split(/\t/);
+        my $trans_id = shift @x;
+        
+        if (%$restricted_ids_href  && ! $restricted_ids_href->{$trans_id}) { next; }
+        
+        
+
+        unless (scalar(@x) == scalar(@fields) ) {
+            die "Error, number of fields in row is different from number of replicates";
+        }
+        
+        if ($min_rowSum_counts) {
+            my $sum = &sum(@x);
+            if ($sum < $min_rowSum_counts) { 
+                next;
+            }
+            else {
+                $sufficient_counts{$trans_id} = 1;
+            }
+        }
+
+
+        for (my $i = 0; $i <= $#fields; $i++) {
+            my $rep_name = $fields[$i];
+            my $expr = $x[$i];
+            
+            $matrix{$trans_id}->{$rep_name} = $expr;
+        }
+    }
+    close $fh;
+
+    if (%sufficient_counts) {
+        %{$restricted_ids_href} = %sufficient_counts;
+    }
+    
+
+    return(%matrix);
+}
+
+
+####
+sub sum {
+    my (@vals) = @_;
+
+    my $sum = 0;
+    foreach my $val (@vals) {
+        $sum += $val;
+    }
+
+    return($sum);
+}
+
+
+####
+sub populate_expression_table {
+    my ($dbproc, $samples_n_reps_to_ID_href, $counts_matrix_href, $fpkm_matrix_href, $feature_type) = @_;
+
+
+    my %already_loaded;
+    {
+        my $query = "select feature_name from Expression where feature_type = ?";
+        my @results = &do_sql($dbproc, $query, $feature_type);
+        %already_loaded = map { + $_ => 1 } @results;
+    }
+    
+
+    my $counter = 0;
+
+    my @feature_ids = keys %$counts_matrix_href;
+
+
+    my $ofh;
+    my $bulk_load_file = "tmp.expression_matrix_load.dat";
+    if ($bulk_load_flag) {
+        $dbproc->disconnect;
+        
+        open ($ofh, ">$bulk_load_file") or die "Error, cannot write to $bulk_load_file";
+    }
+    
+    my $num_features = scalar(@feature_ids);
+
+    foreach my $feature (@feature_ids) {
+        
+        $counter++;
+        
+        if ($already_loaded{$feature}) { next; }
+        
+        my @replicates = keys %{$counts_matrix_href->{$feature}};
+        foreach my $replicate (@replicates) {
+            my $rep_id = $samples_n_reps_to_ID_href->{replicate}->{$replicate} or die "Error, no replicate_id for [$replicate]";
+            
+            my $frag_count = $counts_matrix_href->{$feature}->{$replicate};
+            unless (defined $frag_count) {
+                die "Error, no frag count for $feature, $replicate";
+            }
+            
+            my $fpkm = $fpkm_matrix_href->{$feature}->{$replicate};
+            unless (defined $fpkm) {
+                die "Error, no fpkm measurement for $feature, $replicate";
+            }
+            
+            
+            if ($bulk_load_flag) {
+                #CREATE TABLE Expression (feature_name, feature_type, replicate_id, frag_count REAL, fpkm REAL);
+                print $ofh join("\t", $feature, $feature_type, $rep_id, $frag_count, $fpkm) . "\n";
+            }
+            else {
+                my $query = "insert into Expression (feature_name, feature_type, replicate_id, frag_count, fpkm) "
+                    . " values (?,?,?,?,?)";
+                &do_sql($dbproc, $query, $feature, $feature_type, $rep_id, $frag_count, $fpkm);
+                
+                if ($counter % 10000 == 0) {
+                    $dbproc->commit;
+                    
+                }
+                
+            }
+            
+            if ($counter % 10000) {
+                my $pct_done = $counter/$num_features * 100;
+                print STDERR "\r[" . sprintf("%.4f", $pct_done)  .  "% done.]      ";
+            }
+        }
+    }
+    print STDERR "\n";
+    
+    if ($bulk_load_flag) {
+        close $ofh;
+        &bulk_load_sqlite($sqlite, "Expression", $bulk_load_file);
+        unlink($bulk_load_file);
+    }
+    else {
+        $dbproc->commit;
+    }
+    
+        
+    return;
+}
+
+####
+sub get_restricted_ids {
+    my  ($restrict) = @_;
+
+    my %restricted_ids;
+
+    open (my $fh, $restrict) or die $!;
+    while (<$fh>) {
+        my @x = split(/\t/);
+        my $id = $x[0];
+        $restricted_ids{$id} = 1;
+    }
+    close $fh;
+
+    return(%restricted_ids);
+}
+
+
+####
+sub process_cmd {
+    my ($cmd) = @_;
+
+    print STDERR "CMD: $cmd\n";
+    my $ret = system($cmd);
+
+    if ($ret) {
+        die "Error, cmd: $cmd died with ret $ret";
+    }
+
+    return;
+}
+

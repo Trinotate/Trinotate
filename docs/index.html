@@ -1,0 +1,1518 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.6.8" />
+<title>Trinotate: Transcriptome Functional Annotation and Analysis</title>
+<style type="text/css">
+/* Shared CSS for AsciiDoc xhtml11 and html5 backends */
+
+/* Default font. */
+body {
+  font-family: Georgia,serif;
+}
+
+/* Title font. */
+h1, h2, h3, h4, h5, h6,
+div.title, caption.title,
+thead, p.table.header,
+#toctitle,
+#author, #revnumber, #revdate, #revremark,
+#footer {
+  font-family: Arial,Helvetica,sans-serif;
+}
+
+body {
+  margin: 1em 5% 1em 5%;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:visited {
+  color: fuchsia;
+}
+
+em {
+  font-style: italic;
+  color: navy;
+}
+
+strong {
+  font-weight: bold;
+  color: #083194;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #527bbd;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1, h2, h3 {
+  border-bottom: 2px solid silver;
+}
+h2 {
+  padding-top: 0.5em;
+}
+h3 {
+  float: left;
+}
+h3 + * {
+  clear: left;
+}
+h5 {
+  font-size: 1.0em;
+}
+
+div.sectionbody {
+  margin-left: 0;
+}
+
+hr {
+  border: 1px solid silver;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul, ol, li > p {
+  margin-top: 0;
+}
+ul > li     { color: #aaa; }
+ul > li > * { color: black; }
+
+.monospaced, code, pre {
+  font-family: "Courier New", Courier, monospace;
+  font-size: inherit;
+  color: navy;
+  padding: 0;
+  margin: 0;
+}
+
+
+#author {
+  color: #527bbd;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#email {
+}
+#revnumber, #revdate, #revremark {
+}
+
+#footer {
+  font-size: small;
+  border-top: 2px solid silver;
+  padding-top: 0.5em;
+  margin-top: 4.0em;
+}
+#footer-text {
+  float: left;
+  padding-bottom: 0.5em;
+}
+#footer-badges {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+#preamble {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.admonitionblock {
+  margin-top: 2.0em;
+  margin-bottom: 2.0em;
+  margin-right: 10%;
+  color: #606060;
+}
+
+div.content { /* Block element content. */
+  padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+  color: #527bbd;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+}
+div.title + * {
+  margin-top: 0;
+}
+
+td div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content + div.title {
+  margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+  background: #ffffee;
+  border: 1px solid #dddddd;
+  border-left: 4px solid #f0f0f0;
+  padding: 0.5em;
+}
+
+div.listingblock > div.content {
+  border: 1px solid #dddddd;
+  border-left: 5px solid #f0f0f0;
+  background: #f8f8f8;
+  padding: 0.5em;
+}
+
+div.quoteblock, div.verseblock {
+  padding-left: 1.0em;
+  margin-left: 1.0em;
+  margin-right: 10%;
+  border-left: 5px solid #f0f0f0;
+  color: #888;
+}
+
+div.quoteblock > div.attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock > pre.content {
+  font-family: inherit;
+  font-size: inherit;
+}
+div.verseblock > div.attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+/* DEPRECATED: Pre version 8.2.7 verse style literal block. */
+div.verseblock + div.attribution {
+  text-align: left;
+}
+
+div.admonitionblock .icon {
+  vertical-align: top;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #527bbd;
+  padding-right: 0.5em;
+}
+div.admonitionblock td.content {
+  padding-left: 0.5em;
+  border-left: 3px solid #dddddd;
+}
+
+div.exampleblock > div.content {
+  border-left: 3px solid #dddddd;
+  padding-left: 0.5em;
+}
+
+div.imageblock div.content { padding-left: 0; }
+span.image img { border-style: none; }
+a.image:visited { color: white; }
+
+dl {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+dt {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-style: normal;
+  color: navy;
+}
+dd > *:first-child {
+  margin-top: 0.1em;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+ol.arabic {
+  list-style-type: decimal;
+}
+ol.loweralpha {
+  list-style-type: lower-alpha;
+}
+ol.upperalpha {
+  list-style-type: upper-alpha;
+}
+ol.lowerroman {
+  list-style-type: lower-roman;
+}
+ol.upperroman {
+  list-style-type: upper-roman;
+}
+
+div.compact ul, div.compact ol,
+div.compact p, div.compact p,
+div.compact div, div.compact div {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+tfoot {
+  font-weight: bold;
+}
+td > div.verse {
+  white-space: pre;
+}
+
+div.hdlist {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+div.hdlist tr {
+  padding-bottom: 15px;
+}
+dt.hdlist1.strong, td.hdlist1.strong {
+  font-weight: bold;
+}
+td.hdlist1 {
+  vertical-align: top;
+  font-style: normal;
+  padding-right: 0.8em;
+  color: navy;
+}
+td.hdlist2 {
+  vertical-align: top;
+}
+div.hdlist.compact tr {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.comment {
+  background: yellow;
+}
+
+.footnote, .footnoteref {
+  font-size: 0.8em;
+}
+
+span.footnote, span.footnoteref {
+  vertical-align: super;
+}
+
+#footnotes {
+  margin: 20px 0 20px 0;
+  padding: 7px 0 0 0;
+}
+
+#footnotes div.footnote {
+  margin: 0 0 5px 0;
+}
+
+#footnotes hr {
+  border: none;
+  border-top: 1px solid silver;
+  height: 1px;
+  text-align: left;
+  margin-left: 0;
+  width: 20%;
+  min-width: 100px;
+}
+
+div.colist td {
+  padding-right: 0.5em;
+  padding-bottom: 0.3em;
+  vertical-align: top;
+}
+div.colist td img {
+  margin-top: 0.3em;
+}
+
+@media print {
+  #footer-badges { display: none; }
+}
+
+#toc {
+  margin-bottom: 2.5em;
+}
+
+#toctitle {
+  color: #527bbd;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 1.0em;
+  margin-bottom: 0.1em;
+}
+
+div.toclevel0, div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.toclevel2 {
+  margin-left: 2em;
+  font-size: 0.9em;
+}
+div.toclevel3 {
+  margin-left: 4em;
+  font-size: 0.9em;
+}
+div.toclevel4 {
+  margin-left: 6em;
+  font-size: 0.9em;
+}
+
+span.aqua { color: aqua; }
+span.black { color: black; }
+span.blue { color: blue; }
+span.fuchsia { color: fuchsia; }
+span.gray { color: gray; }
+span.green { color: green; }
+span.lime { color: lime; }
+span.maroon { color: maroon; }
+span.navy { color: navy; }
+span.olive { color: olive; }
+span.purple { color: purple; }
+span.red { color: red; }
+span.silver { color: silver; }
+span.teal { color: teal; }
+span.white { color: white; }
+span.yellow { color: yellow; }
+
+span.aqua-background { background: aqua; }
+span.black-background { background: black; }
+span.blue-background { background: blue; }
+span.fuchsia-background { background: fuchsia; }
+span.gray-background { background: gray; }
+span.green-background { background: green; }
+span.lime-background { background: lime; }
+span.maroon-background { background: maroon; }
+span.navy-background { background: navy; }
+span.olive-background { background: olive; }
+span.purple-background { background: purple; }
+span.red-background { background: red; }
+span.silver-background { background: silver; }
+span.teal-background { background: teal; }
+span.white-background { background: white; }
+span.yellow-background { background: yellow; }
+
+span.big { font-size: 2em; }
+span.small { font-size: 0.6em; }
+
+span.underline { text-decoration: underline; }
+span.overline { text-decoration: overline; }
+span.line-through { text-decoration: line-through; }
+
+div.unbreakable { page-break-inside: avoid; }
+
+
+/*
+ * xhtml11 specific
+ *
+ * */
+
+div.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.tableblock > table {
+  border: 3px solid #527bbd;
+}
+thead, p.table.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.table {
+  margin-top: 0;
+}
+/* Because the table frame attribute is overriden by CSS in most browsers. */
+div.tableblock > table[frame="void"] {
+  border-style: none;
+}
+div.tableblock > table[frame="hsides"] {
+  border-left-style: none;
+  border-right-style: none;
+}
+div.tableblock > table[frame="vsides"] {
+  border-top-style: none;
+  border-bottom-style: none;
+}
+
+
+/*
+ * html5 specific
+ *
+ * */
+
+table.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+thead, p.tableblock.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.tableblock {
+  margin-top: 0;
+}
+table.tableblock {
+  border-width: 3px;
+  border-spacing: 0px;
+  border-style: solid;
+  border-color: #527bbd;
+  border-collapse: collapse;
+}
+th.tableblock, td.tableblock {
+  border-width: 1px;
+  padding: 4px;
+  border-style: solid;
+  border-color: #527bbd;
+}
+
+table.tableblock.frame-topbot {
+  border-left-style: hidden;
+  border-right-style: hidden;
+}
+table.tableblock.frame-sides {
+  border-top-style: hidden;
+  border-bottom-style: hidden;
+}
+table.tableblock.frame-none {
+  border-style: hidden;
+}
+
+th.tableblock.halign-left, td.tableblock.halign-left {
+  text-align: left;
+}
+th.tableblock.halign-center, td.tableblock.halign-center {
+  text-align: center;
+}
+th.tableblock.halign-right, td.tableblock.halign-right {
+  text-align: right;
+}
+
+th.tableblock.valign-top, td.tableblock.valign-top {
+  vertical-align: top;
+}
+th.tableblock.valign-middle, td.tableblock.valign-middle {
+  vertical-align: middle;
+}
+th.tableblock.valign-bottom, td.tableblock.valign-bottom {
+  vertical-align: bottom;
+}
+
+
+/*
+ * manpage specific
+ *
+ * */
+
+body.manpage h1 {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-top: 2px solid silver;
+  border-bottom: 2px solid silver;
+}
+body.manpage h2 {
+  border-style: none;
+}
+body.manpage div.sectionbody {
+  margin-left: 3em;
+}
+
+@media print {
+  body.manpage div#toc { display: none; }
+}
+
+
+</style>
+<script type="text/javascript">
+/*<![CDATA[*/
+var asciidoc = {  // Namespace.
+
+/////////////////////////////////////////////////////////////////////
+// Table Of Contents generator
+/////////////////////////////////////////////////////////////////////
+
+/* Author: Mihai Bazon, September 2002
+ * http://students.infoiasi.ro/~mishoo
+ *
+ * Table Of Content generator
+ * Version: 0.4
+ *
+ * Feel free to use this script under the terms of the GNU General Public
+ * License, as long as you do not remove or alter this notice.
+ */
+
+ /* modified by Troy D. Hanson, September 2006. License: GPL */
+ /* modified by Stuart Rackham, 2006, 2009. License: GPL */
+
+// toclevels = 1..4.
+toc: function (toclevels) {
+
+  function getText(el) {
+    var text = "";
+    for (var i = el.firstChild; i != null; i = i.nextSibling) {
+      if (i.nodeType == 3 /* Node.TEXT_NODE */) // IE doesn't speak constants.
+        text += i.data;
+      else if (i.firstChild != null)
+        text += getText(i);
+    }
+    return text;
+  }
+
+  function TocEntry(el, text, toclevel) {
+    this.element = el;
+    this.text = text;
+    this.toclevel = toclevel;
+  }
+
+  function tocEntries(el, toclevels) {
+    var result = new Array;
+    var re = new RegExp('[hH]([1-'+(toclevels+1)+'])');
+    // Function that scans the DOM tree for header elements (the DOM2
+    // nodeIterator API would be a better technique but not supported by all
+    // browsers).
+    var iterate = function (el) {
+      for (var i = el.firstChild; i != null; i = i.nextSibling) {
+        if (i.nodeType == 1 /* Node.ELEMENT_NODE */) {
+          var mo = re.exec(i.tagName);
+          if (mo && (i.getAttribute("class") || i.getAttribute("className")) != "float") {
+            result[result.length] = new TocEntry(i, getText(i), mo[1]-1);
+          }
+          iterate(i);
+        }
+      }
+    }
+    iterate(el);
+    return result;
+  }
+
+  var toc = document.getElementById("toc");
+  if (!toc) {
+    return;
+  }
+
+  // Delete existing TOC entries in case we're reloading the TOC.
+  var tocEntriesToRemove = [];
+  var i;
+  for (i = 0; i < toc.childNodes.length; i++) {
+    var entry = toc.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div'
+     && entry.getAttribute("class")
+     && entry.getAttribute("class").match(/^toclevel/))
+      tocEntriesToRemove.push(entry);
+  }
+  for (i = 0; i < tocEntriesToRemove.length; i++) {
+    toc.removeChild(tocEntriesToRemove[i]);
+  }
+
+  // Rebuild TOC entries.
+  var entries = tocEntries(document.getElementById("content"), toclevels);
+  for (var i = 0; i < entries.length; ++i) {
+    var entry = entries[i];
+    if (entry.element.id == "")
+      entry.element.id = "_toc_" + i;
+    var a = document.createElement("a");
+    a.href = "#" + entry.element.id;
+    a.appendChild(document.createTextNode(entry.text));
+    var div = document.createElement("div");
+    div.appendChild(a);
+    div.className = "toclevel" + entry.toclevel;
+    toc.appendChild(div);
+  }
+  if (entries.length == 0)
+    toc.parentNode.removeChild(toc);
+},
+
+
+/////////////////////////////////////////////////////////////////////
+// Footnotes generator
+/////////////////////////////////////////////////////////////////////
+
+/* Based on footnote generation code from:
+ * http://www.brandspankingnew.net/archive/2005/07/format_footnote.html
+ */
+
+footnotes: function () {
+  // Delete existing footnote entries in case we're reloading the footnodes.
+  var i;
+  var noteholder = document.getElementById("footnotes");
+  if (!noteholder) {
+    return;
+  }
+  var entriesToRemove = [];
+  for (i = 0; i < noteholder.childNodes.length; i++) {
+    var entry = noteholder.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div' && entry.getAttribute("class") == "footnote")
+      entriesToRemove.push(entry);
+  }
+  for (i = 0; i < entriesToRemove.length; i++) {
+    noteholder.removeChild(entriesToRemove[i]);
+  }
+
+  // Rebuild footnote entries.
+  var cont = document.getElementById("content");
+  var spans = cont.getElementsByTagName("span");
+  var refs = {};
+  var n = 0;
+  for (i=0; i<spans.length; i++) {
+    if (spans[i].className == "footnote") {
+      n++;
+      var note = spans[i].getAttribute("data-note");
+      if (!note) {
+        // Use [\s\S] in place of . so multi-line matches work.
+        // Because JavaScript has no s (dotall) regex flag.
+        note = spans[i].innerHTML.match(/\s*\[([\s\S]*)]\s*/)[1];
+        spans[i].innerHTML =
+          "[<a id='_footnoteref_" + n + "' href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+        spans[i].setAttribute("data-note", note);
+      }
+      noteholder.innerHTML +=
+        "<div class='footnote' id='_footnote_" + n + "'>" +
+        "<a href='#_footnoteref_" + n + "' title='Return to text'>" +
+        n + "</a>. " + note + "</div>";
+      var id =spans[i].getAttribute("id");
+      if (id != null) refs["#"+id] = n;
+    }
+  }
+  if (n == 0)
+    noteholder.parentNode.removeChild(noteholder);
+  else {
+    // Process footnoterefs.
+    for (i=0; i<spans.length; i++) {
+      if (spans[i].className == "footnoteref") {
+        var href = spans[i].getElementsByTagName("a")[0].getAttribute("href");
+        href = href.match(/#.*/)[0];  // Because IE return full URL.
+        n = refs[href];
+        spans[i].innerHTML =
+          "[<a href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+      }
+    }
+  }
+},
+
+install: function(toclevels) {
+  var timerId;
+
+  function reinstall() {
+    asciidoc.footnotes();
+    if (toclevels) {
+      asciidoc.toc(toclevels);
+    }
+  }
+
+  function reinstallAndRemoveTimer() {
+    clearInterval(timerId);
+    reinstall();
+  }
+
+  timerId = setInterval(reinstall, 500);
+  if (document.addEventListener)
+    document.addEventListener("DOMContentLoaded", reinstallAndRemoveTimer, false);
+  else
+    window.onload = reinstallAndRemoveTimer;
+}
+
+}
+asciidoc.install();
+/*]]>*/
+</script>
+</head>
+<body class="article">
+<div id="header">
+<h1>Trinotate: Transcriptome Functional Annotation and Analysis</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="images/TrinotateLogo.png" alt="Trinotate image" />
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_background">Background</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Trinotate is a comprehensive annotation suite designed for automatic functional annotation of transcriptomes, particularly de novo assembled transcriptomes, from model or non-model organisms. Trinotate makes use of a number of different well referenced methods for functional annotation including homology search to known sequence data (NCBI-BLAST), protein domain identification (HMMER/PFAM), protein signal prediction (singalP/tmHMM), and comparison to currently curated annotation databases (EMBL Uniprot eggNOG/GO Pathways databases). All functional annotation data derived from the analysis of transcripts is integrated into a SQLite database which allows fast efficient searching for terms with specific qualities related to a desired scientific hypothesis or a means to create a whole annotation report for a transcriptome.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">Trinotate now includes <a href="TrinotateWeb.html">TrinotateWeb</a>, which provide a graphical interface for navigating transcriptome annotations and analyzing transcript expression and differential expression using the Trinity/RSEM/Bioconductor analysis framework.</td>
+</tr></table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/trinityWebLogo.png" alt="TrinityWeb logo" width="350" />
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_table_of_contents">1. Table of Contents</h2>
+<div class="sectionbody">
+<div class="ulist"><ul>
+<li>
+<p>
+<a href="#SoftwareRequired">Software and Data Required</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#SequencesRequired">Sequence Databases Required</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#SeqAnalyses">Running Sequence Analyses</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#LoadingSQLite">Trinotate: Loading results into an SQLite database</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#OutputReport">Trinotate: Output an annotation report</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#SampleData">Trinotate: Sample data and execution</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#LitRefs">Literature references for software leveraged for functional annotation</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Contact">Contact us</a>
+</p>
+</li>
+</ul></div>
+</div>
+</div>
+<h1 id="SoftwareRequired">Software and Data Required</h1>
+<div class="sect1">
+<h2 id="_software_required">1. Software Required</h2>
+<div class="sectionbody">
+<div class="ulist"><ul>
+<li>
+<p>
+Trinotate
+<em>http://trinotate.sourceforge.net</em> <a href="https://sourceforge.net/projects/trinotate/files/">download Trinotate</a>
+</p>
+</li>
+<li>
+<p>
+Trinity (includes TransDecoder and support for expression and DE analysis using RSEM and Bioconductor):
+<em>http://trinityrnaseq.sourceforge.net/</em> <a href="https://sourceforge.net/projects/trinityrnaseq/files/">download Trinity</a>
+</p>
+</li>
+<li>
+<p>
+sqlite (required for database integration):
+<a href="http://www.sqlite.org/">http://www.sqlite.org/</a>
+</p>
+</li>
+<li>
+<p>
+NCBI Blast: Blast database Homology Search:
+<a href="http://www.ncbi.nlm.nih.gov/books/NBK52640/">http://www.ncbi.nlm.nih.gov/books/NBK52640/</a>
+</p>
+</li>
+<li>
+<p>
+HMMER/PFAM Protein Domain Identification:
+<a href="http://hmmer.janelia.org/software">http://hmmer.janelia.org/software</a>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>Below are optional but recommended:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+signalP v4 (free academic download)
+<a href="http://www.cbs.dtu.dk/cgi-bin/nph-sw_request?signalp">http://www.cbs.dtu.dk/cgi-bin/nph-sw_request?signalp</a>
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><code>You should edit the following line to read like so, increasing the max number of entries that can be processed:
+my $MAX_ALLOWED_ENTRIES=2000000;  # default is only 2000</code></pre>
+</div></div>
+</li>
+<li>
+<p>
+tmhmm v2 (free academic download)
+<a href="http://www.cbs.dtu.dk/cgi-bin/nph-sw_request?tmhmm">http://www.cbs.dtu.dk/cgi-bin/nph-sw_request?tmhmm</a>
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><code>You might need to edit the header lines of the scripts 'tmhmm' and 'tmhmmformat.pl' to read:
+#!/usr/bin/env perl</code></pre>
+</div></div>
+</li>
+<li>
+<p>
+RNAMMER (free academic download)
+<a href="http://www.cbs.dtu.dk/cgi-bin/sw_request?rnammer">http://www.cbs.dtu.dk/cgi-bin/sw_request?rnammer</a>
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><code>Installation notes:
+RNAMMER requires the older version of hmmsearch (v2).
+You can obtain the hmmsearch_v2 at ftp://selab.janelia.org/pub/software/hmmer/2.3.2/hmmer-2.3.2.tar.gz[ftp://selab.janelia.org/pub/software/hmmer/2.3.2/hmmer-2.3.2.tar.gz].
+After building the software, we suggest you rename this version of hmmsearch as 'hmmsearch2'.</code></pre>
+</div></div>
+<div class="literalblock">
+<div class="content">
+<pre><code>In the 'rnammer' software configuration, edit the rnammer script to point
+$HMMSEARCH_BINARY = "/path/to/hmmsearch2";</code></pre>
+</div></div>
+<div class="literalblock">
+<div class="content">
+<pre><code>Be sure that rnammer functions correctly by executing it on their provided sample data.  RNAMMER is quite useful, but the current implementation is not robust to error, so check carefully.</code></pre>
+</div></div>
+</li>
+</ul></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="SequencesRequired">2. Sequence Databases Required</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Trinotate is built around specific releases of SwissProt and Pfam.  You can find these specific versions mirrored at the Trinotate ftp site:</p></div>
+<div class="paragraph"><p>SwissProt
+<a href="http://sourceforge.net/projects/trinotate/files/TRINOTATE_RESOURCES/20140708/uniprot_sprot.fasta.gz/download">Download SwissProt here</a></p></div>
+<div class="literalblock">
+<div class="content">
+<pre><code>be sure the search database is uncompressed and properly formatted by running the following (requires that blast+ is already installed as indicated above)
+gunzip uniprot_sprot.fasta.gz
+makeblastdb -in uniprot_sprot.fasta -dbtype prot</code></pre>
+</div></div>
+<div class="paragraph"><p>Uniref90
+<a href="http://sourceforge.net/projects/trinotate/files/TRINOTATE_RESOURCES/20140708/uniref90.fasta.gz/download">Download Uniref90 here</a></p></div>
+<div class="literalblock">
+<div class="content">
+<pre><code>gunzip uniref90.fasta.gz
+makeblastdb -in uniref90.fasta -dbtype prot</code></pre>
+</div></div>
+<div class="paragraph"><p>Pfam domains
+<a href="http://sourceforge.net/projects/trinotate/files/TRINOTATE_RESOURCES/20140708/Pfam-A.hmm.gz/download">Download Pfam-A here</a></p></div>
+<div class="literalblock">
+<div class="content">
+<pre><code>Uncompress and prepare it for use with 'hmmscan' like so:
+gunzip Pfam-A.hmm.gz
+hmmpress Pfam-A.hmm</code></pre>
+</div></div>
+</div>
+</div>
+<h1 id="SeqAnalyses">Running Sequence Analyses</h1>
+<div class="paragraph"><p>Both the Trinity-assembled transcripts and any predicted protein-coding regions are subject to analysis using the various strategies below.</p></div>
+<div class="paragraph"><p>Trinity transcripts are searched for sequence homologies using BLASTX, and RNAMMER is used to identify potential rRNA transcripts.</p></div>
+<div class="paragraph"><p>Transdecoder-predicted coding regions are also searched for sequence homologies using BLASTP, protein domains identified via a Pfam search, and additional properties such as signal peptides and likely transmembrane-spanning regions are explored.</p></div>
+<div class="sect1">
+<h2 id="_trinity_files_needed_for_execution">1. Trinity files needed for execution</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Trinity.fasta - Final product containing all the transcripts assembled by Trinity</p></div>
+<div class="paragraph"><p>Trinity.fasta.transdecoder.pep: Most likely Longest-ORF peptide candidates generated from the Trinity Assembly. Instructions for generation of this file can be found here:
+<a href="http://trinityrnaseq.sourceforge.net/analysis/extract_proteins_from_trinity_transcripts.html">http://trinityrnaseq.sourceforge.net/analysis/extract_proteins_from_trinity_transcripts.html</a></p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content"><a href="http://transdecoder.sf.net">Transdecoder</a> is included in Trinity at <em>$TRINITY_HOME/trinity-plugins/transdecoder/</em> ;  Newer versions of TransDecoder should generate a file <em>Trinity.fasta.transdecoder.pep</em>. Earlier versions will generate an equivalent file called <em>transdecoder.pep</em>. These should be treated as equivalent outputs.</td>
+</tr></table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_capturing_blast_homologies">2. Capturing BLAST Homologies</h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="images/BLAST.png" alt="Blast image" />
+</div>
+</div>
+<div class="paragraph"><p>BLAST information
+Instructions for installation of command line stand alone blast can be found here:
+<a href="http://www.ncbi.nlm.nih.gov/books/NBK52640/">http://www.ncbi.nlm.nih.gov/books/NBK52640/</a>
+NOTE: This step will undoubtedly take the longest, for very large files execution on a multi-cpu server HPC environment is highly recommended, and your thread count should be equal to the number of CPU&#8217;s present on the node the job is run on.</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="100%" />
+<thead>
+<tr>
+<th align="left" valign="top"> Blast Commands</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"># search Trinity transcripts</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">blastx -query Trinity.fasta -db uniprot_sprot.fasta -num_threads 8 -max_target_seqs 1 -outfmt 6 &gt; blastx.outfmt6</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"># search Transdecoder-predicted proteins</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">blastp -query transdecoder.pep -db uniprot_sprot.fasta  -num_threads 8 -max_target_seqs 1 -outfmt 6 &gt; blastp.outfmt6</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"># Optional: perform similar searches using uniref90 as the target database, rename output files accordingly.</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">blastp -query transdecoder.pep -db uniref90.fasta  -num_threads 8 -max_target_seqs 1 -outfmt 6 &gt; uniref90.blastp.outfmt6</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">blastx -query Trinity.fasta -db uniref90.fasta -num_threads 8 -max_target_seqs 1 -outfmt 6 &gt; uniref90.blastx.outfmt6</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">num_threads should be equal to the amount of cores available</td>
+</tr></table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_running_hmmer_to_identify_protein_domains">3. Running HMMER to identify protein domains</h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="images/HMMER.PNG" alt="HMMER image" />
+</div>
+</div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="100%" />
+<thead>
+<tr>
+<th align="left" valign="top"> hmmscan (HMMER) command:</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">hmmscan --cpu 8 --domtblout TrinotatePFAM.out Pfam-A.hmm transdecoder.pep &gt; pfam.log</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">num_threads should be equal to the number of cores available</td>
+</tr></table>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">if the --search_pfam parameter was invoked with <a href="http://transdecoder.sf.net">TransDecoder</a> as part of ORF identification, then you can simply reuse the existing <em>.domtbl</em> output file here.</td>
+</tr></table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_running_signalp_to_predict_signal_peptides">4. Running signalP to predict signal peptides</h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="images/signalP.PNG" alt="SIGNALP image" />
+</div>
+</div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="100%" />
+<thead>
+<tr>
+<th align="left" valign="top"> signalP command:</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">signalp -f short -n signalp.out transdecoder.pep</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_running_tmhmm_to_predict_transmembrane_regions">5. Running tmHMM to predict transmembrane regions</h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="images/tmhmm.PNG" alt="TMHMM image" />
+</div>
+</div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="100%" />
+<thead>
+<tr>
+<th align="left" valign="top"> tmhmm command:</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">tmhmm --short &lt; transdecoder.pep &gt; tmhmm.out</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_running_rnammer_to_identify_rrna_transcripts">6. Running RNAMMER to identify rRNA transcripts</h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="images/rnammer.png" alt="RNAMMER image" />
+</div>
+</div>
+<div class="paragraph"><p>RNAMMER was originally developed to identify rRNA genes in genomic sequences.  To have it identify rRNA sequences among our large sets of transcriptome sequences, we first concatenate all the transcripts together into a single super-scaffold, run RNAMMER to identify rRNA homologies, and then transform the rRNA feature coordinates in the super-scaffold back to the transcriptome reference coordinates.  The following script will perform all of these operations:</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><code>$TRINOTATE_HOME/util/rnammer_support/RnammerTranscriptome.pl</code></pre>
+</div></div>
+<div class="literalblock">
+<div class="content">
+<pre><code>################################################################################
+#
+#  --transcriptome &lt;string&gt;      Transcriptome assembly fasta file
+#
+#  --path_to_rnammer &lt;string&gt;    Path to the rnammer software
+#                                (ie.  /usr/bin/software/rnammer_v1.2/rnammer)
+#
+#  Optional:
+#
+#  --org_type &lt;string&gt;           arc|bac|euk   (default: euk)
+#
+################################################################################</code></pre>
+</div></div>
+<div class="paragraph"><p>And so, you might execute it like so:</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><code>$TRINOTATE_HOME/util/rnammer_support/RnammerTranscriptome.pl --transcriptome Trinity.fasta --path_to_rnammer /usr/bin/software/rnammer_v1.2/rnammer</code></pre>
+</div></div>
+<div class="paragraph"><p>Once complete, it will have generated a file: <em>Trinity.fasta.rnammer.gff</em>, which can be loaded into Trinotate as described in sections below.</p></div>
+</div>
+</div>
+<h1 id="LoadingSQLite">Trinotate: Loading Above Results into a Trinotate SQLite Database</h1>
+<div class="paragraph"><p>The following commands will import the results from the bioinformatic computes performed above into a Trinotate SQLite database. All operations are performed using the included <em>Trinotate</em> utility.  Usage is like so:</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><code>usage: ./Trinotate &lt;sqlite.db&gt; &lt;command&gt; &lt;input&gt; [...]</code></pre>
+</div></div>
+<div class="literalblock">
+<div class="content">
+<pre><code>&lt;commands&gt;:</code></pre>
+</div></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Initial import of transcriptome and protein data:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><code>init --gene_trans_map &lt;file&gt; --transcript_fasta &lt;file&gt; --transdecoder_pep &lt;file&gt;</code></pre>
+</div></div>
+</li>
+<li>
+<p>
+Transdecoder protein search results:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><code>LOAD_swissprot_blastp &lt;file&gt;
+LOAD_trembl_blastp &lt;file&gt;
+LOAD_pfam &lt;file&gt;
+LOAD_tmhmm &lt;file&gt;
+LOAD_signalp &lt;file&gt;</code></pre>
+</div></div>
+</li>
+<li>
+<p>
+Trinity transcript search results:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><code>LOAD_swissprot_blastx &lt;file&gt;
+LOAD_trembl_blastx &lt;file&gt;
+LOAD_rnammer &lt;file&gt;</code></pre>
+</div></div>
+</li>
+<li>
+<p>
+report generation:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><code>report [ -E (default: 1e-5) ] [--pfam_cutoff DNC|DGC|DTC|SNC|SGC|STC (default: DNC=domain noise cutoff)]</code></pre>
+</div></div>
+</li>
+</ul></div>
+<div class="paragraph"><p>Follow the steps below to obtain a boilerplate Trinotate sqlite database and populate it with your data.</p></div>
+<div class="sect1">
+<h2 id="_retrieve_the_trinotate_pre_generated_resource_sqlite_database">1. Retrieve the Trinotate Pre-generated Resource SQLite database</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>A pregenerated sqlite database that contains swissprot-related annotation information is available from the Trinity ftp site. Pull it down like so:</p></div>
+<div class="paragraph"><p>If you plan on only searching SWISSPROT, then you can use the smaller boilerplate database:</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><code>wget "http://sourceforge.net/projects/trinotate/files/TRINOTATE_RESOURCES/20140708/Trinotate.20140708.swissprot.sqlite.gz/download" -O Trinotate.sqlite.gz</code></pre>
+</div></div>
+<div class="paragraph"><p>If you plan on searching both SWISSPROT and Uniref90, you must use the more comprehensive boilerplate database (significantly larger):</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><code>wget "http://sourceforge.net/projects/trinotate/files/TRINOTATE_RESOURCES/20140708/Trinotate.20140708.swissTrEMBL.sqlite.gz/download" -O Trinotate.sqlite.gz</code></pre>
+</div></div>
+<div class="paragraph"><p>Uncompress it like so:</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><code>gunzip Trinotate.sqlite.gz</code></pre>
+</div></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">The boilerplate Trinotate.sqlite database downloaded above is specific to each software release.  The link above will retrieve the sqlite database that is compatible with this current software version (July 7, 2014).</td>
+</tr></table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_load_transcripts_and_coding_regions">2. Load transcripts and coding regions</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Begin populating the sqlite database by loading three data types:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Transcript sequences (de novo assembled transcripts or reference transcripts)
+</p>
+</li>
+<li>
+<p>
+Protein sequences (currently as defined by TransDecoder)
+</p>
+</li>
+<li>
+<p>
+Gene/Transcript relationships (tab delimited format: "gene_id(tab)transcript_id", same as used by the RSEM software).  If you are using Trinity assemblies, you can generate this file like so:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><code>$TRINITY_HOME/util/support_scripts/get_Trinity_gene_to_trans_map.pl Trinity.fasta &gt;  Trinity.fasta.gene_trans_map</code></pre>
+</div></div>
+</li>
+</ul></div>
+<div class="paragraph"><p>Load these info into the Trinotate sqlite database like so (example, using Trinity assemblies):</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><code>Trinotate Trinotate.sqlite init --gene_trans_map Trinity.fasta.gene_trans_map --transcript_fasta Trinity.fasta --transdecoder_pep transdecoder.pep</code></pre>
+</div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_loading_blast_homologies">3. Loading BLAST homologies</h2>
+<div class="sectionbody">
+<div class="literalblock">
+<div class="content">
+<pre><code># load protein hits
+Trinotate Trinotate.sqlite LOAD_swissprot_blastp blastp.outfmt6</code></pre>
+</div></div>
+<div class="literalblock">
+<div class="content">
+<pre><code># load transcript hits
+Trinotate Trinotate.sqlite LOAD_swissprot_blastx blastx.outfmt6</code></pre>
+</div></div>
+<div class="paragraph"><p>Optional: load Uniref90 blast hits (requires the more comprehensive boilerplate database, as described above):</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><code># load protein hits
+Trinotate Trinotate.sqlite LOAD_trembl_blastp uniref90.blastp.outfmt6</code></pre>
+</div></div>
+<div class="literalblock">
+<div class="content">
+<pre><code># load transcript hits
+Trinotate Trinotate.sqlite LOAD_trembl_blastx uniref90.blastx.outfmt6</code></pre>
+</div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_load_pfam_domain_entries">4. Load Pfam domain entries</h2>
+<div class="sectionbody">
+<div class="literalblock">
+<div class="content">
+<pre><code>Trinotate Trinotate.sqlite LOAD_pfam TrinotatePFAM.out</code></pre>
+</div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_load_transmembrane_domains">5. Load transmembrane domains</h2>
+<div class="sectionbody">
+<div class="literalblock">
+<div class="content">
+<pre><code>Trinotate Trinotate.sqlite LOAD_tmhmm tmhmm.out</code></pre>
+</div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_load_signal_peptide_predictions">6. Load signal peptide predictions</h2>
+<div class="sectionbody">
+<div class="literalblock">
+<div class="content">
+<pre><code>Trinotate Trinotate.sqlite LOAD_signalp signalp.out</code></pre>
+</div></div>
+</div>
+</div>
+<h1 id="OutputReport">Trinotate: Output an Annotation Report</h1>
+<div class="literalblock">
+<div class="content">
+<pre><code>Trinotate Trinotate.sqlite report [opts] &gt; trinotate_annotation_report.xls</code></pre>
+</div></div>
+<div class="paragraph"><p>Note, you can threshold the blast and pfam results to be reported by including the options below:</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><code>##################################################################
+#
+#  -E &lt;float&gt;                 maximum E-value for reporting best blast hit
+#                             and associated annotations.
+#
+#  --pfam_cutoff &lt;string&gt;     'DNC' : domain noise cutoff (default)
+#                             'DGC' : domain gathering cutoff
+#                             'DTC' : domain trusted cutoff
+#                             'SNC' : sequence noise cutoff
+#                             'SGC' : sequence gathering cutoff
+#                             'STC' : sequence trusted cutoff
+#
+##################################################################</code></pre>
+</div></div>
+<div class="paragraph"><p>The output has the following column headers:</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><code>0       #gene_id
+1       transcript_id
+2       Top_BLASTX_hit
+3       RNAMMER
+4       prot_id
+5       prot_coords
+6       Top_BLASTP_hit
+7       Pfam
+8       SignalP
+9       TmHMM
+10      eggnog
+11      gene_ontology</code></pre>
+</div></div>
+<div class="paragraph"><p>and the data are formatted like so:</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><code># example protein-coding transcript
+0       comp66_c0
+1       comp66_c0_seq1
+2       sp|Q09739|MCP7_SCHPO^Q09739^Q:1-519,H:15-187^100%ID^E:5e-95^RecName: Full=Meiotic coiled-coil protein 7; AltName: Full=Meiotically up-regulated gene 32 protein;^Eukaryota; Fungi; Dikarya; Ascomycota; Taphrinomycotina; Schizosaccharomycetes; Schizosaccharomycetales; Schizosaccharomycetaceae; Schizosaccharomyces.
+3       .
+4       m.4
+5       1-522[+]
+6       sp|Q5XGY9|MND1_XENLA^Q5XGY9^Q:4-169,H:19-181^37.13%ID^E:7e-24^RecName: Full=Meiotic nuclear division protein 1 homolog;^Eukaryota; Metazoa; Chordata; Craniata; Vertebrata; Euteleostomi; Amphibia; Batrachia; Anura; Pipoidea; Pipidae; Xenopodinae; Xenopus; Xenopus.`sp|Q9BWT6|MND1_HUMAN^Q9BWT6^Q:4-169,H:19-181^38.32%ID^E:1e-23^RecName: Full=Meiotic nuclear division protein 1 homolog;^Eukaryota; Metazoa; Chordata; Craniata; Vertebrata; Euteleostomi; Mammalia; Eutheria; Euarchontoglires; Primates; Haplorrhini; Catarrhini; Hominidae; Homo.`sp|Q32L19|MND1_BOVIN^Q32L19^Q:4-169,H:19-181^38.92%ID^E:3e-23^RecName: Full=Meiotic nuclear division protein 1 homolog;^Eukaryota; Metazoa; Chordata; Craniata; Vertebrata; Euteleostomi; Mammalia; Eutheria; Laurasiatheria; Cetartiodactyla; Ruminantia; Pecora; Bovidae; Bovinae; Bos.`sp|Q6DC61|MND1_DANRE^Q6DC61^Q:4-158,H:19-170^40.13%ID^E:3e-23^RecName: Full=Meiotic nuclear division protein 1 homolog;^Eukaryota; Metazoa; Chordata; Craniata; Vertebrata; Euteleostomi; Actinopterygii; Neopterygii; Teleostei; Ostariophysi; Cypriniformes; Cyprinidae; Danio.`sp|Q8GYD2|MND1_ARATH^Q8GYD2^Q:4-168,H:19-179^40.36%ID^E:3e-22^RecName: Full=Meiotic nuclear division protein 1 homolog; Short=AtMND1; AltName: Full=Meiotic nuclear division 1-like protein;^Eukaryota; Viridiplantae; Streptophyta; Embryophyta; Tracheophyta; Spermatophyta; Magnoliophyta; eudicotyledons; core eudicotyledons; rosids; malvids; Brassicales; Brassicaceae; Camelineae; Arabidopsis.
+7       PF03962.10^Mnd1^Mnd1 family^1-170^E:1.9e-51
+8       .
+9       .
+10      .
+11      GO:0005634^cellular_component^nucleus`GO:0006310^biological_process^DNA recombination`GO:0007126^biological_process^meiosis</code></pre>
+</div></div>
+<div class="literalblock">
+<div class="content">
+<pre><code># Example rRNA entry</code></pre>
+</div></div>
+<div class="literalblock">
+<div class="content">
+<pre><code>0   comp4721_c0
+1   comp4721_c0_seq1
+2   .
+3   18s_rRNA^1294-3134
+4   .
+5   .
+6   .
+7   .
+8   .
+9   .
+10  .
+11  .</code></pre>
+</div></div>
+<div class="paragraph"><p>Backticks (`) and carets (^) are used as delimiters for data packed within an individual field, such as separating E-values, percent identity, and taxonomic info for best matches. When there are multiple assignments in a given field, the assignments are separated by (\`) and the fields within an assignment are separated by (\^).  In a future release (post Feb-2013), the backticks and carets will be used more uniformly than above, such as carets as BLAST field separators, and including more than the top hit.</p></div>
+<h1 id="SampleData">Trinotate: Sample data and execution</h1>
+<div class="paragraph"><p>Sample data and a <em>runMe.sh</em> script are available at $TRINOTATE_HOME/sample_data/</p></div>
+<div class="paragraph"><p>Executing the <em>runMe.sh</em> script will pull down the Trinotate sqlite database, populate with the provided bioinformatics computes, and generate the final Trinotate annotation report.  In addition, pre-computed expression and DE analyses will be loaded for use with TrinotateWeb.</p></div>
+<h1 id="LitRefs">Literature references for software used for functional annotation</h1>
+<div class="ulist bibliography"><ul>
+<li>
+<p>
+<a id="Trinity"></a>[Trinity]Full-length transcriptome assembly from RNA-Seq data without a reference genome.
+Grabherr MG, Haas BJ, Yassour M, Levin JZ, Thompson DA, Amit I, Adiconis X, Fan L,
+Raychowdhury R, Zeng Q, Chen Z, Mauceli E, Hacohen N, Gnirke A, Rhind N, di Palma F,
+Birren BW, Nusbaum C, Lindblad-Toh K, Friedman N, Regev A.
+Nature Biotechnology 29, 644â652 (2011)
+</p>
+</li>
+<li>
+<p>
+<a id="HMMER"></a>[HMMER]HMMER web server: interactive sequence similarity searching
+R.D. Finn, J. Clements, S.R. Eddy
+Nucleic Acids Research (2011) Web Server Issue 39:W29-W37.
+</p>
+</li>
+<li>
+<p>
+<a id="PFAM"></a>[PFAM] The Pfam protein families database
+Punta, P.C. Coggill, R.Y. Eberhardt, J. Mistry, J. Tate, C. Boursnell, N. Pang, K. Forslund,
+Ceric, J. Clements, A. Heger, L. Holm, E.L.L. Sonnhammer, S.R. Eddy, A. Bateman, R.D. Finn
+Nucleic Acids Research (2012) Database Issue 40:D290-D301
+</p>
+</li>
+<li>
+<p>
+<a id="SignalP"></a>[SignalP]SignalP 4.0: discriminating signal peptides from transmembrane regions
+Thomas Nordahl Petersen, Soren Brunak, Gunnar von Heijne &amp; Henrik Nielsen
+Nature Methods, 8:785-786, 2011
+</p>
+</li>
+<li>
+<p>
+<a id="tmHMM"></a>[tmHMM]Predicting transmembrane protein topology with a hidden Markov model: application to complete genomes.
+Krogh A, Larsson B, von Heijne G, Sonnhammer EL.
+J Mol Biol. 2001 Jan 19;305(3):567-80.
+</p>
+</li>
+<li>
+<p>
+<a id="BLAST"></a>[BLAST]Basic local alignment search tool.
+Altschul SF; Gish W; Miller W; Myers EW; Lipman DJ
+J Mol Biol 215: 403-10 (1990)
+</p>
+</li>
+<li>
+<p>
+<a id="KEGG"></a>[KEGG]KEGG for integration and interpretation of large-scale molecular datasets.
+Kanehisa, M., Goto, S., Sato, Y., Furumichi, M., and Tanabe, M.;
+Nucleic Acids Res. 40, D109-D114 (2012).
+</p>
+</li>
+<li>
+<p>
+<a id="GO"></a>[GO]Gene Ontology: tool for the unification of biology.
+The Gene Ontology Consortium
+Nature Genet. 25: 25-29 (2000)
+</p>
+</li>
+<li>
+<p>
+<a id="eggNOG"></a>[eggNOG]eggNOG v3.0: orthologous groups covering 1133 organisms at 41 different taxonomic ranges.
+Powell S, Szklarczyk D, Trachana K, Roth A, Kuhn M, Muller J, Arnold R, Rattei T, Letunic I,
+Doerks T, Jensen LJ, von Mering C, Bork P.
+Nucleic Acids Res. 2012 Jan;40(Database issue):D284-9. Epub 2011 Nov 16.
+</p>
+</li>
+<li>
+<p>
+<a id="RNAMMER"></a>[RNAMMER] RNammer: consistent annotation of rRNA genes in genomic sequences
+Lagesen K, Hallin PF, Rodland E, Staerfeldt HH, Rognes T Ussery DW
+Nucleic Acids Res. 2007 Apr 22.
+</p>
+</li>
+</ul></div>
+<div class="sect1">
+<h2 id="Contact">Contact Us</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Questions, comments, etc., can be sent to the Trinotate email list at <a href="mailto:trinotate-users@lists.sf.net">trinotate-users@lists.sf.net</a>.</p></div>
+<div class="paragraph"><p>You can also visit the email <a href="https://sourceforge.net/mailarchive/forum.php?forum_name=trinotate-users">archive</a> or <a href="https://lists.sourceforge.net/lists/listinfo/trinotate-users">subscribe</a>.</p></div>
+</div>
+</div>
+</div>
+<div id="footnotes"><hr /></div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2014-07-08 11:26:20 EDT
+</div>
+</div>
+</body>
+</html>

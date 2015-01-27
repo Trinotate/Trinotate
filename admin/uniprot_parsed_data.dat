@@ -1,0 +1,1170 @@
+Q6GZX4	D	RecName: Full=Putative transcription factor 001R;
+Q6GZX4	T	654924
+Q6GZX4	G	GO:0006355
+Q6GZX4	G	GO:0046782
+Q6GZX4	G	GO:0006351
+Q6GZX3	D	RecName: Full=Uncharacterized protein 002L;
+Q6GZX3	T	654924
+Q6GZX3	G	GO:0033644
+Q6GZX3	G	GO:0016021
+Q197F8	D	RecName: Full=Uncharacterized protein 002R;
+Q197F8	T	345201
+Q197F7	D	RecName: Full=Uncharacterized protein 003L;
+Q197F7	T	345201
+Q6GZX2	D	RecName: Full=Uncharacterized protein 3R;  Flags: Precursor;
+Q6GZX2	T	654924
+Q6GZX1	D	RecName: Full=Uncharacterized protein 004R;
+Q6GZX1	T	654924
+Q6GZX1	G	GO:0033644
+Q6GZX1	G	GO:0016021
+Q197F5	D	RecName: Full=Uncharacterized protein 005L;  Flags: Precursor;
+Q197F5	T	345201
+Q6GZX0	D	RecName: Full=Uncharacterized protein 005R;
+Q6GZX0	T	654924
+Q91G88	D	RecName: Full=Putative KilA-N domain-containing protein 006L;
+Q91G88	T	176652
+Q6GZW9	D	RecName: Full=Uncharacterized protein 006R;
+Q6GZW9	T	654924
+Q6GZW8	D	RecName: Full=Uncharacterized protein 007R;
+Q6GZW8	T	654924
+Q197F3	D	RecName: Full=Uncharacterized protein 007R;
+Q197F3	T	345201
+Q197F2	D	RecName: Full=Uncharacterized protein 008L;
+Q197F2	T	345201
+Q6GZW6	D	RecName: Full=Putative helicase 009L;  EC=3.6.4.-;
+Q6GZW6	T	654924
+Q6GZW6	G	GO:0005524
+Q6GZW6	G	GO:0003677
+Q6GZW6	G	GO:0004386
+Q91G85	D	RecName: Full=Uncharacterized protein 009R;  Flags: Precursor;
+Q91G85	T	176652
+Q6GZW5	D	RecName: Full=Uncharacterized protein 010R;
+Q6GZW5	T	654924
+Q6GZW5	G	GO:0033644
+Q6GZW5	G	GO:0016021
+Q197E9	D	RecName: Full=Uncharacterized protein 011L;
+Q197E9	T	345201
+Q6GZW4	D	RecName: Full=Uncharacterized protein 011R;
+Q6GZW4	T	654924
+Q6GZW4	G	GO:0033644
+Q6GZW4	G	GO:0016021
+Q6GZW3	D	RecName: Full=Uncharacterized protein 012L;
+Q6GZW3	T	654924
+Q197E7	D	RecName: Full=Uncharacterized protein IIV3-013L;
+Q197E7	T	345201
+Q197E7	G	GO:0033644
+Q197E7	G	GO:0016021
+Q6GZW2	D	RecName: Full=Uncharacterized protein 013R;
+Q6GZW2	T	654924
+Q6GZW1	D	RecName: Full=Uncharacterized protein 014R;
+Q6GZW1	T	654924
+Q6GZW0	D	RecName: Full=Uncharacterized protein 015R;
+Q6GZW0	T	654924
+Q6GZV8	D	RecName: Full=Uncharacterized protein 017L;
+Q6GZV8	T	654924
+Q6GZV7	D	RecName: Full=Uncharacterized protein 018L;  Flags: Precursor;
+Q6GZV7	T	654924
+Q6GZV6	D	RecName: Full=Putative serine/threonine-protein kinase 019R;  EC=2.7.11.1;
+Q6GZV6	T	654924
+Q6GZV6	G	GO:0005524
+Q6GZV6	G	GO:0004674
+Q6GZV5	D	RecName: Full=Uncharacterized protein 020R;
+Q6GZV5	T	654924
+Q6GZV5	G	GO:0033644
+Q6GZV5	G	GO:0016021
+Q6GZV4	D	RecName: Full=Uncharacterized protein 021L;
+Q6GZV4	T	654924
+Q197D8	D	RecName: Full=Transmembrane protein 022L;
+Q197D8	T	345201
+Q197D8	G	GO:0033644
+Q197D8	G	GO:0016021
+Q6GZV2	D	RecName: Full=Uncharacterized protein 023R;
+Q6GZV2	T	654924
+Q197D7	D	RecName: Full=Uncharacterized protein 023R;
+Q197D7	T	345201
+Q6GZV1	D	RecName: Full=Uncharacterized protein 024R;  Flags: Precursor;
+Q6GZV1	T	654924
+Q197D5	D	RecName: Full=Uncharacterized protein 025R;  Flags: Precursor;
+Q197D5	T	345201
+Q91G70	D	RecName: Full=Uncharacterized protein 026R;
+Q91G70	T	176652
+Q6GZU9	D	RecName: Full=Uncharacterized protein 027R;
+Q6GZU9	T	654924
+Q6GZU9	G	GO:0016301
+Q6GZU8	D	RecName: Full=Uncharacterized protein 028R;
+Q6GZU8	T	654924
+Q6GZU8	G	GO:0003677
+Q6GZU8	G	GO:0003899
+Q197D2	D	RecName: Full=Uncharacterized protein 028R;
+Q197D2	T	345201
+Q6GZU7	D	RecName: Full=Uncharacterized protein 029L;
+Q6GZU7	T	654924
+Q91G67	D	RecName: Full=Uncharacterized protein 029R;
+Q91G67	T	176652
+Q197D0	D	RecName: Full=uncharacterized protein 030L;
+Q197D0	T	345201
+Q6GZU6	D	RecName: Full=Uncharacterized protein 030R;
+Q6GZU6	T	654924
+Q6GZU5	D	RecName: Full=Uncharacterized protein 031R;
+Q6GZU5	T	654924
+Q6GZU4	D	RecName: Full=Uncharacterized protein 032R;
+Q6GZU4	T	654924
+Q6GZU4	G	GO:0006353
+Q197C8	D	RecName: Full=Uncharacterized protein 032R;
+Q197C8	T	345201
+Q91G65	D	RecName: Full=Uncharacterized protein 032R;
+Q91G65	T	176652
+Q6GZU3	D	RecName: Full=Transmembrane protein 033R;
+Q6GZU3	T	654924
+Q6GZU2	D	RecName: Full=Uncharacterized protein 034R;
+Q6GZU2	T	654924
+Q6GZU2	G	GO:0033644
+Q6GZU2	G	GO:0016021
+Q91G63	D	RecName: Full=Uncharacterized protein 034R;
+Q91G63	T	176652
+Q91G63	G	GO:0016021
+Q6GZU1	D	RecName: Full=Uncharacterized protein 035L;
+Q6GZU1	T	654924
+Q6GZU0	D	RecName: Full=Uncharacterized protein 036L;
+Q6GZU0	T	654924
+Q197C3	D	RecName: Full=Uncharacterized protein 037L;
+Q197C3	T	345201
+Q197C3	G	GO:0033644
+Q197C3	G	GO:0016021
+Q6GZT9	D	RecName: Full=uncharacterized protein 037R;
+Q6GZT9	T	654924
+Q6GZT9	G	GO:0016787
+Q6GZT7	D	RecName: Full=Uncharacterized protein 039R;
+Q6GZT7	T	654924
+Q6GZT6	D	RecName: Full=Uncharacterized protein 040R;  Flags: Precursor;
+Q6GZT6	T	654924
+Q197C0	D	RecName: Full=Uncharacterized protein 040R;
+Q197C0	T	345201
+Q91G57	D	RecName: Full=Uncharacterized protein 041L;
+Q91G57	T	176652
+Q6GZT5	D	RecName: Full=Uncharacterized protein 041R;
+Q6GZT5	T	654924
+Q6GZT4	D	RecName: Full=Uncharacterized protein 042L;
+Q6GZT4	T	654924
+Q91G56	D	RecName: Full=Uncharacterized protein 042R;
+Q91G56	T	176652
+Q91G55	D	RecName: Full=Uncharacterized protein 043L;
+Q91G55	T	176652
+Q6GZT3	D	RecName: Full=Uncharacterized protein 043R;
+Q6GZT3	T	654924
+Q6GZT3	G	GO:0033644
+Q6GZT3	G	GO:0016021
+Q197B6	D	RecName: Full=Putative serine/threonine-protein kinase 040L;  EC=2.7.11.-;
+Q197B6	T	345201
+Q197B6	G	GO:0005524
+Q197B6	G	GO:0004674
+Q6GZN9	D	RecName: Full=Uncharacterized protein 044R;
+Q6GZN9	T	654924
+Q91G54	D	RecName: Full=Uncharacterized protein 044R;
+Q91G54	T	176652
+Q6GZT1	D	RecName: Full=Uncharacterized protein 045L;
+Q6GZT1	T	654924
+Q197B5	D	RecName: Full=Uncharacterized protein 045R;
+Q197B5	T	345201
+Q6GZT0	D	RecName: Full=Uncharacterized protein 046L;
+Q6GZT0	T	654924
+Q6GZS9	D	RecName: Full=Uncharacterized protein 047L;
+Q6GZS9	T	654924
+Q6GZS8	D	RecName: Full=Uncharacterized protein 048L;
+Q6GZS8	T	654924
+Q6GZS7	D	RecName: Full=Putative SAP domain-containing protein 049L;
+Q6GZS7	T	654924
+Q6GZS7	G	GO:0003676
+Q91G50	D	RecName: Full=Transmembrane protein 049L;
+Q91G50	T	176652
+Q91G50	G	GO:0016021
+Q91G50	G	GO:0006810
+Q197B1	D	RecName: Full=Uncharacterized protein 049R;
+Q197B1	T	345201
+Q6GZS6	D	RecName: Full=Uncharacterized protein 050L;
+Q6GZS6	T	654924
+Q6GZS5	D	RecName: Full=Uncharacterized protein 051R;
+Q6GZS5	T	654924
+Q6GZS4	D	RecName: Full=Uncharacterized protein 052L;
+Q6GZS4	T	654924
+Q6GZS4	G	GO:0003854
+Q6GZS4	G	GO:0000166
+Q6GZS4	G	GO:0006694
+Q197A7	D	RecName: Full=Uncharacterized protein 053L;
+Q197A7	T	345201
+Q6GZS3	D	RecName: Full=Putative myristoylated protein 053R;
+Q6GZS3	T	654924
+Q6GZS3	G	GO:0033644
+Q6GZS3	G	GO:0016021
+Q6GZS2	D	RecName: Full=Uncharacterized protein 054L;
+Q6GZS2	T	654924
+Q197A6	D	RecName: Full=Uncharacterized protein 054L;
+Q197A6	T	345201
+Q6GZS1	D	RecName: Full=Putative helicase 055L;  EC=3.6.4.-;
+Q6GZS1	T	654924
+Q6GZS1	G	GO:0005524
+Q6GZS1	G	GO:0003677
+Q6GZS1	G	GO:0004386
+Q67475	D	RecName: Full=Uncharacterized protein 055R;
+Q67475	T	654924
+Q6GZR9	D	RecName: Full=Uncharacterized protein 056R;
+Q6GZR9	T	654924
+O55703	D	RecName: Full=Uncharacterized protein 056R;
+O55703	T	176652
+O55703	G	GO:0016021
+Q197A3	D	RecName: Full=Uncharacterized protein 057L;
+Q197A3	T	345201
+Q6GZR8	D	RecName: Full=Putative phosphotransferase 057R;
+Q6GZR8	T	654924
+Q6GZR8	G	GO:0016740
+Q6GZR7	D	RecName: Full=Uncharacterized protein 058R;
+Q6GZR7	T	654924
+Q6GZR6	D	RecName: Full=Uncharacterized protein 059L;
+Q6GZR6	T	654924
+O55704	D	RecName: Full=Uncharacterized protein 060L;
+O55704	T	176652
+O55704	G	GO:0016021
+Q6GZR4	D	RecName: Full=Uncharacterized protein 061L;
+Q6GZR4	T	654924
+O55705	D	RecName: Full=Uncharacterized protein 061R;
+O55705	T	176652
+O55705	G	GO:0016021
+Q196Z8	D	RecName: Full=Uncharacterized protein 062L;
+Q196Z8	T	345201
+O55706	D	RecName: Full=Uncharacterized protein 062L;  Flags: Precursor;
+O55706	T	176652
+Q196Z6	D	RecName: Full=Uncharacterized protein 064L;
+Q196Z6	T	345201
+Q6GZR1	D	RecName: Full=Caspase recruitment domain-containing protein 064R;
+Q6GZR1	T	654924
+Q6GZR1	G	GO:0005622
+Q6GZR1	G	GO:0042981
+Q6GZR0	D	RecName: Full=Putative collagen-like domain-containing protein 065L;
+Q6GZR0	T	654924
+Q91G40	D	RecName: Full=Uncharacterized protein 065R;
+Q91G40	T	176652
+Q91G40	G	GO:0016021
+Q6GZQ9	D	RecName: Full=Uncharacterized protein 066L;
+Q6GZQ9	T	654924
+Q6GZQ7	D	RecName: Full=Putative uncharacterized protein 068R;
+Q6GZQ7	T	654924
+O55709	D	RecName: Full=Putative Bro-N domain-containing protein 069L;
+O55709	T	176652
+Q6GZQ6	D	RecName: Full=Transmembrane protein 069R;
+Q6GZQ6	T	654924
+Q6GZQ6	G	GO:0033644
+Q6GZQ6	G	GO:0016021
+Q6GZQ5	D	RecName: Full=Uncharacterized protein 070R;
+Q6GZQ5	T	654924
+O55710	D	RecName: Full=Uncharacterized protein 071L;
+O55710	T	176652
+Q6GZQ4	D	RecName: Full=Uncharacterized protein 071R;
+Q6GZQ4	T	654924
+Q6GZQ3	D	RecName: Full=Uncharacterized protein 072L;
+Q6GZQ3	T	654924
+Q196Y8	D	RecName: Full=Uncharacterized protein 072L;
+Q196Y8	T	345201
+Q6GZQ2	D	RecName: Full=Uncharacterized protein 073L;
+Q6GZQ2	T	654924
+Q6GZQ2	G	GO:0005622
+Q6GZQ2	G	GO:0008270
+Q196Y7	D	RecName: Full=Uncharacterized protein 073R;
+Q196Y7	T	345201
+Q196Y7	G	GO:0016021
+Q6GZQ1	D	RecName: Full=Uncharacterized protein 074L;
+Q6GZQ1	T	654924
+Q6GZQ0	D	RecName: Full=Uncharacterized protein 075L;
+Q6GZQ0	T	654924
+Q6GZQ0	G	GO:0033644
+Q6GZQ0	G	GO:0016021
+Q196Y5	D	RecName: Full=Uncharacterized protein 075R;
+Q196Y5	T	345201
+Q6GZP9	D	RecName: Full=Uncharacterized protein 076R;
+Q6GZP9	T	654924
+Q6GZP8	D	RecName: Full=LCDV1 orf2-like protein;
+Q6GZP8	T	654924
+Q196Y3	D	RecName: Full=Uncharacterized protein 077R;
+Q196Y3	T	345201
+Q6GZP7	D	RecName: Full=Uncharacterized protein 078L;
+Q6GZP7	T	654924
+Q6GZP6	D	RecName: Full=Uncharacterized protein 079R;
+Q6GZP6	T	654924
+Q6GZP6	G	GO:0003677
+Q196Y0	D	RecName: Full=Putative hydrolase 080R;  EC=3.6.1.-;
+Q196Y0	T	345201
+Q196Y0	G	GO:0016787
+Q196Y0	G	GO:0046872
+Q196X9	D	RecName: Full=Putative FAS1 domain-containing protein 081L;
+Q196X9	T	345201
+Q6GZP4	D	RecName: Full=Putative transcription elongation factor S-II-like protein 81R;
+Q6GZP4	T	654924
+Q6GZP4	G	GO:0003746
+Q6GZP4	G	GO:0008270
+Q6GZP4	G	GO:0006351
+Q196X8	D	RecName: Full=Uncharacterized protein 082L;
+Q196X8	T	345201
+O55713	D	RecName: Full=Uncharacterized protein 082L;
+O55713	T	176652
+O55714	D	RecName: Full=Uncharacterized protein 083L;
+O55714	T	176652
+O55714	G	GO:0016021
+O55715	D	RecName: Full=Uncharacterized protein 084L;
+O55715	T	176652
+O55715	G	GO:0016021
+Q6GZP1	D	RecName: Full=Uncharacterized protein 084R;
+Q6GZP1	T	654924
+Q6GZT2	D	RecName: Full=Uncharacterized protein 086L;
+Q6GZT2	T	654924
+Q6GZN8	D	RecName: Full=Uncharacterized protein 087L;
+Q6GZN8	T	654924
+Q6GZN7	D	RecName: Full=Putative FAD-linked sulfhydryl oxidase 088R;  EC=1.8.3.2;
+Q6GZN7	T	654924
+Q6GZN7	G	GO:0016972
+Q196X1	D	RecName: Full=Uncharacterized protein 089L;
+Q196X1	T	345201
+Q6GZN6	D	RecName: Full=Uncharacterized protein 89R;
+Q6GZN6	T	654924
+Q6GZN3	D	RecName: Full=Uncharacterized protein 092R;
+Q6GZN3	T	654924
+Q196W8	D	RecName: Full=Uncharacterized protein 092R;
+Q196W8	T	345201
+Q6GZN2	D	RecName: Full=Uncharacterized protein 093L;
+Q6GZN2	T	654924
+Q6GZN1	D	RecName: Full=Uncharacterized protein 094L;
+Q6GZN1	T	654924
+O55717	D	RecName: Full=Uncharacterized protein 094L;
+O55717	T	176652
+Q196W5	D	RecName: Full=Probable matrix metalloproteinase 095L;  EC=3.4.24.-;  Flags: Precursor;
+Q196W5	T	345201
+Q196W5	G	GO:0031012
+Q196W5	G	GO:0005576
+Q196W5	G	GO:0004222
+Q196W5	G	GO:0008270
+Q196W5	G	GO:0006508
+O55718	D	RecName: Full=Putative RING finger protein 095L;
+O55718	T	176652
+O55718	G	GO:0008270
+Q6GZN0	D	RecName: Full=Putative RAD2-like endonuclease 095R;  EC=3.1.-.-;
+Q6GZN0	T	654924
+Q6GZN0	G	GO:0042025
+Q6GZN0	G	GO:0003677
+Q6GZN0	G	GO:0004519
+Q6GZN0	G	GO:0046872
+Q6GZN0	G	GO:0006281
+Q6GZN0	G	GO:0090305
+O55719	D	RecName: Full=Putative FAS1 domain-containing protein 096L;
+O55719	T	176652
+Q6GZM9	D	RecName: Full=Uncharacterized protein 096R;
+Q6GZM9	T	654924
+Q6GZM8	D	RecName: Full=Uncharacterized protein 097R;
+Q6GZM8	T	654924
+Q6GZM8	G	GO:0042981
+Q6GZM7	D	RecName: Full=Uncharacterized protein 098R;
+Q6GZM7	T	654924
+P0C9F0	D	RecName: Full=Protein MGF 100-1R;
+P0C9F0	T	561445
+P0C9F1	D	RecName: Full=Protein MGF 100-1R;
+P0C9F1	T	10500
+P0C9F2	D	RecName: Full=Protein MGF 100-1R;
+P0C9F2	T	561443
+P0C9E9	D	RecName: Full=Protein MGF 100-1R;
+P0C9E9	T	561444
+Q65209	D	RecName: Full=Protein MGF 100-2L;
+Q65209	T	10498
+P0C9F4	D	RecName: Full=Protein MGF 100-2L;
+P0C9F4	T	561445
+P0C9F5	D	RecName: Full=Protein MGF 100-2L;
+P0C9F5	T	10500
+P0C9F6	D	RecName: Full=Protein MGF 100-2L;
+P0C9F6	T	561443
+P0C9F3	D	RecName: Full=Protein MGF 100-2L;
+P0C9F3	T	561444
+Q65210	D	RecName: Full=Protein MGF 100-3L;
+Q65210	T	10498
+P0C9F8	D	RecName: Full=Protein MGF 100-3L;
+P0C9F8	T	561445
+P0C9F9	D	RecName: Full=Protein MGF 100-3L;
+P0C9F9	T	10500
+P0C9G0	D	RecName: Full=Protein MGF 100-3L;
+P0C9G0	T	561443
+P0C9F7	D	RecName: Full=Protein MGF 100-3L;
+P0C9F7	T	561444
+O55722	D	RecName: Full=Uncharacterized protein 101L;
+O55722	T	176652
+Q196V8	D	RecName: Full=Uncharacterized protein 102R;
+Q196V8	T	345201
+Q196V7	D	RecName: Full=Uncharacterized protein 103L;
+Q196V7	T	345201
+Q4U9M9	D	RecName: Full=104 kDa microneme/rhoptry antigen;  AltName: Full=p104;  Flags: Precursor;
+Q4U9M9	T	5874
+Q4U9M9	G	GO:0031225
+Q4U9M9	G	GO:0005886
+P15711	D	RecName: Full=104 kDa microneme/rhoptry antigen;  AltName: Full=p104;  Flags: Precursor;
+P15711	T	5875
+P15711	G	GO:0031225
+P15711	G	GO:0005886
+P15711	K	tpv:TP04_0437-
+O55723	D	RecName: Full=Uncharacterized protein 104L;
+O55723	T	176652
+O55724	D	RecName: Full=Uncharacterized protein 106L;
+O55724	T	176652
+O55725	D	RecName: Full=Uncharacterized protein 107L;
+O55725	T	176652
+O55725	G	GO:0003677
+O55725	G	GO:0003899
+Q196V2	D	RecName: Full=Uncharacterized protein 108L;
+Q196V2	T	345201
+Q43495	D	RecName: Full=Protein 108;  Flags: Precursor;
+Q43495	T	4081
+Q43495	G	GO:0005576
+Q6V4H0	D	RecName: Full=8-hydroxygeraniol dehydrogenase;  Short=Cr10HGO;  EC=1.1.1.324;
+Q6V4H0	T	4058
+Q6V4H0	G	GO:0000166
+Q6V4H0	G	GO:0016491
+Q6V4H0	G	GO:0008270
+P0C9J4	D	RecName: Full=Protein MGF 110-11L;
+P0C9J4	T	561445
+P0C9J4	G	GO:0033644
+P0C9J4	G	GO:0016021
+P0C9J5	D	RecName: Full=Protein MGF 360-3L;
+P0C9J5	T	10500
+P0C9J5	G	GO:0033644
+P0C9J5	G	GO:0016021
+P0C9J6	D	RecName: Full=Protein MGF 360-1L;
+P0C9J6	T	561443
+P0C9J6	G	GO:0033644
+P0C9J6	G	GO:0016021
+P0C9J2	D	RecName: Full=Protein MGF 110-11L;
+P0C9J2	T	561444
+P0C9J2	G	GO:0033644
+P0C9J2	G	GO:0016021
+P0C9J8	D	RecName: Full=Protein MGF 110-12L;
+P0C9J8	T	561445
+P0C9J8	G	GO:0033644
+P0C9J8	G	GO:0016021
+P0C9J9	D	RecName: Full=Protein MGF 110-12L;
+P0C9J9	T	10500
+P0C9J9	G	GO:0033644
+P0C9J9	G	GO:0016021
+P0C9K1	D	RecName: Full=Protein MGF 110-13L;
+P0C9K1	T	10500
+P0C9K1	G	GO:0033644
+P0C9K1	G	GO:0016021
+P0C9K0	D	RecName: Full=Protein MGF 110-13L;
+P0C9K0	T	561444
+P0C9K0	G	GO:0033644
+P0C9K0	G	GO:0016021
+P0C9K2	D	RecName: Full=Protein MGF 110-14L;  Flags: Precursor;
+P0C9K2	T	561445
+P0C9K3	D	RecName: Full=Protein MGF 110-14L;  Flags: Precursor;
+P0C9K3	T	10500
+P0C9J7	D	RecName: Full=Protein MGF 360-1L;
+P0C9J7	T	561443
+P0C9J7	G	GO:0033644
+P0C9J7	G	GO:0016021
+P0C9J3	D	RecName: Full=Protein MGF 110-11L;
+P0C9J3	T	561444
+P0C9J3	G	GO:0033644
+P0C9J3	G	GO:0016021
+P18560	D	RecName: Full=Protein MGF 110-1L;
+P18560	T	10498
+P18560	G	GO:0016021
+P0C9G2	D	RecName: Full=Protein MGF 110-1L;
+P0C9G2	T	561445
+P0C9G2	G	GO:0033644
+P0C9G2	G	GO:0016021
+P0C9G3	D	RecName: Full=Protein MGF 110-1L;
+P0C9G3	T	10500
+P0C9G3	G	GO:0033644
+P0C9G3	G	GO:0016021
+P0C9G4	D	RecName: Full=Protein MGF 110-1L;
+P0C9G4	T	561443
+P0C9G4	G	GO:0033644
+P0C9G4	G	GO:0016021
+P0C9G1	D	RecName: Full=Protein MGF 110-1L;
+P0C9G1	T	561444
+P0C9G1	G	GO:0033644
+P0C9G1	G	GO:0016021
+P18559	D	RecName: Full=Protein MGF 110-2L;  Flags: Precursor;
+P18559	T	10498
+P0C9G6	D	RecName: Full=Protein MGF 110-2L;  Flags: Precursor;
+P0C9G6	T	561445
+P0C9G7	D	RecName: Full=Protein MGF 110-2L;  Flags: Precursor;
+P0C9G7	T	10500
+P0C9G8	D	RecName: Full=Protein MGF 110-2L;  Flags: Precursor;
+P0C9G8	T	561443
+P0C9G5	D	RecName: Full=Protein MGF 110-2L;  Flags: Precursor;
+P0C9G5	T	561444
+P0C9G9	D	RecName: Full=Protein MGF 110-3L;
+P0C9G9	T	561445
+P0C9G9	G	GO:0033644
+P0C9G9	G	GO:0016021
+P18558	D	RecName: Full=Protein MGF 110-4L;  Flags: Precursor;
+P18558	T	10498
+P0C9H1	D	RecName: Full=Protein MGF 110-4L;  Flags: Precursor;
+P0C9H1	T	561445
+P0C9H2	D	RecName: Full=Protein MGF 110-4L;  Flags: Precursor;
+P0C9H2	T	10500
+P0C9H3	D	RecName: Full=Protein MGF 110-4L;  Flags: Precursor;
+P0C9H3	T	561443
+P0C9H0	D	RecName: Full=Protein MGF 110-4L;  Flags: Precursor;
+P0C9H0	T	561444
+P18557	D	RecName: Full=Protein MGF 110-5L;  Flags: Precursor;
+P18557	T	10498
+P0C9H5	D	RecName: Full=Protein MGF 110-5L;  Flags: Precursor;
+P0C9H5	T	10500
+P0C9H6	D	RecName: Full=Protein MGF 110-5L;  Flags: Precursor;
+P0C9H6	T	561443
+P0C9H4	D	RecName: Full=Protein MGF 110-5L;  Flags: Precursor;
+P0C9H4	T	561444
+P68744	D	RecName: Full=Protein MGF 110-6L;  Flags: Precursor;
+P68744	T	10498
+P0C9H8	D	RecName: Full=Protein MGF 110-6L;  Flags: Precursor;
+P0C9H8	T	561445
+P0C9H9	D	RecName: Full=Protein MGF 110-6L;  Flags: Precursor;
+P0C9H9	T	10500
+P0C9I0	D	RecName: Full=Protein MGF 110-6L;  Flags: Precursor;
+P0C9I0	T	561443
+P0C9H7	D	RecName: Full=Protein MGF 110-6L;  Flags: Precursor;
+P0C9H7	T	561444
+P0C9I2	D	RecName: Full=Protein MGF 110-7L;  Flags: Precursor;
+P0C9I2	T	561445
+P0C9I3	D	RecName: Full=Protein MGF 110-7L;  Flags: Precursor;
+P0C9I3	T	10500
+P0C9I4	D	RecName: Full=Protein MGF 110-7L;  Flags: Precursor;
+P0C9I4	T	561443
+P0C9I1	D	RecName: Full=Protein MGF 110-7L;  Flags: Precursor;
+P0C9I1	T	561444
+P0C9I6	D	RecName: Full=Protein MGF 110-8L;  Flags: Precursor;
+P0C9I6	T	561445
+P0C9I7	D	RecName: Full=Protein MGF 110-8L;  Flags: Precursor;
+P0C9I7	T	10500
+P0C9I8	D	RecName: Full=Protein MGF 110-8L;  Flags: Precursor;
+P0C9I8	T	561443
+P0C9I5	D	RecName: Full=Protein MGF 110-8L;  Flags: Precursor;
+P0C9I5	T	561444
+P0C9J0	D	RecName: Full=Protein MGF 110-9L;
+P0C9J0	T	561445
+P0C9J0	G	GO:0033644
+P0C9J0	G	GO:0016021
+P0C9J1	D	RecName: Full=Protein MGF 110-9L;
+P0C9J1	T	561443
+P0C9J1	G	GO:0033644
+P0C9J1	G	GO:0016021
+P0C9I9	D	RecName: Full=Protein MGF 110-9L;
+P0C9I9	T	561444
+P0C9I9	G	GO:0033644
+P0C9I9	G	GO:0016021
+P13813	D	RecName: Full=110 kDa antigen;  AltName: Full=PK110;  Flags: Fragment;
+P13813	T	5850
+Q196V0	D	RecName: Full=Uncharacterized protein 110R;
+Q196V0	T	345201
+O55726	D	RecName: Full=Uncharacterized protein 110R;  Flags: Precursor;
+O55726	T	176652
+O55727	D	RecName: Full=Uncharacterized protein 111R;  Flags: Precursor;
+O55727	T	176652
+O55728	D	RecName: Full=Uncharacterized protein 113L;
+O55728	T	176652
+O55728	G	GO:0016021
+Q196U6	D	RecName: Full=Uncharacterized protein 114L;  Flags: Precursor;
+Q196U6	T	345201
+Q196U6	G	GO:0008152
+O55731	D	RecName: Full=Uncharacterized protein 116L;
+O55731	T	176652
+Q196U4	D	RecName: Full=Uncharacterized protein 116R;
+Q196U4	T	345201
+Q196U3	D	RecName: Full=Uncharacterized protein 117L;
+Q196U3	T	345201
+Q196U2	D	RecName: Full=Uncharacterized protein 118R;
+Q196U2	T	345201
+Q196U1	D	RecName: Full=Uncharacterized protein 119R;  Flags: Precursor;
+Q196U1	T	345201
+Q9XHP0	D	RecName: Full=11S globulin seed storage protein 2;  AltName: Full=11S globulin seed storage protein II;  AltName: Full=Alpha-globulin;  Contains:  RecName: Full=11S globulin seed storage protein 2 acidic chain;  AltName: Full=11S globulin seed storage protein II acidic chain;  Contains:  RecName: Full=11S globulin seed storage protein 2 basic chain;  AltName: Full=11S globulin seed storage protein II basic chain;  Flags: Precursor;
+Q9XHP0	T	4182
+Q9XHP0	G	GO:0042735
+Q9XHP0	G	GO:0045735
+Q9XHP0	G	GO:0051259
+P19084	D	RecName: Full=11S globulin seed storage protein G3;  AltName: Full=Helianthinin-G3;  Contains:  RecName: Full=11S globulin seed storage protein G3 acidic chain;  Contains:  RecName: Full=11S globulin seed storage protein G3 basic chain;  Flags: Precursor;
+P19084	T	4232
+P19084	G	GO:0045735
+P13744	D	RecName: Full=11S globulin subunit beta;  Contains:  RecName: Full=11S globulin gamma chain;  AltName: Full=11S globulin acidic chain;  Contains:  RecName: Full=11S globulin delta chain;  AltName: Full=11S globulin basic chain;  Flags: Precursor;
+P13744	T	3661
+P13744	G	GO:0046872
+P13744	G	GO:0045735
+O55734	D	RecName: Full=Uncharacterized protein 120L;  Flags: Precursor;
+O55734	T	176652
+O55735	D	RecName: Full=Putative RING finger protein 121R;
+O55735	T	176652
+O55735	G	GO:0008270
+Q196T8	D	RecName: Full=Uncharacterized protein 122R;  Flags: Precursor;
+Q196T8	T	345201
+O55736	D	RecName: Full=Uncharacterized protein 122R;
+O55736	T	176652
+Q196T7	D	RecName: Full=Uncharacterized protein 123L;
+Q196T7	T	345201
+O55737	D	RecName: Full=Putative tyrosine phosphatase 123R;  EC=3.1.3.-;
+O55737	T	176652
+O55737	G	GO:0004725
+O55737	G	GO:0008138
+O55737	G	GO:0035335
+Q196T6	D	RecName: Full=Uncharacterized protein 124R;
+Q196T6	T	345201
+Q196T6	G	GO:0016021
+Q196T5	D	RecName: Full=Uncharacterized protein 125R;
+Q196T5	T	345201
+Q196T4	D	RecName: Full=Uncharacterized protein 126R;
+Q196T4	T	345201
+Q196T4	G	GO:0016021
+O55738	D	RecName: Full=Uncharacterized protein 126R;
+O55738	T	176652
+O55738	G	GO:0016772
+O55739	D	RecName: Full=Uncharacterized protein 127L;
+O55739	T	176652
+O55739	G	GO:0005622
+O55739	G	GO:0003824
+O55739	G	GO:0016070
+P32234	D	RecName: Full=GTP-binding protein 128up;
+P32234	T	7227
+P32234	G	GO:0005525
+P32234	K	dme:Dmel_CG8340-
+P21215	D	RecName: Full=12-alpha-hydroxysteroid dehydrogenase;  EC=1.1.1.176;  Flags: Fragment;
+P21215	T	1507
+P21215	G	GO:0047013
+P21215	G	GO:0000166
+P21215	G	GO:0030573
+Q05349	D	RecName: Full=Auxin-repressed 12.5 kDa protein;
+Q05349	T	3747
+Q05349	G	GO:0009734
+P80438	D	RecName: Full=12 kDa protein;  Flags: Fragment;
+P80438	T	1772
+Q8GBW6	D	RecName: Full=Methylmalonyl-CoA carboxyltransferase 12S subunit;  EC=2.1.3.1;  AltName: Full=Transcarboxylase 12S subunit;
+Q8GBW6	T	1752
+Q8GBW6	G	GO:0009317
+Q8GBW6	G	GO:0003989
+Q8GBW6	G	GO:0047154
+Q8GBW6	G	GO:0006633
+O55740	D	RecName: Full=Uncharacterized protein 130R;  Flags: Precursor;
+O55740	T	176652
+O55741	D	RecName: Full=Putative zinc finger protein 132L;
+O55741	T	176652
+O55741	G	GO:0003676
+O55741	G	GO:0008270
+Q91G04	D	RecName: Full=Uncharacterized protein 135R;
+Q91G04	T	176652
+Q91G04	G	GO:0016021
+O55743	D	RecName: Full=Uncharacterized protein 137R;  Flags: Precursor;
+O55743	T	176652
+O55744	D	RecName: Full=Uncharacterized protein 138R;
+O55744	T	176652
+O55744	G	GO:0016021
+O55745	D	RecName: Full=Uncharacterized protein 139L;  Flags: Precursor;
+O55745	T	176652
+P83011	D	RecName: Full=13.2 kDa protein;  Flags: Fragment;
+P83011	T	7830
+P83011	G	GO:0005783
+P83011	G	GO:0005792
+P83010	D	RecName: Full=13 kDa protein;  Flags: Fragment;
+P83010	T	30494
+P83010	G	GO:0005783
+P83010	G	GO:0005792
+O23878	D	RecName: Full=13S globulin seed storage protein 1;  AltName: Full=Legumin-like protein 1;  Contains:  RecName: Full=13S globulin seed storage protein 1 acidic chain;  Contains:  RecName: Full=13S globulin seed storage protein 1 basic chain;  Flags: Precursor;
+O23878	T	3617
+O23878	G	GO:0045735
+O23880	D	RecName: Full=13S globulin seed storage protein 2;  AltName: Full=Legumin-like protein 2;  Contains:  RecName: Full=13S globulin seed storage protein 2 acidic chain;  Contains:  RecName: Full=13S globulin seed storage protein 2 basic chain;  Flags: Precursor;
+O23880	T	3617
+O23880	G	GO:0045735
+Q9XFM4	D	RecName: Full=13S globulin seed storage protein 3;  AltName: Full=Legumin-like protein 3;  AltName: Allergen=Fag e 1;  Contains:  RecName: Full=13S globulin seed storage protein 3 acidic chain;  Contains:  RecName: Full=13S globulin seed storage protein 3 basic chain;  Flags: Precursor;
+Q9XFM4	T	3617
+Q9XFM4	G	GO:0045735
+P83004	D	RecName: Full=13S globulin basic chain;
+P83004	T	3617
+P83004	G	GO:0045735
+O55746	D	RecName: Full=Uncharacterized protein 140L;
+O55746	T	176652
+O55746	G	GO:0016021
+P81928	D	RecName: Full=RPII140-upstream gene protein;
+P81928	T	7227
+P81928	G	GO:0016021
+P81928	G	GO:0007275
+P81928	K	dme:Dmel_CG9852-
+O55747	D	RecName: Full=Uncharacterized protein 141R;
+O55747	T	176652
+O55747	G	GO:0016021
+P48347	D	RecName: Full=14-3-3-like protein GF14 epsilon;  AltName: Full=General regulatory factor 10;
+P48347	T	3702
+P48347	G	GO:0005829
+P48347	G	GO:0005739
+P48347	G	GO:0005886
+P48347	G	GO:0009506
+P48347	G	GO:0005524
+P48347	G	GO:0009742
+P48347	G	GO:0009737
+P48347	K	ath:AT1G22300-
+P93207	D	RecName: Full=14-3-3 protein 10;
+P93207	T	4081
+Q9S9Z8	D	RecName: Full=14-3-3-like protein GF14 omicron;  AltName: Full=General regulatory factor 11;
+Q9S9Z8	T	3702
+Q9S9Z8	K	ath:AT1G34760-
+Q9C5W6	D	RecName: Full=14-3-3-like protein GF14 iota;  AltName: Full=General regulatory factor 12;
+Q9C5W6	T	3702
+Q9C5W6	K	ath:AT1G26480-
+P42643	D	RecName: Full=14-3-3-like protein GF14 chi;  AltName: Full=General regulatory factor 1;
+P42643	T	3702
+P42643	G	GO:0048046
+P42643	G	GO:0009570
+P42643	G	GO:0005829
+P42643	G	GO:0005794
+P42643	G	GO:0005634
+P42643	G	GO:0005886
+P42643	G	GO:0009506
+P42643	G	GO:0005773
+P42643	G	GO:0046686
+P42643	K	ath:AT4G09000-
+P41932	D	RecName: Full=14-3-3-like protein 1;  AltName: Full=Partitioning defective protein 5;
+P41932	T	6239
+P41932	G	GO:0005938
+P41932	G	GO:0005634
+P41932	G	GO:0045167
+P41932	G	GO:0001708
+P41932	G	GO:0043053
+P41932	G	GO:0008340
+P41932	G	GO:0009792
+P41932	G	GO:0000132
+P41932	G	GO:0030590
+P41932	G	GO:0035188
+P41932	G	GO:0007126
+P41932	G	GO:0002009
+P41932	G	GO:0009949
+P41932	G	GO:0035046
+P41932	G	GO:0006898
+P41932	G	GO:0007346
+P41932	G	GO:0010070
+P41932	K	cel:M117.2-
+Q9U408	D	RecName: Full=14-3-3 protein homolog 1;
+Q9U408	T	6210
+Q24902	D	RecName: Full=14-3-3 protein homolog 1;  AltName: Full=Emma14-3-3.1;
+Q24902	T	6211
+P42648	D	RecName: Full=14-3-3 protein 1;  Short=14-3-3-1;
+P42648	T	5759
+P49106	D	RecName: Full=14-3-3-like protein GF14-6;
+P49106	T	4577
+P49106	G	GO:0005618
+P49106	G	GO:0009570
+P49106	G	GO:0005739
+P49106	G	GO:0005635
+P49106	G	GO:0005886
+P49106	G	GO:0005524
+P49106	G	GO:0046686
+P49106	K	zma:542291-
+Q84J55	D	RecName: Full=14-3-3-like protein GF14-A;  AltName: Full=G-box factor 14-3-3 homolog A;
+Q84J55	T	39947
+Q84J55	G	GO:0009507
+Q84J55	G	GO:0005829
+Q84J55	G	GO:0005634
+Q84J55	G	GO:0009505
+Q84J55	G	GO:0005886
+Q84J55	G	GO:0009742
+Q84J55	G	GO:0042742
+Q84J55	G	GO:0046686
+Q84J55	K	osa:4345850-
+P85938	D	RecName: Full=14-3-3-like protein 1;  Flags: Fragments;
+P85938	T	3357
+Q26540	D	RecName: Full=14-3-3 protein homolog 1;
+Q26540	T	6183
+Q26540	K	smm:Smp_009760-
+P93206	D	RecName: Full=14-3-3 protein 1;
+P93206	T	4081
+Q41418	D	RecName: Full=14-3-3-like protein;
+Q41418	T	4113
+Q01525	D	RecName: Full=14-3-3-like protein GF14 omega;  AltName: Full=General regulatory factor 2;
+Q01525	T	3702
+Q01525	G	GO:0005829
+Q01525	G	GO:0005794
+Q01525	G	GO:0005886
+Q01525	G	GO:0005774
+Q01525	G	GO:0009742
+Q01525	K	ath:AT1G78300-
+Q20655	D	RecName: Full=14-3-3-like protein 2;
+Q20655	T	6239
+Q20655	G	GO:0005737
+Q20655	G	GO:0005634
+Q20655	G	GO:0043053
+Q20655	G	GO:0008340
+Q20655	G	GO:0009792
+Q20655	G	GO:0040007
+Q20655	G	GO:0035188
+Q20655	G	GO:0018991
+Q20655	G	GO:0040010
+Q20655	G	GO:0006898
+Q20655	K	cel:F52D10.3-
+Q8MUA4	D	RecName: Full=14-3-3 protein homolog 2;
+Q8MUA4	T	6210
+Q8MM75	D	RecName: Full=14-3-3 protein homolog 2;
+Q8MM75	T	6211
+P42649	D	RecName: Full=14-3-3 protein 2;  Short=14-3-3-2;
+P42649	T	5759
+Q01526	D	RecName: Full=14-3-3-like protein GF14-12;
+Q01526	T	4577
+Q01526	K	zma:100279512-
+Q01526	K	zma:542291-
+Q7XTE8	D	RecName: Full=14-3-3-like protein GF14-B;  AltName: Full=G-box factor 14-3-3 homolog B;
+Q7XTE8	T	39947
+Q7XTE8	G	GO:0005618
+Q7XTE8	G	GO:0009570
+Q7XTE8	G	GO:0005739
+Q7XTE8	G	GO:0005635
+Q7XTE8	G	GO:0005886
+Q7XTE8	G	GO:0005524
+Q7XTE8	G	GO:0046686
+Q7XTE8	K	osa:4336066-
+P85939	D	RecName: Full=14-3-3-like protein 2;  Flags: Fragments;
+P85939	T	3357
+Q26537	D	RecName: Full=14-3-3 protein homolog 2;  Short=14-3-3-2;  Flags: Fragment;
+Q26537	T	6183
+P93208	D	RecName: Full=14-3-3 protein 2;
+P93208	T	4081
+Q43643	D	RecName: Full=14-3-3-like protein RA215;
+Q43643	T	4113
+P42644	D	RecName: Full=14-3-3-like protein GF14 psi;  AltName: Full=14-3-3-like protein RCI1;  AltName: Full=General regulatory factor 3;
+P42644	T	3702
+P42644	G	GO:0005618
+P42644	G	GO:0009507
+P42644	G	GO:0005829
+P42644	G	GO:0005794
+P42644	G	GO:0005739
+P42644	G	GO:0005886
+P42644	G	GO:0009506
+P42644	G	GO:0005773
+P42644	G	GO:0005524
+P42644	G	GO:0004623
+P42644	G	GO:0006588
+P42644	G	GO:0000077
+P42644	K	ath:AT5G38480-
+P42650	D	RecName: Full=14-3-3 protein 3;  Short=14-3-3-3;  Flags: Fragment;
+P42650	T	5759
+Q6ZKC0	D	RecName: Full=14-3-3-like protein GF14-C;  AltName: Full=G-box factor 14-3-3 homolog C;
+Q6ZKC0	T	39947
+Q6ZKC0	G	GO:0005618
+Q6ZKC0	G	GO:0009570
+Q6ZKC0	G	GO:0005739
+Q6ZKC0	G	GO:0005635
+Q6ZKC0	G	GO:0005886
+Q6ZKC0	G	GO:0005524
+Q6ZKC0	G	GO:0046686
+Q6ZKC0	K	osa:4345634-
+P85941	D	RecName: Full=14-3-3-like protein 3;  Flags: Fragment;
+P85941	T	3357
+P93209	D	RecName: Full=14-3-3 protein 3;  AltName: Full=PBLT3;
+P93209	T	4081
+P46077	D	RecName: Full=14-3-3-like protein GF14 phi;  AltName: Full=General regulatory factor 4;
+P46077	T	3702
+P46077	G	GO:0005829
+P46077	G	GO:0005794
+P46077	G	GO:0005886
+P46077	G	GO:0009742
+P46077	K	ath:AT1G35160-
+Q2R2W2	D	RecName: Full=14-3-3-like protein GF14-D;  AltName: Full=G-box factor 14-3-3 homolog D;
+Q2R2W2	T	39947
+Q2R2W2	G	GO:0005618
+Q2R2W2	G	GO:0009570
+Q2R2W2	G	GO:0005739
+Q2R2W2	G	GO:0005635
+Q2R2W2	G	GO:0005886
+Q2R2W2	G	GO:0005524
+Q2R2W2	G	GO:0046686
+Q2R2W2	K	osa:4350697-
+P85942	D	RecName: Full=14-3-3-like protein 4;  Flags: Fragments;
+P85942	T	3357
+P42652	D	RecName: Full=14-3-3 protein 4;  AltName: Full=PBLT4;
+P42652	T	4081
+P42645	D	RecName: Full=14-3-3-like protein GF14 upsilon;  AltName: Full=General regulatory factor 5;
+P42645	T	3702
+P42645	G	GO:0005618
+P42645	G	GO:0005829
+P42645	G	GO:0005794
+P42645	G	GO:0005739
+P42645	G	GO:0005886
+P42645	G	GO:0009536
+P42645	G	GO:0005524
+P42645	G	GO:0004623
+P42645	G	GO:0006588
+P42645	G	GO:0000077
+P42645	G	GO:0046686
+P42645	K	ath:AT5G16050-
+Q6EUP4	D	RecName: Full=14-3-3-like protein GF14-E;  AltName: Full=G-box factor 14-3-3 homolog E;
+Q6EUP4	T	39947
+Q6EUP4	G	GO:0005618
+Q6EUP4	G	GO:0009570
+Q6EUP4	G	GO:0005739
+Q6EUP4	G	GO:0005635
+Q6EUP4	G	GO:0005886
+Q6EUP4	G	GO:0005524
+Q6EUP4	G	GO:0046686
+Q6EUP4	K	osa:4329775-
+P93210	D	RecName: Full=14-3-3 protein 5;
+P93210	T	4081
+P93784	D	RecName: Full=14-3-3-like protein 16R;
+P93784	T	4113
+P48349	D	RecName: Full=14-3-3-like protein GF14 lambda;  AltName: Full=14-3-3-like protein AFT1;  AltName: Full=14-3-3-like protein RCI2;  AltName: Full=General regulatory factor 6;
+P48349	T	3702
+P48349	G	GO:0005618
+P48349	G	GO:0009507
+P48349	G	GO:0005829
+P48349	G	GO:0005634
+P48349	G	GO:0005886
+P48349	G	GO:0009742
+P48349	G	GO:0042742
+P48349	G	GO:0046686
+P48349	K	ath:AT5G10450-
+Q06967	D	RecName: Full=14-3-3-like protein GF14-F;  AltName: Full=14-3-3-like protein S94;  AltName: Full=G-box factor 14-3-3 homolog F;  AltName: Full=OsGF14a;  AltName: Full=Stress-regulated 14-3-3 protein;  Short=SR14-3-3;
+Q06967	T	39947
+Q06967	G	GO:0005618
+Q06967	G	GO:0009570
+Q06967	G	GO:0005739
+Q06967	G	GO:0005635
+Q06967	G	GO:0005886
+Q06967	G	GO:0005524
+Q06967	G	GO:0008426
+Q06967	G	GO:0046686
+Q06967	K	osa:4333880-
+P93211	D	RecName: Full=14-3-3 protein 6;
+P93211	T	4081
+Q96300	D	RecName: Full=14-3-3-like protein GF14 nu;  AltName: Full=General regulatory factor 7;
+Q96300	T	3702
+Q96300	G	GO:0009507
+Q96300	G	GO:0005794
+Q96300	G	GO:0005739
+Q96300	G	GO:0005886
+Q96300	G	GO:0009506
+Q96300	G	GO:0004623
+Q96300	G	GO:0006588
+Q96300	G	GO:0000077
+Q96300	K	ath:AT3G02520-
+Q5QNB8	D	RecName: Full=14-3-3-like protein GF14-G;  AltName: Full=G-box factor 14-3-3 homolog G;
+Q5QNB8	T	39947
+Q5QNB8	K	osa:4325534-
+P93212	D	RecName: Full=14-3-3 protein 7;
+P93212	T	4081
+P48348	D	RecName: Full=14-3-3-like protein GF14 kappa;  AltName: Full=General regulatory factor 8;
+P48348	T	3702
+P48348	G	GO:0005618
+P48348	G	GO:0009507
+P48348	G	GO:0005634
+P48348	G	GO:0009742
+P48348	K	ath:AT5G65430-
+Q2R1D5	D	RecName: Full=Putative 14-3-3-like protein GF14-H;  AltName: Full=G-box factor 14-3-3 homolog H;
+Q2R1D5	T	39947
+P93213	D	RecName: Full=14-3-3 protein 8;
+P93213	T	4081
+Q96299	D	RecName: Full=14-3-3-like protein GF14 mu;  AltName: Full=General regulatory factor 9;
+Q96299	T	3702
+Q96299	G	GO:0005829
+Q96299	G	GO:0005634
+Q96299	G	GO:0005886
+Q96299	G	GO:0005509
+Q96299	G	GO:0048528
+Q96299	K	ath:AT2G42590-
+P93214	D	RecName: Full=14-3-3 protein 9;
+P93214	T	4081
+P29305	D	RecName: Full=14-3-3-like protein A;  Short=14-3-3A;
+P29305	T	4513
+Q96450	D	RecName: Full=14-3-3-like protein A;  AltName: Full=SGF14A;
+Q96450	T	3847
+P93342	D	RecName: Full=14-3-3-like protein A;
+P93342	T	4097
+P42653	D	RecName: Full=14-3-3-like protein A;  AltName: Full=VFA-1433A;
+P42653	T	3906
+P68250	D	RecName: Full=14-3-3 protein beta/alpha;  AltName: Full=Protein kinase C inhibitor protein 1;  Short=KCIP-1;  Contains:  RecName: Full=14-3-3 protein beta/alpha, N-terminally processed;
+P68250	T	9913
+P68250	G	GO:0042470
+P68250	G	GO:0048471
+P68250	G	GO:0006605
+P68250	K	bta:286863-
+Q5ZLQ6	D	RecName: Full=14-3-3 protein beta/alpha;
+Q5ZLQ6	T	9031
+Q5ZLQ6	G	GO:0005813
+Q5ZLQ6	G	GO:0005634
+Q5ZLQ6	G	GO:0048471
+Q5ZLQ6	G	GO:0051220
+Q5ZLQ6	G	GO:0035308
+Q5ZLQ6	G	GO:0043085
+Q5ZLQ6	G	GO:0006605
+Q5ZLQ6	K	gga:419190-
+Q43470	D	RecName: Full=14-3-3-like protein B;  Short=14-3-3B;
+Q43470	T	4513
+P31946	D	RecName: Full=14-3-3 protein beta/alpha;  AltName: Full=Protein 1054;  AltName: Full=Protein kinase C inhibitor protein 1;  Short=KCIP-1;  Contains:  RecName: Full=14-3-3 protein beta/alpha, N-terminally processed;
+P31946	T	9606
+P31946	G	GO:0005813
+P31946	G	GO:0005829
+P31946	G	GO:0042470
+P31946	G	GO:0005634
+P31946	G	GO:0048471
+P31946	G	GO:0017053
+P31946	G	GO:0003714
+P31946	G	GO:0000186
+P31946	G	GO:0008633
+P31946	G	GO:0007411
+P31946	G	GO:0051220
+P31946	G	GO:0007173
+P31946	G	GO:0008543
+P31946	G	GO:0010467
+P31946	G	GO:0035329
+P31946	G	GO:0008629
+P31946	G	GO:0008286
+P31946	G	GO:0000165
+P31946	G	GO:0016071
+P31946	G	GO:0035308
+P31946	G	GO:0045892
+P31946	G	GO:0048011
+P31946	G	GO:0006605
+P31946	G	GO:0007265
+P31946	K	hsa:7529-
+Q4R572	D	RecName: Full=14-3-3 protein beta/alpha;  Contains:  RecName: Full=14-3-3 protein beta/alpha, N-terminally processed;
+Q4R572	T	9541
+Q4R572	G	GO:0042470
+Q9CQV8	D	RecName: Full=14-3-3 protein beta/alpha;  AltName: Full=Protein kinase C inhibitor protein 1;  Short=KCIP-1;  Contains:  RecName: Full=14-3-3 protein beta/alpha, N-terminally processed;
+Q9CQV8	T	10090
+Q9CQV8	G	GO:0005813
+Q9CQV8	G	GO:0005829
+Q9CQV8	G	GO:0042470
+Q9CQV8	G	GO:0048471
+Q9CQV8	G	GO:0017053
+Q9CQV8	G	GO:0003714
+Q9CQV8	G	GO:0051220
+Q9CQV8	G	GO:0035308
+Q9CQV8	G	GO:0045892
+Q9CQV8	G	GO:0043085
+Q9CQV8	G	GO:0006605
+Q9CQV8	K	mmu:54401-
+A4K2U9	D	RecName: Full=14-3-3 protein beta/alpha;  Contains:  RecName: Full=14-3-3 protein beta/alpha, N-terminally processed;
+A4K2U9	T	9601
+A4K2U9	G	GO:0005813
+A4K2U9	G	GO:0042470
+A4K2U9	G	GO:0005634
+A4K2U9	G	GO:0048471
+A4K2U9	G	GO:0051220
+A4K2U9	G	GO:0035308
+A4K2U9	G	GO:0043085
+A4K2U9	G	GO:0006605
+A4K2U9	K	pon:100137177-
+P35213	D	RecName: Full=14-3-3 protein beta/alpha;  AltName: Full=Prepronerve growth factor RNH-1;  AltName: Full=Protein kinase C inhibitor protein 1;  Short=KCIP-1;  Contains:  RecName: Full=14-3-3 protein beta/alpha, N-terminally processed;
+P35213	T	10116
+P35213	G	GO:0005813
+P35213	G	GO:0005829
+P35213	G	GO:0042470
+P35213	G	GO:0048471
+P35213	G	GO:0017053
+P35213	G	GO:0003714
+P35213	G	GO:0051220
+P35213	G	GO:0035308
+P35213	G	GO:0045892
+P35213	G	GO:0043085
+P35213	G	GO:0051291
+P35213	G	GO:0006605
+P35213	K	rno:56011-
+P68251	D	RecName: Full=14-3-3 protein beta/alpha;  AltName: Full=Protein kinase C inhibitor protein 1;  Short=KCIP-1;  Contains:  RecName: Full=14-3-3 protein beta/alpha, N-terminally processed;  Flags: Fragments;
+P68251	T	9940
+P68251	G	GO:0042470
+Q96451	D	RecName: Full=14-3-3-like protein B;  AltName: Full=SGF14B;  Flags: Fragment;
+Q96451	T	3847
+O49995	D	RecName: Full=14-3-3-like protein B;
+O49995	T	4097
+P42654	D	RecName: Full=14-3-3-like protein B;  AltName: Full=VFA-1433B;
+P42654	T	3906
+Q5XGC8	D	RecName: Full=14-3-3 protein beta/alpha;
+Q5XGC8	T	8364
+Q5XGC8	G	GO:0005737
+Q5XGC8	K	xtr:496529-
+Q96452	D	RecName: Full=14-3-3-like protein C;  AltName: Full=SGF14C;
+Q96452	T	3847
+P93343	D	RecName: Full=14-3-3-like protein C;  AltName: Full=14-3-3-like protein B;
+P93343	T	4097
+Q96453	D	RecName: Full=14-3-3-like protein D;  AltName: Full=SGF14D;
+Q96453	T	3847
+Q96453	K	gmx:547990-
+O49996	D	RecName: Full=14-3-3-like protein D;
+O49996	T	4097
+P62261	D	RecName: Full=14-3-3 protein epsilon;  Short=14-3-3E;
+P62261	T	9913
+P62261	G	GO:0042470
+P62261	G	GO:0005739
+P62261	G	GO:0021987
+P62261	G	GO:0021766
+P62261	G	GO:0035308
+P62261	G	GO:0001764
+P62261	G	GO:0006605
+P62261	K	bta:282125-
+Q5ZMT0	D	RecName: Full=14-3-3 protein epsilon;  Short=14-3-3E;
+Q5ZMT0	T	9031
+Q5ZMT0	G	GO:0005737
+Q5ZMT0	K	gga:417554-
+P92177	D	RecName: Full=14-3-3 protein epsilon;  AltName: Full=Suppressor of Ras1 3-9;
+P92177	T	7227
+P92177	G	GO:0005694
+P92177	G	GO:0005737
+P92177	G	GO:0045172
+P92177	G	GO:0005875
+P92177	G	GO:0005634
+P92177	G	GO:0008340
+P92177	G	GO:0007294
+P92177	G	GO:0007095
+P92177	G	GO:0008103
+P92177	G	GO:0045927
+P92177	G	GO:0007088
+P92177	G	GO:0009411
+P92177	G	GO:0048190
+P92177	K	dme:Dmel_CG31196-
+P62258	D	RecName: Full=14-3-3 protein epsilon;  Short=14-3-3E;
+P62258	T	9606
+P62258	G	GO:0033267
+P62258	G	GO:0005829
+P62258	G	GO:0005871
+P62258	G	GO:0042470
+P62258	G	GO:0005739
+P62258	G	GO:0006915
+P62258	G	GO:0021987
+P62258	G	GO:0000086
+P62258	G	GO:0035329
+P62258	G	GO:0021766
+P62258	G	GO:0008624
+P62258	G	GO:0044419
+P62258	G	GO:0035308
+P62258	G	GO:0048011
+P62258	G	GO:0001764
+P62258	G	GO:0006605
+P62258	K	hsa:7531-
+P62259	D	RecName: Full=14-3-3 protein epsilon;  Short=14-3-3E;
+P62259	T	10090
+P62259	G	GO:0033267
+P62259	G	GO:0005871
+P62259	G	GO:0042470
+P62259	G	GO:0005739
+P62259	G	GO:0021987
+P62259	G	GO:0021766
+P62259	G	GO:0035308
+P62259	G	GO:0001764
+P62259	G	GO:0006605
+P62259	K	mmu:22627-
+P62260	D	RecName: Full=14-3-3 protein epsilon;  Short=14-3-3E;  AltName: Full=Mitochondrial import stimulation factor L subunit;  Short=MSF L;
+P62260	T	10116
+P62260	G	GO:0033267
+P62260	G	GO:0005871
+P62260	G	GO:0042470
+P62260	G	GO:0005739
+P62260	G	GO:0008426
+P62260	G	GO:0021987
+P62260	G	GO:0021766
+P62260	G	GO:0035308
+P62260	G	GO:0001764
+P62260	G	GO:0006605
+P62260	G	GO:0007165
+P62260	K	rno:29753-
+P62262	D	RecName: Full=14-3-3 protein epsilon;  Short=14-3-3E;  AltName: Full=Protein kinase C inhibitor protein 1;  Short=KCIP-1;
+P62262	T	9940
+P62262	G	GO:0042470
+O49997	D	RecName: Full=14-3-3-like protein E;
+O49997	T	4097
+P68509	D	RecName: Full=14-3-3 protein eta;  AltName: Full=Protein kinase C inhibitor protein 1;  Short=KCIP-1;
+P68509	T	9913
+P68509	G	GO:0005737
+P68509	K	bta:282126-

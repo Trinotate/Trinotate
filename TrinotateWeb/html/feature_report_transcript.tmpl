@@ -1,0 +1,20 @@
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="heading-<TMPL_VAR NAME="TRANSCRIPT_ID">">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#<TMPL_VAR NAME="TRANSCRIPT_ID">" aria-expanded="false" aria-controls="<TMPL_VAR NAME="TRANSCRIPT_ID">">
+          Transcript Annotations (Gene: <TMPL_VAR NAME="GENE_ID">, Transcript: <TMPL_VAR NAME="TRANSCRIPT_ID">)
+        </a>
+      </h4>
+    </div>
+    <div id="<TMPL_VAR NAME="TRANSCRIPT_ID">" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-<TMPL_VAR NAME="TRANSCRIPT_ID">">
+      <div class="panel-body">
+        <TMPL_IF NAME="GENOME_BROWSER">
+          <TMPL_VAR NAME="PLOT">
+          <TMPL_VAR NAME="GENOME_BROWSER">
+          <TMPL_VAR NAME="TRANSCRIPT_DATA">
+        <TMPL_ELSE>
+          <p>No transcript sequence stored for <TMPL_VAR NAME="GENE_ID"> <TMPL_VAR NAME="TRANSCRIPT_ID"></p>
+        </TMPL_IF>
+      </div>
+    </div>
+  </div>
