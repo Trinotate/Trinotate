@@ -77,7 +77,7 @@ if ($create_flag) {
     if (-s $sqlite_db) {
         unlink($sqlite_db);
     }
-    my $cmd = "java -cp $bindir:$bindir/../java/sqlitejdbc-v056.jar CreateJavaSQLliteTables $sqlite_db";
+    my $cmd = "$bindir/init_Trinotate_sqlite_db.pl --sqlite $sqlite_db";
     &process_cmd($cmd);
 }
 

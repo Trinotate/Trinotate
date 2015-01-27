@@ -8,7 +8,13 @@ sub new {
     my $packagename = shift;
     my $filename = shift;
     
-    open (my $fh, $filename) or confess "Error, cannot open file $filename";
+    my $fh;
+    if ($filename =~ /\.gz$/) {
+        open ($fh, "gunzip -c $filename | ");
+    }
+    else {
+        open ($fh, $filename) or confess "Error, cannot open file $filename";
+    }
     
     my $self = {   fh => $fh,
                    filename => $filename,
