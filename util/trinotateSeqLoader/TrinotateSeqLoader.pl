@@ -17,13 +17,8 @@ my $usage = <<__EOUSAGE__;
 #
 # Required:
 #
-<<<<<<< .mine
 #  --sqlite <string>                  Trinotate sqlite database file
 #
-=======
-#  --sqlite <string>                  Trinotate sqlite db
-#
->>>>>>> .r262
 #  --gene_trans_map <string>          text file indicating  "gene<tab>trans" 
 #                                      for each trans-gene relationship.
 #
@@ -50,7 +45,6 @@ my $transdecoder_pep_file;
 my $help_flag;
 
 my $bulk_loading_flag = 0;
-my $trin_sqlite;
 
 &GetOptions( 
 
@@ -59,8 +53,6 @@ my $trin_sqlite;
              'transcript_fasta_file=s' => \$transcript_fasta_file,
              'transdecoder_pep_file=s' => \$transdecoder_pep_file,
              'help|h' => \$help_flag,
-             'sqlite=s' => \$trin_sqlite,
-
              'bulk_load' => \$bulk_loading_flag,
     );
 
@@ -68,18 +60,10 @@ if ($help_flag) {
     die $usage;
 }
 
-<<<<<<< .mine
+
 unless ($sqlite_db && $gene_trans_map_file && $transcript_fasta_file && $transdecoder_pep_file) {
-=======
-unless ($trin_sqlite && $gene_trans_map_file && $transcript_fasta_file && $transdecoder_pep_file) {
->>>>>>> .r262
     die $usage;
 }
-
-<<<<<<< .mine
-=======
-
->>>>>>> .r262
 
 main: {
 
