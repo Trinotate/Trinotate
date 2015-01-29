@@ -17,26 +17,30 @@ main: {
 
     my %IDs_to_capture;
     {
+        
+        print STDERR "-reading in list of IDs to capture ... ";
         open (my $fh, $IDs_to_capture_file) or die "Error, cannot open file $IDs_to_capture_file";
+        my $counter = 0;
         while (<$fh>) {
+            $counter++;
             my $id = $_;
             $id =~ s/\s//g;
-            $IDs_to_capture{$id};
+            $IDs_to_capture{$id} = 1;
         }
         close $fh;
+        print STDERR " done.  Read $counter ids\n"; 
     }
      
+    print STDERR "Capturing entries.\n";
     my $embl_parser = new EMBL_parser($embl_dat_file);
 
     ## types currently supporting: DEGKT
 
     my $record_counter = 0;
     
+    
     while (my $record = $embl_parser->next()) {
         
-        $record_counter++;
-        print STDERR "\r[$record_counter]    " if $record_counter % 1000 == 0;
-                
         my $ID = $record->{sections}->{ID};
         my @pts = split(/\s+/, $ID);
         $ID = shift @pts;
@@ -45,6 +49,10 @@ main: {
         if ($IDs_to_capture{$ID}) {
             print $record->{record};
             delete($IDs_to_capture{$ID});
+            $record_counter++;
+            print STDERR "\r[$record_counter]    " if $record_counter % 1000 == 0;
+            
+
         }
 
     }
