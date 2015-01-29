@@ -113,7 +113,7 @@ sub get_taxon_id {
     my ($record, $taxon_ids_href, $taxons_ofh) = @_;
     
     my $ncbi_taxon_id = $record->{sections}->{OX} or die "Error, no OX record for $record";
-    $ncbi_taxon_id =~ /NCBI_TaxID=(\d+);/ or die "Error, cannot parse $ncbi_taxon_id for taxon id";
+    $ncbi_taxon_id =~ /NCBI_TaxID=(\d+)[; ]/ or die "Error, cannot parse $ncbi_taxon_id for taxon id";
     $ncbi_taxon_id = $1;
 
     if ($taxon_ids_href->{$ncbi_taxon_id}) {
