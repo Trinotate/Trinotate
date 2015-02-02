@@ -424,7 +424,7 @@ sub median {
     @nums = sort {$a<=>$b} @nums;
         
     my $count = scalar (@nums);
-    if ($count > 1 && $count %2 == 0) {
+    if ($count > 1 && $count % 2 == 0) {
         ## even number:
         my $half = $count / 2;
         return ( ($nums[$half-1], $nums[$half]) / 2);
