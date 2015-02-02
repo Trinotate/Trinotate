@@ -18,9 +18,6 @@ use DEWebCommon;
 use Data::Dumper;
 use HTML::Template;
 
-
-our $SEE = 0;
-
 main: {
     
     my $cgi = new CGI();
@@ -30,6 +27,7 @@ main: {
     
     my $sqlite_db = $params{sqlite} or die "Error, need sqlite param";
     my $feature_name = $params{feature_name} or die "Error, need feature_name"; 
+    
     
 
     my $plot_loader_func_name = "load_plots_$$";
@@ -58,7 +56,25 @@ main: {
     ## determine if gene or transcript:
     my $query = "select rowid from Transcript where gene_id = \"$feature_name\"";
     my $is_gene = &very_first_result_sql($dbproc, $query);
-    my $feature_type = ($is_gene) ? 'G' : 'T';
+    my $feature_type;
+    if ($is_gene) {
+        $feature_type = 'G';
+    }
+    else {
+        ## ensure we have a transcript row:
+        my $query = "select rowid from Transcript where transcript_id = \"$feature_name\" ";
+        my $is_trans = &very_first_result_sql($dbproc, $query);
+        if ($is_trans) {
+            $feature_type = 'T';
+        }
+        else {
+            print "No gene or transcript feature found with id = $feature_name";
+            my $footer_template = HTML::Template->new(filename => 'html/footer.tmpl');
+            print $footer_template->output;            
+            exit();
+        }
+    }
+    
     
     my %data = &DEWebCommon::get_expression_data($dbproc, { feature_name => $feature_name,
                                                             feature_type => $feature_type,

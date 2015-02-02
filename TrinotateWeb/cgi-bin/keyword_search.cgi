@@ -15,8 +15,6 @@ use Data::Dumper;
 use HTML::Template;
 
 
-our $SEE = 0;
-
 my $MAX_RESULTS = 200;
 my $MAX_TEXTLINE_LEN = 300;
 

@@ -3,6 +3,8 @@
 package main;
 our ($SEE, $DEBUG);
 
+our $SEE = 1;
+
 package Sqlite_connect;
 
 require 5.6.0;
@@ -71,10 +73,10 @@ sub do_sql_2D {
 
         ## Use $QUERYFAIL Global variable to detect query failures.
         $QUERYFAIL = 0; #initialize
-        print "QUERY: $query\tVALUES: @values\n" if($::DEBUG||$::SEE);
+        print STDERR "QUERY: $query\tVALUES: @values\n" if($::DEBUG||$::SEE);
         $statementHandle = $dbproc->prepare($query);
         if ( !defined $statementHandle) {
-            print "Cannot prepare statement: $DBI::errstr\n";
+            print STDERR "Cannot prepare statement: $DBI::errstr\n";
             $QUERYFAIL = 1;
         } else {
             
@@ -112,7 +114,7 @@ sub do_sql_2D {
 sub RunMod {
     my ($dbproc,$query, @values) = @_;
     my ($result);
-    if($::DEBUG||$::SEE) {print "QUERY: $query\tVALUES: @values\n";}
+    if($::DEBUG||$::SEE) {print STDERR "QUERY: $query\tVALUES: @values\n";}
     if($::DEBUG) {
         $result = "NOT READY";
     } else {
