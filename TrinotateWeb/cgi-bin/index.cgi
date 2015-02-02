@@ -23,7 +23,7 @@ main: {
     
     my $cgi = new CGI();
     print $cgi->header();
-    
+
     my %params = $cgi->Vars();
 
     my $sqlite_db = $params{sqlite_db};
