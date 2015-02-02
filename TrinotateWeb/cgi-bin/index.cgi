@@ -39,30 +39,27 @@ main: {
     print $dashboard_header_template->output;
     
 
-    unless ($sqlite_db) {
-        my $db = "TrinityFunctional.db";
-        if (-s $db) {
-            $sqlite_db = "$db";
+    eval {
+        if ($sqlite_db) {
+            
+            if (! -s $sqlite_db) {
+                die "Error, cannot locate $sqlite_db";
+            }
+            &TrinotateWebMain(\%params, $sqlite_db);
+            
         }
-        
-    }
-                
-    if ($sqlite_db) {
-        
-        if (! -s $sqlite_db) {
-            die "Error, cannot locate $sqlite_db";
+        else {
+            
+            print "<h2>Need database info</h2>\n";
+            
+            &print_get_sqlite_db_path_form();
+            
         }
-        &TrinotateWebMain(\%params, $sqlite_db);
-        
+    };
+    if ($@) {
+        print "<b>Error encountered:</b> $@";
     }
-    else {
-        
-        print "<h2>Need database info</h2>\n";
-        
-        &print_get_sqlite_db_path_form();
-        
-    }
-        
+    
     my $dashboard_footer_template = HTML::Template->new(filename => 'html/dashboard-footer.tmpl');
     print $dashboard_footer_template->output;
     
