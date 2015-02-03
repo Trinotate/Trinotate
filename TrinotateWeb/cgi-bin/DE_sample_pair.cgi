@@ -14,6 +14,8 @@ use CanvasXpress::PlotOnLoader;
 use URI::Escape;
 use Data::Dumper;
 use HTML::Template;
+use TextCache;
+
 
 $|++;
 
@@ -35,23 +37,6 @@ main: {
     my $sample_pair = $params{sample_pair} or die "Error, need sample pair";
     #$sample_pair =~ s/\.(genes|isoforms)\.results//g;
     
-    my ($sampleA, $sampleB) = split(/,/, $sample_pair);
-
-    my $plot_loader_func_name = "load_plots_$$";
-
-    my $plot_loader = new CanvasXpress::PlotOnLoader($plot_loader_func_name);
-    
-    my $header_template = HTML::Template->new(filename => 'html/header.tmpl');
-    $header_template->param(SUBTITLE => "- Comparison of sample $sampleA to $sampleB");
-    print $header_template->output;
-    
-    my $nav_template = HTML::Template->new(filename => 'html/topnav.tmpl');
-    $nav_template->param(ACTIVETAB => 'DE');
-    $nav_template->param(SQLITE_DB => $sqlite_db);
-    print $nav_template->output;
-
-    my $DE_sample_pair_template = HTML::Template->new(filename => 'html/DE_sample_pair.tmpl');
-    
     my $feature_type = $params{feature_type} || 'G'; # default to Gene
     
     my ($genes_selected, $trans_selected, $both_selected) = ("","","");
@@ -65,48 +50,88 @@ main: {
     elsif ($feature_type eq 'B') {
         $both_selected = "checked";
     }
-
     
-    my $dbproc = DBI->connect( "dbi:SQLite:$sqlite_db" ) || die "Cannot connect: $DBI::errstr";
-
     
-    my %gene_to_data = &get_diff_express_data($dbproc, $sampleA, $sampleB, $feature_type);
     
-    # print "<pre>" . Dumper(\%gene_to_data) . "</pre>\n";
-
-    my ($ma_plot_obj, $ma_plot_draw, $volcano_plot_obj, $volcano_plot_draw);
-
-    print STDERR "\ngene_to_data:\n";
-    print STDERR $gene_to_data{'error'};
-
-    if ($gene_to_data{'error'}) {
-        $DE_sample_pair_template->param(ERROR => 'There are no results for the selected feature type.');
-    } else {
-        ($ma_plot_obj, $ma_plot_draw) = &write_MA_plot($sampleA, $sampleB, \%gene_to_data, $sqlite_db);
-        ($volcano_plot_obj, $volcano_plot_draw) = &write_Volcano_plot($sampleA, $sampleB, \%gene_to_data, $sqlite_db);
-
-        $plot_loader->add_plot($ma_plot_obj);
-        $plot_loader->add_plot($volcano_plot_obj);
+    my $token = "$sqlite_db-DE_sample_pair-$sample_pair-$feature_type";
+    if (my $html = &TextCache::get_cached_page($token)) {
+        print $html;
     }
+    else {
+        
+        my $html = "";
+        
+        my ($sampleA, $sampleB) = split(/,/, $sample_pair);
+        
+        my $plot_loader_func_name = "load_plots_$$";
+        
+        my $plot_loader = new CanvasXpress::PlotOnLoader($plot_loader_func_name);
+        
+        my $header_template = HTML::Template->new(filename => 'html/header.tmpl');
+        $header_template->param(SUBTITLE => "- Comparison of sample $sampleA to $sampleB");
+        $html .= $header_template->output;
 
-    $DE_sample_pair_template->param(SAMPLE_PAIR => $sample_pair);
-    $DE_sample_pair_template->param(SAMPLE_A => $sampleA);
-    $DE_sample_pair_template->param(SAMPLE_B => $sampleB);
-    $DE_sample_pair_template->param(GENES_SELECTED => $genes_selected);
-    $DE_sample_pair_template->param(TRANSCRIPTS_SELECTED => $trans_selected);
-    $DE_sample_pair_template->param(BOTH_SELECTED => $both_selected);
-    $DE_sample_pair_template->param(MA_PLOT_DRAW => $ma_plot_draw);
-    $DE_sample_pair_template->param(VOLCANO_PLOT_DRAW => $volcano_plot_draw);
-    print $DE_sample_pair_template->output;
+
+        my $dashboard_header_template = HTML::Template->new(filename => 'html/dashboard-header.tmpl');
+        $html .= $dashboard_header_template->output;
     
-    unless ($gene_to_data{'error'}) {
-        print $plot_loader->write_plot_loader();
+    
+        my $nav_template = HTML::Template->new(filename => 'html/topnav.tabless.tmpl');
+        $nav_template->param(ACTIVETAB => 'DE');
+        $nav_template->param(SQLITE_DB => $sqlite_db);
+        $html .= $nav_template->output;
+
+        my $DE_sample_pair_template = HTML::Template->new(filename => 'html/DE_sample_pair.tmpl');
+        
+                
+        my $dbproc = DBI->connect( "dbi:SQLite:$sqlite_db" ) || die "Cannot connect: $DBI::errstr";
+        
+        
+        my %gene_to_data = &get_diff_express_data($dbproc, $sampleA, $sampleB, $feature_type);
+        
+        # print "<pre>" . Dumper(\%gene_to_data) . "</pre>\n";
+        
+        my ($ma_plot_obj, $ma_plot_draw, $volcano_plot_obj, $volcano_plot_draw);
+        
+        print STDERR "\ngene_to_data:\n";
+        print STDERR $gene_to_data{'error'};
+        
+        if ($gene_to_data{'error'}) {
+            $DE_sample_pair_template->param(ERROR => 'There are no results for the selected feature type.');
+        } else {
+            ($ma_plot_obj, $ma_plot_draw) = &write_MA_plot($sampleA, $sampleB, \%gene_to_data, $sqlite_db);
+            ($volcano_plot_obj, $volcano_plot_draw) = &write_Volcano_plot($sampleA, $sampleB, \%gene_to_data, $sqlite_db);
+            
+            $plot_loader->add_plot($ma_plot_obj);
+            $plot_loader->add_plot($volcano_plot_obj);
+        }
+        
+        $DE_sample_pair_template->param(SQLITE => $sqlite_db);
+        $DE_sample_pair_template->param(SAMPLE_PAIR => $sample_pair);
+        $DE_sample_pair_template->param(SAMPLE_A => $sampleA);
+        $DE_sample_pair_template->param(SAMPLE_B => $sampleB);
+        $DE_sample_pair_template->param(GENES_SELECTED => $genes_selected);
+        $DE_sample_pair_template->param(TRANSCRIPTS_SELECTED => $trans_selected);
+        $DE_sample_pair_template->param(BOTH_SELECTED => $both_selected);
+        $DE_sample_pair_template->param(MA_PLOT_DRAW => $ma_plot_draw);
+        $DE_sample_pair_template->param(VOLCANO_PLOT_DRAW => $volcano_plot_draw);
+        
+        $html .= $DE_sample_pair_template->output;
+        
+        unless ($gene_to_data{'error'}) {
+            $html .= $plot_loader->write_plot_loader();
+        }
+        
+        my $footer_template = HTML::Template->new(filename => 'html/footer.tmpl');
+        $footer_template->param(ONLOAD_JS => $plot_loader_func_name . '();' );
+        $html .= $footer_template->output;
+    
+        print $html;
+        
+        &TextCache::cache_page($token, $html);
     }
     
-    my $footer_template = HTML::Template->new(filename => 'html/footer.tmpl');
-    $footer_template->param(ONLOAD_JS => $plot_loader_func_name . '();' );
-    print $footer_template->output;
-    
+
     exit(0);
 }
 
@@ -162,8 +187,8 @@ sub get_diff_express_data {
     my $end = time();
     
     my $query_time = $end - $start;
-    print "<p>Query time: $query_time seconds.</p>";
-        
+    print STDERR "\nQuery time: $query_time seconds.\n\n";
+    
 
     my %gene_info;
     my %gene_annot;
