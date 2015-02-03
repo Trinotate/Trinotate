@@ -84,8 +84,11 @@ $(document).ready(function (){
         var sample1 = $('#expression-sample1 option:selected').text();
         var sample2 = $('#expression-sample2 option:selected').text();
         var url = "DE_sample_pair.cgi?sample_pair=" + encodeURI(sample1 + ',' + sample2) + "&sqlite=" + encodeURI($('#topnav').data('sqlite'));
-        window.location.href = url;
-    });
+        //window.location.href = url;
+
+        var win = window.open(url, "MA-VO-" + sample1 + "-" + sample2);
+        win.focus();
+});
 
     $('#DE-heatmap').click(function (e) {
         var sample1 = $('#expression-sample1 option:selected').text();

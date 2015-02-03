@@ -5,7 +5,7 @@ use strict;
 use warnings;
 use Carp;
 
-my $cache_dir = "/tmp/tcache";
+my $cache_dir = $ENV{WEBSERVER_TMP} || "tmp/tcache";
 
 ## static method
 sub get_cached_page {
@@ -62,6 +62,8 @@ sub set_cache_dir {
 sub __get_cached_filename {
     my ($token) = @_;
 
+    $token =~ s/\W/_/g;
+    
     my $filename = "$cache_dir/$token.txt";
     
     return($filename);
@@ -71,7 +73,7 @@ sub __get_cached_filename {
 sub __ensure_cache_dir {
     
     unless (-d $cache_dir) {
-        my $cmd = "system mkdir -p $cache_dir";
+        my $cmd = "mkdir -p $cache_dir";
         my $ret = system($cmd);
         if ($ret) {
             confess "Error, cmd: $cmd died with ret $ret";
