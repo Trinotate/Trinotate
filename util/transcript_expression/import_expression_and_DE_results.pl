@@ -30,6 +30,11 @@ my $usage = <<__EOUSAGE__;
 #  OR
 #  --component_mode               analysis is performed based on Trinity components (genes)
 #
+#  Options:
+#
+#  --min_log_fold_change <float>    default: 1 (so 2-fold diff)
+#  --max_FDR <float>                default: 0.1
+#
 ##################################################################################################
 
 
@@ -47,6 +52,9 @@ my $component_mode = 0;
 my $help_flag;
 my $samples_file;
 
+my $min_log_fold_change = 1;
+my $max_FDR = 0.1;
+
 &GetOptions (  'h' => \$help_flag,
                
                'sqlite=s' => \$sqlite,
@@ -61,6 +69,9 @@ my $samples_file;
                'component_mode' => \$component_mode,
                
 
+               'min_log_fold_change=f' => \$min_log_fold_change,
+               'max_FDR=f' => \$max_FDR,
+               
                );
 
 
@@ -191,7 +202,14 @@ main: {
                 
                 if ($log_fold_change eq "NA") { next; }
                 
+                if ($log_fold_change < $min_log_fold_change) { next; }
+                
+
                 my $fdr = $x[$FDR_index];
+                
+                if ($fdr > $max_FDR) { next; }
+
+
                 my $pval = $x[$pval_index];
                 my $conc = $x[$Mvalue_index];
                 if (exists $column_header_to_index{baseMean}) {
@@ -407,6 +425,8 @@ sub populate_expression_table {
                 die "Error, no frag count for $feature, $replicate";
             }
             
+            unless ($frag_count > 0) { next; }
+
             my $fpkm = $fpkm_matrix_href->{$feature}->{$replicate};
             unless (defined $fpkm) {
                 die "Error, no fpkm measurement for $feature, $replicate";
