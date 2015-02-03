@@ -202,7 +202,7 @@ main: {
                 
                 if ($log_fold_change eq "NA") { next; }
                 
-                if ($log_fold_change < $min_log_fold_change) { next; }
+                if (abs($log_fold_change) < $min_log_fold_change) { next; }
                 
 
                 my $fdr = $x[$FDR_index];
