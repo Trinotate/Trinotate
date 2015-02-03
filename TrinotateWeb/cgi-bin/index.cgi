@@ -14,10 +14,11 @@ use Data::Dumper;
 use Cwd;
 use HTML::Template;
 
+
 # custom modules
 use lib ("$FindBin::Bin/../../PerlLib", "$FindBin::Bin/PerlLib");
 use Sqlite_connect;
-
+use TextCache;
 
 main: {
     
@@ -101,7 +102,7 @@ sub TrinotateWebMain {
     my $dbproc = DBI->connect( "dbi:SQLite:$sqlite_db" ) || die "Cannot connect: $DBI::errstr";
         
     
-    overview_panel_text($dbproc);
+    overview_panel_text($dbproc, $sqlite_db);
     
     keyword_search_panel_text($dbproc, $sqlite_db);
     
@@ -115,19 +116,36 @@ sub TrinotateWebMain {
 
 ####
 sub overview_panel_text {
-    my ($dbproc) = @_;
-    
-    my $query = "select count(distinct gene_id) from Transcript";
-    my $gene_count = &very_first_result_sql($dbproc, $query);
-    
-    $query = "select count(distinct transcript_id) from Transcript";
-    my $transcript_count = &very_first_result_sql($dbproc, $query);
+    my ($dbproc, $sqlite_db) = @_;
 
 
-    my $template = HTML::Template->new(filename => 'html/overview.tmpl');
-    $template->param(GENE_COUNT => $gene_count);
-    $template->param(TRANSCRIPT_COUNT => $transcript_count);
-    print $template->output;
+    my $html_cache_token = "$sqlite_db-overview_panel_text";
+    if (my $html = &TextCache::get_cached_page($html_cache_token)) {
+        print $html;
+    }
+    else {
+        
+        my $query = "select count(distinct gene_id) from Transcript";
+        my $gene_count = &very_first_result_sql($dbproc, $query);
+        
+        $query = "select count(distinct transcript_id) from Transcript";
+        my $transcript_count = &very_first_result_sql($dbproc, $query);
+        
+        
+
+        
+        my $template = HTML::Template->new(filename => 'html/overview.tmpl');
+        $template->param(GENE_COUNT => $gene_count);
+        $template->param(TRANSCRIPT_COUNT => $transcript_count);
+        my $html = $template->output;
+        
+        &TextCache::cache_page($html_cache_token, $html);
+        
+        print $html;
+    }
+
+
+    return;
 }
 
 ####
