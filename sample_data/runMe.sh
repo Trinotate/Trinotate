@@ -34,6 +34,10 @@ gunzip -c $BOILERPLATE.gz > $BOILERPLATE
 
 sqlite_db="myTrinotate.sqlite"
 
+if [ $* ]; then
+    sqlite_db="/tmp/myTrinotate.sqlite"
+fi
+
 cp  $BOILERPLATE ${sqlite_db}
 
 echo "###############################"
@@ -93,35 +97,27 @@ echo "###########################"
 
 # import the expression data (counts, fpkms, and samples)
 
-echo "###################################"
-echo Loading Component Expression Matrix
-echo "###################################"
+echo "###################################################"
+echo Loading Component Expression Matrix and DE results
+echo "###################################################"
 
-../util/transcript_expression/import_samples_n_expression_matrix.pl --sqlite ${sqlite_db} --component_mode --samples_file samples_n_reads_described.txt --count_matrix Trinity_components.counts.matrix --fpkm_matrix Trinity_components.counts.matrix.TMM_normalized.FPKM --bulk_load
-
-
-
-echo "###################################"
-echo Loading Transcript Expression Matrix
-echo "###################################"
-
-../util/transcript_expression/import_samples_n_expression_matrix.pl --sqlite ${sqlite_db} --transcript_mode --samples_file samples_n_reads_described.txt --count_matrix Trinity_trans.counts.matrix --fpkm_matrix Trinity_trans.counts.matrix.TMM_normalized.FPKM --bulk_load
+../util/transcript_expression/import_expression_and_DE_results.pl --sqlite ${sqlite_db} --component_mode \
+        --samples_file samples_n_reads_described.txt \
+        --count_matrix Trinity_components.counts.matrix \
+        --fpkm_matrix Trinity_components.counts.matrix.TMM_normalized.FPKM \
+        --DE_dir edgeR_components
 
 
-# import the DE analysis results:
+echo "##################################################"
+echo Loading Transcript Expression Matrix and DE results
+echo "##################################################"
 
-echo "###########################"
-echo Loading DE results for transcripts
-echo "###########################"
+../util/transcript_expression/import_expression_and_DE_results.pl --sqlite ${sqlite_db} --transcript_mode \
+        --samples_file samples_n_reads_described.txt \
+        --count_matrix Trinity_trans.counts.matrix \
+        --fpkm_matrix Trinity_trans.counts.matrix.TMM_normalized.FPKM \
+        --DE_dir edgeR_trans
 
-../util/transcript_expression/import_DE_results.pl --sqlite ${sqlite_db} --DE_dir edgeR_trans --transcript_mode --bulk_load
-
-echo "###########################"
-echo Loading DE results for components
-echo "###########################"
-
-
-../util/transcript_expression/import_DE_results.pl --sqlite ${sqlite_db} --DE_dir edgeR_components --component_mode --bulk_load
 
 echo "######################################################"
 echo Loading transcription profile clusters for transcripts

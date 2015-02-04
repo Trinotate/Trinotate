@@ -3,7 +3,7 @@
 package main;
 our ($SEE, $DEBUG);
 
-our $SEE = 1;
+#our $SEE = 1;
 
 package Sqlite_connect;
 
