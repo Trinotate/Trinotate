@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-SWISSPROT_SQLITE_DB_URL="http://sourceforge.net/projects/trinotate/files/TRINOTATE_RESOURCES/20140708/Trinotate.20140708.swissprot.sqlite.gz/download"
+SWISSPROT_SQLITE_DB_URL="ftp://ftp.broadinstitute.org/pub/Trinity/Trinotate_v2.0_RESOURCES/Trinotate.sprot_uniref90.20150131.boilerplate.sqlite.gz"
 
 for file in *.gz
 do
