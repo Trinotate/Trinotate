@@ -44,7 +44,7 @@ echo "###############################"
 echo Loading protein set
 echo "###############################"
 
-../Trinotate ${sqlite_db} init --gene_trans_map Trinity.fasta.gene_trans_map --transcript_fasta Trinity.fasta --transdecoder_pep best_candidates.eclipsed_orfs_removed.pep
+../Trinotate ${sqlite_db} init --gene_trans_map Trinity.fasta.gene_trans_map --transcript_fasta Trinity.fasta --transdecoder_pep Trinity.fasta.transdecoder.pep
 
 
 
@@ -60,7 +60,7 @@ echo "#############################"
 echo Loading PFAM results
 echo "#############################"
 
-../Trinotate ${sqlite_db} LOAD_pfam TrinotatePFAM.out
+../Trinotate ${sqlite_db} LOAD_pfam pfam.domtblout
 
 
 echo "############################"
