@@ -277,11 +277,7 @@ sub get_expression_data {
         my $got_each_val = 1;
         
         foreach my $replicate_id (@replicate_ids) {
-            my $fpkm = $feature_to_info{$feature_name}->{$replicate_id};
-            if (! defined $fpkm) {
-                $got_each_val = 0;
-                last;
-            }
+            my $fpkm = $feature_to_info{$feature_name}->{$replicate_id} || 0; # not storing zero expression values in db to save space.
             
             if ($fpkm > $max_feature_fpkm) {
                 $max_feature_fpkm = $fpkm;
@@ -290,12 +286,6 @@ sub get_expression_data {
 
             $fpkm = log($fpkm + 1)/log(2);
             push (@row, $fpkm);
-        }
-        
-        if (! $got_each_val) {
-            # ignoring rows with missing data points.
-            print "<p>skipping $feature_name, missing data point due to query truncation / performance issue (to be fixed).\n";
-            next; 
         }
         
         if ($min_any_feature_expr && $max_feature_fpkm < $min_any_feature_expr) {
