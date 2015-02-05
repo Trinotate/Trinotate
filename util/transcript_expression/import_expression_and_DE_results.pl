@@ -20,8 +20,13 @@ my $usage = <<__EOUSAGE__;
 #
 #  --samples_file <string>        file describing samples and replicates
 #
+#  Expression loading:
+#
 #  --count_matrix <string>        raw fragment counts matrix
 #  --fpkm_matrix <string>         fpkm normalized expression value matrix
+#
+#  DE-results loading:
+#
 #  --DE_dir <string>              DE analysis directory
 #
 #  AND
@@ -83,7 +88,7 @@ unless ($sqlite
         &&
         $samples_file
         &&
-        $count_matrix_file && $fpkm_matrix_file && $DE_dir 
+        ($count_matrix_file && $fpkm_matrix_file ||  $DE_dir) 
         && ($transcript_mode || $component_mode) ) {
     die $usage;
 }
@@ -110,20 +115,24 @@ main: {
     
     print STDERR "Sample and replicate database identifiers: " . Dumper(\%samples_n_reps_to_ID);
     
-
-    print STDERR "-parsing counts matrix: $count_matrix_file\n";
-    my %counts_matrix = &parse_matrix($count_matrix_file, \%samples_n_reps_to_ID);
-
-    print STDERR "-parsing fpkm matrix: $fpkm_matrix_file\n";
-    my %fpkm_matrix = &parse_matrix($fpkm_matrix_file, \%samples_n_reps_to_ID);
-    
-    print STDERR "-populating Expression table\n";
-    &populate_expression_table($dbproc, \%samples_n_reps_to_ID, \%counts_matrix, \%fpkm_matrix, $feature_type);
-    
-    print STDERR "-loading the DE info\n";
-    ## Load the DE info.
-    {
+    if ($count_matrix_file && $fpkm_matrix_file) {
         
+        print STDERR "-parsing counts matrix: $count_matrix_file\n";
+        my %counts_matrix = &parse_matrix($count_matrix_file, \%samples_n_reps_to_ID);
+        
+        print STDERR "-parsing fpkm matrix: $fpkm_matrix_file\n";
+        my %fpkm_matrix = &parse_matrix($fpkm_matrix_file, \%samples_n_reps_to_ID);
+        
+        print STDERR "-populating Expression table\n";
+        &populate_expression_table($dbproc, \%samples_n_reps_to_ID, \%counts_matrix, \%fpkm_matrix, $feature_type);
+    }
+
+    
+    
+    ## Load the DE info.
+    if ($DE_dir) {
+        
+        print STDERR "-loading the DE info\n";
         
         my @DE_result_files = <$DE_dir/*.DE_results>;
         unless (@DE_result_files) {

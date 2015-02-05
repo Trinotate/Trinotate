@@ -101,10 +101,15 @@ echo "###################################################"
 echo Loading Component Expression Matrix and DE results
 echo "###################################################"
 
+# expression data load for genes
 ../util/transcript_expression/import_expression_and_DE_results.pl --sqlite ${sqlite_db} --component_mode \
         --samples_file samples_n_reads_described.txt \
         --count_matrix Trinity_components.counts.matrix \
-        --fpkm_matrix Trinity_components.counts.matrix.TMM_normalized.FPKM \
+        --fpkm_matrix Trinity_components.counts.matrix.TMM_normalized.FPKM 
+
+# DE results load for genes
+../util/transcript_expression/import_expression_and_DE_results.pl --sqlite ${sqlite_db} --component_mode \
+        --samples_file samples_n_reads_described.txt \
         --DE_dir edgeR_components
 
 
@@ -112,10 +117,15 @@ echo "##################################################"
 echo Loading Transcript Expression Matrix and DE results
 echo "##################################################"
 
+# expression data load for transcripts
 ../util/transcript_expression/import_expression_and_DE_results.pl --sqlite ${sqlite_db} --transcript_mode \
         --samples_file samples_n_reads_described.txt \
         --count_matrix Trinity_trans.counts.matrix \
-        --fpkm_matrix Trinity_trans.counts.matrix.TMM_normalized.FPKM \
+        --fpkm_matrix Trinity_trans.counts.matrix.TMM_normalized.FPKM
+
+# DE results load for transcripts
+../util/transcript_expression/import_expression_and_DE_results.pl --sqlite ${sqlite_db} --transcript_mode \
+        --samples_file samples_n_reads_described.txt \
         --DE_dir edgeR_trans
 
 
