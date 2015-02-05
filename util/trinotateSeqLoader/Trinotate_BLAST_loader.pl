@@ -128,17 +128,19 @@ UniprotSearchString = Q5RED0
         
         my $UniprotSearchString = "";
                 
-        if ($FullAccession =~ /UniRef/) {
-            $UniprotSearchString = $FullAccession;
-            $UniprotSearchString =~ s/UniRef\d+_//;
-            $UniprotSearchString =~ s/-\d+$//; # in case diff isoform peps are provided.
-        }
-        else {
-            my @acc_pts = split(/\|/, $FullAccession);
-            $UniprotSearchString = $acc_pts[1];
-        }
+        #if ($FullAccession =~ /UniRef/) {
+        #    $UniprotSearchString = $FullAccession;
+        #    $UniprotSearchString =~ s/UniRef\d+_//;
+        #    $UniprotSearchString =~ s/-\d+$//; # in case diff isoform peps are provided.
+        #}
+        #else {
+        #    my @acc_pts = split(/\|/, $FullAccession);
+        #    $UniprotSearchString = $acc_pts[1];
+        #}
 
 
+        $UniprotSearchString = $FullAccession;
+        
         my $QueryStart = $x[6];
         my $QueryEnd = $x[7];
         my $HitStart = $x[8];
