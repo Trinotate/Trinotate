@@ -238,8 +238,8 @@ sub get_expression_data {
     @results = &do_sql_2D($dbproc, $query);
     my $end = time();
     my $query_time = $end - $start;
-    print "<p>Query took: $query_time seconds.</p>\n";
-
+    print STDERR "Query took: $query_time seconds.\n";
+    
     if ($max_select && scalar(@results) == $max_select) {
         print "<p>WARNING: QUERY TRUNCATION due to SELECT LIMIT</p>\n";
     }

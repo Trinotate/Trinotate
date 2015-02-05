@@ -37,7 +37,7 @@ main: {
     $header_template->param(SUBTITLE => "- $title");
     print $header_template->output;
     
-    my $nav_template = HTML::Template->new(filename => 'html/topnav.tmpl');
+    my $nav_template = HTML::Template->new(filename => 'html/topnav.tabless.tmpl');
     $nav_template->param(ACTIVETAB => 'DE');
     $nav_template->param(SQLITE_DB => $sqlite_db);
     print $nav_template->output;
@@ -46,6 +46,8 @@ main: {
 
     my $heatmap_template = HTML::Template->new(filename => 'html/HeatmapNav.tmpl');
     $heatmap_template->param(TITLE => $title);
+
+    $heatmap_template->param(SQLITE_DB => $sqlite_db);
 
     my $min_FC = $params{min_FC} || 10;
     $heatmap_template->param(MIN_FC => $min_FC);
