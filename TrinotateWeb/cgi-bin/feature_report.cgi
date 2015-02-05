@@ -39,7 +39,7 @@ main: {
     $header_template->param(SUBTITLE => "- Report for $feature_name");
     print $header_template->output;
     
-    my $nav_template = HTML::Template->new(filename => 'html/topnav.tmpl');
+    my $nav_template = HTML::Template->new(filename => 'html/topnav.tabless.tmpl');
     $nav_template->param(ACTIVETAB => 'gene_search');
     $nav_template->param(SQLITE_DB => $sqlite_db);
     print $nav_template->output;

@@ -81,8 +81,8 @@ main: {
                 $annot =~ s/$keyw/<b>$keyw<\/b>/g;
             }
             print "<tr><td>$counter</td>"
-                . "<td><a href=\"feature_report.cgi?feature_name=" . uri_escape($gene_id) . "&sqlite=" . uri_escape($sqlite_db) . "\" >$gene_id</td>"
-                . "<td><a href=\"feature_report.cgi?feature_name=" . uri_escape($transcript_id) . "&sqlite=" . uri_escape($sqlite_db) . "\" >$transcript_id</td>"
+                . "<td><a href=\"feature_report.cgi?feature_name=" . uri_escape($gene_id) . "&sqlite=" . uri_escape($sqlite_db) . "\" target=\"$gene_id report\">$gene_id</td>"
+                . "<td><a href=\"feature_report.cgi?feature_name=" . uri_escape($transcript_id) . "&sqlite=" . uri_escape($sqlite_db) . "\" target=\"$transcript_id report\">$transcript_id</td>"
                 . "<td>$annot</td></tr>\n";
                     
             if ($counter >= $MAX_RESULTS) {
