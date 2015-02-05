@@ -264,7 +264,7 @@ sub get_expression_data {
     }
 
     ## organize data for heatmap interface
-    my @replicate_ids = sort { $replicate_id_to_info{$a}->{replicate_name} cmp $replicate_id_to_info{$b}->{replicate_name} } keys %replicates;
+    my @replicate_ids = sort { $replicate_id_to_info{$a}->{replicate_name} cmp $replicate_id_to_info{$b}->{replicate_name} } keys %replicate_id_to_info;
     
     my @feature_descriptions;
     my @feature_matrix;

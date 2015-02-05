@@ -36,7 +36,7 @@ main: {
     
 
     my $header_template = HTML::Template->new(filename => 'html/header.tmpl');
-    $header_template->param(SUBTITLE => "- Report for $feature_name");
+    $header_template->param(SUBTITLE => "- $feature_name");
     print $header_template->output;
     
     my $nav_template = HTML::Template->new(filename => 'html/topnav.tabless.tmpl');
@@ -82,7 +82,7 @@ main: {
                                                             include_transcript_isoforms => 1,
                                                  });
 
-    # print "<pre>" . Dumper(\%data) . "</pre>\n";
+    #print "<pre>" . Dumper(\%data) . "</pre>\n";
     
 
     my $feature_report_expression_template = HTML::Template->new(filename => 'html/feature_report_expression.tmpl');
@@ -225,12 +225,14 @@ main: {
             $transcript_sequence =~ s/(\S{60})/$1\n/g;
             if ($annotation =~ /\t/) {
                 my $decorated_annotation = "<ul>";
+              Fields: 
                 foreach my $field (split(/\t/, $annotation)) {
-                    $decorated_annotation .= "<li>Field";
+                    if ($field eq ".") { next; }
+                    $decorated_annotation .= "<li>annotation"; # field sep
                     my @entries = split(/`/, $field);
                     foreach my $entry (@entries) {
                         my @parts = split(/\^/, $entry);
-                        $decorated_annotation .= "<ul><li>Entry<ul><li>" . join("</li><li>", @parts) . "</li></ul></li></ul>\n";
+                        $decorated_annotation .= "<ul><li><ul><li>" . join("</li><li>", @parts) . "</li></ul></li></ul>\n";
                     }
                     $decorated_annotation .= "</li>\n";
                 }
@@ -241,7 +243,7 @@ main: {
             my $transcript_data_dump = "<ul style='clear:both'>\n"
                 . "<li>gene_id: $gene_id\n"
                 . "<li>transcript_id: $transcript_id\n"
-                . "<li>annotation: $annotation\n"
+                . "<li>annotations: $annotation\n"
                 . "<li>transcript sequence:<div class='fasta'><pre>&gt;$transcript_id\n$transcript_sequence</pre></div>\n";
 
             if (@peptide_seqs) {
