@@ -309,10 +309,17 @@ sub write_MA_plot {
                         
 
                         events =>  { 'dblclick' => "var gene = o['y']['vars'][0];\n"
-                                         . "document.location.href=\'feature_report.cgi?feature_name=\' + gene"
-                                         . " + \'&sqlite=$sqlite_db\';\n",
+                                         #. "document.location.href=\'feature_report.cgi?feature_name=\' + gene"
+                                         #. " + \'&sqlite=$sqlite_db\';\n",
+                                         
                                          #. "window.open(\'feature_report.cgi?feature_name=\' + gene + \'&sqlite=$sqlite_db\');\n", 
                                          
+                                         . "var win = window.open(\'feature_report.cgi?feature_name=\' + gene"
+                                         . " + \'&sqlite=$sqlite_db\');\n"
+                                         . "win.focus();\n"
+                                         ,
+                                         
+
                         },
                         
                         
