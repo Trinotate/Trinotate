@@ -1,2 +1,15 @@
-This directory houses the machinery for populating the resource database
+# extract reference ID from uniref90 fasta file
+perl one-liner
+
+# subset the trembl dat file based on the references selected
+./EMBL_dat_retrieve_via_id_list.pl 
+usage: ./EMBL_dat_retrieve_via_id_list.pl embl.dat IDs_to_capture.file
+
+
+# build swissprot and uniref dat files and pep files.
+./EMBL_sprot_n_uniref90_parser.pl 
+usage: ./EMBL_sprot_n_uniref90_parser.pl swissprot.dat uniref90.dat  out.prefix
+
+# makes the sqlite bulk load files and extracts the protein sequences.
+
 
