@@ -72,26 +72,24 @@ main: {
         unless (/\w/) { next; }
         if (/^\#/) { next; }
         my @x = split(/\s+/);
+
+        # This skips any HTML markup which is often found in the header/footer of the file
+        next unless scalar(@x) >= 5;
         
         my $queryprotid = $x[0];
         my $score = $x[2];
         my $PredHel = $x[4];
         my $Topology = $x[5];
 
-
         print $ofh join("\t", $queryprotid, $score, $PredHel, $Topology) . "\n";
-        
     }
     close $ofh;
-    
 
     &bulk_load_sqlite($sqlite_db, "tmhmm", $tmp_tmhmm_bulk_load_file);
-    
 
     unlink($tmp_tmhmm_bulk_load_file);
         
     print STDERR "\n\nLoading complete..\n\n";
         
     exit(0);
-    
 }
