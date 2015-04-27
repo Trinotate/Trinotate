@@ -113,8 +113,6 @@ sub new {
 
 sub init_GO_DAG {
     
-    use PerlIO::gzip;
-
 	my $obo_file = "obo/go-basic.obo.gz"; #gene_ontology.1_2.obo.gz";
     my ($obo_dir)  =  grep { -s "$_/$obo_file"  }  @INC;
 
@@ -128,7 +126,7 @@ sub init_GO_DAG {
 
     my %term_info;    
 	
-    open (my $fh, "<:gzip", $obo) or confess "Error, cannot open file $obo";
+    open (my $fh, "gunzip -c $obo | ") or confess "Error, cannot open file $obo";
     while (<$fh>) {
 		#print;
         chomp;
