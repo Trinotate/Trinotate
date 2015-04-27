@@ -16,7 +16,7 @@ SIGNALP_PROG=/seq/regev_genome_portal/SOFTWARE/SIGNALP/signalp-4.0/signalp
 TMHMM_PROG=/seq/regev_genome_portal/SOFTWARE/TMHMM/TMHMM2.0c/bin/tmhmm
 RNAMMER_TRANS_PROG=/home/unix/bhaas/GITHUB/Trinotate/util/rnammer_support/RnammerTranscriptome.pl
 RNAMMER=/seq/regev_genome_portal/SOFTWARE/RNAMMER/rnammer
-TRINOTATE=/home/unix/bhaas/GITHUB/Trinotate/Trinotate
+
 
 # dbs
 SWISSPROT_PEP=/seq/RNASEQ/DBs/SWISSPROT/current/uniprot_sprot.pep
@@ -88,41 +88,51 @@ CMD=wget "{__TRINOTATE_BOILERPLATE_URL__}" -O Trinotate.sqlite.gz && gunzip Trin
 [TRINOTATE_INIT]
 RANK=1100
 RUN=T
-CMD={__TRINOTATE__} Trinotate.sqlite init --gene_trans_map {__GENE_TO_TRANS_MAP__} --transcript_fasta {__TRANSCRIPTS_FASTA__} --transdecoder_pep Trinity.fasta.transdecoder.pep
+CMD={__TRINOTATE_HOME__}/Trinotate Trinotate.sqlite init --gene_trans_map {__GENE_TO_TRANS_MAP__} --transcript_fasta {__TRANSCRIPTS_FASTA__} --transdecoder_pep Trinity.fasta.transdecoder.pep
 
 [TRINOTATE_LOAD_BLASTX]
 RANK=1200
 RUN=T
-CMD={__TRINOTATE__}  Trinotate.sqlite LOAD_swissprot_blastx swissprot.blastx.outfmt6 
+CMD={__TRINOTATE_HOME__}/Trinotate  Trinotate.sqlite LOAD_swissprot_blastx swissprot.blastx.outfmt6 
 
 [TRINOTATE_LOAD_BLASTP]
 RANK=1300
 RUN=T
-CMD={__TRINOTATE__}  Trinotate.sqlite LOAD_swissprot_blastp swissprot.blastp.outfmt6 
+CMD={__TRINOTATE_HOME__}/Trinotate  Trinotate.sqlite LOAD_swissprot_blastp swissprot.blastp.outfmt6 
 
 [TRINOTATE_LOAD_PFAM]
 RANK=1400
 RUN=T
-CMD={__TRINOTATE__}  Trinotate.sqlite LOAD_pfam TrinotatePFAM.out
+CMD={__TRINOTATE_HOME__}/Trinotate  Trinotate.sqlite LOAD_pfam TrinotatePFAM.out
 
 [TRINOTATE_LOAD_RNAMMER]
 RANK=1500
 RUN=T
-CMD={__TRINOTATE__}  Trinotate.sqlite LOAD_rnammer Trinity.fasta.rnammer.gff
+CMD={__TRINOTATE_HOME__}/Trinotate  Trinotate.sqlite LOAD_rnammer Trinity.fasta.rnammer.gff
 
 [TRINOTATE_LOAD_TMHMM]
 RANK=1600
 RUN=T
-CMD={__TRINOTATE__}  Trinotate.sqlite LOAD_tmhmm tmhmm.out
+CMD={__TRINOTATE_HOME__}/Trinotate  Trinotate.sqlite LOAD_tmhmm tmhmm.out
 
 [TRINOTATE_LOAD_SIGNALP]
 RANK=1700
 RUN=T
-CMD={__TRINOTATE__}  Trinotate.sqlite LOAD_signalp signalp.out
+CMD={__TRINOTATE_HOME__}/Trinotate  Trinotate.sqlite LOAD_signalp signalp.out
 
 [TRINOTATE_REPORT]
 RANK=1800
 RUN=T
-CMD={__TRINOTATE__}  Trinotate.sqlite report > Trinotate.xls
+CMD={__TRINOTATE_HOME__}/Trinotate  Trinotate.sqlite report > Trinotate.xls
 
+
+[EXTRACT_GO]
+RANK=1900
+RUN=T
+CMD={__TRINOTATE_HOME__}/util/extract_GO_assignments_from_Trinotate_xls.pl  --Trinotate_xls Trinotate.xls -G -I > Trinotate.xls.gene_ontology
+
+[NAME_UPDATES]
+RANK=2000
+RUN=T
+CMD={__TRINOTATE_HOME__}/util/annotation_importer/import_transcript_names.pl Trinotate.sqlite Trinotate.xls
 

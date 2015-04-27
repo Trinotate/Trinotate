@@ -73,8 +73,8 @@ main: {
     $globals{TRANSCRIPTS_FASTA} = $transcripts_fasta;
     $globals{GENE_TO_TRANS_MAP} = $gene_to_trans_map;
     $globals{CPU} = $CPU;
+    $globals{TRINOTATE_HOME} = $FindBin::Bin . "/../";
     
-
     ## get command structs
     my @cmd_structs;
     foreach my $section (@sections) {
