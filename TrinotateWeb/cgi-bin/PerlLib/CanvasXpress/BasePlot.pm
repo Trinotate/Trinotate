@@ -6,7 +6,6 @@ use Carp;
 
 ## This class is abstract. Only instantiate superclasses.
 
-
 sub new {
     my $packagename = shift;
     my $canvas_id = shift;
@@ -68,7 +67,7 @@ sub draw {
     
     my $html = "<!--[if IE]><script type=\"text/javascript\" src=\"canvasXpress-SF/js/excanvas.js\"></script><![endif]-->\n";
 
-    if ($ENV{LOCAL_JS}) {
+    if ($ENV{MONGOOSE_CGI} && $ENV{MONGOOSE_CGI} =~ /LOCAL_JS/) {
         $html .= "<script type=\"text/javascript\" src=\"/js/canvasXpress.min.js\"></script>\n";
     }
     else {

@@ -84,69 +84,72 @@ main: {
 
     #print "<pre>" . Dumper(\%data) . "</pre>\n";
     
-
-    my $feature_report_expression_template = HTML::Template->new(filename => 'html/feature_report_expression.tmpl');
-
-    if (@{$data{value_matrix}}) {
-
-       
+    {
+        my $feature_report_expression_template = HTML::Template->new(filename => 'html/feature_report_expression.tmpl');
         
-        my %inputs = ( replicate_names => $data{replicate_names},
-                       
-                       sample_annotations => { samples => $data{sample_names} },
-                       value_matrix => $data{value_matrix},
-                       
-            );
-
-        ######################################
-        ##  Heatmap ###
-        ######################################
-
-        my $clust_features_flag = (scalar @{$data{value_matrix}} > 1);
+        if (@{$data{value_matrix}}) {
+            
+            
+            
+            my %inputs = ( replicate_names => $data{replicate_names},
+                           
+                           sample_annotations => { samples => $data{sample_names} },
+                           value_matrix => $data{value_matrix},
+                           
+                );
+            
+            ######################################
+            ##  Heatmap ###
+            ######################################
+            
+            my $clust_features_flag = (scalar @{$data{value_matrix}} > 1);
+            
+            my $heatmap_plot_obj = new CanvasXpress::Heatmap("heatmap_plot_$$");
+            my $heatmap_plot =  $heatmap_plot_obj->draw(%inputs,
+                                                        cluster_features => $clust_features_flag,
+                                                        cluster_samples => 1,
+                                                        dendrogramSpace => 0.2,
+                                                        
+                                                        events => { 
+                                                            'dblclick' => "var gene = o['y']['vars'][0];\n"
+                                                                . "var loc = '#' + gene;\n"
+                                                                . "document.location.href=loc;\n",
+                                                        },
+                );
+            
+            $plot_loader->add_plot($heatmap_plot_obj);
+            
+            
+            #######################################
+            #  Expression line plot
+            ###################################
+            
+            
+            $inputs{graphOrientation} = 'vertical';
+            
+            my $line_plot_obj = new CanvasXpress::Line("line_plot_$$");
+            my $line_plot = $line_plot_obj->draw(%inputs,
+                                                 
+                                                 events => { 
+                                                     'dblclick' => "var gene = o['y']['vars'][0];\n"
+                                                         . "var loc = '#' + gene;\n"
+                                                         . "document.location.href=loc;\n",
+                                                 },
+                );
+            
+            $plot_loader->add_plot($line_plot_obj);
+            
+            $feature_report_expression_template->param(HEATMAP_PLOT => $heatmap_plot);
+            $feature_report_expression_template->param(LINE_PLOT => $line_plot);
+            
+        } else {
+            $feature_report_expression_template->param(FEATURE_NAME => $feature_name);
+        }
         
-        my $heatmap_plot_obj = new CanvasXpress::Heatmap("heatmap_plot_$$");
-        my $heatmap_plot =  $heatmap_plot_obj->draw(%inputs,
-                                   cluster_features => $clust_features_flag,
-                                   cluster_samples => 1,
-                                   dendrogramSpace => 0.2,
+        print $feature_report_expression_template->output;
 
-                                   events => { 
-                                       'dblclick' => "var gene = o['y']['vars'][0];\n"
-                                           . "var loc = '#' + gene;\n"
-                                           . "document.location.href=loc;\n",
-                                   },
-            );
-        
-        $plot_loader->add_plot($heatmap_plot_obj);
-
-
-        #######################################
-        #  Expression line plot
-        ###################################
-
-
-        $inputs{graphOrientation} = 'vertical';
-        
-        my $line_plot_obj = new CanvasXpress::Line("line_plot_$$");
-        my $line_plot = $line_plot_obj->draw(%inputs,
-
-                              events => { 
-                                  'dblclick' => "var gene = o['y']['vars'][0];\n"
-                                      . "var loc = '#' + gene;\n"
-                                      . "document.location.href=loc;\n",
-                              },
-            );
-        
-        $plot_loader->add_plot($line_plot_obj);
-
-        $feature_report_expression_template->param(HEATMAP_PLOT => $heatmap_plot);
-        $feature_report_expression_template->param(LINE_PLOT => $line_plot);
-        
-    } else {
-        $feature_report_expression_template->param(FEATURE_NAME => $feature_name);
     }
 
-    print $feature_report_expression_template->output;
 
     { # ??? is this block encapsulation necessary?
         
@@ -164,7 +167,10 @@ main: {
             my $transcript_plot_template = HTML::Template->new(filename => 'html/feature_report_transcript.tmpl');
             $transcript_plot_template->param(GENE_ID => $gene_id);
             $transcript_plot_template->param(TRANSCRIPT_ID => $transcript_id);
-        
+            my $trans_id_token = $transcript_id;
+            $trans_id_token =~ s/\W/_/g;
+            $transcript_plot_template->param(TRANS_ID_TOKEN => $trans_id_token);
+            
             unless ($transcript_sequence) {
                 print $transcript_plot_template->output;
                 next;

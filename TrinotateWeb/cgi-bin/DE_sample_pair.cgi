@@ -339,6 +339,8 @@ sub write_MA_plot {
 sub write_Volcano_plot {
     my ($sampleA, $sampleB, $gene_to_data_href, $sqlite_db) = @_;
     
+    my $MIN_FDR = 1e-50;
+
     my @value_matrix;
     my @annots;
     my @stat_signif;
@@ -346,6 +348,9 @@ sub write_Volcano_plot {
         my $struct = $gene_to_data_href->{$feature_name};
         
         my $fdr = $struct->{fdr};
+        if ($fdr == 0) {
+            $fdr = $MIN_FDR;
+        }
         my $log_fold_change = $struct->{log_fold_change};
         
         my $is_stat_signif = ($fdr <= 0.05) ? "Yes" : "No";
