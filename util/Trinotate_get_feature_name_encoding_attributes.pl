@@ -52,8 +52,8 @@ main: {
         
         my $feature_data_href = $data{$feature_id};
         
-        if (exists $feature_data_href->{'Top_BLASTX_hit'}) {
-            my @top_blastx_hits = keys %{$feature_data_href->{'Top_BLASTX_hit'}};
+        if (exists $feature_data_href->{'sprot_Top_BLASTX_hit'}) {
+            my @top_blastx_hits = keys %{$feature_data_href->{'sprot_Top_BLASTX_hit'}};
             foreach my $top_blastx_hit (@top_blastx_hits) {
                 my @vals = split(/\^/, $top_blastx_hit);
                 my $hit = shift @vals;
@@ -64,8 +64,8 @@ main: {
         }
 
         
-        if (exists $feature_data_href->{'Top_BLASTP_hit'}) {
-            my @top_blastp_hits = keys %{$feature_data_href->{'Top_BLASTP_hit'}};
+        if (exists $feature_data_href->{'sprot_Top_BLASTP_hit'}) {
+            my @top_blastp_hits = keys %{$feature_data_href->{'sprot_Top_BLASTP_hit'}};
             foreach my $top_blastp_hit (@top_blastp_hits) {
                 my @vals = split(/\^/, $top_blastp_hit);
                 my $hit = shift @vals;
