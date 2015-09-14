@@ -33,6 +33,8 @@ my $usage = <<__EOUSAGE__;
 #
 #  --help|h                   this menu
 #
+#  --verbose                  run verbosely, indicate SQL queries
+#
 ##################################################################
 
 __EOUSAGE__
@@ -47,6 +49,8 @@ my $sqlite_db;
 my $include_pep = 0;
 my $include_trans = 0;
 
+our $SEE;
+
 &GetOptions( 
     'help|h' => \$help_flag,
     'sqlite=s' => \$sqlite_db,
@@ -55,7 +59,8 @@ my $include_trans = 0;
     
     'incl_pep' => \$include_pep,
     'incl_trans' => \$include_trans,
-    
+    'verbose' => \$SEE,
+
     );
 
 if ($help_flag) {
