@@ -282,11 +282,12 @@ sub add_parents {
 		if ($parent =~ /^(GO:\d+)/) {
 			push (@parent_go_ids, $1);
 		}
-		else {
+		elsif ($parent !~ /^\!/) {
+            
 		    print STDERR "Warning, cannot parse parent info: $parent\n";
 		}
 	}
-
+    
 	if (@parent_go_ids) {
 		push (@{$self->{parents}}, @parent_go_ids);
 	}
