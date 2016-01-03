@@ -1,0 +1,40 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+use FindBin;
+
+my $usage = "usage: $0 [port_no=8080]\n\n";
+
+my $port_no = $ARGV[0] or die $usage;
+
+ main: {
+
+     my $lighttpd_prog = `which lighttpd`;
+     chomp $lighttpd_prog;
+     unless ($lighttpd_prog =~ /\w/) {
+         die "Error, cannot locate 'lighttpd' program. Be sure to have it installed and accessible from your PATH env var";
+     }
+
+     my $document_root = "$FindBin::Bin/TrinotateWeb";
+     my $conf_file_template = "$FindBin::Bin/TrinotateWeb.conf/lighttpd.conf.template";
+     
+     my $conf_file = "$FindBin::Bin/TrinotateWeb.conf/lighttpd.conf.port$port_no";
+     unless (-s $conf_file) {
+         my $template = `cat $conf_file_template`;
+         $template =~ s/__DOCUMENT_ROOT__/$document_root/ or die "Error, could not replace __DOCUMENT_ROOT__ in $conf_file_template";
+         $template =~ s/__PORT_NO__/$port_no/ or die "Error, could not replace __PORT_NO__ in $conf_file_template";
+
+         open (my $ofh, ">$conf_file") or die "Error, cannot write to $conf_file";
+         print $ofh $template;
+         close $ofh;
+     }
+
+     my $cmd = "$lighttpd_prog -D -f $conf_file";
+     print STDERR "$cmd\n";
+     my $ret = system($cmd);
+
+     exit($ret);
+}
+
