@@ -16,7 +16,13 @@ my $port_no = $ARGV[0] or die $usage;
      unless ($lighttpd_prog =~ /\w/) {
          die "Error, cannot locate 'lighttpd' program. Be sure to have it installed and accessible from your PATH env var";
      }
-
+     
+     my $perl_path = `which perl`;
+     chomp $perl_path;
+     unless ($perl_path =~ /^\//) {
+         die "Error, can't determine where to find perl....  'which perl' returns: $perl_path ";
+     }
+     
      my $document_root = "$FindBin::Bin/TrinotateWeb";
      my $conf_file_template = "$FindBin::Bin/TrinotateWeb.conf/lighttpd.conf.template";
      
@@ -26,6 +32,8 @@ my $port_no = $ARGV[0] or die $usage;
          $template =~ s/__DOCUMENT_ROOT__/$document_root/ or die "Error, could not replace __DOCUMENT_ROOT__ in $conf_file_template";
          $template =~ s/__PORT_NO__/$port_no/ or die "Error, could not replace __PORT_NO__ in $conf_file_template";
 
+         $template =~ s/__PERL_PATH__/$perl_path/g or die "Error, could not replace __PERL_PATH__ in $conf_file_template with $perl_path";
+         
          open (my $ofh, ">$conf_file") or die "Error, cannot write to $conf_file";
          print $ofh $template;
          close $ofh;

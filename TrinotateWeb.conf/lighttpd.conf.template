@@ -218,8 +218,8 @@ server.port                = __PORT_NO__
 #                            )
 
 #### CGI module
-cgi.assign                 = ( ".pl"  => "/usr/bin/perl",
-                               ".cgi" => "/usr/bin/perl" )
+cgi.assign                 = ( ".pl"  => "__PERL_PATH__",
+                               ".cgi" => "__PERL_PATH__" )
 #
 
 #### SSL engine
