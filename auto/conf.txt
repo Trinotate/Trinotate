@@ -130,7 +130,7 @@ CMD={__TRINOTATE_HOME__}/Trinotate  Trinotate.sqlite report > Trinotate.xls
 [EXTRACT_GO]
 RANK=1900
 RUN=T
-CMD={__TRINOTATE_HOME__}/util/extract_GO_assignments_from_Trinotate_xls.pl  --Trinotate_xls Trinotate.xls -G -I > Trinotate.xls.gene_ontology
+CMD={__TRINOTATE_HOME__}/util/extract_GO_assignments_from_Trinotate_xls.pl  --Trinotate_xls Trinotate.xls -T -I > Trinotate.xls.gene_ontology
 
 [NAME_UPDATES]
 RANK=2000
