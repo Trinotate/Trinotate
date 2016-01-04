@@ -108,7 +108,7 @@ CMD={__TRINOTATE_HOME__}/Trinotate  Trinotate.sqlite LOAD_pfam TrinotatePFAM.out
 
 [TRINOTATE_LOAD_RNAMMER]
 RANK=1500
-RUN=T
+RUN=F
 CMD={__TRINOTATE_HOME__}/Trinotate  Trinotate.sqlite LOAD_rnammer Trinity.fasta.rnammer.gff
 
 [TRINOTATE_LOAD_TMHMM]
