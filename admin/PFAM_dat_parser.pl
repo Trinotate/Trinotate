@@ -55,9 +55,15 @@ main: {
 
     my %data;
     
-
-    open (my $fh, $pfam_dat_file) or die $!;
-
+    
+    my $fh;
+    if ($pfam_dat_file =~ /\.gz/) {
+        open ($fh, "gunzip -c $pfam_dat_file | ");
+    }
+    else {
+        open ($fh, $pfam_dat_file) or die $!;
+    }
+    
     open (my $ofh, ">$pfam_dat_file.pfam_sqlite_bulk_load") or die $!;
 
     my $record_counter = 0;

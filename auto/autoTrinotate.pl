@@ -15,6 +15,8 @@ my $usage = <<__EOUSAGE__;
 #
 # Required:
 #
+#  --Trinotate_sqlite <string>                Trinotate.sqlite boilerplate database
+#
 #  --transcripts <string>                     transcripts.fasta
 #
 #  --gene_to_trans_map <string>               gene-to-transcript mapping file
@@ -23,9 +25,6 @@ my $usage = <<__EOUSAGE__;
 #
 #  --CPU <int>                                number of threads to use.
 #
-#  Optional:
-#
-#  
 #
 ##############################################################################
 
@@ -39,10 +38,13 @@ my $transcripts_fasta;
 my $gene_to_trans_map;
 my $conf_file;
 my $CPU;
+my $trinotate_sqlite;
 
 my $help_flag;
 
 &GetOptions ( 'h' => \$help_flag,
+              
+              'Trinotate_sqlite=s' => \$trinotate_sqlite,
               
               'transcripts=s' => \$transcripts_fasta,
 
@@ -57,7 +59,7 @@ my $help_flag;
 
 if ($help_flag) { die $usage; }
 
-unless ($transcripts_fasta && $gene_to_trans_map && $conf_file && $CPU) {
+unless ($transcripts_fasta && $gene_to_trans_map && $conf_file && $CPU && $trinotate_sqlite) {
     die $usage;
 }
 
@@ -74,7 +76,9 @@ main: {
     $globals{GENE_TO_TRANS_MAP} = $gene_to_trans_map;
     $globals{CPU} = $CPU;
     $globals{TRINOTATE_HOME} = $FindBin::Bin . "/../";
+    $globals{TRINOTATE_SQLITE} = $trinotate_sqlite;
     
+
     ## get command structs
     my @cmd_structs;
     foreach my $section (@sections) {

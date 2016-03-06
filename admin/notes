@@ -1,15 +1,56 @@
+# download the following files from: http://www.uniprot.org/downloads
+
+ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.dat.gz
+ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_trembl.dat.gz
+ftp://ftp.uniprot.org/pub/databases/uniprot/uniref/uniref90/uniref90.fasta.gz
+
+
 # extract reference ID from uniref90 fasta file
-perl one-liner
+
+gunzip -c uniref90.fasta.gz | perl -lane 'if (/UniRef90_(\S+)/) { print "$1";}' > uniref90.fasta.gz.accs
 
 # subset the trembl dat file based on the references selected
-./EMBL_dat_retrieve_via_id_list.pl 
-usage: ./EMBL_dat_retrieve_via_id_list.pl embl.dat IDs_to_capture.file
+
+ ~/GITHUB/Trinotate/admin/EMBL_dat_retrieve_via_id_list.pl uniprot_trembl.dat.gz uniref90.fasta.gz.accs > uniref90_trembl.dat
 
 
 # build swissprot and uniref dat files and pep files.
 ./EMBL_sprot_n_uniref90_parser.pl 
-usage: ./EMBL_sprot_n_uniref90_parser.pl swissprot.dat uniref90.dat  out.prefix
+usage: ./EMBL_sprot_n_uniref90_parser.pl swissprot.dat uniref90.dat Trinotate_2016
 
-# makes the sqlite bulk load files and extracts the protein sequences.
+    # above makes the sqlite bulk load files and extracts the protein sequences.
+
+
+# intiialize database, load in uniprot data:
+Trinotate/admin/EMBL_dat_to_Trinotate_sqlite_resourceDB.pl  --sqlite Trinotate_2016_sqlite --create --embl_dat_prefix Trinotate_2016
+
+
+## eggnog import:
+wget http://eggnogdb.embl.de/download/latest/data/NOG/NOG.annotations.tsv.gz
+gunzip NOG.annotations.tsv.gz
+cat NOG.annotations.tsv | perl -lane '@x = split(/\t/); print "$x[1]\t$x[5]";'  > NOG.annotations.tsv.bulk_load
+~/GITHUB/Trinotate/admin/EMBL_dat_to_Trinotate_sqlite_resourceDB.pl  --sqlite Trinotate_2016_sqlite --eggnog NOG.annotations.tsv.bulk_load
+
+## Gene ontology:
+wget http://purl.obolibrary.org/obo/go/go-basic.obo
+~/GITHUB/Trinotate/admin/EMBL_dat_to_Trinotate_sqlite_resourceDB.pl  --sqlite Trinotate_2016_sqlite --go_obo go-basic.obo
+
+## Pfam
+wget ftp://ftp.ebi.ac.uk/pub/databases/Pfam/current_release/Pfam-A.hmm.gz
+~/GITHUB/Trinotate/admin/EMBL_dat_to_Trinotate_sqlite_resourceDB.pl  --sqlite Trinotate_2016_sqlite --pfam Pfam-A.hmm.gz 
+gunzip Pfam-A.hmm.gz
+hmmpress Pfam-A.hmm
+
+## Pfam2GO
+wget http://www.geneontology.org/external2go/pfam2go
+~/GITHUB/Trinotate/admin/EMBL_dat_to_Trinotate_sqlite_resourceDB.pl  --sqlite Trinotate_2016_sqlite --pfam2go pfam2go
+
+
+## prep protein db for blast searches:
+ln -s uniprot_sprot.dat.gz.pep  uniprot_sprot.pep
+cat uniprot_sprot.pep  uniref90_trembl.dat.gz.pep  > uniprot_sprot_uniref90_combined.pep
+makeblastdb -in uniprot_sprot.pep  -dbtype prot
+makeblastdb -in uniprot_sprot_uniref90_combined.pep  -dbtype prot
+
 
 

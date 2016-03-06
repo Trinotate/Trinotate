@@ -16,13 +16,12 @@ SIGNALP_PROG=/seq/regev_genome_portal/SOFTWARE/SIGNALP/signalp-4.0/signalp
 TMHMM_PROG=/seq/regev_genome_portal/SOFTWARE/TMHMM/TMHMM2.0c/bin/tmhmm
 RNAMMER_TRANS_PROG=/home/unix/bhaas/GITHUB/Trinotate/util/rnammer_support/RnammerTranscriptome.pl
 RNAMMER=/seq/regev_genome_portal/SOFTWARE/RNAMMER/rnammer
-
+HMMSCAN_PROG=hmmscan
 
 # dbs
 SWISSPROT_PEP=/seq/RNASEQ/DBs/SWISSPROT/current/uniprot_sprot.pep
+SWISSPROT_UNIREF90_PEP=/seq/RNASEQ/DBs/SWISSPROT/current/uniprot_sprot_uniref90_combined.pep
 PFAM_DB=/seq/RNASEQ/DBs/PFAM/current/Pfam-A.hmm
-#TRINOTATE_BOILERPLATE_URL=ftp://ftp.broadinstitute.org/pub/Trinity/Trinotate_v2.0_RESOURCES/Trinotate.sprot_uniref90.20150131.boilerplate.sqlite.gz
-TRINOTATE_BOILERPLATE_URL=https://data.broadinstitute.org/Trinity/Trinotate_v2.0_RESOURCES/Trinotate.sprot_uniref90.20150131.boilerplate.sqlite.gz
 
 
 ####################
@@ -41,22 +40,33 @@ RUN=T
 CMD={__TRANSDECODER_DIR__}/TransDecoder.Predict -t {__TRANSCRIPTS_FASTA__} --cpu {__CPU__}
 
 
-[BLASTX_TRANS]
+[BLASTX_SPROT_TRANS]
 RANK=200
 RUN=T
 CMD={__BLASTX_PROG__} -db {__SWISSPROT_PEP__} -query {__TRANSCRIPTS_FASTA__} -num_threads {__CPU__} -max_target_seqs 1 -outfmt 6 -evalue 1e-5 > swissprot.blastx.outfmt6
 
 
-[BLASTX_PEP]
+[BLASTX_SPROT_PEP]
 RANK=300
 RUN=T
 CMD={__BLASTP_PROG__} -query Trinity.fasta.transdecoder.pep -db {__SWISSPROT_PEP__} -num_threads {__CPU__}  -max_target_seqs 1 -outfmt 6 -evalue 1e-5 > swissprot.blastp.outfmt6
+
+[BLASTX_UNIREF_TRANS]
+RANK=310
+RUN=T
+CMD={__BLASTX_PROG__} -db {__SWISSPROT_UNIREF90_PEP__} -query {__TRANSCRIPTS_FASTA__} -num_threads {__CPU__} -max_target_seqs 1 -outfmt 6 -evalue 1e-5 > uniref.blastx.outfmt6
+
+
+[BLASTX_UNIREF_PEP]
+RANK=320
+RUN=T
+CMD={__BLASTP_PROG__} -query Trinity.fasta.transdecoder.pep -db {__SWISSPROT_UNIREF90_PEP__} -num_threads {__CPU__}  -max_target_seqs 1 -outfmt 6 -evalue 1e-5 > uniref.blastp.outfmt6
 
 
 [PFAM]
 RANK=400
 RUN=T
-CMD=hmmscan --cpu {__CPU__} --domtblout TrinotatePFAM.out {__PFAM_DB__} Trinity.fasta.transdecoder.pep  > pfam.log
+CMD={__HMMSCAN_PROG__} --cpu {__CPU__} --domtblout TrinotatePFAM.out {__PFAM_DB__} Trinity.fasta.transdecoder.pep  > pfam.log
 
 
 [SIGNALP]
@@ -81,50 +91,56 @@ CMD={__RNAMMER_TRANS_PROG__} --transcriptome {__TRANSCRIPTS_FASTA__} --path_to_r
 # Trinotate Database Loading
 #############################
 
-[TRINOTATE_WGET]
-RANK=1000
-RUN=T
-CMD=wget "{__TRINOTATE_BOILERPLATE_URL__}" -O Trinotate.sqlite.gz && gunzip Trinotate.sqlite.gz
-
 [TRINOTATE_INIT]
 RANK=1100
 RUN=T
-CMD={__TRINOTATE_HOME__}/Trinotate Trinotate.sqlite init --gene_trans_map {__GENE_TO_TRANS_MAP__} --transcript_fasta {__TRANSCRIPTS_FASTA__} --transdecoder_pep Trinity.fasta.transdecoder.pep
+CMD={__TRINOTATE_HOME__}/Trinotate {__TRINOTATE_SQLITE__} init --gene_trans_map {__GENE_TO_TRANS_MAP__} --transcript_fasta {__TRANSCRIPTS_FASTA__} --transdecoder_pep Trinity.fasta.transdecoder.pep
 
-[TRINOTATE_LOAD_BLASTX]
+[TRINOTATE_LOAD_SPROT_BLASTX]
 RANK=1200
 RUN=T
-CMD={__TRINOTATE_HOME__}/Trinotate  Trinotate.sqlite LOAD_swissprot_blastx swissprot.blastx.outfmt6 
+CMD={__TRINOTATE_HOME__}/Trinotate  {__TRINOTATE_SQLITE__} LOAD_swissprot_blastx swissprot.blastx.outfmt6 
 
-[TRINOTATE_LOAD_BLASTP]
+[TRINOTATE_LOAD_SPROT_BLASTP]
 RANK=1300
 RUN=T
-CMD={__TRINOTATE_HOME__}/Trinotate  Trinotate.sqlite LOAD_swissprot_blastp swissprot.blastp.outfmt6 
+CMD={__TRINOTATE_HOME__}/Trinotate  {__TRINOTATE_SQLITE__} LOAD_swissprot_blastp swissprot.blastp.outfmt6 
+
+[TRINOTATE_LOAD_UNIREF_BLASTX]
+RANK=1310
+RUN=T
+CMD={__TRINOTATE_HOME__}/Trinotate  {__TRINOTATE_SQLITE__} LOAD_swissprot_blastx uniref.blastx.outfmt6 
+
+[TRINOTATE_LOAD_UNIREF_BLASTP]
+RANK=1320
+RUN=T
+CMD={__TRINOTATE_HOME__}/Trinotate  {__TRINOTATE_SQLITE__} LOAD_swissprot_blastp uniref.blastp.outfmt6 
+
 
 [TRINOTATE_LOAD_PFAM]
 RANK=1400
 RUN=T
-CMD={__TRINOTATE_HOME__}/Trinotate  Trinotate.sqlite LOAD_pfam TrinotatePFAM.out
+CMD={__TRINOTATE_HOME__}/Trinotate  {__TRINOTATE_SQLITE__} LOAD_pfam TrinotatePFAM.out
 
 [TRINOTATE_LOAD_RNAMMER]
 RANK=1500
 RUN=F
-CMD={__TRINOTATE_HOME__}/Trinotate  Trinotate.sqlite LOAD_rnammer Trinity.fasta.rnammer.gff
+CMD={__TRINOTATE_HOME__}/Trinotate  {__TRINOTATE_SQLITE__} LOAD_rnammer Trinity.fasta.rnammer.gff
 
 [TRINOTATE_LOAD_TMHMM]
 RANK=1600
 RUN=T
-CMD={__TRINOTATE_HOME__}/Trinotate  Trinotate.sqlite LOAD_tmhmm tmhmm.out
+CMD={__TRINOTATE_HOME__}/Trinotate  {__TRINOTATE_SQLITE__} LOAD_tmhmm tmhmm.out
 
 [TRINOTATE_LOAD_SIGNALP]
 RANK=1700
 RUN=T
-CMD={__TRINOTATE_HOME__}/Trinotate  Trinotate.sqlite LOAD_signalp signalp.out
+CMD={__TRINOTATE_HOME__}/Trinotate  {__TRINOTATE_SQLITE__} LOAD_signalp signalp.out
 
 [TRINOTATE_REPORT]
 RANK=1800
 RUN=T
-CMD={__TRINOTATE_HOME__}/Trinotate  Trinotate.sqlite report > Trinotate.xls
+CMD={__TRINOTATE_HOME__}/Trinotate  {__TRINOTATE_SQLITE__} report > Trinotate.xls
 
 
 [EXTRACT_GO]
@@ -135,5 +151,5 @@ CMD={__TRINOTATE_HOME__}/util/extract_GO_assignments_from_Trinotate_xls.pl  --Tr
 [NAME_UPDATES]
 RANK=2000
 RUN=T
-CMD={__TRINOTATE_HOME__}/util/annotation_importer/import_transcript_names.pl Trinotate.sqlite Trinotate.xls
+CMD={__TRINOTATE_HOME__}/util/annotation_importer/import_transcript_names.pl {__TRINOTATE_SQLITE__} Trinotate.xls
 

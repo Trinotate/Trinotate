@@ -17,7 +17,7 @@ my $usage = <<__EOUSAGE__;
 #
 # --create                      create a new Trinotate sqlite database
 #
-# --embl_dat <string>           EMBL dat file  (ex. swissprot.dat or trembl.dat)
+# --embl_dat_prefix <string>    prefix to .UniprotIndex and .TaxonomyIndex files.
 #
 # --pfam <string>               Pfam_A.hmm file
 #
@@ -35,7 +35,7 @@ __EOUSAGE__
 
 
 
-my $embl_dat_file;
+my $embl_dat_prefix;
 my $pfam_file;
 my $eggnog_file;
 my $go_obo_file;
@@ -47,7 +47,7 @@ my $pfam2go_file;
 &GetOptions('h' => \$help_flag,
             'sqlite=s' => \$sqlite_db,
             'create' => \$create_flag,
-            'embl_dat=s' => \$embl_dat_file,
+            'embl_dat_prefix=s' => \$embl_dat_prefix,
             'pfam=s' => \$pfam_file,
             'eggnog=s' => \$eggnog_file,
             'go_obo=s' => \$go_obo_file,
@@ -66,7 +66,7 @@ unless ($sqlite_db) {
     die $usage . "\n SQLITE database name required\n";
 }
 
-unless ($create_flag || $embl_dat_file || $pfam_file || $eggnog_file || $go_obo_file || $pfam2go_file) {
+unless ($create_flag || $embl_dat_prefix || $pfam_file || $eggnog_file || $go_obo_file || $pfam2go_file) {
     die $usage . "\n\n select an action to perform.\n";
 }
 
@@ -81,14 +81,13 @@ if ($create_flag) {
     &process_cmd($cmd);
 }
 
-if ($embl_dat_file) {
+if ($embl_dat_prefix) {
     # parse uniprot dat file
-    my $uniprot_index_bulk_load_file = "$embl_dat_file.UniprotIndex";
-    my $taxonomy_index_bulk_load_file = "$embl_dat_file.TaxonomyIndex";
+    my $uniprot_index_bulk_load_file = "$embl_dat_prefix.UniprotIndex";
+    my $taxonomy_index_bulk_load_file = "$embl_dat_prefix.TaxonomyIndex";
     
     if (! (-s $uniprot_index_bulk_load_file && -s $taxonomy_index_bulk_load_file) ) {
-        my $cmd = "$bindir/EMBL_dat_parser.pl $embl_dat_file $embl_dat_file";
-        &process_cmd($cmd);
+        die "Error, cannot locate files: $uniprot_index_bulk_load_file or $taxonomy_index_bulk_load_file";
     }
     
     &Sqlite_connect::bulk_load_sqlite($sqlite_db, "UniprotIndex", $uniprot_index_bulk_load_file);

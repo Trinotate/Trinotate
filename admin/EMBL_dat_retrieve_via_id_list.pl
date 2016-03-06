@@ -45,10 +45,14 @@ main: {
         my @pts = split(/\s+/, $ID);
         $ID = shift @pts;
 
+        my $AC = $record->{sections}->{AC};
+        $AC =~ /^(\S+);\s.*/ or die "Error, cannot parse accession value: $AC";
+        $AC = $1;
         
-        if ($IDs_to_capture{$ID}) {
+        if ($IDs_to_capture{$ID} || $IDs_to_capture{$AC}) {
             print $record->{record};
             delete($IDs_to_capture{$ID});
+            delete($IDs_to_capture{$AC});
             $record_counter++;
             print STDERR "\r[$record_counter]    " if $record_counter % 1000 == 0;
             
