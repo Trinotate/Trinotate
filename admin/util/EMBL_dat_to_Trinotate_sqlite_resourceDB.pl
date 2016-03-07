@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 use FindBin;
-use lib ("$FindBin::Bin/../PerlLib");
+use lib ("$FindBin::Bin/../../PerlLib");
 use Sqlite_connect;
 use Getopt::Long qw(:config no_ignore_case bundling pass_through);
 use File::Basename;
@@ -17,13 +17,15 @@ my $usage = <<__EOUSAGE__;
 #
 # --create                      create a new Trinotate sqlite database
 #
-# --embl_dat_prefix <string>    prefix to .UniprotIndex and .TaxonomyIndex files.
+# --uniprot_index <string>      file.UniprotIndex
+#
+# --taxonomy_index <string>     file.TaxonomyIndex
 #
 # --pfam <string>               Pfam_A.hmm file
 #
 # --eggnog <string>             concatenated eggnog file
 #
-# --go_obo <string>             gene ontology obo file
+# --go_obo_tab <string>             gene ontology obo tab file
 #
 # --pfam2go <string>            pfam2go data file
 #
@@ -35,10 +37,11 @@ __EOUSAGE__
 
 
 
-my $embl_dat_prefix;
+my $uniprot_index;
+my $taxonomy_index;
 my $pfam_file;
 my $eggnog_file;
-my $go_obo_file;
+my $go_obo_tab_file;
 my $help_flag;
 my $create_flag;
 my $sqlite_db;
@@ -47,10 +50,11 @@ my $pfam2go_file;
 &GetOptions('h' => \$help_flag,
             'sqlite=s' => \$sqlite_db,
             'create' => \$create_flag,
-            'embl_dat_prefix=s' => \$embl_dat_prefix,
+            'uniprot_index=s' => \$uniprot_index,
+            'taxonomy_index=s' => \$taxonomy_index,
             'pfam=s' => \$pfam_file,
             'eggnog=s' => \$eggnog_file,
-            'go_obo=s' => \$go_obo_file,
+            'go_obo_tab=s' => \$go_obo_tab_file,
             'pfam2go=s' => \$pfam2go_file,
             );
 
@@ -66,7 +70,7 @@ unless ($sqlite_db) {
     die $usage . "\n SQLITE database name required\n";
 }
 
-unless ($create_flag || $embl_dat_prefix || $pfam_file || $eggnog_file || $go_obo_file || $pfam2go_file) {
+unless ($create_flag || $uniprot_index || $taxonomy_index || $pfam_file || $eggnog_file || $go_obo_tab_file || $pfam2go_file) {
     die $usage . "\n\n select an action to perform.\n";
 }
 
@@ -81,17 +85,24 @@ if ($create_flag) {
     &process_cmd($cmd);
 }
 
-if ($embl_dat_prefix) {
+if ($uniprot_index) {
     # parse uniprot dat file
-    my $uniprot_index_bulk_load_file = "$embl_dat_prefix.UniprotIndex";
-    my $taxonomy_index_bulk_load_file = "$embl_dat_prefix.TaxonomyIndex";
+
+    unless (-s $uniprot_index) {
+        die "Error, cannot locate file $uniprot_index";
+    }
+
+    &Sqlite_connect::bulk_load_sqlite($sqlite_db, "UniprotIndex", $uniprot_index);
+}
+
+if ($taxonomy_index) {
     
-    if (! (-s $uniprot_index_bulk_load_file && -s $taxonomy_index_bulk_load_file) ) {
-        die "Error, cannot locate files: $uniprot_index_bulk_load_file or $taxonomy_index_bulk_load_file";
+    unless (-s $taxonomy_index) {
+        die "Error, cannot locate file $taxonomy_index";
+        
     }
     
-    &Sqlite_connect::bulk_load_sqlite($sqlite_db, "UniprotIndex", $uniprot_index_bulk_load_file);
-    &Sqlite_connect::bulk_load_sqlite($sqlite_db, "TaxonomyIndex", $taxonomy_index_bulk_load_file);
+    &Sqlite_connect::bulk_load_sqlite($sqlite_db, "TaxonomyIndex", $taxonomy_index);
 }
 
 
@@ -122,17 +133,9 @@ if ($pfam2go_file) {
 
 
 # import gene ontology
-if ($go_obo_file) {
-    my $go_obo_tab = basename($go_obo_file) . ".tab";
-    if (-s $go_obo_tab) {
-        print STDERR "-reusing existing $go_obo_tab file\n";
-    }
-    else {
-        my $cmd = "$bindir/../util/gene_ontology/obo_to_tab.pl $go_obo_file > $go_obo_tab";
-        &process_cmd($cmd);
-    }
+if ($go_obo_tab_file) {
     
-    my $cmd = "$bindir/../util/gene_ontology/obo_tab_to_sqlite_db.pl $sqlite_db $go_obo_tab";
+    my $cmd = "$bindir/../util/gene_ontology/obo_tab_to_sqlite_db.pl $sqlite_db $go_obo_tab_file";
     &process_cmd($cmd);
     
 }

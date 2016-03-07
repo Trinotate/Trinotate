@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 use FindBin;
-use lib ("$FindBin::Bin/../PerlLib");
+use lib ("$FindBin::Bin/../../PerlLib");
 use DBI;
 use Sqlite_connect;
 use Getopt::Long qw(:config no_ignore_case bundling pass_through);
