@@ -1,4 +1,15 @@
 
+## Release 2016-03-09
+
+-updated resources based on currently available data (swissprot, trembl, pfam, go, etc.)
+-incorporating Kegg annotations
+-including auto-trinotate to facilitate computations and database loading.
+-including db-shrinker to reduce the db footprint after loading in results from bioifx computes.
+-support for lighttpd as the webserver for TrinotateWeb
+-releasing the boilerplate database build process, in case anyone ever wants to roll their own based on the latest swissprot, trembl, etc.
+
+
+
 ## Release: 2014-07-08
 
 -added support for Uniref90 in addition to swissprot.
