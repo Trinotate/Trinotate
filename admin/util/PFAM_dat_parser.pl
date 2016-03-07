@@ -58,7 +58,7 @@ main: {
     
     my $fh;
     if ($pfam_dat_file =~ /\.gz/) {
-        open ($fh, "gunzip -c $pfam_dat_file | ");
+        open ($fh, "gunzip -c $pfam_dat_file | ") or die $!;
     }
     else {
         open ($fh, $pfam_dat_file) or die $!;

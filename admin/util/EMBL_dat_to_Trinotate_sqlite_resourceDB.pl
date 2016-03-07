@@ -107,14 +107,8 @@ if ($taxonomy_index) {
 
 
 if ($pfam_file) {
-    # import PFAM
-    my $pfam_bulk_load_file = "$pfam_file.pfam_sqlite_bulk_load";
-    if (! -s $pfam_bulk_load_file) {
-        my $cmd = "$bindir/PFAM_dat_parser.pl $pfam_file";
-        &process_cmd($cmd);
-    }
-    
-    &Sqlite_connect::bulk_load_sqlite($sqlite_db, "PFAMreference", $pfam_bulk_load_file);
+        
+    &Sqlite_connect::bulk_load_sqlite($sqlite_db, "PFAMreference", $pfam_file);
 }
 
 
@@ -124,10 +118,8 @@ if ($eggnog_file) {
 }
 
 if ($pfam2go_file) {
-    my $cmd = "$bindir/PFAMtoGoParser.pl $pfam2go_file > $pfam2go_file.tab";
-    &process_cmd($cmd);
-    
-    &Sqlite_connect::bulk_load_sqlite($sqlite_db, "pfam2go", "$pfam2go_file.tab");
+ 
+    &Sqlite_connect::bulk_load_sqlite($sqlite_db, "pfam2go", $pfam2go_file);
     
 }
 
@@ -135,7 +127,7 @@ if ($pfam2go_file) {
 # import gene ontology
 if ($go_obo_tab_file) {
     
-    my $cmd = "$bindir/../util/gene_ontology/obo_tab_to_sqlite_db.pl $sqlite_db $go_obo_tab_file";
+    my $cmd = "$FindBin::Bin/obo_tab_to_sqlite_db.pl $sqlite_db $go_obo_tab_file"; ## TODO: make bulk load like everything else here.
     &process_cmd($cmd);
     
 }
