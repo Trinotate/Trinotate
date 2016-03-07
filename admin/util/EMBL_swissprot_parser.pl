@@ -8,12 +8,11 @@ use lib ("$FindBin::Bin/../PerlLib");
 use EMBL_parser;
 use Data::Dumper;
 
-my $usage = "usage: $0 swissprot.dat uniref90.dat|NULL  out.prefix\n\n";
+my $usage = "usage: $0 swissprot.dat out.prefix\n\n";
 
 my $swiss_dat_file = $ARGV[0] or die $usage;
-my $uniref90_dat_file = $ARGV[1] or die $usage;
+my $out_prefix = $ARGV[1] or die $usage;
 
-my $out_prefix = $ARGV[2] or die $usage;
 
 main: {
 
@@ -24,81 +23,75 @@ main: {
     my %taxon_ids;
     open (my $taxons_ofh, ">$out_prefix.TaxonomyIndex") or die $!;
         
-    foreach my $file ($swiss_dat_file, $uniref90_dat_file) {
-        
-        if ($file eq "NULL") { next; } 
-
-        my $embl_parser = new EMBL_parser($file);
+    my $embl_parser = new EMBL_parser($swiss_dat_file);
     
-        my $pep_file = "$file.pep\n";
-        open (my $ofh_pep, ">$pep_file") or die $!;
+    my $pep_file = "$swiss_dat_file.pep\n";
+    open (my $ofh_pep, ">$pep_file") or die $!;
+    
+    ## types currently supporting: DEGKT
+    
+    my $record_counter = 0;
+    
+    while (my $record = $embl_parser->next()) {
         
-        ## types currently supporting: DEGKT
+        $record_counter++;
+        print STDERR "\r[$record_counter]    " if $record_counter % 1000 == 0;
         
-        my $record_counter = 0;
+        my $ID = &get_ID($record);
         
-        while (my $record = $embl_parser->next()) {
-            
-            $record_counter++;
-            print STDERR "\r[$record_counter]    " if $record_counter % 1000 == 0;
+        my @accessions = &get_accessions($record);
         
-            my $ID = &get_ID($record);
-            
-            my @accessions = &get_accessions($record);
-            
-            my $descr = &get_description($record);
-            
-            my $taxon_id = &get_taxon_id($record, \%taxon_ids, $taxons_ofh);
-            
-            # gene ontology
-            my @GO = &get_GO($record);
-                        
-            ##   (type E for eggnog)
-            my @eggnog = &get_eggNOG($record);
-            
-            ## kegg
-            my @kegg = &get_KEGG($record);
-            
-            
-            print $ofh join("\t", $ID, $descr, 'D') . "\n";
-            
-            print $ofh join("\t", $ID, $taxon_id, 'T') . "\n";
-            
-            foreach  my $go (@GO) {
-                print $ofh join("\t", $ID, $go, 'G') . "\n";
-            }
-            
-            
-            foreach my $egg (@eggnog) {
-                print $ofh join("\t", $ID, $egg, 'E') . "\n";
-            }
-            
-            
-            ## KEGG (type K)
-            foreach my $k (@kegg) {
-                print $ofh join("\t", $ID, $k, 'K') . "\n";
-            }
-            
-
-            my $protein = &get_protein_seq($record);
-            
-            $descr =~ s/RecName: Full=//;
-            $descr =~ s/;\s*$//;
-            print $ofh_pep ">$ID $descr\n"
-                . "$protein\n";
-            
-            
+        my $descr = &get_description($record);
+        
+        my $taxon_id = &get_taxon_id($record, \%taxon_ids, $taxons_ofh);
+        
+        # gene ontology
+        my @GO = &get_GO($record);
+        
+        ##   (type E for eggnog)
+        my @eggnog = &get_eggNOG($record);
+        
+        ## kegg
+        my @kegg = &get_KEGG($record);
+        
+        
+        print $ofh join("\t", $ID, $descr, 'D') . "\n";
+        
+        print $ofh join("\t", $ID, $taxon_id, 'T') . "\n";
+        
+        foreach  my $go (@GO) {
+            print $ofh join("\t", $ID, $go, 'G') . "\n";
         }
         
-        close $ofh_pep;
+        
+        foreach my $egg (@eggnog) {
+            print $ofh join("\t", $ID, $egg, 'E') . "\n";
+        }
+        
+        
+        ## KEGG (type K)
+        foreach my $k (@kegg) {
+            print $ofh join("\t", $ID, $k, 'K') . "\n";
+        }
+        
+        
+        my $protein = &get_protein_seq($record);
+        
+        $descr =~ s/RecName: Full=//;
+        $descr =~ s/;\s*$//;
+        print $ofh_pep ">$ID $descr\n"
+            . "$protein\n";
         
     }
+    
+    close $ofh_pep;
+    
     
     close $ofh;
     close $taxons_ofh;
     
     exit(0);
-
+    
     
 }
 
