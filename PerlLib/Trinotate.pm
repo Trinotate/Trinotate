@@ -276,6 +276,29 @@ sub get_eggnog_info_from_uniprot_acc {
             
 }
 
+
+####
+sub get_kegg_info_from_uniprot_acc {
+    my ($dbproc, $uniprot_accession) = @_;
+
+    my $query = "select u.LinkId "
+        . " from UniprotIndex u "
+        . " where u.Accession = ? "
+        . " and u.AttributeType = 'K' ";
+    
+    my @results = &do_sql_2D($dbproc, $query, $uniprot_accession);
+    
+    my @kegg_info;
+    foreach my $result (@results) {
+        my ($kegg_acc) = @$result;
+        push (@kegg_info, $kegg_acc);
+    }
+    
+    return(@kegg_info);
+    
+}
+
+
 ####
 sub get_gene_ontology_from_uniprot_acc {
     my ($dbproc, $uniprot_acc) = @_;

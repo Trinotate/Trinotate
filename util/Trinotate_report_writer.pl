@@ -90,7 +90,7 @@ main: {
     my @header = ("#gene_id", "transcript_id", "sprot_Top_BLASTX_hit", "TrEMBL_Top_BLASTX_hit", "RNAMMER", 
                   "prot_id", "prot_coords", 
                   "sprot_Top_BLASTP_hit", "TrEMBL_Top_BLASTP_hit", "Pfam", "SignalP", "TmHMM", 
-                  "eggnog", "gene_ontology_blast", "gene_ontology_pfam", 
+                  "eggnog", "Kegg", "gene_ontology_blast", "gene_ontology_pfam", 
                   "transcript", "peptide");
     
     print join("\t", @header) . "\n";
@@ -125,6 +125,8 @@ main: {
                 
                 my $eggnog = &get_eggnog_info_from_blast_hit($dbproc, $BLASTP_info_sprot);
                 
+                my $kegg_info = &get_kegg_info_from_blast_hit($dbproc, $BLASTP_info_sprot);
+                
                 my $gene_ontology_blast = &get_gene_ontology_from_blast_hit($dbproc, $BLASTP_info_sprot);
                 
                 my $peptide = ($include_pep) ? &get_peptide($dbproc, $prot_id) : ".";
@@ -132,7 +134,7 @@ main: {
                 my @fields = ($gene_id, $trans_id, $BLASTX_info_sprot, $BLASTX_info_trembl, $rnammer_txt, 
                               $prot_id, "$lend-$rend\[$strand]",
                               $BLASTP_info_sprot, $BLASTP_info_trembl, $pfam_info, $signalP_info, $TmHMM_info, 
-                              $eggnog, $gene_ontology_blast, $gene_ontology_pfam, 
+                              $eggnog, $kegg_info, $gene_ontology_blast, $gene_ontology_pfam, 
                               $trans_seq, $peptide);
                 
                 print join("\t", @fields) . "\n";
@@ -143,6 +145,7 @@ main: {
 
 
             my $eggnog = &get_eggnog_info_from_blast_hit($dbproc, $BLASTX_info_sprot);
+            my $kegg_info = &get_kegg_info_from_blast_hit($dbproc, $BLASTX_info_sprot);
             
             my $gene_ontology_blast = &get_gene_ontology_from_blast_hit($dbproc, $BLASTX_info_sprot);
 
@@ -150,7 +153,7 @@ main: {
             print join("\t", $gene_id, $trans_id, $BLASTX_info_sprot, $BLASTX_info_trembl, $rnammer_txt,
                        ".", ".", 
                        ".", ".", ".", ".", ".",
-                       $eggnog, $gene_ontology_blast, ".", 
+                       $eggnog, $kegg_info, $gene_ontology_blast, ".", 
                        $trans_seq, ".") . "\n";
         }
     }
@@ -328,6 +331,30 @@ sub get_eggnog_info_from_blast_hit {
         return(".");
     }
 }
+
+####
+sub get_kegg_info_from_blast_hit {
+    my ($dbproc, $blast_info) = @_;
+
+    if ($blast_info eq ".") {
+        # no top hit
+        return(".");
+    }
+
+    my @vals = split(/\^/, $blast_info);
+    my $blast_hit_acc = $vals[1];
+
+    my @kegg_info = &Trinotate::get_kegg_info_from_uniprot_acc($dbproc, $blast_hit_acc);
+
+    if (@kegg_info) {
+        return(join("`", @kegg_info));
+    }
+    else {
+        return(".");
+    }
+}
+
+
 
 ####
 sub get_gene_ontology_from_blast_hit {
