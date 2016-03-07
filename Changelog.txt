@@ -1,5 +1,5 @@
 
-## Release 2016-03-09
+## Trinotate v3.0.0 Release (2016-03-09)
 
 -updated resources based on currently available data (swissprot, trembl, pfam, go, etc.)
 -incorporating Kegg annotations
@@ -9,6 +9,40 @@
 -releasing the boilerplate database build process, in case anyone ever wants to roll their own based on the latest swissprot, trembl, etc.
 
 
+## Trinotate Release 2.0.2 (April 30, 2015)
+TrinotateWeb components are updated for improved compatibility with the new Trinity identifiers (TR|c...)
+
+The run_mongoose_server.sh, when given any command line arguments, will use a locally installed version of canvasXpress libraries. By default, it uses them live over http from the main canvasXpress site.
+
+
+
+## Trinotate v2.0.1 (Feb 6, 2015)
+
+double-clicking on a gene/transcript graph point opens up a new window instead of replacing the current volcano or MA plot page (which is intensive to draw).
+
+
+Trinotate v2.0.0 (Feb, 2015)
+Database resources are updated to Jan,2015 versions of UniProt (swissprot and uniref90), PFam, and GO.
+
+A single sqlite boilerplate database is provided with both swissprot and uniref90 support.
+
+The mongoose webserver is now recommended for use with TrinotateWeb
+
+TrinotateWeb has been heavily refined, with a facelift and related engineering spearheaded by Leonardo Gonzalez.
+
+
+## v1.1 Trinotate, pre-2.0 release (Jan 29, 2015)
+post-migration from sourceforge
+Includes Leonardo Gonzalez's UI overhaul and query optimizations
+
+
+
+
+
+
+######################################################################################
+##########  Releases below were on Sourceforge before we moved to Github  ############
+######################################################################################
 
 ## Release: 2014-07-08
 
