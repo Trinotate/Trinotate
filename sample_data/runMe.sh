@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-SWISSPROT_SQLITE_DB_URL="ftp://ftp.broadinstitute.org/pub/Trinity/Trinotate_v2.0_RESOURCES/Trinotate.sprot_uniref90.20150131.boilerplate.sqlite.gz"
+SWISSPROT_SQLITE_DB_URL="https://data.broadinstitute.org/Trinity/Trinotate_RESOURCES_20160306/Trinotate_20160306.sqlite.gz";
 
 for file in *.gz
 do
@@ -25,7 +25,7 @@ if [ -e $BOILERPLATE ]; then
 fi
 
 if [ ! -s $BOILERPLATE.gz ]; then
-    echo pulling swissprot resource db from SF ftp site
+    echo pulling swissprot resource db from ftp site
     wget $SWISSPROT_SQLITE_DB_URL -O $BOILERPLATE.gz
 fi
 

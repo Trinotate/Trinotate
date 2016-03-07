@@ -8,7 +8,7 @@ use lib ("$FindBin::Bin/../PerlLib");
 use EMBL_parser;
 use Data::Dumper;
 
-my $usage = "usage: $0 swissprot.dat uniref90.dat  out.prefix\n\n";
+my $usage = "usage: $0 swissprot.dat uniref90.dat|NULL  out.prefix\n\n";
 
 my $swiss_dat_file = $ARGV[0] or die $usage;
 my $uniref90_dat_file = $ARGV[1] or die $usage;
@@ -26,6 +26,8 @@ main: {
         
     foreach my $file ($swiss_dat_file, $uniref90_dat_file) {
         
+        if ($file eq "NULL") { next; } 
+
         my $embl_parser = new EMBL_parser($file);
     
         my $pep_file = "$file.pep\n";
@@ -54,6 +56,9 @@ main: {
             ##   (type E for eggnog)
             my @eggnog = &get_eggNOG($record);
             
+            ## kegg
+            my @kegg = &get_KEGG($record);
+            
             
             print $ofh join("\t", $ID, $descr, 'D') . "\n";
             
@@ -69,7 +74,10 @@ main: {
             }
             
             
-            ## KEGG (type K)  // skipping for now
+            ## KEGG (type K)
+            foreach my $k (@kegg) {
+                print $ofh join("\t", $ID, $k, 'K') . "\n";
+            }
             
 
             my $protein = &get_protein_seq($record);
@@ -223,3 +231,30 @@ sub get_eggNOG {
 
     return(@eggnogs);
 }   
+
+
+####
+sub get_KEGG {
+    my $self = shift;
+    
+    my $section_text = $self->{sections}->{DR};
+    
+    if (! $section_text) {
+        return;
+    }
+    
+    my @lines = split(/\n/, $section_text);
+    
+    my @kegg;
+    foreach my $line (@lines) {
+        if ($line =~ /^KEGG; (\S+);/) {
+            push (@kegg, "KEGG:$1");
+        }
+        elsif ($line =~ /^KO; (\S+);/) {
+            push (@kegg, "KO:$1");
+        }
+    }
+    
+    return(@kegg);
+}   
+

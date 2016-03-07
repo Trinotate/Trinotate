@@ -53,13 +53,13 @@ CMD={__BLASTP_PROG__} -query Trinity.fasta.transdecoder.pep -db {__SWISSPROT_PEP
 
 [BLASTX_UNIREF_TRANS]
 RANK=310
-RUN=T
+RUN=F
 CMD={__BLASTX_PROG__} -db {__SWISSPROT_UNIREF90_PEP__} -query {__TRANSCRIPTS_FASTA__} -num_threads {__CPU__} -max_target_seqs 1 -outfmt 6 -evalue 1e-5 > uniref.blastx.outfmt6
 
 
 [BLASTX_UNIREF_PEP]
 RANK=320
-RUN=T
+RUN=F
 CMD={__BLASTP_PROG__} -query Trinity.fasta.transdecoder.pep -db {__SWISSPROT_UNIREF90_PEP__} -num_threads {__CPU__}  -max_target_seqs 1 -outfmt 6 -evalue 1e-5 > uniref.blastp.outfmt6
 
 
@@ -108,12 +108,12 @@ CMD={__TRINOTATE_HOME__}/Trinotate  {__TRINOTATE_SQLITE__} LOAD_swissprot_blastp
 
 [TRINOTATE_LOAD_UNIREF_BLASTX]
 RANK=1310
-RUN=T
+RUN=F
 CMD={__TRINOTATE_HOME__}/Trinotate  {__TRINOTATE_SQLITE__} LOAD_swissprot_blastx uniref.blastx.outfmt6 
 
 [TRINOTATE_LOAD_UNIREF_BLASTP]
 RANK=1320
-RUN=T
+RUN=F
 CMD={__TRINOTATE_HOME__}/Trinotate  {__TRINOTATE_SQLITE__} LOAD_swissprot_blastp uniref.blastp.outfmt6 
 
 
