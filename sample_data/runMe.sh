@@ -105,15 +105,15 @@ echo Loading Component Expression Matrix and DE results
 echo "###################################################"
 
 # expression data load for genes
-../util/transcript_expression/import_expression_and_DE_results.pl --sqlite ${sqlite_db} --component_mode \
-        --samples_file samples_n_reads_described.txt \
-        --count_matrix Trinity_components.counts.matrix \
-        --fpkm_matrix Trinity_components.counts.matrix.TMM_normalized.FPKM 
+../util/transcript_expression/import_expression_and_DE_results.pl --sqlite ${sqlite_db} --gene_mode \
+        --samples_file data/samples.txt \
+        --count_matrix data/Trinity_genes.counts.matrix \
+        --fpkm_matrix data/Trinity_genes.TMM.EXPR.matrix 
 
 # DE results load for genes
-../util/transcript_expression/import_expression_and_DE_results.pl --sqlite ${sqlite_db} --component_mode \
-        --samples_file samples_n_reads_described.txt \
-        --DE_dir edgeR_components
+../util/transcript_expression/import_expression_and_DE_results.pl --sqlite ${sqlite_db} --gene_mode \
+        --samples_file data/samples.txt \
+        --DE_dir edgeR_genes
 
 
 echo "##################################################"
@@ -122,13 +122,13 @@ echo "##################################################"
 
 # expression data load for transcripts
 ../util/transcript_expression/import_expression_and_DE_results.pl --sqlite ${sqlite_db} --transcript_mode \
-        --samples_file samples_n_reads_described.txt \
-        --count_matrix Trinity_trans.counts.matrix \
-        --fpkm_matrix Trinity_trans.counts.matrix.TMM_normalized.FPKM
+        --samples_file data/samples.txt \
+        --count_matrix data/Trinity_trans.counts.matrix \
+        --fpkm_matrix data/Trinity_trans.TMM.EXPR.matrix
 
 # DE results load for transcripts
 ../util/transcript_expression/import_expression_and_DE_results.pl --sqlite ${sqlite_db} --transcript_mode \
-        --samples_file samples_n_reads_described.txt \
+        --samples_file data/samples.txt \
         --DE_dir edgeR_trans
 
 
@@ -138,7 +138,7 @@ echo "######################################################"
 
 
 # import the transcription profile cluster stuff
-../util/transcript_expression/import_transcript_clusters.pl --group_name DE_all_vs_all --analysis_name edgeR_trans/diffExpr.P0.001_C2.matrix.R.all.RData.clusters_fixed_P_20 --sqlite ${sqlite_db} edgeR_trans/diffExpr.P0.001_C2.matrix.R.all.RData.clusters_fixed_P_20/*matrix
+../util/transcript_expression/import_transcript_clusters.pl --group_name DE_all_vs_all --analysis_name diffExpr.P0.1_C1.matrix.RData.clusters_fixed_P_60 --sqlite ${sqlite_db} edgeR_trans/diffExpr.P0.1_C1.matrix.RData.clusters_fixed_P_60/*matrix
 
 
 echo "###########################"
@@ -146,6 +146,9 @@ echo Generating report table
 echo "###########################"
 
 ../Trinotate ${sqlite_db} report > Trinotate_report.xls
+
+
+exit
 
 echo "#########################################"
 echo Extracting Gene Ontology Mappings Per Gene

@@ -98,8 +98,7 @@ main: {
     }
     
     my @header = ("#gene_id", "transcript_id", "sprot_Top_BLASTX_hit", "RNAMMER", 
-                  "prot_id", "prot_coords", 
-                  "sprot_Top_BLASTP_hit"); 
+                  "prot_id", "prot_coords", "sprot_Top_BLASTP_hit"); 
     
     if (@custom_db_names) {
         push (@header, @custom_blastx_names, @custom_blastp_names);
@@ -160,17 +159,17 @@ main: {
                 
                 my $peptide = ($include_pep) ? &get_peptide($dbproc, $prot_id) : ".";
                 
-                my @fields = ($gene_id, $trans_id, $BLASTX_info_sprot);
-                if (@custom_db_names) {
-                    push (@fields, @custom_blastx_results);
-                }
-                push (@fields, $rnammer_txt, 
-                      $prot_id, "$lend-$rend\[$strand]",
-                      $BLASTP_info_sprot);
 
+                ## Prepare outputs:
+
+                my @fields = ($gene_id, $trans_id, $BLASTX_info_sprot,
+                              $rnammer_txt, 
+                              $prot_id, "$lend-$rend\[$strand]",
+                              $BLASTP_info_sprot);
+                
                 if (@custom_db_names) {
-                    push (@fields, @custom_blastp_results);
-                }
+                    push (@fields, @custom_blastx_results, @custom_blastp_results);
+                }     
                 
                 push (@fields, $pfam_info, $signalP_info, $TmHMM_info, 
                       $eggnog, $kegg_info, $gene_ontology_blast, $gene_ontology_pfam, 
@@ -192,13 +191,16 @@ main: {
             my @fields = ($gene_id, $trans_id, $BLASTX_info_sprot);
 
 
+
+            
+            push (@fields, $rnammer_txt,
+                  ".", ".", ".");
+
             if (@custom_db_names) {
                 push (@fields, @custom_blastx_results);
             }
-            
-            push (@fields, $rnammer_txt,
-                  ".", ".", 
-                  ".", ".", ".", ".", ".",
+
+            push (@fields, ".", ".", ".", ".",
                   $eggnog, $kegg_info, $gene_ontology_blast, ".", 
                   $trans_seq, ".");
             
