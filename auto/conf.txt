@@ -21,8 +21,8 @@ RNAMMER=/seq/regev_genome_portal/SOFTWARE/RNAMMER/rnammer
 HMMSCAN_PROG=hmmscan
 
 # dbs
-SWISSPROT_PEP=/seq/RNASEQ/DBs/SWISSPROT/current/uniprot_sprot.pep
-PFAM_DB=/seq/RNASEQ/DBs/PFAM/current/Pfam-A.hmm
+SWISSPROT_PEP=/seq/RNASEQ/DBs/TRINOTATE_RESOURCES/TRINOTATE_V3/uniprot_sprot.pep
+PFAM_DB=/seq/RNASEQ/DBs/TRINOTATE_RESOURCES/TRINOTATE_V3/Pfam-A.hmm
 
 
 ####################

@@ -87,11 +87,28 @@ main: {
     
     # print header
 
-    my @header = ("#gene_id", "transcript_id", "sprot_Top_BLASTX_hit", "TrEMBL_Top_BLASTX_hit", "RNAMMER", 
+
+    my @custom_db_names = &Trinotate::get_custom_blast_database_names($dbproc);
+
+    my @custom_blastx_names;
+    my @custom_blastp_names;
+    foreach my $custom_db_name (@custom_db_names) {
+        push (@custom_blastx_names, "${custom_db_name}_BLASTX");
+        push (@custom_blastp_names, "${custom_db_name}_BLASTP");
+    }
+    
+    my @header = ("#gene_id", "transcript_id", "sprot_Top_BLASTX_hit", "RNAMMER", 
                   "prot_id", "prot_coords", 
-                  "sprot_Top_BLASTP_hit", "TrEMBL_Top_BLASTP_hit", "Pfam", "SignalP", "TmHMM", 
-                  "eggnog", "Kegg", "gene_ontology_blast", "gene_ontology_pfam", 
-                  "transcript", "peptide");
+                  "sprot_Top_BLASTP_hit"); 
+    
+    if (@custom_db_names) {
+        push (@header, @custom_blastx_names, @custom_blastp_names);
+    }
+    
+
+    push (@header, "Pfam", "SignalP", "TmHMM", 
+          "eggnog", "Kegg", "gene_ontology_blast", "gene_ontology_pfam", 
+          "transcript", "peptide");
     
     print join("\t", @header) . "\n";
     
@@ -103,8 +120,14 @@ main: {
         my @orf_results = &do_sql_2D($dbproc, $query, $trans_id);
 
         my $BLASTX_info_sprot = &get_blast_results($dbproc, $trans_id, "blastx", "Swissprot");
-        my $BLASTX_info_trembl = &get_blast_results($dbproc, $trans_id, "blastx", "TrEMBL");
-
+        
+        # get custom db blastx results
+        my @custom_blastx_results;
+        foreach my $custom_db_name (@custom_db_names) {
+            my $blastx_info = &get_blast_results($dbproc, $trans_id, "blastx", $custom_db_name);
+            push (@custom_blastx_results, $blastx_info);
+        }
+        
         my $rnammer_txt = &get_RNAMMER_info($dbproc, $trans_id);
 
         my $trans_seq = ($include_trans) ? &get_transcript($dbproc, $trans_id) : ".";
@@ -114,7 +137,13 @@ main: {
                 my ($prot_id, $strand, $lend, $rend) = @$orf_result;
                 
                 my $BLASTP_info_sprot = &get_blast_results($dbproc, $prot_id, "blastp", "Swissprot");
-                my $BLASTP_info_trembl = &get_blast_results($dbproc, $prot_id, "blastp", "TrEMBL");
+        
+                my @custom_blastp_results;
+                foreach my $custom_db_name (@custom_db_names) {
+                    my $blastp_info = &get_blast_results($dbproc, $prot_id, "blastp", $custom_db_name);
+                    push (@custom_blastp_results, $blastp_info);
+                }
+                                
                 
                 my $pfam_info = &get_pfam_info($dbproc, $prot_id);
                 my $gene_ontology_pfam = &get_gene_ontology_from_pfam_hit($dbproc, $pfam_info);
@@ -131,11 +160,21 @@ main: {
                 
                 my $peptide = ($include_pep) ? &get_peptide($dbproc, $prot_id) : ".";
                 
-                my @fields = ($gene_id, $trans_id, $BLASTX_info_sprot, $BLASTX_info_trembl, $rnammer_txt, 
-                              $prot_id, "$lend-$rend\[$strand]",
-                              $BLASTP_info_sprot, $BLASTP_info_trembl, $pfam_info, $signalP_info, $TmHMM_info, 
-                              $eggnog, $kegg_info, $gene_ontology_blast, $gene_ontology_pfam, 
-                              $trans_seq, $peptide);
+                my @fields = ($gene_id, $trans_id, $BLASTX_info_sprot);
+                if (@custom_db_names) {
+                    push (@fields, @custom_blastx_results);
+                }
+                push (@fields, $rnammer_txt, 
+                      $prot_id, "$lend-$rend\[$strand]",
+                      $BLASTP_info_sprot);
+
+                if (@custom_db_names) {
+                    push (@fields, @custom_blastp_results);
+                }
+                
+                push (@fields, $pfam_info, $signalP_info, $TmHMM_info, 
+                      $eggnog, $kegg_info, $gene_ontology_blast, $gene_ontology_pfam, 
+                      $trans_seq, $peptide);
                 
                 print join("\t", @fields) . "\n";
                 
@@ -150,11 +189,20 @@ main: {
             my $gene_ontology_blast = &get_gene_ontology_from_blast_hit($dbproc, $BLASTX_info_sprot);
 
 
-            print join("\t", $gene_id, $trans_id, $BLASTX_info_sprot, $BLASTX_info_trembl, $rnammer_txt,
-                       ".", ".", 
-                       ".", ".", ".", ".", ".",
-                       $eggnog, $kegg_info, $gene_ontology_blast, ".", 
-                       $trans_seq, ".") . "\n";
+            my @fields = ($gene_id, $trans_id, $BLASTX_info_sprot);
+
+
+            if (@custom_db_names) {
+                push (@fields, @custom_blastx_results);
+            }
+            
+            push (@fields, $rnammer_txt,
+                  ".", ".", 
+                  ".", ".", ".", ".", ".",
+                  $eggnog, $kegg_info, $gene_ontology_blast, ".", 
+                  $trans_seq, ".");
+            
+            print join("\t", @fields) . "\n";
         }
     }
     

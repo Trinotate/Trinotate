@@ -133,6 +133,25 @@ sub get_pfam_info {
 
 
 
+####
+sub get_custom_blast_database_names {
+    my ($dbproc) = @_;
+
+    my $query = "select distinct DatabaseSource from BlastDbase";
+    my @results = &do_sql_2D($dbproc, $query);
+    
+    my @custom_dbs;
+    
+    foreach my $result (@results) {
+        my ($db_name) = $result->[0];
+        if ($db_name ne "Swissprot") { # Swissprot is the only 'reserved' one. All others are custom.
+            push (@custom_dbs, $db_name);
+        }
+    }
+    
+    return(@custom_dbs);
+}
+
 
 ####
 sub get_blast_results {

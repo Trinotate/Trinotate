@@ -19,7 +19,6 @@ my $usage = <<_EOUSAGE_;
          * Transdecoder protein search results:
 
              LOAD_swissprot_blastp <file>
-             LOAD_trembl_blastp <file>
              LOAD_pfam <file>
              LOAD_tmhmm <file>
              LOAD_signalp <file>
@@ -27,9 +26,15 @@ my $usage = <<_EOUSAGE_;
           * Trinity transcript search results:
 
              LOAD_swissprot_blastx <file>
-             LOAD_trembl_blastx <file>
              LOAD_rnammer <file>
              
+
+          * Load custom blast results using any searchable database
+
+
+             LOAD_custom_blast --outfmt6 <file> --prog <blastp|blastx> --dbtype <database_name>
+
+
           * report generation:
 
              report [ -E (default: 1e-5) ] [--pfam_cutoff DNC|DGC|DTC|SNC|SGC|STC (default: DNC=domain noise cutoff)]
@@ -53,8 +58,9 @@ if ($command ne 'report' && ! @ARGV) {
 }
 
 my %commands = map { + $_ => 1 } qw(LOAD_swissprot_blastp LOAD_swissprot_blastx 
-                                    LOAD_trembl_blastp LOAD_trembl_blastx
-                                    LOAD_pfam LOAD_tmhmm LOAD_signalp LOAD_rnammer report init);
+                                    LOAD_pfam LOAD_tmhmm LOAD_signalp LOAD_rnammer 
+                                    LOAD_custom_blast
+                                    report init);
 
 unless (exists $commands{$command}) {
     die "$usage\nError, do not recognize command: $command\n";
@@ -80,7 +86,11 @@ my %command_to_params = (
                           'LOAD_trembl_blastx' => "$loaders_dir/Trinotate_BLAST_loader.pl --sqlite $sqlite_db --outfmt6 $ARGV[0] --prog blastx --dbtype TrEMBL",
                           'LOAD_rnammer' => "$loaders_dir/Trinotate_RNAMMER_loader.pl --sqlite $sqlite_db --rnammer $ARGV[0]",
                           
-                          );
+                          # custom blast searches
+                          'LOAD_custom_blast' => "$loaders_dir/Trinotate_BLAST_loader.pl --sqlite $sqlite_db @ARGV",
+    
+    
+    );
 
 
 
@@ -98,6 +108,10 @@ elsif ($command eq "init") {
     my $cmd = "$FindBin::Bin/util/trinotateSeqLoader/TrinotateSeqLoader.pl --sqlite $sqlite_db @ARGV --bulk_load";
     &process_cmd($cmd);
 }
+else {
+    die "Error, do not recognize command: $command ";
+}
+
 
 
 exit(0);
