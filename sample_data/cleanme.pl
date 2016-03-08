@@ -17,7 +17,7 @@ runMe.sh
                         );
 
 unless (@ARGV) {
-    push (@files_to_keep, "swissprotResource.Trinotate.sqlite");
+    push (@files_to_keep, "Trinotate.boilerplate.sqlite");
     ## by default, retaining this sqlite file so dont have to re-download it.
 }
 
@@ -25,7 +25,7 @@ unless (@ARGV) {
 my %keep = map { + $_ => 1 } @files_to_keep;
 
 
-foreach my $file (<*>) {
+foreach my $file (<*>, <data/*>) {
 	
 	if ( (! $keep{$file}) && $file !~ /\.t?gz$/) {
 		print STDERR "-removing file: $file\n";
@@ -35,7 +35,7 @@ foreach my $file (<*>) {
 
 
 `rm -rf edgeR_trans/ `;
-`rm -rf edgeR_components`;
+`rm -rf edgeR_genes`;
 
 
 exit(0);

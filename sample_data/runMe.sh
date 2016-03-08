@@ -148,8 +148,6 @@ echo "###########################"
 ../Trinotate ${sqlite_db} report > Trinotate_report.xls
 
 
-exit
-
 echo "#########################################"
 echo Extracting Gene Ontology Mappings Per Gene
 echo "#########################################"
