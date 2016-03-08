@@ -19,6 +19,10 @@ use HTML::Template;
 
 $|++;
 
+my $DEFAULT_MIN_FC = 4;
+my $DEFAULT_MAX_FDR = 1e-4;
+
+
 main: {
     
     my $cgi = new CGI();
@@ -48,11 +52,11 @@ main: {
     $heatmap_template->param(TITLE => $title);
 
     $heatmap_template->param(SQLITE_DB => $sqlite_db);
-
-    my $min_FC = $params{min_FC} || 10;
+    
+    my $min_FC = $params{min_FC} || $DEFAULT_MIN_FC;
     $heatmap_template->param(MIN_FC => $min_FC);
 
-    my $max_FDR = $params{max_FDR} || 1e-10;
+    my $max_FDR = $params{max_FDR} || $DEFAULT_MAX_FDR;
     $heatmap_template->param(MAX_FDR => $max_FDR);
 
     my $min_any_feature_expr = $params{min_any_feature_expr} || 0;
@@ -144,8 +148,8 @@ sub write_heatmap {
     #&RunMod($dbproc, "pragma journal_mode=memory");
     
     
-    my $min_FC = $params_href->{min_FC} || 10;
-    my $max_FDR = $params_href->{max_FDR} || 1e-10;
+    my $min_FC = $params_href->{min_FC} || $DEFAULT_MIN_FC;
+    my $max_FDR = $params_href->{max_FDR} || $DEFAULT_MAX_FDR;
 
     my $scale_range = $params_href->{scale_range} || "min-max";
 
