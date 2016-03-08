@@ -1,12 +1,15 @@
 
 ## Trinotate v3.0.0 Release (2016-03-09)
 
--updated resources based on currently available data (swissprot, trembl, pfam, go, etc.)
+-updated resources based on currently available data (swissprot,  pfam, go, etc.)
 -incorporating Kegg annotations
 -including auto-trinotate to facilitate computations and database loading.
 -including db-shrinker to reduce the db footprint after loading in results from bioifx computes.
 -support for lighttpd as the webserver for TrinotateWeb
--releasing the boilerplate database build process, in case anyone ever wants to roll their own based on the latest swissprot, trembl, etc.
+-releasing the boilerplate database build process, in case anyone ever wants to roll their own based on the latest swissprot, pfam, etc.
+-dropping explicit support for Trembl
+-added custom database search functionality. If you want trembl, just search it as a custom database.
+
 
 
 ## Trinotate Release 2.0.2 (April 30, 2015)
@@ -29,6 +32,8 @@ A single sqlite boilerplate database is provided with both swissprot and uniref9
 The mongoose webserver is now recommended for use with TrinotateWeb
 
 TrinotateWeb has been heavily refined, with a facelift and related engineering spearheaded by Leonardo Gonzalez.
+
+
 
 
 ## v1.1 Trinotate, pre-2.0 release (Jan 29, 2015)

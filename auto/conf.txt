@@ -72,7 +72,7 @@ CMD={__TMHMM_PROG__} --short < Trinity.fasta.transdecoder.pep > tmhmm.out
 
 [RNAMMER]
 RANK=700
-RUN=F
+RUN=T
 CMD={__RNAMMER_TRANS_PROG__} --transcriptome {__TRANSCRIPTS_FASTA__} --path_to_rnammer {__RNAMMER__} 
 # generates file: Trinity.fasta.rnammer.gff
 
@@ -104,7 +104,7 @@ CMD={__TRINOTATE_HOME__}/Trinotate  {__TRINOTATE_SQLITE__} LOAD_pfam TrinotatePF
 
 [TRINOTATE_LOAD_RNAMMER]
 RANK=1500
-RUN=F
+RUN=T
 CMD={__TRINOTATE_HOME__}/Trinotate  {__TRINOTATE_SQLITE__} LOAD_rnammer Trinity.fasta.rnammer.gff
 
 [TRINOTATE_LOAD_TMHMM]
