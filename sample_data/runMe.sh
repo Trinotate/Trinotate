@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-SWISSPROT_SQLITE_DB_URL="https://data.broadinstitute.org/Trinity/Trinotate_RESOURCES_20160306/Trinotate_20160306.sqlite.gz";
+SWISSPROT_SQLITE_DB_URL="https://data.broadinstitute.org/Trinity/Trinotate_v3_RESOURCES/Trinotate_v3.sqlite.gz";
 
 for file in *.gz
 do
