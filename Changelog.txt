@@ -9,7 +9,7 @@
 -releasing the boilerplate database build process, in case anyone ever wants to roll their own based on the latest swissprot, pfam, etc.
 -dropping explicit support for Trembl
 -added custom database search functionality. If you want trembl, just search it as a custom database.
-
+-updated sample data using latest version of Trinity assembly and functional analysis computations.
 
 
 ## Trinotate Release 2.0.2 (April 30, 2015)
