@@ -16,7 +16,7 @@ my $usage = <<__EOUSAGE__;
 #
 # Required:
 #
-#  --sqlite <string>         path to the Trinotate sqlite database
+#  --sqlite <string>              path to the Trinotate sqlite database
 #
 #  --samples_file <string>        file describing samples and replicates
 #
@@ -33,7 +33,7 @@ my $usage = <<__EOUSAGE__;
 #
 #  --transcript_mode              analysis is performed based on Trinity transcripts (isoforms)
 #  OR
-#  --component_mode               analysis is performed based on Trinity components (genes)
+#  --gene_mode                    analysis is performed based on Trinity 'genes'
 #
 #  Options:
 #
@@ -41,6 +41,7 @@ my $usage = <<__EOUSAGE__;
 #  --max_FDR <float>                default: 0.1
 #
 ##################################################################################################
+
 
 
 __EOUSAGE__
@@ -53,7 +54,7 @@ my $count_matrix_file;
 my $fpkm_matrix_file;
 my $DE_dir;
 my $transcript_mode = 0;
-my $component_mode = 0;
+my $gene_mode = 0;
 my $help_flag;
 my $samples_file;
 
@@ -71,9 +72,8 @@ my $max_FDR = 0.1;
                'DE_dir=s' => \$DE_dir,
                
                'transcript_mode' => \$transcript_mode,
-               'component_mode' => \$component_mode,
+               'gene_mode' => \$gene_mode,
                
-
                'min_log_fold_change=f' => \$min_log_fold_change,
                'max_FDR=f' => \$max_FDR,
                
@@ -89,7 +89,7 @@ unless ($sqlite
         $samples_file
         &&
         ($count_matrix_file && $fpkm_matrix_file ||  $DE_dir) 
-        && ($transcript_mode || $component_mode) ) {
+        && ($transcript_mode || $gene_mode) ) {
     die $usage;
 }
 
@@ -104,13 +104,13 @@ main: {
     $dbproc->do("PRAGMA synchronous=OFF");
     $dbproc->{AutoCommit} = 0;
     
-
+    
     my $feature_type = ($transcript_mode) ? 'T' : 'G';
     
     my %samples = &parse_samples_file($samples_file);
     
     print STDERR "Samples and replicates: " . Dumper(\%samples);
-
+    
     my %samples_n_reps_to_ID = &get_sample_ids($dbproc, \%samples);
     
     print STDERR "Sample and replicate database identifiers: " . Dumper(\%samples_n_reps_to_ID);
@@ -126,8 +126,7 @@ main: {
         print STDERR "-populating Expression table\n";
         &populate_expression_table($dbproc, \%samples_n_reps_to_ID, \%counts_matrix, \%fpkm_matrix, $feature_type);
     }
-
-    
+        
     
     ## Load the DE info.
     if ($DE_dir) {

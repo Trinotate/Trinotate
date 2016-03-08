@@ -2,7 +2,7 @@
 
 SWISSPROT_SQLITE_DB_URL="https://data.broadinstitute.org/Trinity/Trinotate_v3_RESOURCES/Trinotate_v3.sqlite.gz";
 
-for file in *.gz
+for file in data/*.gz
 do
   if [ ! -e ${file%.gz} ]; then
       gunzip -c $file > ${file%.gz}
@@ -10,11 +10,11 @@ do
 done
 
 if [ ! -d edgeR_trans ]; then
-    tar -zxvf edgeR_trans.tgz
+    tar xvf data/edgeR_trans.tar
 fi
 
-if [ ! -d edgeR_components ]; then
-    tar -zxvf edgeR_components.tgz
+if [ ! -d edgeR_genes ]; then
+    tar xvf data/edgeR_genes.tar
 fi
 
 BOILERPLATE="Trinotate.boilerplate.sqlite"
@@ -44,50 +44,53 @@ echo "###############################"
 echo Loading protein set
 echo "###############################"
 
-../Trinotate ${sqlite_db} init --gene_trans_map Trinity.fasta.gene_trans_map --transcript_fasta Trinity.fasta --transdecoder_pep Trinity.fasta.transdecoder.pep
+../Trinotate ${sqlite_db} init --gene_trans_map data/Trinity.fasta.gene_to_trans_map --transcript_fasta data/Trinity.fasta --transdecoder_pep data/Trinity.fasta.transdecoder.pep
 
 
 
 echo "##############################"
-echo Loading blast results
+echo Loading swissprot blast results
 echo "##############################"
 
-../Trinotate ${sqlite_db} LOAD_swissprot_blastp swissprot.blastp.outfmt6
-../Trinotate ${sqlite_db} LOAD_trembl_blastp uniref90.blastp.outfmt6
+../Trinotate ${sqlite_db} LOAD_swissprot_blastp data/swissprot.blastp.outfmt6
+../Trinotate ${sqlite_db} LOAD_swissprot_blastx data/swissprot.blastx.outfmt6
 
+
+echo "####################################"
+echo Loading Custom Database Blast Results
+echo "####################################"
+
+# blastP
+../Trinotate ${sqlite_db} LOAD_custom_blast --outfmt6 data/custom_pombe.blastp.outfmt6 --prog blastp --dbtype custom_pombe_pep
+# blastX, same database
+../Trinotate ${sqlite_db} LOAD_custom_blast --outfmt6 data/custom_pombe.blastx.outfmt6 --prog blastx --dbtype custom_pombe_pep
+ 
 
 echo "#############################"
 echo Loading PFAM results
 echo "#############################"
 
-../Trinotate ${sqlite_db} LOAD_pfam pfam.domtblout
+../Trinotate ${sqlite_db} LOAD_pfam data/TrinotatePFAM.out 
 
 
 echo "############################"
 echo Loading TMHMM results
 echo "############################"
 
-../Trinotate ${sqlite_db} LOAD_tmhmm tmhmm.out
+../Trinotate ${sqlite_db} LOAD_tmhmm data/tmhmm.out
 
 echo "###########################"
 echo Loading SignalP results
 echo "###########################"
 
-../Trinotate ${sqlite_db} LOAD_signalp signalp.out
-
-echo "###########################"
-echo Loading transcript BLASTX results
-echo "###########################"
-
-../Trinotate ${sqlite_db} LOAD_swissprot_blastx swissprot.blastx.outfmt6
-../Trinotate ${sqlite_db} LOAD_trembl_blastx uniref90.blastx.outfmt6
+../Trinotate ${sqlite_db} LOAD_signalp data/signalp.out
 
 
 echo "###########################"
 echo Loading RNAMMER results
 echo "###########################"
 
-../Trinotate ${sqlite_db} LOAD_rnammer rnammer.gff
+../Trinotate ${sqlite_db} LOAD_rnammer data/Trinity.fasta.rnammer.gff
 
 
 #################################################################
