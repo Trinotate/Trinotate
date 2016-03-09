@@ -124,8 +124,8 @@ pfam2go
 pfam2go.1
 NOG.annotations.tsv.gz
 uniprot_sprot.dat.gz
-Trinotate_V3.UniprotIndex
-Trinotate_V3.TaxonomyIndex
+$prefix.UniprotIndex
+$prefix.TaxonomyIndex
 NOG.annotations.tsv.gz.bulk_load
 go-basic.obo.tab
 Pfam-A.hmm.gz.pfam_sqlite_bulk_load
