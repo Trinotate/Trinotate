@@ -22,4 +22,4 @@ fi
 sqlite_db="my.sqlite"
 gunzip -c $BOILERPLATE > $sqlite_db
 
-../autoTrinotate.pl --Trinotate_sqlite my.sqlite --transcripts Trinity.fasta --gene_to_trans_map Trinity.fasta.gene_to_trans_map --conf conf.txt --CPU 10
+../autoTrinotate.pl --Trinotate_sqlite my.sqlite --transcripts myTrinity.fasta --gene_to_trans_map myTrinity.fasta.gene_to_trans_map --conf conf.txt --CPU 10
