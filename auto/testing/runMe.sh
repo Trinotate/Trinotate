@@ -16,7 +16,7 @@ BOILERPLATE="Trinotate.boilerplate.sqlite.gz"
 
 if [ ! -s $BOILERPLATE ]; then
     echo pulling swissprot resource db from ftp site
-    wget $SWISSPROT_SQLITE_DB_URL -O $BOILERPLATE.gz
+    wget $SWISSPROT_SQLITE_DB_URL -O $BOILERPLATE
 fi
 
 sqlite_db="my.sqlite"
