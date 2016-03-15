@@ -50,31 +50,31 @@ CMD={__BLASTX_PROG__} -db {__SWISSPROT_PEP__} -query {__TRANSCRIPTS_FASTA__} -nu
 [BLASTX_SPROT_PEP]
 RANK=300
 RUN=T
-CMD={__BLASTP_PROG__} -query Trinity.fasta.transdecoder.pep -db {__SWISSPROT_PEP__} -num_threads {__CPU__}  -max_target_seqs 1 -outfmt 6 -evalue 1e-5 > swissprot.blastp.outfmt6
+CMD={__BLASTP_PROG__} -query {__TRANSCRIPTS_FASTA__}.transdecoder.pep -db {__SWISSPROT_PEP__} -num_threads {__CPU__}  -max_target_seqs 1 -outfmt 6 -evalue 1e-5 > swissprot.blastp.outfmt6
 
 
 [PFAM]
 RANK=400
 RUN=T
-CMD={__HMMSCAN_PROG__} --cpu {__CPU__} --domtblout TrinotatePFAM.out {__PFAM_DB__} Trinity.fasta.transdecoder.pep  > pfam.log
+CMD={__HMMSCAN_PROG__} --cpu {__CPU__} --domtblout TrinotatePFAM.out {__PFAM_DB__} {__TRANSCRIPTS_FASTA__}.transdecoder.pep  > pfam.log
 
 
 [SIGNALP]
 RANK=500
 RUN=T
-CMD={__SIGNALP_PROG__} -f short -n signalp.out Trinity.fasta.transdecoder.pep > sigP.log
+CMD={__SIGNALP_PROG__} -f short -n signalp.out {__TRANSCRIPTS_FASTA__}.transdecoder.pep > sigP.log
 
 
 [TMHMM]
 RANK=600
 RUN=T
-CMD={__TMHMM_PROG__} --short < Trinity.fasta.transdecoder.pep > tmhmm.out
+CMD={__TMHMM_PROG__} --short < {__TRANSCRIPTS_FASTA__}.transdecoder.pep > tmhmm.out
 
 [RNAMMER]
 RANK=700
 RUN=T
 CMD={__RNAMMER_TRANS_PROG__} --transcriptome {__TRANSCRIPTS_FASTA__} --path_to_rnammer {__RNAMMER__} 
-# generates file: Trinity.fasta.rnammer.gff
+# generates file: {__TRANSCRIPTS_FASTA__}.rnammer.gff
 
 
 #############################
@@ -84,7 +84,7 @@ CMD={__RNAMMER_TRANS_PROG__} --transcriptome {__TRANSCRIPTS_FASTA__} --path_to_r
 [TRINOTATE_INIT]
 RANK=1100
 RUN=T
-CMD={__TRINOTATE_HOME__}/Trinotate {__TRINOTATE_SQLITE__} init --gene_trans_map {__GENE_TO_TRANS_MAP__} --transcript_fasta {__TRANSCRIPTS_FASTA__} --transdecoder_pep Trinity.fasta.transdecoder.pep
+CMD={__TRINOTATE_HOME__}/Trinotate {__TRINOTATE_SQLITE__} init --gene_trans_map {__GENE_TO_TRANS_MAP__} --transcript_fasta {__TRANSCRIPTS_FASTA__} --transdecoder_pep {__TRANSCRIPTS_FASTA__}.transdecoder.pep
 
 [TRINOTATE_LOAD_SPROT_BLASTX]
 RANK=1200
@@ -105,7 +105,7 @@ CMD={__TRINOTATE_HOME__}/Trinotate  {__TRINOTATE_SQLITE__} LOAD_pfam TrinotatePF
 [TRINOTATE_LOAD_RNAMMER]
 RANK=1500
 RUN=T
-CMD={__TRINOTATE_HOME__}/Trinotate  {__TRINOTATE_SQLITE__} LOAD_rnammer Trinity.fasta.rnammer.gff
+CMD={__TRINOTATE_HOME__}/Trinotate  {__TRINOTATE_SQLITE__} LOAD_rnammer {__TRANSCRIPTS_FASTA__}.rnammer.gff
 
 [TRINOTATE_LOAD_TMHMM]
 RANK=1600
