@@ -67,7 +67,10 @@ sub draw {
     
     my $html = "<!--[if IE]><script type=\"text/javascript\" src=\"canvasXpress-SF/js/excanvas.js\"></script><![endif]-->\n";
 
-    if ($ENV{MONGOOSE_CGI} && $ENV{MONGOOSE_CGI} =~ /LOCAL_JS/) {
+    if ($ENV{LOCAL_JS} eq "1"  
+        || 
+        ($ENV{MONGOOSE_CGI} && $ENV{MONGOOSE_CGI} =~ /LOCAL_JS/) # backwards compat w/ mongoose implementation
+        ) {
         $html .= "<script type=\"text/javascript\" src=\"/js/canvasXpress.min.js\"></script>\n";
     }
     else {
