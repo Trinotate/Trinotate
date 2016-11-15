@@ -52,7 +52,7 @@ unless ($transcriptome_fasta && $path_to_rnammer) {
 main: {
 
     ## concatenate transcripts
-    my $cmd = "$FindBin::Bin/util/superScaffoldGenerator.pl $transcriptome_fasta transcriptSuperScaffold 100";
+    my $cmd = "$FindBin::RealBin/util/superScaffoldGenerator.pl $transcriptome_fasta transcriptSuperScaffold 100";
     &process_cmd($cmd);
 
     ## Run RNAMMER
@@ -61,7 +61,7 @@ main: {
     
     ## Convert back to transcript features from the super scaffold features
     my $output_file = basename($transcriptome_fasta) . ".rnammer.gff";
-    $cmd = "$FindBin::Bin/util/rnammer_supperscaffold_gff_to_indiv_transcripts.pl -R tmp.superscaff.rnammer.gff -T transcriptSuperScaffold.bed > $output_file";
+    $cmd = "$FindBin::RealBin/util/rnammer_supperscaffold_gff_to_indiv_transcripts.pl -R tmp.superscaff.rnammer.gff -T transcriptSuperScaffold.bed > $output_file";
     &process_cmd($cmd);
 
     print "\n\nDone.  See output file: $output_file\n\n";

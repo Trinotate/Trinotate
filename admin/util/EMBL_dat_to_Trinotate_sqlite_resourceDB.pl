@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 use FindBin;
-use lib ("$FindBin::Bin/../../PerlLib");
+use lib ("$FindBin::RealBin/../../PerlLib");
 use Sqlite_connect;
 use Getopt::Long qw(:config no_ignore_case bundling pass_through);
 use File::Basename;
@@ -75,7 +75,7 @@ unless ($create_flag || $uniprot_index || $taxonomy_index || $pfam_file || $eggn
 }
 
 
-my $bindir = $FindBin::Bin;
+my $bindir = $FindBin::RealBin;
 
 if ($create_flag) {
     if (-s $sqlite_db) {
@@ -127,7 +127,7 @@ if ($pfam2go_file) {
 # import gene ontology
 if ($go_obo_tab_file) {
     
-    my $cmd = "$FindBin::Bin/obo_tab_to_sqlite_db.pl $sqlite_db $go_obo_tab_file"; ## TODO: make bulk load like everything else here.
+    my $cmd = "$FindBin::RealBin/obo_tab_to_sqlite_db.pl $sqlite_db $go_obo_tab_file"; ## TODO: make bulk load like everything else here.
     &process_cmd($cmd);
     
 }

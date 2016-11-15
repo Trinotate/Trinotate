@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 use FindBin;
-use lib ("$FindBin::Bin/../PerlLib");
+use lib ("$FindBin::RealBin/../PerlLib");
 use Pipeliner;
 
 my $usage = "\n\n\tusage: $0 Database_prefix\n\n\n";
@@ -12,7 +12,7 @@ my $usage = "\n\n\tusage: $0 Database_prefix\n\n\n";
 
 my $prefix = $ARGV[0] or die $usage;
 
-my $UTILDIR = "$FindBin::Bin/util";
+my $UTILDIR = "$FindBin::RealBin/util";
 
 ## Resources:
 my $SPROT_DAT_URL = "ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.dat.gz";
