@@ -123,16 +123,15 @@ main: {
 pfam2go
 pfam2go.1
 NOG.annotations.tsv.gz
-uniprot_sprot.dat.gz
-$prefix.UniprotIndex
-$prefix.TaxonomyIndex
 NOG.annotations.tsv.gz.bulk_load
 go-basic.obo.tab
 Pfam-A.hmm.gz.pfam_sqlite_bulk_load
 pfam2go.tab.tab
 pfam2go.tab
 );
-
+    
+    push (@tmpfiles, "$prefix.UniprotIndex", "$prefix.TaxonomyIndex");
+        
     foreach my $file (@tmpfiles) {
         unlink($file);
     }
