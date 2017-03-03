@@ -65,8 +65,8 @@ main: {
     $pipeliner->add_commands(new Command("wget \"$EGGNOG_DAT_URL\"", "$checkpoint_dir/eggnog_download.ok") );
     
     # extract fields
-    $pipeliner->add_commands(new Command("set -euo pipefail; gunzip -c NOG.annotations.tsv.gz | $UTILDIR/print.pl 1 5 > NOG.annotations.tsv.gz.bulk_load",
-                                         "$checkpoint_dir/eggnog_field_extraction.ok") );
+    $pipeliner->add_commands(new Command("gunzip -c NOG.annotations.tsv.gz | $UTILDIR/print.pl 1 5 > NOG.annotations.tsv.gz.bulk_load",
+                                         "$checkpoint_dir/eggnog_field_extraction.ok") );  # note, had set -eou pipefail, but this generated errors on certain flavors and/or versions of linux
     # load 
     $pipeliner->add_commands(new Command("$UTILDIR/EMBL_dat_to_Trinotate_sqlite_resourceDB.pl --sqlite $sqlite_db --eggnog NOG.annotations.tsv.gz.bulk_load",
                                          "$checkpoint_dir/eggnog.load.ok") );
