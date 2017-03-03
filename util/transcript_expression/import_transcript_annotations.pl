@@ -5,7 +5,7 @@ use warnings;
 use Carp;
 use Getopt::Long qw(:config no_ignore_case bundling);
 use FindBin;
-use lib ("$FindBin::Bin/../../PerlLib");
+use lib ("$FindBin::RealBin/../../PerlLib");
 use DBI;
 use Sqlite_connect;
 use Data::Dumper;

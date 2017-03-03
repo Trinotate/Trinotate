@@ -5,7 +5,7 @@ use warnings;
 use Carp;
 use Getopt::Long qw(:config posix_default no_ignore_case bundling pass_through);
 use FindBin;
-use lib ("$FindBin::Bin/../PerlLib");
+use lib ("$FindBin::RealBin/../PerlLib");
 use Pipeliner;
 use IniReader;
 
@@ -75,7 +75,7 @@ main: {
     $globals{TRANSCRIPTS_FASTA} = $transcripts_fasta;
     $globals{GENE_TO_TRANS_MAP} = $gene_to_trans_map;
     $globals{CPU} = $CPU;
-    $globals{TRINOTATE_HOME} = $FindBin::Bin . "/../";
+    $globals{TRINOTATE_HOME} = $FindBin::RealBin . "/../";
     $globals{TRINOTATE_SQLITE} = $trinotate_sqlite;
     
 
