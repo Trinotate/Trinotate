@@ -23,10 +23,10 @@ my $port_no = $ARGV[0] or die $usage;
          die "Error, can't determine where to find perl....  'which perl' returns: $perl_path ";
      }
      
-     my $document_root = "$FindBin::Bin/TrinotateWeb";
-     my $conf_file_template = "$FindBin::Bin/TrinotateWeb.conf/lighttpd.conf.template";
+     my $document_root = "$FindBin::RealBin/TrinotateWeb";
+     my $conf_file_template = "$FindBin::RealBin/TrinotateWeb.conf/lighttpd.conf.template";
      
-     my $conf_file = "$FindBin::Bin/TrinotateWeb.conf/lighttpd.conf.port$port_no";
+     my $conf_file = "$FindBin::RealBin/TrinotateWeb.conf/lighttpd.conf.port$port_no";
      unless (-s $conf_file) {
          my $template = `cat $conf_file_template`;
          $template =~ s/__DOCUMENT_ROOT__/$document_root/ or die "Error, could not replace __DOCUMENT_ROOT__ in $conf_file_template";

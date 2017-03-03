@@ -5,7 +5,7 @@ use warnings;
 use CGI;
 
 use FindBin;
-use lib ("$FindBin::Bin/../../");
+use lib ("$FindBin::RealBin/../../");
 use CanvasXpress::GenomeBrowser;
 use CanvasXpress::PlotOnLoader;
 
