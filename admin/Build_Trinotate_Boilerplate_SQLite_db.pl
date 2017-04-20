@@ -7,10 +7,12 @@ use FindBin;
 use lib ("$FindBin::Bin/../PerlLib");
 use Pipeliner;
 
-my $usage = "\n\n\tusage: $0 Database_prefix\n\n\n";
+my $usage = "\n\n\tusage: $0 Database_prefix [no_cleanup_flag]\n\n\n";
 
 
 my $prefix = $ARGV[0] or die $usage;
+my $no_cleanup_flag = $ARGV[1] || 0;
+
 
 my $UTILDIR = "$FindBin::Bin/util";
 
@@ -118,27 +120,33 @@ main: {
 
 
 
-    ## cleaning up:
-    my @tmpfiles = qw(go-basic.obo
-pfam2go
-pfam2go.1
-NOG.annotations.tsv.gz
-NOG.annotations.tsv.gz.bulk_load
-go-basic.obo.tab
-Pfam-A.hmm.gz.pfam_sqlite_bulk_load
-pfam2go.tab.tab
-pfam2go.tab
-);
-    
-    push (@tmpfiles, "$prefix.UniprotIndex", "$prefix.TaxonomyIndex");
+    unless ($no_cleanup_flag) {
         
-    foreach my $file (@tmpfiles) {
-        unlink($file);
-    }
-    
-    `rm -rf $checkpoint_dir`;
-    
+        ## cleaning up:
+        my @tmpfiles = qw(go-basic.obo
+                          pfam2go
+                          pfam2go.1
+                          NOG.annotations.tsv.gz
+                          NOG.annotations.tsv.gz.bulk_load
+                          go-basic.obo.tab
+                          Pfam-A.hmm.gz.pfam_sqlite_bulk_load
+                          pfam2go.tab.tab
+                          pfam2go.tab
+        );
+        
+        push (@tmpfiles, "$prefix.UniprotIndex", "$prefix.TaxonomyIndex");
+        
+        foreach my $file (@tmpfiles) {
+            unlink($file);
+        }
 
+    
+        
+        `rm -rf $checkpoint_dir`;
+    
+    }
+
+    
     exit(0);
 }
 
