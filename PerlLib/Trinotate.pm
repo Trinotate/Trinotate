@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 use FindBin;
-use lib ("$FindBin::Bin");
+use lib ("$FindBin::RealBin");
 use Sqlite_connect;
 use Carp;
 

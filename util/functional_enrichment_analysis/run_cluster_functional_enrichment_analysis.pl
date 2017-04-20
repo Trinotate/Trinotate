@@ -6,7 +6,7 @@ use warnings;
 use DBI;
 use Text::NSP::Measures::2D::Fisher::twotailed;
 use FindBin;
-use lib ("$FindBin::Bin/../../PerlLib");
+use lib ("$FindBin::RealBin/../../PerlLib");
 use Sqlite_connect;
 use GO_DAG;
 

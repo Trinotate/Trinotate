@@ -16,7 +16,7 @@ use HTML::Template;
 
 
 # custom modules
-use lib ("$FindBin::Bin/../../PerlLib", "$FindBin::Bin/PerlLib");
+use lib ("$FindBin::RealBin/../../PerlLib", "$FindBin::RealBin/PerlLib");
 use Sqlite_connect;
 use TextCache;
 

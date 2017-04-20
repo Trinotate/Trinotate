@@ -66,7 +66,7 @@ unless (exists $commands{$command}) {
     die "$usage\nError, do not recognize command: $command\n";
 }
 
-my $util_dir = "$FindBin::Bin/util";
+my $util_dir = "$FindBin::RealBin/util";
 my $loaders_dir = "$util_dir/trinotateSeqLoader";
 
 unless (@ARGV) {
@@ -99,13 +99,13 @@ if (my $cmd = $command_to_params{$command}) {
 }
 elsif ($command eq "report") {
     ## generate Trinotate report.
-    my $cmd = "$FindBin::Bin/util/Trinotate_report_writer.pl --sqlite $sqlite_db @ARGV";
+    my $cmd = "$FindBin::RealBin/util/Trinotate_report_writer.pl --sqlite $sqlite_db @ARGV";
     &process_cmd($cmd);
     
 }
 elsif ($command eq "init") {
     # populate sequence and gene/trans/orf data
-    my $cmd = "$FindBin::Bin/util/trinotateSeqLoader/TrinotateSeqLoader.pl --sqlite $sqlite_db @ARGV --bulk_load";
+    my $cmd = "$FindBin::RealBin/util/trinotateSeqLoader/TrinotateSeqLoader.pl --sqlite $sqlite_db @ARGV --bulk_load";
     &process_cmd($cmd);
 }
 else {

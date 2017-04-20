@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 use FindBin;
-use lib ("$FindBin::Bin/../PerlLib");
+use lib ("$FindBin::RealBin/../PerlLib");
 use Pipeliner;
 
 my $usage = "\n\n\tusage: $0 Database_prefix [no_cleanup_flag]\n\n\n";
@@ -14,7 +14,7 @@ my $prefix = $ARGV[0] or die $usage;
 my $no_cleanup_flag = $ARGV[1] || 0;
 
 
-my $UTILDIR = "$FindBin::Bin/util";
+my $UTILDIR = "$FindBin::RealBin/util";
 
 ## Resources:
 my $SPROT_DAT_URL = "ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.dat.gz";
@@ -67,8 +67,8 @@ main: {
     $pipeliner->add_commands(new Command("wget \"$EGGNOG_DAT_URL\"", "$checkpoint_dir/eggnog_download.ok") );
     
     # extract fields
-    $pipeliner->add_commands(new Command("set -euo pipefail; gunzip -c NOG.annotations.tsv.gz | $UTILDIR/print.pl 1 5 > NOG.annotations.tsv.gz.bulk_load",
-                                         "$checkpoint_dir/eggnog_field_extraction.ok") );
+    $pipeliner->add_commands(new Command("gunzip -c NOG.annotations.tsv.gz | $UTILDIR/print.pl 1 5 > NOG.annotations.tsv.gz.bulk_load",
+                                         "$checkpoint_dir/eggnog_field_extraction.ok") );  # note, had set -eou pipefail, but this generated errors on certain flavors and/or versions of linux
     # load 
     $pipeliner->add_commands(new Command("$UTILDIR/EMBL_dat_to_Trinotate_sqlite_resourceDB.pl --sqlite $sqlite_db --eggnog NOG.annotations.tsv.gz.bulk_load",
                                          "$checkpoint_dir/eggnog.load.ok") );

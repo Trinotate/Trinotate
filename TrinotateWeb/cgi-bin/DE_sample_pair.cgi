@@ -6,7 +6,7 @@ use warnings;
 use CGI;
 use CGI::Carp qw(fatalsToBrowser);
 use FindBin;
-use lib ("$FindBin::Bin/../../PerlLib", "$FindBin::Bin/PerlLib");
+use lib ("$FindBin::RealBin/../../PerlLib", "$FindBin::RealBin/PerlLib");
 use DBI;
 use Sqlite_connect;
 use CanvasXpress::Scatter2D;
