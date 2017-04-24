@@ -53,6 +53,11 @@ unless ($trinotate_xls && ($gene_mode xor $trans_mode)) {
     die $usage;
 }
 
+if (@ARGV) {
+    die "Error, unable to parse options: @ARGV ";
+}
+
+
 my $gene_or_trans = ($gene_mode) ? 'gene' : 'trans';
 
 
@@ -93,6 +98,7 @@ main: {
     
     my $go_dag;
     if ($include_ancestral_terms) {
+        print STDERR "-including ancestral terms in report.\n";
         $go_dag = new GO_DAG();
     }
     

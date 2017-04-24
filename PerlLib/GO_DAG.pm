@@ -112,6 +112,8 @@ sub new {
 }
 
 sub init_GO_DAG {
+
+    print STDERR "-init GO_DAG\n";
     
 	my $obo_file = "obo/go-basic.obo.gz"; #gene_ontology.1_2.obo.gz";
     my ($obo_dir)  =  grep { -s "$_/$obo_file"  }  @INC;
@@ -125,31 +127,46 @@ sub init_GO_DAG {
 	print STDERR "Found obo: $obo\n";
 
     my %term_info;    
-	
+    my $term_flag = 0;
+
     open (my $fh, "gunzip -c $obo | ") or confess "Error, cannot open file $obo";
     while (<$fh>) {
-		#print;
-        chomp;
+        
         unless (/\w/) { next; }
+        #print $_;
+        chomp;
 
-        if (/^\[Term\]/) {
+
+        my $line = $_;
+        
+        if ($line =~ /^\[/) {
+            #print STDERR "-got bracket\n";
             if ($term_info{id}) {
-                &add_node(%term_info);
-                %term_info = (); # reinit
+                &add_node(%term_info); # process previous term info
             }
+            
+            %term_info = (); # reinit
+            $term_flag = 0;
+            
+            if ($line =~ /^\[Term\]/) {
+                $term_flag = 1;
+                #print STDERR "-term flag ON\n";
+            }
+            
         }
-        elsif (/^(\S+):\s+(.*)$/) {
+        elsif ($term_flag && $line =~ /^(\S+):\s+(.*)$/) {
             my $token = $1;
             my $descr = $2;
-
+            
             push (@{$term_info{$token}}, $descr);
         }
     }
     close $fh;
     
     # get last one.
-    &add_node(%term_info);
-
+    if (%term_info) {
+        &add_node(%term_info);
+    }
     
     return;
 }
