@@ -173,7 +173,7 @@ main: {
             
             my $sampleA;
             my $sampleB;
-            if ($DE_file =~ /\S.*matrix\.(\S+)_vs_(\S+)\.(edgeR|DESeq)/) {
+            if ($DE_file =~ /\S.*matrix\.(\S+)_vs_(\S+)\.(edgeR|DESeq|voom)/) {
                 $sampleA = $1;
                 $sampleB = $2;
             }
