@@ -13,6 +13,11 @@ my $port_no = $ARGV[0] or die $usage;
 ## if the port comes up as already being used, check what's using it like so:
 ## sudo fuser -v 3000/tcp
 ##  and kill it or choose a different port to use.
+##
+## other useful things to know:
+##  check for open ports:
+##        sudo netstat -tulpn
+
 
 
  main: {
