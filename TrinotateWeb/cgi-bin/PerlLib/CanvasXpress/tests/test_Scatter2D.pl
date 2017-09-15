@@ -19,7 +19,7 @@ my $scatter_2D_tester = new CanvasXpress::Scatter2D("test_canvas");
 my $plot_loader = new CanvasXpress::PlotOnLoader("load_plots");
 $plot_loader->add_plot($scatter_2D_tester);
 
-my %inputs = ( samples => ['sampleA', 'sampleB', 'sampleC', 'sampleD'],
+my %inputs = ( replicate_names => ['sampleA', 'sampleB', 'sampleC', 'sampleD'],
                value_matrix => [ 
                    ['gene1', 1, 2, 10, 11],
                    ['gene2', 2, 3, 11, 12],
