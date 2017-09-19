@@ -6,6 +6,7 @@ use warnings;
 use FindBin;
 use lib ("$FindBin::Bin/../../PerlLib");
 use DelimParser;
+use Process_cmd;
 
 my $usage = "\n\n\tusage: $0 Trinotate_report.tsv  out_prefix\n\n";
 
@@ -17,12 +18,15 @@ my $TOP_TAX_LEVEL = 6;
 
 main: {
 
-
     open(my $fh, $trinotate_report_file) or die "Error, cannot open file $trinotate_report_file";
     my $delim_parser = new DelimParser::Reader($fh, "\t");
 
     my %TAXONOMY_COUNTER;
     my %SPECIES_COUNTER;
+
+    my %EGGNOG;
+    my %KEGG;
+        
     
     while (my $row = $delim_parser->get_row()) {
         
@@ -30,26 +34,64 @@ main: {
         my $transcript_id = $row->{'transcript_id'};
 
         my $sprot_Top_BLASTX_hit = $row->{'sprot_Top_BLASTX_hit'} or die "Error, no column name: sprot_Top_BLASTX_hit";
-        &extract_taxonomy_info($sprot_Top_BLASTX_hit, \%TAXONOMY_COUNTER, \%SPECIES_COUNTER);
-        
+        &extract_taxonomy_info($gene_id, $sprot_Top_BLASTX_hit, \%TAXONOMY_COUNTER, \%SPECIES_COUNTER);
+    
+        if (my $kegg = $row->{'Kegg'}) {
+            $KEGG{$kegg}->{$gene_id} = 1;
+        }
+        if (my $eggnog = $row->{'eggnog'}) {
+            $EGGNOG{$eggnog}->{$gene_id} = 1;
+        }
         
     }
-    
-    ## Reporting
-    &write_taxonomy_table(\%TAXONOMY_COUNTER);
-    
-    &write_species_table(\%SPECIES_COUNTER);
 
-    
+    #############################
+    ## Report generators
+    #############################
 
+    { # write taxonomy info
+        my $outfile = "$out_prefix.taxonomy_counts";
+        my $header = join("\t", "L1", "L2", "L3", "L4", "L5", "L6", "count");  #FIXME: set L dynamically according to num top levels    
+        &nested_hash_to_counts_file(\%TAXONOMY_COUNTER, $outfile, $header);
+    }
+
+    { # write species table
+        my $outfile = "$out_prefix.species_counts";
+        my $header = "species\tcount";
+        &nested_hash_to_counts_file(\%SPECIES_COUNTER, $outfile, $header);
+    }
+    
+    { # write eggnog report
+        my $outfile = "$out_prefix.eggnog_counts";
+        my $header = "eggnog\tcount";
+        &nested_hash_to_counts_file(\%EGGNOG, $outfile, $header);
+    }
+
+    { # write kegg report
+        my $outfile = "$out_prefix.kegg.counts";
+        my $header = "kegg\tcount";
+        &nested_hash_to_counts_file(\%KEGG, $outfile, $header);
+    }
+            
+    
+    ## get GO summaries
+    &process_cmd("$FindBin::Bin/../extract_GO_assignments_from_Trinotate_xls.pl  --Trinotate_xls $trinotate_report_file -G -I > $trinotate_report_file.GO");
+    &process_cmd("$FindBin::Bin/../gene_ontology/Trinotate_GO_to_SLIM.pl $trinotate_report_file.GO > $trinotate_report_file.GO.slim");
+
+   
     exit(0);
 }
 
 
 
+#########################
+## Data Extractors
+#########################
+
+
 ####
 sub extract_taxonomy_info {
-    my ($sprot_Top_BLASTX_hit, $taxonomy_counter_href, $species_counter_href) = @_;
+    my ($gene_id, $sprot_Top_BLASTX_hit, $taxonomy_counter_href, $species_counter_href) = @_;
         
     if ($sprot_Top_BLASTX_hit ne '.') {
         my @pts = split(/\^/, $sprot_Top_BLASTX_hit);
@@ -65,48 +107,55 @@ sub extract_taxonomy_info {
         
         my $top_tax_level = join("\t", @top_tax_levels);
         print STDERR "$top_tax_level -> $species\n" if $DEBUG;
-        $taxonomy_counter_href->{$top_tax_level}++;
-        $species_counter_href->{$species}++;
+        $taxonomy_counter_href->{$top_tax_level}->{$gene_id} = 1;
+        $species_counter_href->{$species}->{$gene_id} = 1;
     }
     
     return;
 }
 
+    
+
+######################
+## utility functions
+######################
+
 
 ####
-sub write_taxonomy_table {
-    my ($taxonomy_counter_href) = @_;
-    
-    my $outfile = "$out_prefix.taxonomy_counts";
-    open(my $ofh, ">$outfile") or die "Error, cannot write to $outfile";
-    
-    print $ofh join("\t", "L1", "L2", "L3", "L4", "L5", "L6", "count") . "\n";  #FIXME: set L dynamically according to num top levels
-    
-    foreach my $taxonomy_val (reverse sort {$taxonomy_counter_href->{$a}<=>$taxonomy_counter_href->{$b}} keys %$taxonomy_counter_href) {
-        my $count = $taxonomy_counter_href->{$taxonomy_val};
+sub nested_hash_to_counts {
+    my ($hash_ref) = @_;
 
-        print $ofh "$taxonomy_val\t$count\n";
+    my @info_counts;
+    
+    foreach my $key_val (keys %$hash_ref) {
+        my $count = scalar(keys %{$hash_ref->{$key_val}});
+        push (@info_counts, [$key_val, $count]);
     }
 
+    @info_counts = reverse sort {$a->[1]<=>$b->[1]} @info_counts;
+
+    return(@info_counts);
+}
+
+####
+sub write_counts_to_ofh {
+    my ($counts_aref, $ofh) = @_;
+    foreach my $count_info (@$counts_aref) {
+        my ($key_val, $count) = @$count_info;
+        print $ofh "$key_val\t$count\n";
+    }
+    return;
+}
+
+
+####
+sub nested_hash_to_counts_file {
+    my ($nested_hash_href, $outfile_name, $header) = @_;
+    open(my $ofh, ">$outfile_name")or die "Error, cannot write to $outfile_name";
+    print $ofh "$header\n";
+    my @counts = &nested_hash_to_counts($nested_hash_href);
+    &write_counts_to_ofh(\@counts, $ofh);
     close $ofh;
-
     return;
 }
-
         
-####
-sub write_species_table {
-    my ($species_counter_href) = @_;
-
-    my $outfile = "$out_prefix.species_counts";
-    open(my $ofh, ">$outfile") or die "Error, cannot write to $outfile";
-    print $ofh join("\t", "species", "count") . "\n";
-    
-    foreach my $species (reverse sort {$species_counter_href->{$a} <=> $species_counter_href->{$b}} keys %$species_counter_href) {
-        print $ofh join("\t", $species, $species_counter_href->{$species}) . "\n";
-    }
-
-    return;
-}
-    
-    

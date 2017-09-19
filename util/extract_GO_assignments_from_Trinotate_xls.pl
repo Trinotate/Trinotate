@@ -89,8 +89,8 @@ main: {
             $go_pfam_col = $col;
         }
     }
-    unless ($go_blast_col > 0 && $go_pfam_col > 0) {
-        die "Error, couldn't determine column in report that corresponds to 'gene_ontology_blast' or 'gene_ontology_pfam', header is: $header ";
+    unless ($go_blast_col > 0) {
+        die "Error, couldn't determine column in report that corresponds to 'gene_ontology_blast' header is: $header ";
     }
     
     my %data;
@@ -115,7 +115,10 @@ main: {
         
         my $feature_id = ($gene_or_trans eq 'gene') ? $x[0] : $x[1];
         
-        my $go_info = $x[$go_blast_col] . '`' . $x[$go_pfam_col];
+        my $go_info = $x[$go_blast_col];
+        if ($go_pfam_col > 0) {
+            $go_info .=  '`' . $x[$go_pfam_col];
+        }
         my @go_records = split(/\`/, $go_info);
         
         foreach my $go_record (@go_records) {
