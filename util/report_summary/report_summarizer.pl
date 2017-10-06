@@ -16,6 +16,19 @@ my $out_prefix = $ARGV[1] or die $usage;
 my $DEBUG = 1;
 my $TOP_TAX_LEVEL = 6;
 
+
+my $UTILDIR = "$FindBin::Bin/util";
+
+# register the plotting scripts
+my %data_plotters = ('taxonomy' => "$UTILDIR/R/taxonomy_plotter.R",
+                     'species' => "$UTILDIR/R/species_plotter.R",
+                     'kegg' => "$UTILDIR/R/kegg_plotter.R",
+                     'eggnog' => "$UTILDIR/R/eggnog_plotter.R",
+                     'pfam' => "$UTILDIR/R/pfam_plotter.R",
+                     
+    );
+
+
 main: {
 
     open(my $fh, $trinotate_report_file) or die "Error, cannot open file $trinotate_report_file";
@@ -26,7 +39,7 @@ main: {
 
     my %EGGNOG;
     my %KEGG;
-        
+    my %PFAM;
     
     while (my $row = $delim_parser->get_row()) {
         
@@ -35,16 +48,21 @@ main: {
 
         my $sprot_Top_BLASTX_hit = $row->{'sprot_Top_BLASTX_hit'} or die "Error, no column name: sprot_Top_BLASTX_hit";
         &extract_taxonomy_info($gene_id, $sprot_Top_BLASTX_hit, \%TAXONOMY_COUNTER, \%SPECIES_COUNTER);
-    
-        if (my $kegg = $row->{'Kegg'}) {
+
+        my ($kegg, $eggnog, $pfam);
+        
+        if ( ($kegg = $row->{'Kegg'}) && $kegg ne ".") {
             $KEGG{$kegg}->{$gene_id} = 1;
         }
-        if (my $eggnog = $row->{'eggnog'}) {
+        if ( ($eggnog = $row->{'eggnog'}) && $eggnog ne ".") {
             $EGGNOG{$eggnog}->{$gene_id} = 1;
+        }
+        if ( ($pfam = $row->{'Pfam'}) && $pfam ne ".") {
+            &extract_pfam_info($gene_id, $pfam, \%PFAM);
         }
         
     }
-
+    
     #############################
     ## Report generators
     #############################
@@ -72,7 +90,13 @@ main: {
         my $header = "kegg\tcount";
         &nested_hash_to_counts_file(\%KEGG, $outfile, $header);
     }
-            
+
+    { # write pfam report
+        my $outfile = "$out_prefix.pfam.counts";
+        my $header = "pfam\tcount";
+        &nested_hash_to_counts_file(\%PFAM, $outfile, $header);
+    }
+    
     
     ## get GO summaries
     &process_cmd("$FindBin::Bin/../extract_GO_assignments_from_Trinotate_xls.pl  --Trinotate_xls $trinotate_report_file -G -I > $trinotate_report_file.GO");
@@ -114,6 +138,19 @@ sub extract_taxonomy_info {
     return;
 }
 
+
+####
+sub extract_pfam_info {
+    my ($gene_id, $pfam_info, $PFAM_href) = @_;
+
+    foreach my $pfam_hit (split(/\`/, $pfam_info)) {
+        my @vals = split(/\^/, $pfam_hit);
+        my $pfam_domain_name = join("^", @vals[0..2]);
+        $PFAM_href->{$pfam_domain_name}->{$gene_id} = 1;
+    }
+    
+    return;
+}
     
 
 ######################
