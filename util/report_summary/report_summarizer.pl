@@ -19,16 +19,6 @@ my $TOP_TAX_LEVEL = 6;
 
 my $UTILDIR = "$FindBin::Bin/util";
 
-# register the plotting scripts
-my %data_plotters = ('taxonomy' => "$UTILDIR/R/taxonomy_plotter.R",
-                     'species' => "$UTILDIR/R/species_plotter.R",
-                     'kegg' => "$UTILDIR/R/kegg_plotter.R",
-                     'eggnog' => "$UTILDIR/R/eggnog_plotter.R",
-                     'pfam' => "$UTILDIR/R/pfam_plotter.R",
-                     
-    );
-
-
 main: {
 
     open(my $fh, $trinotate_report_file) or die "Error, cannot open file $trinotate_report_file";
@@ -83,6 +73,11 @@ main: {
         my $outfile = "$out_prefix.eggnog_counts";
         my $header = "eggnog\tcount";
         &nested_hash_to_counts_file(\%EGGNOG, $outfile, $header);
+
+        # generate funcat assignments
+        my $cmd = "$UTILDIR/assign_eggnog_funccats.pl $outfile > $outfile.funcats";
+        &process_cmd($cmd);
+        
     }
 
     { # write kegg report
