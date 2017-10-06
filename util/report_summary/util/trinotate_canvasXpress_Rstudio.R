@@ -1,8 +1,9 @@
 library(canvasXpress)
 
 # functions available:
-#   cXp_taxonomy
-#
+#   cXp_taxonomy_sunburst
+#   cXp_species_piechart
+#   cXp_eggnog_funcat_barplot
 
 
 ## Taxonomy view
@@ -49,7 +50,7 @@ cXp_taxonomy = function(filename, num_top_cats=50) {
 }
 
 ## Species pie chart
-cXp_species = function(filename, min_pct=2) {
+cXp_species_piechart = function(filename, min_pct=2) {
     data = read.table(filename, header=T, sep="\t", stringsAsFactors=F) 
     
     data$pct = data$count / sum(data$count) * 100
@@ -82,6 +83,41 @@ cXp_species = function(filename, min_pct=2) {
     
 }
 
+
+## eggnog funcat barplot
+cXp_eggnog_funcat_barplot(filename, cats_skip=c('S', 'R')) {
+  
+  data = read.table(filename, header=T, row.names=1, sep="\t")
+  
+  if (! is.null(cats_skip)) {
+    data = data[ ! rownames(data) %in% cats_skip, ]
+  }
+  
+  y_data = t(data.frame(count=data$count, row.names=rownames(data)))
+  
+  x_data = data.frame(descr=data$funcat, row.names=rownames(data))
+  
+  canvasXpress(
+    data=y_data,
+    smpAnnot=x_data,
+    #varAnnot=z,
+    fontStyle="bold italic",
+    graphOrientation="vertical",
+    graphType="Bar",
+    legendBox=FALSE,
+    legendFontStyle="italic",
+    plotByVariable=TRUE,
+    showShadow=TRUE,
+    smpLabelFontStyle="italic",
+    smpLabelInterval=1,
+    smpLabelRotate=45,
+    smpTitle="Sample Title",
+    title="EggNog Functional Categories",
+    xAxis2Show=FALSE
+  )
+  
+  
+}
 
 
 
