@@ -1,6 +1,12 @@
+library(canvasXpress)
+
+# functions available:
+#   cXp_taxonomy
+#
 
 
-cXp_taxonomy = function(filename, num_top_cats) {
+## Taxonomy view
+cXp_taxonomy = function(filename, num_top_cats=50) {
 
     data = read.table(filename, header=T, row.names=NULL, sep="\t", stringsAsFactors=F)
 
@@ -26,7 +32,6 @@ cXp_taxonomy = function(filename, num_top_cats) {
                                         # remove count column
     top_data = top_data[,-ncol(top_data)]
     
-    library(canvasXpress)
     canvasXpress(
         data=count_info,
         smpAnnot=top_data,
@@ -43,3 +48,36 @@ cXp_taxonomy = function(filename, num_top_cats) {
     )
 }
 
+## Species pie chart
+cXp_species = function(filename, min_pct=2) {
+    data = read.table(filename, header=T, sep="\t", stringsAsFactors=F) 
+    
+    data$pct = data$count / sum(data$count) * 100
+    
+    top_data = data[data$pct >= min_pct,]
+    
+    remaining_counts = sum(data$count) - sum(top_data$count)
+    remaining_pct = 100 - sum(top_data$pct)
+    top_data = rbind(top_data, c('other', remaining_counts, remaining_pct))
+    
+    y_data = data.frame(pct=top_data$count)
+    rownames(y_data) = top_data$species
+    
+    
+    canvasXpress(
+      data=y_data,
+      #smpAnnot=x,
+      #varAnnot=z,
+      graphType="Pie",
+      layout="1x1",
+      pieSegmentLabels="inside",
+      pieSegmentPrecision=0,
+      pieSegmentSeparation=1,
+      showPieGrid=TRUE,
+      showPieSampleLabel=TRUE,
+      showTransition=TRUE,
+      #xAxis=list("Sample1"),
+      title="Top Species"
+    )
+    
+}
