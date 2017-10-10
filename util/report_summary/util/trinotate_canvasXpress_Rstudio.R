@@ -5,10 +5,10 @@ library(canvasXpress)
 #   cXp_species_piechart
 #   cXp_eggnog_funcat_barplot
 #   cXp_GeneOntology_Skim
-
+#   cXp_pfam_barplot
 
 ## Taxonomy view
-cXp_taxonomy = function(filename, num_top_cats=50) {
+cXp_taxonomy_sunburst = function(filename, num_top_cats=50) {
 
     data = read.table(filename, header=T, row.names=NULL, sep="\t", stringsAsFactors=F)
 
@@ -154,7 +154,6 @@ cXp_GeneOntology_Skim = function(filename) {
 }
 
 
-
 ## eggnog funcat barplot
 cXp_pfam_barplot = function(filename, num_top=50) {
   
@@ -185,6 +184,7 @@ cXp_pfam_barplot = function(filename, num_top=50) {
     xAxis2Show=FALSE
   )
   
-  
 }
+
+
 
