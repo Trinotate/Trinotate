@@ -4,6 +4,7 @@ library(canvasXpress)
 #   cXp_taxonomy_sunburst
 #   cXp_species_piechart
 #   cXp_eggnog_funcat_barplot
+#   cXp_GeneOntology_Skim
 
 
 ## Taxonomy view
@@ -150,5 +151,40 @@ cXp_GeneOntology_Skim = function(filename) {
     transitionStep=50,
     transitionTime=1500
   )
+}
+
+
+
+## eggnog funcat barplot
+cXp_pfam_barplot = function(filename, num_top=50) {
+  
+  data = read.table(filename, header=T, row.names=1, sep="\t")
+  
+  if (nrow(data) > num_top) {
+    data = data[1:num_top,, drop=F]
+  }
+  
+  data = t(data) # colnames as pfam ids
+  
+  canvasXpress(
+    data=data,
+    #smpAnnot=data.frame(count=rownames(data), row.names=rownames(data)),
+    #varAnnot=z,
+    fontStyle="bold italic",
+    graphOrientation="horizontal",
+    graphType="Bar",
+    legendBox=FALSE,
+    legendFontStyle="italic",
+    plotByVariable=TRUE,
+    showShadow=TRUE,
+    smpLabelFontStyle="italic",
+    smpLabelInterval=1,
+    smpLabelRotate=45,
+    smpTitle="Sample Title",
+    title="Top Pfam domains",
+    xAxis2Show=FALSE
+  )
+  
+  
 }
 
