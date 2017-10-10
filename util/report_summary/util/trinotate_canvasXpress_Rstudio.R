@@ -85,7 +85,7 @@ cXp_species_piechart = function(filename, min_pct=2) {
 
 
 ## eggnog funcat barplot
-cXp_eggnog_funcat_barplot(filename, cats_skip=c('S', 'R')) {
+cXp_eggnog_funcat_barplot = function(filename, cats_skip=c('S', 'R')) {
   
   data = read.table(filename, header=T, row.names=1, sep="\t")
   
@@ -120,4 +120,35 @@ cXp_eggnog_funcat_barplot(filename, cats_skip=c('S', 'R')) {
 }
 
 
+## Taxonomy view
+cXp_GeneOntology_Skim = function(filename) {
+  
+  data = read.table(filename, header=T, row.names=NULL, sep="\t", stringsAsFactors=F)
+  colnames(data) = c('go_class', 'go_id', 'go_term', 'count', 'description', 'unsure')
+  
+  total_counts = sum(data$count)
+  # assign row names
+
+  rownames(data) <- data$go_id
+  
+  # build the count table
+  count_info = rbind(NULL, as.numeric(data$count))
+  colnames(count_info) = rownames(data)
+  rownames(count_info) <- c("counts")
+  
+  canvasXpress(
+    data=count_info,
+    smpAnnot=data,
+    circularArc=360,
+    circularRotate=-90,
+    circularType="sunburst",
+    colorScheme="Bootstrap",
+    graphType="Circular",
+    hierarchy=list("go_class", "go_term"),
+    showTransition=TRUE,
+    title="GO Slim Summary",
+    transitionStep=50,
+    transitionTime=1500
+  )
+}
 
