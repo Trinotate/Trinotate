@@ -70,7 +70,9 @@ sub draw {
     foreach my $column (@column_names) {
         $html .= "          \"$column\": [\n";
         my @column_contents = @{$inputs{column_contents}->{$column}};
-        $html .= "                \"" . join("\",\"", @column_contents) . "\"\n";
+        my $column_vals_text = "                \"" . join("\",\"", @column_contents) . "\"\n";
+        $column_vals_text =~ s/\"NA\"/null/g;
+        $html .= $column_vals_text;
         $html .= "                       ],";
     }
     chop $html; # rid final comma
@@ -104,11 +106,7 @@ sub draw {
         . "\"colorScheme\": \"Bootstrap\",\n"
         . "\"decorationFontSize\": 6,\n"
         . "\"graphType\": \"Circular\",\n"
-        . "\"hierarchy\": [\n"
-        . "\"Quarter\",\n"
-        . "\"Month\",\n"
-        . "\"Week\"\n"
-        . "],\n"
+        . "\"hierarchy\": [\"" . join("\",\"", @column_names) . "\"],\n"
         . "\"ringsType\": [\n"
         . "\"dot\"\n"
         . "],\n"
@@ -122,7 +120,7 @@ sub draw {
         . "\"transitionStep\": 50,\n"
         . "\"transitionTime\": 1500,\n"
         . "\"xAxis\": [\n"
-        . "\"Sales\"\n"
+        . "\"vals\"\n"
         . "],\n"
         . "\"xAxisTitle\": \"\"\n"
         . "});\n";
