@@ -94,9 +94,9 @@ main: {
     
     
     ## get GO summaries
-    &process_cmd("$FindBin::Bin/../extract_GO_assignments_from_Trinotate_xls.pl  --Trinotate_xls $trinotate_report_file -G -I > $trinotate_report_file.GO");
-    &process_cmd("$FindBin::Bin/../gene_ontology/Trinotate_GO_to_SLIM.pl $trinotate_report_file.GO > $trinotate_report_file.GO.slim");
-
+    &process_cmd("$FindBin::Bin/../extract_GO_assignments_from_Trinotate_xls.pl  --Trinotate_xls $trinotate_report_file -G -I > $out_prefix.GO");
+    &process_cmd("$FindBin::Bin/../gene_ontology/Trinotate_GO_to_SLIM.pl $out_prefix.GO > $out_prefix.GO.slim");
+    
    
     exit(0);
 }

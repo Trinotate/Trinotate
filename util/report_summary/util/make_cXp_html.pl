@@ -36,8 +36,9 @@ main: {
     #&generate_top_species_report_html("$report_prefix.species_counts");
 
 
+    ## Gene Ontology view
+    &generate_gene_ontology_view("$report_prefix.GO.slim");
     
-
 
     print $plot_loader->write_plot_loader();
 
@@ -165,3 +166,48 @@ sub generate_top_species_report_html{
     print $piechart->draw(%inputs);
         
 }
+
+
+####
+sub generate_gene_ontology_view {
+    my ($data_file) = @_;
+
+
+    my @column_names = ("go_class", "go_term");
+    my %column_data;
+    my @row_values;
+    
+    open(my $fh, $data_file) or die "Error, cannot open file $data_file";
+    while (<$fh>) {
+        chomp;
+        unless (/\w/) { next; }
+        my @x = split(/\t/);
+        my ($go_class, $go_id, $go_term, $count, $go_descr) = @x;
+
+        $go_id =~ s/:/_/g;
+        
+        $go_term = "$go_id $go_term";
+
+        push (@{$column_data{'go_class'}}, $go_class);
+        push (@{$column_data{'go_term'}}, $go_term);
+        push (@row_values, $count);
+    }
+    close $fh;
+
+    my $GO_sunburst = new CanvasXpress::Sunburst("GO_sunburst");
+    $plot_loader->add_plot($GO_sunburst);
+
+    my %inputs = (title => "Gene Ontology Categories",
+
+                  column_names => [@column_names],
+
+                  column_contents => \%column_data,
+
+                  row_values => [@row_values] );
+
+    print $GO_sunburst->draw(%inputs);
+ 
+
+    return;
+}
+    

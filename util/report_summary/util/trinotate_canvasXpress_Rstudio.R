@@ -121,7 +121,7 @@ cXp_eggnog_funcat_barplot = function(filename, cats_skip=c('S', 'R')) {
 }
 
 
-## Taxonomy view
+## Gene Ontology view
 cXp_GeneOntology_Skim = function(filename) {
   
   data = read.table(filename, header=T, row.names=NULL, sep="\t", stringsAsFactors=F)
