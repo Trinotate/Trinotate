@@ -154,7 +154,7 @@ cXp_GeneOntology_Skim = function(filename) {
 }
 
 
-## eggnog funcat barplot
+## pfam top domains barplot
 cXp_pfam_barplot = function(filename, num_top=50) {
   
   data = read.table(filename, header=T, row.names=1, sep="\t")

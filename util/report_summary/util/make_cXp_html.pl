@@ -30,16 +30,22 @@ main: {
 
 
     ## taxonomy report
-    #&generate_taxonomy_report_html("$report_prefix.taxonomy_counts");
+    &generate_taxonomy_report_html("$report_prefix.taxonomy_counts");
 
     ## top species report
-    #&generate_top_species_report_html("$report_prefix.species_counts");
+    &generate_top_species_report_html("$report_prefix.species_counts");
 
 
     ## Gene Ontology view
-    &generate_gene_ontology_view("$report_prefix.GO.slim");
-    
+    #&generate_gene_ontology_view("$report_prefix.GO.slim");
 
+    ## Pfam domains:
+    #&generate_pfam_domain_barplot("$report_prefix.pfam.counts");
+
+    ## Eggnog funccats:
+    #&generate_eggnog_funccat_barplot("$report_prefix.eggnog_counts.funcats");
+    
+        
     print $plot_loader->write_plot_loader();
 
     print $cgi->end_html();
@@ -184,6 +190,10 @@ sub generate_gene_ontology_view {
         my @x = split(/\t/);
         my ($go_class, $go_id, $go_term, $count, $go_descr) = @x;
 
+
+        if ($go_term =~ /^(biological process|cellular component|molecular function)$/) { next; } # skip highest-level 
+
+        
         $go_id =~ s/:/_/g;
         
         $go_term = "$go_id $go_term";
@@ -193,7 +203,7 @@ sub generate_gene_ontology_view {
         push (@row_values, $count);
     }
     close $fh;
-
+    
     my $GO_sunburst = new CanvasXpress::Sunburst("GO_sunburst");
     $plot_loader->add_plot($GO_sunburst);
 
@@ -211,3 +221,83 @@ sub generate_gene_ontology_view {
     return;
 }
     
+####
+sub generate_pfam_domain_barplot {
+    my ($data_file) = @_;
+
+    my $NUM_TOP_DOMAINS = 50;
+
+    open(my $fh, $data_file) or die "Error, cannot open file: $data_file";
+    my $header = <$fh>;
+
+    my @vals;
+    my $counter = 0;
+    while (<$fh>) {
+        chomp;
+        $counter++;
+        
+        my ($pfam, $count) = split(/\t/);
+
+        push (@vals, [$pfam, $count]);
+        
+        if ($counter >= $NUM_TOP_DOMAINS) { last; }
+        
+    }
+    close $fh;
+
+    
+    my %inputs = ( orientation => 'horizontal',
+                   
+                   title => 'Top Pfam domains',
+                   
+                   var_name => 'Pfam',
+
+                   data => [@vals],
+        );
+    
+    my $barplot = new CanvasXpress::Barplot("Pfam_barplot");
+    $plot_loader->add_plot($barplot);
+
+    print $barplot->draw(%inputs);
+    
+    return;
+}
+
+
+####
+sub generate_eggnog_funccat_barplot {
+    my ($data_file) = @_;
+
+    my @vals;
+    open(my $fh, $data_file) or die "Error, cannot open file: $data_file";
+    my $header = <$fh>;
+    while (<$fh>) {
+        chomp;
+        my ($code, $funccat, $count) = split("\t");
+        
+        if ($code eq "S" || $code eq "R") { next; } # nonspecific categories
+        
+        push (@vals, [$funccat, $count]);
+    }
+    close $fh;
+
+    
+    my %inputs = ( orientation => 'horizontal',
+                   
+                   title => 'Functional Categories via Eggnog/COG Mappings',
+                   
+                   var_name => 'funccats',
+
+                   data => [@vals],
+        );
+    
+    my $barplot = new CanvasXpress::Barplot("funccat_barplot");
+    $plot_loader->add_plot($barplot);
+
+    print $barplot->draw(%inputs);
+    
+    return;
+
+}
+
+

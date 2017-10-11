@@ -101,7 +101,7 @@ sub draw {
         . "\"graphOrientation\": \"$orientation\",\n"
         . "\"maxCols\": 2,\n"
         . "\"maxRows\": 4,\n"
-        . "\"title\": \"Simple Bar graph\",\n"
+        . "\"title\": \"$inputs{title}\",\n"
         . "\"xAxis\": [\n"
         . "\"Variable1\"\n"
         . "],\n"
