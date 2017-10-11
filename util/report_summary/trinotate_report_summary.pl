@@ -8,7 +8,7 @@ use lib ("$FindBin::Bin/../../PerlLib");
 use DelimParser;
 use Process_cmd;
 
-my $usage = "\n\n\tusage: $0 Trinotate_report.tsv  out_prefix\n\n";
+my $usage = "\n\n\tusage: $0 Trinotate_report.tsv output_prefix\n\n";
 
 my $trinotate_report_file = $ARGV[0] or die $usage;
 my $out_prefix = $ARGV[1] or die $usage;
@@ -96,6 +96,10 @@ main: {
     ## get GO summaries
     &process_cmd("$FindBin::Bin/../extract_GO_assignments_from_Trinotate_xls.pl  --Trinotate_xls $trinotate_report_file -G -I > $out_prefix.GO");
     &process_cmd("$FindBin::Bin/../gene_ontology/Trinotate_GO_to_SLIM.pl $out_prefix.GO > $out_prefix.GO.slim");
+    
+
+    ## generate the html report summary:
+    &process_cmd("$FindBin::Bin/util/make_cXp_html.pl $out_prefix > $out_prefix.cXp_summary.html");
     
    
     exit(0);

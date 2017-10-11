@@ -37,13 +37,13 @@ main: {
 
 
     ## Gene Ontology view
-    #&generate_gene_ontology_view("$report_prefix.GO.slim");
+    &generate_gene_ontology_view("$report_prefix.GO.slim");
 
     ## Pfam domains:
-    #&generate_pfam_domain_barplot("$report_prefix.pfam.counts");
+    &generate_pfam_domain_barplot("$report_prefix.pfam.counts");
 
     ## Eggnog funccats:
-    #&generate_eggnog_funccat_barplot("$report_prefix.eggnog_counts.funcats");
+    &generate_eggnog_funccat_barplot("$report_prefix.eggnog_counts.funcats");
     
         
     print $plot_loader->write_plot_loader();
