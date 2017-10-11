@@ -32,7 +32,9 @@ sub draw {
 
     # structure of input hash:
     #
-    #   %inputs = ( column_names => [colA, colB, colC],
+    #   %inputs = ( title => "my plot title",
+    #
+    #               column_names => [colA, colB, colC],
     #
     #               column_contents => { colA => [a1, a2, a3, ...],
     #                                    colB => [b1, b2, b3, ...],
@@ -115,7 +117,7 @@ sub draw {
         . "],\n"
         . "\"showTransition\": true,\n"
         . "\"subtitleFontSize\": 26,\n"
-        . "\"title\": \"Rotated Sunburst\",\n"
+        . "\"title\": \"$inputs{title}\",\n"
         . "\"titleFontSize\": 28,\n"
         . "\"transitionStep\": 50,\n"
         . "\"transitionTime\": 1500,\n"

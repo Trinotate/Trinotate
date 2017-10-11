@@ -1,0 +1,167 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+use FindBin;
+use lib ("$FindBin::Bin/../../../TrinotateWeb/cgi-bin/PerlLib/");
+use CanvasXpress::Sunburst;
+use CanvasXpress::Piechart;
+use CanvasXpress::Barplot;
+
+use CanvasXpress::PlotOnLoader;
+
+use CGI;
+
+my $usage = "usage: $0 report_prefix\n\n";
+
+my $report_prefix = $ARGV[0] or die $usage;
+
+
+my $plot_loader = new CanvasXpress::PlotOnLoader("load_plots");
+
+main: {
+
+    my $cgi = new CGI();
+        
+    print $cgi->start_html(-title => "Trinotate Report: $report_prefix",
+                           -onLoad => "load_plots();");
+
+
+
+    ## taxonomy report
+    #&generate_taxonomy_report_html("$report_prefix.taxonomy_counts");
+
+    ## top species report
+    #&generate_top_species_report_html("$report_prefix.species_counts");
+
+
+    
+
+
+    print $plot_loader->write_plot_loader();
+
+    print $cgi->end_html();
+
+    exit(0);
+}
+
+
+####
+sub generate_taxonomy_report_html {
+    my ($data_file) = @_;
+    
+    my $NUM_TOP_CATS = 50;
+    
+    open(my $fh, $data_file) or die "Error, cannot open file: $data_file";
+    my $header = <$fh>;
+    chomp $header;
+    my @levels = split(/\t/, $header);
+    pop @levels; # count value
+
+    my @row_values;
+    my @column_data;
+    my $other_counts = 0;
+    my $counter = 0;
+    while (<$fh>) {
+        $counter++;
+        chomp;
+        my @x = split(/\t/);
+        my $count = pop @x;
+
+        if ($counter < $NUM_TOP_CATS) {
+            for(my $i = 0; $i <= $#x; $i++) {
+                push (@{$column_data[$i]}, $x[$i]);
+            }
+            push (@row_values, $count);
+        }
+        else {
+            $other_counts += $count;
+        }
+    }
+    close $fh;
+
+    if ($other_counts) {
+        # build other counts entry:
+        my @columns = @column_data;
+        my $first_col = shift @columns;
+        push (@$first_col, "Other");
+        foreach my $other_col (@columns) {
+            push (@$other_col, "NA");
+        }
+        push (@row_values, $other_counts);
+    }
+
+
+    # convert column data to hash:
+    my %column_data_hash;
+    for (my $i = 0; $i <= $#levels; $i++) {
+
+        my $level = $levels[$i];
+        my $col_data_aref = $column_data[$i];
+        $column_data_hash{$level} = $col_data_aref;
+    }
+    
+    my $taxonomy_sunburst = new CanvasXpress::Sunburst("taxonomy_sunburst");
+    $plot_loader->add_plot($taxonomy_sunburst);
+
+    my %inputs = (title =>  "Taxonomic representation of gene-level top blastx matches",
+                  
+                  column_names => [@levels],
+
+                  column_contents => \%column_data_hash,
+
+                  row_values => [@row_values]);
+
+    print $taxonomy_sunburst->draw(%inputs);
+    
+    
+}
+
+
+
+####
+sub generate_top_species_report_html{
+    my ($data_file) = @_;
+
+    my $MIN_PCT = 2;
+
+    my @vals;
+    open(my $fh, $data_file) or die "Error, cannot open file: $data_file";
+    my $header = <$fh>;
+    my $total_count = 0;
+    while (<$fh>) {
+        chomp;
+        my ($species, $count) = split(/\t/);
+        push (@vals, [$species, $count]);
+        $total_count += $count;
+    }
+    close $fh;
+
+    my @pie_slices;
+    my $other_counts = 0;
+    foreach my $val_pair (@vals) {
+        my ($species, $count) = @$val_pair;
+        my $pct = $count / $total_count * 100;
+        if ($pct >= $MIN_PCT) {
+            push (@pie_slices, $val_pair);
+        }
+        else {
+            $other_counts += $count;
+        }
+    }
+    
+    if ($other_counts) {
+        push (@pie_slices, ["other", $other_counts]);
+    }
+    
+    my $piechart = new CanvasXpress::Piechart("top_species_piechart");
+    
+    $plot_loader->add_plot($piechart);
+    
+    my %inputs = (pie_name => "Top species represented",
+                  pie_slices => [@pie_slices]);
+    
+    print $piechart->draw(%inputs);
+        
+}

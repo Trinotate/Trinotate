@@ -95,11 +95,12 @@ sub draw {
         . "\"showTransition\": true,\n"
         . "\"smpLabelFontSize\": 24,\n"
         . "\"subtitleFontSize\": 26,\n"
+        . "\"title\": \"$inputs{pie_name}\",\n"
         . "\"titleFontSize\": 28,\n"
         . "\"xAxis\": [\n"
         . "\"Sample1\"\n"
         . "],\n"
-        . "\"xAxisTitle\": \"Sample1\"\n"
+        . "\"xAxisTitle\": \"\"\n"
         . "});\n";
         
     $html .= "}\n\n";  # end of main js function 
