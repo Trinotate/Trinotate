@@ -181,9 +181,6 @@ main: {
           $header =~ /^(\S+)/ or die "Error, cannot extract accession from $header";
           my $prot_id = $1;
           
-          $header =~ /len:(\d+)/ or die "Error, cannot extract pep length from $header";
-          my $len = $1;
-          
           $header =~ /\s+(\S+):(\d+)-(\d+)\(([\+\-])\)/ or die "Error, cannot extract orf coordinates from transcript $header";
           my $transcript_id = $1;
           my $lend = $2;
