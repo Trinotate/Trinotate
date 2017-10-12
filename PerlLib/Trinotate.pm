@@ -152,6 +152,28 @@ sub get_custom_blast_database_names {
     return(@custom_dbs);
 }
 
+####
+sub count_protein_blastp_entries {
+    my ($dbproc, $db_name) = @_;
+
+    my $query = "select count(*) from ORF o, BlastDbase d where o.orf_id = d.TrinityID and d.DatabaseSource = ?";
+    my $count = &very_first_result_sql($dbproc, $query, $db_name);
+
+    return($count);    
+}
+
+
+####
+sub count_transcript_blastx_entries {
+    my ($dbproc, $db_name) = @_;
+
+    my $query = "select count(*) from Transcript t, BlastDbase d where t.transcript_id = d.TrinityID and d.DatabaseSource = ?";
+    my $count = &very_first_result_sql($dbproc, $query, $db_name);
+
+    return($count);
+}
+
+
 
 ####
 sub get_blast_results {

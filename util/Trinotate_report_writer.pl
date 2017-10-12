@@ -94,10 +94,14 @@ main: {
     my @custom_blastx_names;
     my @custom_blastp_names;
     foreach my $custom_db_name (@custom_db_names) {
-        push (@custom_blastx_names, "${custom_db_name}_BLASTX");
-        push (@custom_blastp_names, "${custom_db_name}_BLASTP");
+        if (&Trinotate::count_transcript_blastx_entries($dbproc, $custom_db_name)) {
+            push (@custom_blastx_names, "${custom_db_name}_BLASTX");
+        }
+        if (&Trinotate::count_protein_blastp_entries($dbproc, $custom_db_name)) {
+            push (@custom_blastp_names, "${custom_db_name}_BLASTP");
+        }
     }
-
+    
     my @header = ("#gene_id", "transcript_id", "sprot_Top_BLASTX_hit", "RNAMMER",
                   "prot_id", "prot_coords", "sprot_Top_BLASTP_hit");
 
