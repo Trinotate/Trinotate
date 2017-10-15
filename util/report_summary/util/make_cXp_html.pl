@@ -27,8 +27,8 @@ main: {
     print $cgi->start_html(-title => "Trinotate Report: $report_prefix",
                            -onLoad => "load_plots();");
 
-
-
+    print " <link rel=\"stylesheet\" href=\"http://canvasxpress.org/css/canvasXpress.css\" type=\"text/css\"/>\n";
+    
     ## taxonomy report
     &generate_taxonomy_report_html("$report_prefix.taxonomy_counts");
 
