@@ -14,11 +14,13 @@ use Data::Dumper;
 use Cwd;
 use HTML::Template;
 
-
 # custom modules
 use lib ("$FindBin::RealBin/../../PerlLib", "$FindBin::RealBin/PerlLib");
 use Sqlite_connect;
 use TextCache;
+use CanvasXpress::Sunburst;
+
+
 
 main: {
     
@@ -63,7 +65,10 @@ main: {
     
     my $dashboard_footer_template = HTML::Template->new(filename => 'html/dashboard-footer.tmpl');
     print $dashboard_footer_template->output;
+
+
     
+    # update the heatmap url link
     my $footer_template = HTML::Template->new(filename => 'html/footer.tmpl');
 
     my $JS = "
@@ -101,6 +106,8 @@ sub TrinotateWebMain {
     
     my $dbproc = DBI->connect( "dbi:SQLite:$sqlite_db" ) || die "Cannot connect: $DBI::errstr";
         
+
+    ## Load up the panels tied to the selector tabs:
     
     overview_panel_text($dbproc, $sqlite_db);
     
@@ -110,6 +117,7 @@ sub TrinotateWebMain {
     
     DE_panel_text($dbproc, $sqlite_db);
 
+    TaxonomyBestHit_text($dbproc, $sqlite_db);
     
     return;
 }
@@ -162,6 +170,21 @@ sub gene_search_panel {
     my ($dbproc, $sqlite_db) = @_;
     
     my $template = HTML::Template->new(filename => 'html/gene_search.tmpl');
+    print $template->output;
+}
+
+
+####
+sub TaxonomyBestHit_text {
+    my ($dbproc, $sqlite_db) = @_;
+    
+    my $template = HTML::Template->new(filename => 'html/taxonomy_best_hit.tmpl');
+
+
+    my $taxonomy_html = &_get_taxonomy_info($dbproc, $sqlite_db);
+    
+    $template->param(TAXONOMY_HTML => $taxonomy_html);
+    
     print $template->output;
 }
 
@@ -222,4 +245,104 @@ sub multi_sample_cluster_text {
     
     
     return $cluster_html;
+}
+
+
+
+
+####
+sub _get_taxonomy_info {
+    my ($dbproc, $sqlite_db) = @_;
+
+    my $query = "select t.TaxonomyValue, count(*) as count from TaxonomyIndex t, UniprotIndex u where u.AttributeType = 'T' and u.LinkID =  t.NCBITaxonomyAccession group by t.TaxonomyValue order by count desc limit 1000";
+    
+    my %taxonomy_counter;
+    my %species_counter;
+
+    my $TOP_TAX_LEVEL = 6;
+    
+    my @results = &do_sql_2D($dbproc, $query);
+    foreach my $result (@results) {
+        my ($taxonomy, $count) = @$result;
+        
+        my @tax_levels = split(/;\s*/, $taxonomy);
+        my $species = pop @tax_levels;
+        my @top_tax_levels = @tax_levels[0..($TOP_TAX_LEVEL-1)];
+        for my $level (@top_tax_levels) {
+            if (! defined $level) {
+                $level = "NA";
+            }
+        }
+        
+        my $top_tax_level = join("\t", @top_tax_levels);
+        #print STDERR "$top_tax_level -> $species\n" if $DEBUG;
+        $taxonomy_counter{$top_tax_level} += $count;
+        $species_counter{$species} = $count;
+        
+    }
+
+    ###################################
+    ## reorganize the data for plotting
+        
+    my $NUM_TOP_CATS = 50;
+    
+    my @levels;
+    for (my $i = 1; $i <= $TOP_TAX_LEVEL; $i++) {
+        push (@levels, "L$i");
+    }
+
+    my @row_values;
+    my @column_data;
+    my $other_counts = 0;
+    my $counter = 0;
+    foreach my $taxonomy (reverse sort {$taxonomy_counter{$a}<=>$taxonomy_counter{$b}} keys %taxonomy_counter) {
+        $counter++;
+                
+        my $count = $taxonomy_counter{$taxonomy};
+        my @x = split("\t", $taxonomy);
+        if ($counter < $NUM_TOP_CATS) {
+            for(my $i = 0; $i <= $#x; $i++) {
+                push (@{$column_data[$i]}, $x[$i]);
+            }
+            push (@row_values, $count);
+        }
+        else {
+            $other_counts += $count;
+        }
+    }
+
+
+    if ($other_counts) {
+        # build other counts entry:
+        my @columns = @column_data;
+        my $first_col = shift @columns;
+        push (@$first_col, "Other");
+        foreach my $other_col (@columns) {
+            push (@$other_col, "NA");
+        }
+        push (@row_values, $other_counts);
+    }
+
+    # convert column data to hash:
+    my %column_data_hash;
+    for (my $i = 0; $i <= $#levels; $i++) {
+
+        my $level = $levels[$i];
+        my $col_data_aref = $column_data[$i];
+        $column_data_hash{$level} = $col_data_aref;
+    }
+
+    my $taxonomy_sunburst = new CanvasXpress::Sunburst("taxonomy_sunburst");
+    $plot_loader->add_plot($taxonomy_sunburst);
+
+    my %inputs = (title =>  "Taxonomic representation of gene-level top blastx matches",
+
+                  column_names => [@levels],
+
+                  column_contents => \%column_data_hash,
+
+                  row_values => [@row_values]);
+
+
+    return($taxonomy_sunburst->draw(%inputs));
 }
