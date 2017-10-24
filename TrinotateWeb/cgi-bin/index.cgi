@@ -19,7 +19,7 @@ use lib ("$FindBin::RealBin/../../PerlLib", "$FindBin::RealBin/PerlLib");
 use Sqlite_connect;
 use TextCache;
 use CanvasXpress::Sunburst;
-
+use CanvasXpress::PlotOnLoader;
 
 
 main: {
@@ -179,11 +179,12 @@ sub TaxonomyBestHit_text {
     my ($dbproc, $sqlite_db) = @_;
     
     my $template = HTML::Template->new(filename => 'html/taxonomy_best_hit.tmpl');
-
-
-    my $taxonomy_html = &_get_taxonomy_info($dbproc, $sqlite_db);
+        
+    #my $taxonomy_html = &_get_taxonomy_info($dbproc, $sqlite_db);
     
-    $template->param(TAXONOMY_HTML => $taxonomy_html);
+    #$template->param(TAXONOMY_HTML => $taxonomy_html);
+
+    $template->param(TAXONOMY_HTML => "under construction");
     
     print $template->output;
 }
@@ -333,8 +334,9 @@ sub _get_taxonomy_info {
     }
 
     my $taxonomy_sunburst = new CanvasXpress::Sunburst("taxonomy_sunburst");
+    my $plot_loader = new CanvasXpress::PlotOnLoader("taxonomy_$$");
     $plot_loader->add_plot($taxonomy_sunburst);
-
+    
     my %inputs = (title =>  "Taxonomic representation of gene-level top blastx matches",
 
                   column_names => [@levels],
@@ -344,5 +346,10 @@ sub _get_taxonomy_info {
                   row_values => [@row_values]);
 
 
-    return($taxonomy_sunburst->draw(%inputs));
+    my $taxonomy_html = $taxonomy_sunburst->draw(%inputs);
+
+    $taxonomy_html .= $plot_loader->write_plot_loader();
+    
+    return($taxonomy_html);
+    
 }
