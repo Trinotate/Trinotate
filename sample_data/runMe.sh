@@ -158,6 +158,11 @@ echo "#########################################"
 ../util/annotation_importer/import_transcript_names.pl ${sqlite_db} Trinotate_report.xls
 
 
+
+# Generate trinotate report summary statistics
+../util/report_summary/trinotate_report_summary.pl Trinotate_report.xls Trinotate_report_stats
+
+
 echo "##########################"
 echo done.  See annotation summary file:  Trinotate_report.xls
 echo "##########################"
