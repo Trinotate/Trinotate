@@ -13,7 +13,7 @@ my $usage = "\n\n\tusage: $0 Trinotate_report.tsv output_prefix\n\n";
 my $trinotate_report_file = $ARGV[0] or die $usage;
 my $out_prefix = $ARGV[1] or die $usage;
 
-my $DEBUG = 1;
+my $DEBUG = 0;
 my $TOP_TAX_LEVEL = 6;
 
 

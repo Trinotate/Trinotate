@@ -191,8 +191,8 @@ sub generate_gene_ontology_view {
         my ($go_class, $go_id, $go_term, $count, $go_descr) = @x;
 
 
-        if ($go_term =~ /^(biological process|cellular component|molecular function)$/) { next; } # skip highest-level 
-
+        if ($go_term =~ /^(biological_process|cellular_component|molecular_function)$/) { next; } # skip highest-level 
+        
         
         $go_id =~ s/:/_/g;
         
