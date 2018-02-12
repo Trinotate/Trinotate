@@ -356,12 +356,13 @@ sub get_blast_results {
             $total_size += length($ret_val) + 1;
 
             if ($total_size < 32767) {
-                push (@encoded_hits, $ret_val) if $total_size < 32767;
+                push (@encoded_hits, $ret_val);
             } else {
-                warn "String for ID $id is too long, truncating"
+                warn "String for ID $id is too long, truncating number of blast hits being reported here.\n";
+                last;
             }
         }
-
+        
         return(join ("`", @encoded_hits));
     }
     else {
