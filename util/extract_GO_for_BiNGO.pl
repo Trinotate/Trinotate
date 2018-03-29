@@ -148,7 +148,7 @@ main: {
                             print $annot_ofh "$feature_id\t=$go_id\n";
                             
                             if (! $seen{$go_id}) {
-                                print $ontol_ofh join("\t", $go_id, $name) . "\n";
+                                print $ontol_ofh join("\t", $go_id, "=$name") . "\n";
                                 $seen{$go_id} = 1;
                             }
                         }
