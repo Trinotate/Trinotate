@@ -97,10 +97,16 @@ main: {
         if (exists $feature_data_href->{TmHMM}) {
             my @tmhmm_info = keys %{$feature_data_href->{TmHMM}};
             my $info = shift @tmhmm_info;
-            $info =~ /PredHel=(\d+)/ or die "Error, cannot parse tmhmm info from $info";
-            push (@tokens, "Tm$1");
+            # $info =~ /PredHel=(\d+)/ or die "Error, cannot parse tmhmm info from $info";
+            my $count = 0;
+            while ($info =~ /\d-\d/g) {
+                $count++;
+            }
+            if ($count) {
+                push (@tokens, "Tm$count");
+            }
         }
-
+        
         ## generate token:
         
         my $new_feature_id = join("^", $feature_id, @tokens);
