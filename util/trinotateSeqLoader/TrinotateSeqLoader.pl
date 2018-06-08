@@ -77,7 +77,7 @@ main: {
     my %trans_to_gene_map;
     {
         print STDERR "-parsing gene/trans map file....";
-        open (my $fh, $gene_trans_map_file) or die $!;
+        open (my $fh, $gene_trans_map_file) or die "Error, cannot locate file: $gene_trans_map_file";
         while (<$fh>) {
             chomp;
             my ($gene, $trans) = split(/\t/);
