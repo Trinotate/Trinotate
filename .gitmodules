@@ -1,3 +1,6 @@
 [submodule "Trinotate.github.io"]
 	path = Trinotate.github.io
 	url = https://github.com/Trinotate/Trinotate.github.io.git
+[submodule "Trinotate.github.io.wiki"]
+	path = Trinotate.github.io.wiki
+	url = https://github.com/Trinotate/Trinotate.github.io.wiki.git
