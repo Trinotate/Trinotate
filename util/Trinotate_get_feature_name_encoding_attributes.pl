@@ -108,11 +108,13 @@ main: {
         }
         
         ## generate token:
-        
-        my $new_feature_id = join("^", $feature_id, @tokens);
 
-        print join("\t", $feature_id, $new_feature_id) . "\n";
-        
+        if (@tokens) {
+            my $new_feature_id = join("^", $feature_id, @tokens);
+            
+            print join("\t", $feature_id, $new_feature_id) . "\n";
+            
+        }
     }
     
 
