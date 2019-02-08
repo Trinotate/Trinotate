@@ -1,4 +1,21 @@
 
+## Trinotate v3.1.0
+-includes Trinotate report summary statistics and web report.
+-custom search results are only reported for blastp or blastx (not assuming both were performed).
+
+
+
+## Trinotate v3.0.2 Release (Mar 3, 2017)
+minor patch release, no change in functionality.
+developer notes:
+removed ' set -eou pipefail ' for now.
+included pull req: changes $FindBin::Bin to $FindBin::RealBin to deal w/ resolving symlinks
+
+
+## Trinotate v3.0.1 Release (Apr 12, 2016)
+Includes updates to the report table output formatter to better ensure column alignment w/ results, and removing any tab or newline chars in annotations that would go into the tab-delimited fields and cause offsets.
+
+
 ## Trinotate v3.0.0 Release (2016-03-09)
 
 -updated resources based on currently available data (swissprot,  pfam, go, etc.)
