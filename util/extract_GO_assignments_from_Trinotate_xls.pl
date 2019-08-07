@@ -9,6 +9,7 @@ use Getopt::Long qw(:config no_ignore_case bundling pass_through);
 use FindBin;
 use lib ("$FindBin::RealBin/../PerlLib");
 use GO_DAG;
+use DelimParser;
 
 my $usage = <<__EOUSAGE__;
 
@@ -49,9 +50,15 @@ my $include_ancestral_terms;
               );
 
 
+if ($help_flag) {
+    die $usage;
+}
+
+
 unless ($trinotate_xls && ($gene_mode xor $trans_mode)) {
     die $usage;
 }
+
 
 if (@ARGV) {
     die "Error, unable to parse options: @ARGV ";
@@ -74,23 +81,16 @@ main: {
     
 
     open (my $fh, $trinotate_xls) or die $!;
-    my $header = <$fh>;
-    chomp $header;
-    my $go_blast_col = -1;
-    my $go_pfam_col = -1;
-    my @fields = split(/\t/, $header);
-    my $col = -1;
-    foreach my $field (@fields) {
-        $col++;
-        if ($field eq 'gene_ontology_blast') {
-            $go_blast_col = $col;
-        }
-        elsif ($field eq 'gene_ontology_pfam') {
-            $go_pfam_col = $col;
-        }
+    my $delim_reader = new DelimParser::Reader($fh, "\t");
+    my @column_headers = $delim_reader->get_column_headers();
+
+
+    my @go_columns = grep { /gene_ontology/ } @column_headers;
+    unless (@go_columns) {
+        die "Error, couldn't determine column headers for GO assignments.";
     }
-    unless ($go_blast_col > 0) {
-        die "Error, couldn't determine column in report that corresponds to 'gene_ontology_blast' header is: $header ";
+    else {
+        print STDERR "-leveraging columns for GO: [" . join(", ", @go_columns) . "]\n";
     }
     
     my %data;
@@ -104,23 +104,24 @@ main: {
     
     my $line_counter = 0;
 
-    while (<$fh>) {
+    while (my $row = $delim_reader->get_row() ) {
         $line_counter++;
 
         my $pct_done = sprintf("%.2f", $line_counter/$num_lines*100);
         print STDERR "\r[$pct_done] processed.      " if $line_counter % 1000 == 0;
         
-        chomp;
-        my @x = split(/\t/);
+        my $feature_id = ($gene_or_trans eq 'gene') ?
+            $delim_reader->get_row_val($row, "#gene_id") : $delim_reader->get_row_val($row, "transcript_id");
         
-        my $feature_id = ($gene_or_trans eq 'gene') ? $x[0] : $x[1];
-        
-        my $go_info = $x[$go_blast_col];
-        if ($go_pfam_col > 0) {
-            $go_info .=  '`' . $x[$go_pfam_col];
+        my @go_records;
+        foreach my $go_column (@go_columns) {
+            my $go_info = $delim_reader->get_row_val($row, $go_column);
+            if ($go_info ne ".") {
+                my @records =  split(/\`/, $go_info);
+                push (@go_records, @records);
+            }
         }
-        my @go_records = split(/\`/, $go_info);
-        
+                
         foreach my $go_record (@go_records) {
             my @go_fields = split(/\^/, $go_record);
             my $go_id = shift @go_fields;

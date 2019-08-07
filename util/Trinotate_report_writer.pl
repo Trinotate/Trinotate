@@ -111,7 +111,8 @@ main: {
 
 
     push (@header, "Pfam", "SignalP", "TmHMM",
-          "eggnog", "Kegg", "gene_ontology_blast", "gene_ontology_pfam",
+          "eggnog", "Kegg",
+          "gene_ontology_BLASTX", "gene_ontology_BLASTP", "gene_ontology_Pfam",
           "transcript", "peptide");
 
     my $tab_writer = new DelimParser::Writer(*STDOUT, "\t", \@header);
@@ -142,80 +143,87 @@ main: {
         my $trans_seq = ($include_trans) ? &get_transcript($dbproc, $trans_id) : ".";
         $fields{transcript} = $trans_seq;
 
+
+
+        
+        $fields{'sprot_Top_BLASTP_hit'} = '.';
+        foreach my $custom_db_name (@custom_db_names) {
+            $fields{"${custom_db_name}_BLASTP"} = '.';
+        }
+        $fields{Pfam} = '.';
+        $fields{gene_ontology_Pfam} = '.';
+        $fields{SignalP} = '.';
+        $fields{TmHMM} = '.';
+        
+        my $eggnog = &get_eggnog_info_from_blast_hit($dbproc, $BLASTX_info_sprot);
+        $fields{eggnog} = $eggnog;
+        
+        my $kegg_info = &get_kegg_info_from_blast_hit($dbproc, $BLASTX_info_sprot);
+        $fields{Kegg} = $kegg_info;
+        
+        my $gene_ontology_blast = &get_gene_ontology_from_blast_hit($dbproc, $BLASTX_info_sprot);
+        $fields{gene_ontology_BLASTX} = $gene_ontology_blast;
+        
+        $fields{peptide} = '.';
+        $fields{prot_id} = '.';
+        $fields{prot_coords} = '.';
+        $fields{gene_ontology_BLASTP} = ".";
+        
         if (@orf_results) {
             foreach my $orf_result (@orf_results) {
                 my ($prot_id, $strand, $lend, $rend) = @$orf_result;
 
+                my %prot_fields = %fields;
 
                 my $BLASTP_info_sprot = &get_blast_results($dbproc, $prot_id, "blastp", "Swissprot");
-                $fields{'sprot_Top_BLASTP_hit'} = $BLASTP_info_sprot;
-
-
+                $prot_fields{'sprot_Top_BLASTP_hit'} = $BLASTP_info_sprot;
+                
                 my @custom_blastp_results;
                 foreach my $custom_db_name (@custom_db_names) {
                     my $blastp_info = &get_blast_results($dbproc, $prot_id, "blastp", $custom_db_name);
-                    $fields{"${custom_db_name}_BLASTP"} = $blastp_info;
+                    $prot_fields{"${custom_db_name}_BLASTP"} = $blastp_info;
                 }
-
-
+                
                 my $pfam_info = &get_pfam_info($dbproc, $prot_id);
-                $fields{Pfam} = $pfam_info;
+                $prot_fields{Pfam} = $pfam_info;
 
                 my $gene_ontology_pfam = &get_gene_ontology_from_pfam_hit($dbproc, $pfam_info);
-                $fields{gene_ontology_pfam} = $gene_ontology_pfam;
-
+                $prot_fields{gene_ontology_Pfam} = $gene_ontology_pfam;
+                
                 my $signalP_info = &get_signalP_info($dbproc, $prot_id);
-                $fields{SignalP} = $signalP_info;
+                $prot_fields{SignalP} = $signalP_info;
 
                 my $TmHMM_info = &get_TmHMM_info($dbproc, $prot_id);
-                $fields{TmHMM} = $TmHMM_info;
+                $prot_fields{TmHMM} = $TmHMM_info;
 
+                ## note, eggnog and kegg get overwritten by blastp info if present.
+                
                 my $eggnog = &get_eggnog_info_from_blast_hit($dbproc, $BLASTP_info_sprot);
-                $fields{eggnog} = $eggnog;
-
+                if ($eggnog ne ".") {
+                    $prot_fields{eggnog} = $eggnog;
+                }
+                
                 my $kegg_info = &get_kegg_info_from_blast_hit($dbproc, $BLASTP_info_sprot);
-                $fields{Kegg} = $kegg_info;
-
+                if ($kegg_info ne ".") {
+                    $prot_fields{Kegg} = $kegg_info;
+                }
+                
                 my $gene_ontology_blast = &get_gene_ontology_from_blast_hit($dbproc, $BLASTP_info_sprot);
-                $fields{gene_ontology_blast} = $gene_ontology_blast;
+                $prot_fields{gene_ontology_BLASTP} = $gene_ontology_blast;
 
                 my $peptide = ($include_pep) ? &get_peptide($dbproc, $prot_id) : ".";
-                $fields{peptide} = $peptide;
+                $prot_fields{peptide} = $peptide;
 
-                $fields{prot_id} = $prot_id;
-                $fields{prot_coords} = "$lend-$rend\[$strand]";
+                $prot_fields{prot_id} = $prot_id;
+                $prot_fields{prot_coords} = "$lend-$rend\[$strand]";
 
-                $tab_writer->write_row(\%fields);
+                $tab_writer->write_row(\%prot_fields);
 
             }
         }
         else {
-            # no ORF
-
-            $fields{'sprot_Top_BLASTP_hit'} = '.';
-            foreach my $custom_db_name (@custom_db_names) {
-                $fields{"${custom_db_name}_BLASTP"} = '.';
-            }
-            $fields{Pfam} = '.';
-            $fields{gene_ontology_pfam} = '.';
-            $fields{SignalP} = '.';
-            $fields{TmHMM} = '.';
-
-            my $eggnog = &get_eggnog_info_from_blast_hit($dbproc, $BLASTX_info_sprot);
-            $fields{eggnog} = $eggnog;
-
-            my $kegg_info = &get_kegg_info_from_blast_hit($dbproc, $BLASTX_info_sprot);
-            $fields{Kegg} = $kegg_info;
-
-            my $gene_ontology_blast = &get_gene_ontology_from_blast_hit($dbproc, $BLASTX_info_sprot);
-            $fields{gene_ontology_blast} = $gene_ontology_blast;
-
-            $fields{peptide} = '.';
-            $fields{prot_id} = '.';
-            $fields{prot_coords} = '.';
-
+            # no orf, just transcript record.
             $tab_writer->write_row(\%fields);
-
         }
     }
 
