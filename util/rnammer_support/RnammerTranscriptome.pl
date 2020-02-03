@@ -59,12 +59,30 @@ main: {
     $cmd = "perl $path_to_rnammer -S $org_type -m tsu,lsu,ssu -gff tmp.superscaff.rnammer.gff < transcriptSuperScaffold.fasta";
     &process_cmd($cmd);
     
-    ## Convert back to transcript features from the super scaffold features
-    my $output_file = basename($transcriptome_fasta) . ".rnammer.gff";
-    $cmd = "$FindBin::RealBin/util/rnammer_supperscaffold_gff_to_indiv_transcripts.pl -R tmp.superscaff.rnammer.gff -T transcriptSuperScaffold.bed > $output_file";
-    &process_cmd($cmd);
 
-    print "\n\nDone.  See output file: $output_file\n\n";
+    # Check if rnammer  made any prediction
+    open(FH,"tmp.superscaff.rnammer.gff"); my @lines=<FH>; close(FH); my $number_of_lines= scalar @lines;
+
+   # There are only 7 lines in an empty tmp.superscaff.rnammer.gff file
+    if( $number_of_lines > 7 ){
+        ## Convert back to transcript features from the super scaffold features
+        my $output_file = basename($transcriptome_fasta) . ".rnammer.gff";
+        $cmd = "rnammer_supperscaffold_gff_to_indiv_transcripts.pl -R tmp.superscaff.rnammer.gff -T transcriptSuperScaffold.bed > $output_file";
+        &process_cmd($cmd);
+
+        print "\n\nDone.  See output file: $output_file\n\n";
+
+    }else{
+
+        ## Handle empty case
+        my $output_file = basename($transcriptome_fasta) . ".rnammer.gff";
+
+        $cmd = "touch $output_file";
+        &process_cmd($cmd);
+
+        print "\n\nDone. rRNA was not detected,  $output_file  is empty \n\n";
+
+        }
 
     exit(0);
 }
