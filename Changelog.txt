@@ -1,5 +1,13 @@
+## Trinotate Release v3.2.1 (Apr 9, 2020)
+-updated eggnog url to a fixed resource as per PR
 
-## Trinotate v3.1.0
+
+## Trinotate Release v3.2.0 (Aug 7, 2019)
+-separate columns are now output for gene ontology based on blastx or blastp results.
+-misc. minor bugfixes
+
+
+## Trinotate v3.1.0 (Oct 24, 2017)
 -includes Trinotate report summary statistics and web report.
 -custom search results are only reported for blastp or blastx (not assuming both were performed).
 
