@@ -44,7 +44,10 @@ my $port_no = $ARGV[0] or die $usage;
          $template =~ s/__PORT_NO__/$port_no/ or die "Error, could not replace __PORT_NO__ in $conf_file_template";
 
          $template =~ s/__PERL_PATH__/$perl_path/g or die "Error, could not replace __PERL_PATH__ in $conf_file_template with $perl_path";
-         
+
+         my $perl5lib = $ENV{PERL5LIB} || "";
+         $template =~ s/__PERL5LIB__/$perl5lib/;
+                  
          open (my $ofh, ">$conf_file") or die "Error, cannot write to $conf_file";
          print $ofh $template;
          close $ofh;
