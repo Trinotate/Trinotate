@@ -38,11 +38,11 @@ sub get_signalP_info {
     my $result = &first_result_sql($dbproc, $query, $prot_id);
     if ($result) {
         
-        my ($start, $end, $score, $prediction) = @$result;
+        my ($start, $end, $score) = @$result;
         my $struct = { start => $start,
                        end => $end,
                        score => $score,
-                       prediction => $prediction,
+                       
         };
 
         return($struct);
