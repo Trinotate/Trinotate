@@ -284,7 +284,7 @@ sub get_signalP_info {
                                        $sigP_struct->{start},
                                        $sigP_struct->{end},
                                        $sigP_struct->{score},
-                                       $sigP_struct->{prediction},
+                                       
             );
 
         return($sigP_line);
