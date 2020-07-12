@@ -243,7 +243,7 @@ sub draw {
             push (@event_responses, $js);
         }
         if (my $mouseover_js = $events_href->{mousemove}) {
-            my $js = "mousemove: function(o) { $mouseover_js }";
+            my $js = "mousemove: function(o, e, t) { $mouseover_js }";
             push (@event_responses, $js);
         }
 
