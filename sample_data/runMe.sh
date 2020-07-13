@@ -9,12 +9,12 @@ do
   fi
 done
 
-if [ ! -d edgeR_trans ]; then
-    tar xvf data/edgeR_trans.tar
+if [ ! -d DESeq2_trans ]; then
+    tar xvf data/DESeq2_trans.tar
 fi
 
-if [ ! -d edgeR_genes ]; then
-    tar xvf data/edgeR_genes.tar
+if [ ! -d DESeq2_gene ]; then
+    tar xvf data/DESeq2_gene.tar
 fi
 
 BOILERPLATE="Trinotate.boilerplate.sqlite"
@@ -113,7 +113,7 @@ echo "###################################################"
 # DE results load for genes
 ../util/transcript_expression/import_expression_and_DE_results.pl --sqlite ${sqlite_db} --gene_mode \
         --samples_file data/samples.txt \
-        --DE_dir edgeR_genes
+        --DE_dir DESeq2_gene
 
 
 echo "##################################################"
@@ -129,7 +129,7 @@ echo "##################################################"
 # DE results load for transcripts
 ../util/transcript_expression/import_expression_and_DE_results.pl --sqlite ${sqlite_db} --transcript_mode \
         --samples_file data/samples.txt \
-        --DE_dir edgeR_trans
+        --DE_dir DESeq2_trans
 
 
 echo "######################################################"
@@ -138,7 +138,7 @@ echo "######################################################"
 
 
 # import the transcription profile cluster stuff
-../util/transcript_expression/import_transcript_clusters.pl --group_name DE_all_vs_all --analysis_name diffExpr.P0.1_C1.matrix.RData.clusters_fixed_P_60 --sqlite ${sqlite_db} edgeR_trans/diffExpr.P0.1_C1.matrix.RData.clusters_fixed_P_60/*matrix
+../util/transcript_expression/import_transcript_clusters.pl --group_name DE_all_vs_all --analysis_name diffExpr.P0.1_C1.matrix.RData.clusters_fixed_P_60 --sqlite ${sqlite_db} DESeq2_trans/diffExpr.P1e-3_C2.matrix.RData.clusters_fixed_P_60/*matrix
 
 
 echo "###########################"

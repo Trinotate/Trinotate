@@ -280,15 +280,15 @@ sub write_MA_plot {
     
     
     my %plot_inputs = ( replicate_names => ['log_avg_expr', 'log_fold_change'],
-                        value_matrix => \@value_matrix,
-                        comparisons => [ ['log_avg_expr', 'log_fold_change'] ],
-                        
-                        feature_annotations => {
-                            annotation => \@annots,
-                            significant => \@stat_signif,
-                        },
+		value_matrix => \@value_matrix,
+		comparisons => [ ['log_avg_expr', 'log_fold_change'] ],
+		
+		feature_annotations => {
+			annotation => \@annots,
+			significant => \@stat_signif,
+		},
 
-                        colorBy => 'significant',
+        colorBy => 'significant',
                         
                             #events => {
 
@@ -308,23 +308,23 @@ sub write_MA_plot {
                         
                         
 
-                        events =>  { 'dblclick' => "var gene = o['y']['vars'][0];\n"
-                                         #. "document.location.href=\'feature_report.cgi?feature_name=\' + gene"
-                                         #. " + \'&sqlite=$sqlite_db\';\n",
-                                         
-                                         #. "window.open(\'feature_report.cgi?feature_name=\' + gene + \'&sqlite=$sqlite_db\');\n", 
-                                         
-                                         . "var win = window.open(\'feature_report.cgi?feature_name=\' + gene"
-                                         . " + \'&sqlite=$sqlite_db\');\n"
-                                         . "win.focus();\n"
-                                         ,
-                                         
-
-                        },
-                        
-                        
-                        
-        );
+		events =>  { 'dblclick' => "var gene = o['y']['vars'][0];\n"
+			 #. "document.location.href=\'feature_report.cgi?feature_name=\' + gene"
+			 #. " + \'&sqlite=$sqlite_db\';\n",
+			 
+			 #. "window.open(\'feature_report.cgi?feature_name=\' + gene + \'&sqlite=$sqlite_db\');\n", 
+			 
+			 . "var win = window.open(\'feature_report.cgi?feature_name=\' + gene"
+			 . " + \'&sqlite=$sqlite_db\');\n"
+			 . "win.focus();\n"
+			 ,
+			'mousemove' =>  "t.showInfoSpan(e, "
+			. "o['y']['vars'][0] + '</br>'"
+			. "+ o['y']['smps'][0] + ':&nbsp;' + o['y']['data'][0][0] + '</br>'"
+			. "+ o['y']['smps'][1] + ':&nbsp;' + o['y']['data'][0][1] + '</br>'"
+			. "+ 'annotation :&nbsp;' + o['z']['annotation'][0] + '</br>');\n",
+        },
+    );
     
     my $plot_obj = new CanvasXpress::Scatter2D("ma_plot_$$");
 
@@ -372,24 +372,28 @@ sub write_Volcano_plot {
     $sqlite_db = uri_escape($sqlite_db);
     
     my %plot_inputs = ( replicate_names => ['log_fold_change', '-1*log10(fdr)'],
-                        value_matrix => \@value_matrix,
-                        comparisons => [ ['log_fold_change', '-1*log10(fdr)'] ],
-    
-                        feature_annotations => {
-                            annotation => \@annots,
-                            significant => \@stat_signif,
-                        },
+			value_matrix => \@value_matrix,
+			comparisons => [ ['log_fold_change', '-1*log10(fdr)'] ],
 
-                        colorBy => 'significant',
+			feature_annotations => {
+				annotation => \@annots,
+				significant => \@stat_signif,
+			},
+
+			colorBy => 'significant',
 
 
-                        
-                        events =>  { 'dblclick' => "var gene = o['y']['vars'][0];\n"
-                                         #. "document.location.href=\'feature_report.cgi?feature_name=\' + gene"
-                                         #. " + \'&sqlite=$sqlite_db\';\n",
-                                         . "window.open(\'feature_report.cgi?feature_name=\' + gene + \'&sqlite=$sqlite_db\');\n", 
-
-                        },
+			
+			events =>  { 'dblclick' => "var gene = o['y']['vars'][0];\n"
+					 #. "document.location.href=\'feature_report.cgi?feature_name=\' + gene"
+					 #. " + \'&sqlite=$sqlite_db\';\n",
+					 . "window.open(\'feature_report.cgi?feature_name=\' + gene + \'&sqlite=$sqlite_db\');\n", 
+				'mousemove' =>  "t.showInfoSpan(e, "
+				. "o['y']['vars'][0] + '</br>'"
+				. "+ o['y']['smps'][0] + ':&nbsp;' + o['y']['data'][0][0] + '</br>'"
+				. "+ o['y']['smps'][1] + ':&nbsp;' + o['y']['data'][0][1] + '</br>'"
+				. "+ 'annotation :&nbsp;' + o['z']['annotation'][0] + '</br>');\n",
+			},
 
         );
     
