@@ -12,13 +12,13 @@ sub new {
     unless ($canvas_id && $canvas_id =~ /\w/) {
         confess "Error, need canvas id as parameter.";
     }
-    
+
 
     my $self = { canvas_id => $canvas_id,
                  function => "make_Heatmap_$canvas_id",
 
     };
-    
+
     bless ($self, $packagename);
 
     return($self);
@@ -36,7 +36,7 @@ sub draw {
     #
     #   %inputs = ( samples => [ 'sampleA', 'sampleB', 'sampleC', ...],
     #               value_matrix => [ ['featureA', valA, valB, valC, ...],
-    #                                 ['featureB', valA, valB, valC, ...],  ... ,                                 
+    #                                 ['featureB', valA, valB, valC, ...],  ... ,
     #                                ],
     #                    ## and optionally:
     #               feature_tree => "", # string containing the newick formatted tree
@@ -47,29 +47,29 @@ sub draw {
     #               dendrogramSpace => undef, # default is 6 apparently
     #             );
     #
-    
+
     my $canvas_id = $self->{canvas_id};
     my $function_name = $self->{function};
-    
 
 
-    my $html = "<!--[if IE]><script type=\"text/javascript\" src=\"canvasXpress-SF/js/excanvas.js\"></script><![endif]-->\n";    
+
+    my $html = "<!--[if IE]><script type=\"text/javascript\" src=\"canvasXpress-SF/js/excanvas.js\"></script><![endif]-->\n";
 
 
     if ($ENV{LOCAL_JS}) {
         $html .= "<script type=\"text/javascript\" src=\"/js/canvasXpress.min.js\"></script>\n";
     }
     else {
-        $html .= "<script type=\"text/javascript\" src=\"http://canvasxpress.org/js/canvasXpress.min.js\"></script>\n";
+        $html .= "<script type=\"text/javascript\" src=\"https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/29.0/canvasXpress.min.js\"></script>\n";
     }
-    
+
     #$html .= "<script type=\"text/javascript\" src=\"/cgi-bin/js/datadumper.js\"></script>\n";
-    
+
     $html .= "<script>\n";
-    
+
     $html .= "    var $function_name = function() {\n";
     $html .= "    var cx = new CanvasXpress(\"$canvas_id\", {\n";
-    
+
 
 #$html .= "          \"x\": {\n";
 #$html .= "          \"Desc\": [\n";
@@ -78,24 +78,24 @@ sub draw {
 #$html .= "               \"Sample-3\"\n";
 #$html .= "           ] },\n";
 
-    
+
     my @smp_overlays;
-    
+
     if (my $sample_annotations_href = $inputs{sample_annotations}) {
 
         $html .= "        \"x\": {\n";
-        
+
         my @sample_annotation_labels = (keys %$sample_annotations_href);
         for (my $j = 0; $j <= $#sample_annotation_labels; $j++) {
             my $sample_annotation_label = $sample_annotation_labels[$j];
-            
+
             push (@smp_overlays, $sample_annotation_label);
-            
+
             $html .= "              \"$sample_annotation_label\": [\n";
 
             my @sample_annots = @{$sample_annotations_href->{$sample_annotation_label}};
             for (my $i = 0; $i <= $#sample_annots; $i++) {
-                
+
                 $html .= "                      \"$sample_annots[$i]\"";
                 if ($i != $#sample_annots) {
                     $html .= ",";
@@ -123,13 +123,13 @@ sub draw {
         push (@gene_ids, $gene_id);
         push (@values, [@data]);
     }
-    
+
 
     $html .= "            \"y\": {\n";
     $html .= "            \"vars\": [ \n";
 
     for (my $i = 0; $i <= $#gene_ids; $i++) {
-        
+
         $html .= "             \"$gene_ids[$i]\"";
         if ($i != $#gene_ids) {
             $html .= ",";
@@ -141,13 +141,13 @@ sub draw {
     my @replicate_names = @{$inputs{replicate_names}};
 
     $html .= "                \"smps\": [\n";
-    
+
     $html .= "            \"" . join("\",\"", @replicate_names) . "\"\n";
     $html .= "                          ],\n";
-    
-    
+
+
     $html .= "            \"data\": [\n";
-    
+
     for (my $i = 0; $i <= $#values; $i++) {
         $html .= "[ " . join(",", @{$values[$i]}) . "]";
         if ($i != $#values) {
@@ -157,7 +157,7 @@ sub draw {
     }
     $html .= "                   ]\n";
     $html .= "      }\n";
-        
+
     if (my $feature_descriptions_aref = $inputs{feature_descriptions}) {
         $html .= "     ,\n";
         $html .= "   \"z\": { \n";
@@ -176,17 +176,17 @@ sub draw {
     };
 
     if (my $feature_tree = $inputs{feature_tree}) {
-    
+
         $html .= "    ,\n";
         ## gene tree
         $html .= "  \"t\" : {\n";
         $html .= "     \"vars\" : \"$feature_tree\"\n";
-        $html .= "    }\n"; 
-        
+        $html .= "    }\n";
+
     }
-    
+
     $html .= " },\n";
-    
+
     $html .= " {\n";
     $html .= "     \"graphType\": \"Heatmap\"\n";
     $html .= "     ,\"zoomSamplesDisable\": true\n";
@@ -199,7 +199,7 @@ sub draw {
     if (@smp_overlays) {
         $html .= ",'smpOverlays': [\'" . join("\',\'", @smp_overlays) . "\']\n";
     }
-    
+
     #$html .= "      ,\"smpLabelDescription\": \"Desc\"\n";
     if ($inputs{feature_descriptions}) {
         $html .= "      ,\"varLabelDescription\": \"Desc\"\n";
@@ -228,14 +228,14 @@ sub draw {
 
     #$html .= "     ,\"setMaxX\" : 5\n";
     #$html .= "     ,\"setMinX\" : 2\n";
-    
+
     if (my $events_href = $inputs{events}) {
         $html .= "},\n{\n";
-                
+
         my @event_responses;
-        
+
         if (my $click_js = $events_href->{click}) {
-            
+
             my $js = "click : function(o) { $click_js }";
             push (@event_responses, $js);
         }
@@ -248,14 +248,14 @@ sub draw {
             my $js = "dblclick: function(o) { $dblclick_js }";
             push (@event_responses, $js);
         }
-        
+
         $html .= join(",\n", @event_responses);
     }
-    
+
 
 
     $html .= " });\n";
-    
+
     if ($inputs{cluster_features} ) {
         $html .= "cx.clusterVariables();\n";
     }
@@ -263,41 +263,41 @@ sub draw {
         $html .= "cx.clusterSamples();\n";
     }
     #$html .= "cx.setDimensions(700, 500);\n"; # width,height
-    
+
     if (exists ($inputs{showSmpDendrogram})) {
         $html .= "cx.showSmpDendrogram = " . (($inputs{showSmpDendrogram}) ? "true" : "false") . ";\n";
     }
     if (exists ($inputs{showVarDendrogram})) {
         $html .= "cx.showVarDendrogram = " . (($inputs{showVarDendrogram}) ? "true" : "false") . ";\n";
     }
-    
+
 
     #$html .= "cx.showVarDendrogram = false;\n";
     #$html .= "cx.showSmpDendrogram = false;\n";
     #$html .= "cx.draw();\n";
 
     $html .= " }\n";
-    
+
     $html .= <<__EOJS__;
-    
+
     </script>
-        
+
       <div>
 
-         <canvas id="$canvas_id" width="800" height="500"></canvas> 
-        
+         <canvas id="$canvas_id" width="800" height="500"></canvas>
+
       </div>
-        
+
 __EOJS__
 
     ;
 
     return($html);
 }
- 
 
-#<canvas id="$canvas_id" width="600" height="500"></canvas> 
+
+#<canvas id="$canvas_id" width="600" height="500"></canvas>
 
 1; #EOM
 
-   
+

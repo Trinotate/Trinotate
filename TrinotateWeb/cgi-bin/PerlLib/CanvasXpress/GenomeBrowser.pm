@@ -7,23 +7,23 @@ use Carp;
 sub new {
     my $packagename = shift;
     my ($canvas_id, $reference_sequence) = @_;
-    
+
     unless ($canvas_id) {
         confess "Error, need canvas_id, ref_seq as parameters";
     }
-    
-    unless ($reference_sequence) { 
+
+    unless ($reference_sequence) {
         confess "Error, need reference sequence for genome browser";
     }
 
-    my $self = { 
+    my $self = {
 
         canvas_id => $canvas_id,
-        
+
         reference_sequence => $reference_sequence,
-    
+
         function => "make_GenomeBrowser_canvas_$canvas_id",
-        
+
         tracks => [],
 
     };
@@ -38,21 +38,21 @@ sub draw {
 
     my $canvas_id = $self->{canvas_id};
     my $function_name = $self->{function};
-    
+
     my $html = "<!--[if IE]><script type=\"text/javascript\" src=\"canvasXpress-SF/js/excanvas.js\"></script><![endif]-->\n";
 
     if ($ENV{LOCAL_JS}) {
         $html .= "<script type=\"text/javascript\" src=\"/js/canvasXpress.min.js\"></script>\n";
     }
     else {
-        $html .= "<script type=\"text/javascript\" src=\"http://canvasxpress.org/js/canvasXpress.min.js\"></script>\n";
+        $html .= "<script type=\"text/javascript\" src=\"https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/29.0/canvasXpress.min.js\"></script>\n";
     }
-    
+
     $html .= "<script>\n";
-    
+
     $html .= "    var $function_name = function() {\n";
     $html .= "    var gb = new CanvasXpress(\"$canvas_id\", {\n";
-    
+
     $html .= "tracks: [\n";
 
     ## one track for the reference sequence.
@@ -71,7 +71,7 @@ sub draw {
         . "              translate: [-3, -2, -1, 1, 2, 3]\n"
         . "              }]\n"
         . "}\n";
-    
+
     my @tracks = @{$self->{tracks}};
     foreach my $track (@tracks) {
         ## draw track
@@ -92,30 +92,30 @@ sub draw {
         . "setMin: 1,\n"
         . "setMax: " . length($reference_sequence) . "\n"
         . "});\n";
-    
-    
+
+
     $html .= "gb.draw();\n\n";
-    
+
     $html .= "}\n";
-    
+
     $html .= <<__EOJS__;
 
-    
+
     </script>
-        
+
       <div>
-          <canvas id="$canvas_id" width="613" height="500"></canvas> 
+          <canvas id="$canvas_id" width="613" height="500"></canvas>
       </div>
 
-        
+
 __EOJS__
 
 
 ;
-    
-    
+
+
     return($html);
-    
+
 }
 
 
@@ -130,8 +130,8 @@ sub add_track {
 
     push (@{$self->{tracks}}, $track);
 }
- 
-   
+
+
 
 
 ###################################################################################
@@ -145,7 +145,7 @@ use Carp;
 
 sub new {
     my $packagename = shift;
-    
+
     my ($track_name, $track_type) = @_;
 
     unless ($track_name && $track_type) {
@@ -155,10 +155,10 @@ sub new {
     my $self = {
         name => $track_name,
         type => $track_type,
-        
+
         elements => [],
     };
-    
+
     bless ($self, $packagename);
 
     return($self);
@@ -172,7 +172,7 @@ sub draw {
     my $html = "{ name: \'$self->{name}\',\n"
         . "       type: \'$self->{type}\',\n"
         . "       data: [\n";
-    
+
     my @elements = @{$self->{elements}};
     for (my $i = 0; $i <= $#elements; $i++) {
         my $element = $elements[$i];
@@ -212,7 +212,7 @@ use Carp;
 
 sub new {
     my $packagename = shift;
-    
+
 =element_examples
 
 data: [{
@@ -236,7 +236,7 @@ data: [{
                                                     }]
                                                    }]
 
-=cut    
+=cut
 
     my ($id, $coordsets_aref) = @_;
 
@@ -249,7 +249,7 @@ data: [{
 
     my $self = { id => $id,
                  data => $coordsets_aref,
-                 
+
                  fill => 'rgb(255,255,51)',
                  outline => 'rgb(0,0,0)',
                  dir => 'right',
@@ -273,9 +273,9 @@ sub draw {
     if ($self->{connect}) {
         $html .= "  connect: 'true',\n";
     }
-    
+
     $html .= "  data: [";
-    
+
     my @coordsets = @{$self->{data}};
     foreach (my $i = 0; $i<= $#coordsets; $i++) {
         my $coordset = $coordsets[$i];
