@@ -13,13 +13,13 @@ sub new {
     unless ($canvas_id && $canvas_id =~ /\w/) {
         confess "Error, need canvas id as parameter.";
     }
-    
+
 
     my $self = { canvas_id => $canvas_id,
                  function => "make_piechart_$canvas_id",
 
     };
-    
+
     bless ($self, $packagename);
 
     return($self);
@@ -29,7 +29,7 @@ sub new {
 sub draw {
     my $self = shift;
     my %inputs = @_;
-    
+
     # structure of input hash:
     #
     #   %inputs = (
@@ -39,7 +39,7 @@ sub draw {
     #
     #
     #   )
-    
+
     my $canvas_id = $self->{canvas_id};
     my $function_name = $self->{function};
 
@@ -50,11 +50,11 @@ sub draw {
         $html .= "<script type=\"text/javascript\" src=\"/js/canvasXpress.min.js\"></script>\n";
     }
     else {
-        $html .= "<script type=\"text/javascript\" src=\"http://canvasxpress.org/js/canvasXpress.min.js\"></script>\n";
+        $html .= "<script type=\"text/javascript\" src=\"https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/29.0/canvasXpress.min.js\"></script>\n";
     }
 
     #$html .= "<script type=\"text/javascript\" src=\"/cgi-bin/js/datadumper.js\"></script>\n";
-    
+
     $html .= "<script>\n";
 
     $html .= "    var $function_name = function() {\n";
@@ -67,19 +67,19 @@ sub draw {
         $html .= "\"$slice_name\",\n";
     }
     chop $html; # rid last comma
-    
+
     $html .= "             ],\n";
 
     $html .=  "        \"smps\": [\"$inputs{pie_name}\"],\n";
-        
+
     $html .= "\"data\": [\n";
-    
+
     foreach my $pie_slice (@{$inputs{pie_slices}}) {
         my $slice_val = $pie_slice->[1];
         $html .= "[$slice_val],\n";
     }
     chop $html; # rid last comma
-        
+
     $html .= "   ]\n";
     $html .= "} \n"
         . "}, \n"
@@ -102,11 +102,11 @@ sub draw {
         . "],\n"
         . "\"xAxisTitle\": \"\"\n"
         . "});\n";
-        
-    $html .= "}\n\n";  # end of main js function 
-    
+
+    $html .= "}\n\n";  # end of main js function
+
     $html .= <<__EOJS__;
-    
+
     </script>
 
         <div>

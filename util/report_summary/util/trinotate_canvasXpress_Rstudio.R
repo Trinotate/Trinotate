@@ -185,6 +185,36 @@ cXp_pfam_barplot = function(filename, num_top=50) {
   )
   
 }
+cXp_kegg_barplot = function(filename, num_top=50) {
+  
+  data = read.table(filename, header=T, row.names=1, sep="\t")
+  
+  if (nrow(data) > num_top) {
+    data = data[1:num_top,, drop=F]
+  }
+  
+  data = t(data) # colnames as pfam ids
+  
+  canvasXpress(
+    data=data,
+    #smpAnnot=data.frame(count=rownames(data), row.names=rownames(data)),
+    #varAnnot=z,
+    fontStyle="bold italic",
+    graphOrientation="horizontal",
+    graphType="Bar",
+    legendBox=FALSE,
+    legendFontStyle="italic",
+    plotByVariable=TRUE,
+    showShadow=TRUE,
+    smpLabelFontStyle="italic",
+    smpLabelInterval=1,
+    smpLabelRotate=45,
+    smpTitle="Sample Title",
+    title="Top kegg domains",
+    xAxis2Show=FALSE
+  )
+  
+}
 
 
 
