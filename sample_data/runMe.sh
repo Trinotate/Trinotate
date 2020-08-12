@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-SWISSPROT_SQLITE_DB_URL="https://data.broadinstitute.org/Trinity/Trinotate_v3_RESOURCES/Trinotate_v3.sqlite.gz";
+SWISSPROT_SQLITE_DB_URL="https://data.broadinstitute.org/Trinity/Trinotate_v3_RESOURCES_sample_data_only/Trinotate.sample_data_only_boilerplate.sqlite.gz";
 
 for file in data/*.gz
 do
@@ -55,16 +55,6 @@ echo "##############################"
 ../Trinotate ${sqlite_db} LOAD_swissprot_blastp data/swissprot.blastp.outfmt6
 ../Trinotate ${sqlite_db} LOAD_swissprot_blastx data/swissprot.blastx.outfmt6
 
-
-echo "####################################"
-echo Loading Custom Database Blast Results
-echo "####################################"
-
-# blastP
-../Trinotate ${sqlite_db} LOAD_custom_blast --outfmt6 data/custom_pombe.blastp.outfmt6 --prog blastp --dbtype custom_pombe_pep
-# blastX, same database
-../Trinotate ${sqlite_db} LOAD_custom_blast --outfmt6 data/custom_pombe.blastx.outfmt6 --prog blastx --dbtype custom_pombe_pep
- 
 
 echo "#############################"
 echo Loading PFAM results
