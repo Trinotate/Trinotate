@@ -119,6 +119,8 @@ sub TrinotateWebMain {
 
     TaxonomyBestHit_text($dbproc, $sqlite_db);
     
+    Annotation($dbproc, $sqlite_db);
+    
     return;
 }
 
@@ -185,6 +187,20 @@ sub TaxonomyBestHit_text {
     #$template->param(TAXONOMY_HTML => $taxonomy_html);
 
     $template->param(TAXONOMY_HTML => "under construction");
+    
+    print $template->output;
+}
+####
+sub Annotation {
+     my ($dbproc, $sqlite_db) = @_;
+    
+    my $template = HTML::Template->new(filename => 'html/ann.tmpl');
+        
+    #my $taxonomy_html = &_get_taxonomy_info($dbproc, $sqlite_db);
+    
+    #$template->param(TAXONOMY_HTML => $taxonomy_html);
+
+    #$template->param(TAXONOMY_HTML => "under construction");
     
     print $template->output;
 }
