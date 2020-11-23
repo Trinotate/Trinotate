@@ -2,7 +2,7 @@
 
 use strict;
 use warnings;
-
+use File::Copy;
 use FindBin;
 use lib ("$FindBin::Bin/../../PerlLib");
 use DelimParser;
@@ -100,8 +100,8 @@ main: {
 
     ## generate the html report summary:
     &process_cmd("$FindBin::Bin/util/make_cXp_html.pl $out_prefix > $out_prefix.cXp_summary.html");
-    
-   
+     
+    copy("$out_prefix.cXp_summary.html","/seq/RNASEQ/tmp/MOUSE_SAMPLE_DATA/Trinotate/TrinotateWeb/cgi-bin/html/") or die "Copy failed: $!";
     exit(0);
 }
 
