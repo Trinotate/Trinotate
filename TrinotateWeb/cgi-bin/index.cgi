@@ -20,8 +20,10 @@ use Sqlite_connect;
 use TextCache;
 use CanvasXpress::Sunburst;
 use CanvasXpress::PlotOnLoader;
+use CanvasXpress::Piechart;
+use CanvasXpress::Barplot;
 
-
+my $plot_loader = new CanvasXpress::PlotOnLoader("load_plots");
 main: {
     
     my $cgi = new CGI();
@@ -41,7 +43,7 @@ main: {
     my $dashboard_header_template = HTML::Template->new(filename => 'html/dashboard-header.tmpl');
     print $dashboard_header_template->output;
     
-
+     
     eval {
         if ($sqlite_db) {
             
@@ -105,7 +107,15 @@ sub TrinotateWebMain {
     my ($params_href, $sqlite_db) = @_;
     
     my $dbproc = DBI->connect( "dbi:SQLite:$sqlite_db" ) || die "Cannot connect: $DBI::errstr";
+    
         
+    my $cgi = new CGI();
+
+    
+    print $cgi->start_html(-title => "Trinotate Report",
+                           -onLoad => "load_plots();");
+    
+
 
     ## Load up the panels tied to the selector tabs:
     
@@ -118,8 +128,14 @@ sub TrinotateWebMain {
     DE_panel_text($dbproc, $sqlite_db);
 
     TaxonomyBestHit_text($dbproc, $sqlite_db);
+
+    keggplot($dbproc, $sqlite_db);
     
-    Annotation($dbproc, $sqlite_db);
+    pfamplot($dbproc, $sqlite_db);
+    
+    goplot($dbproc, $sqlite_db);
+    
+    print $plot_loader->write_plot_loader();
     
     return;
 }
@@ -182,30 +198,56 @@ sub TaxonomyBestHit_text {
     
     my $template = HTML::Template->new(filename => 'html/taxonomy_best_hit.tmpl');
         
-    #my $taxonomy_html = &_get_taxonomy_info($dbproc, $sqlite_db);
+    my $taxonomy_html = &_get_taxonomy_info($dbproc, $sqlite_db);
     
-    #$template->param(TAXONOMY_HTML => $taxonomy_html);
-
-    $template->param(TAXONOMY_HTML => "under construction");
-    
-    print $template->output;
-}
-####
-sub Annotation {
-     my ($dbproc, $sqlite_db) = @_;
-    
-    my $template = HTML::Template->new(filename => 'html/ann.tmpl');
-        
-    #my $taxonomy_html = &_get_taxonomy_info($dbproc, $sqlite_db);
-    
-    #$template->param(TAXONOMY_HTML => $taxonomy_html);
+    $template->param(TAXONOMY_HTML => $taxonomy_html);
 
     #$template->param(TAXONOMY_HTML => "under construction");
     
     print $template->output;
 }
-
-
+###
+sub keggplot {
+     my ($dbproc, $sqlite_db) = @_;
+    
+    my $template2 = HTML::Template->new(filename => 'html/topsp.tmpl');
+        
+    my $kegg = &_get_kegg_info($dbproc, $sqlite_db);
+    
+    $template2->param(top => $kegg);
+    
+    #$template->param(top => "under construction");
+    
+    print $template2->output;
+}
+###
+sub pfamplot{
+    my ($dbproc, $sqlite_db) = @_;
+    
+    my $template2 = HTML::Template->new(filename => 'html/pfam.tmpl');
+        
+    my $pfam = &_get_pfam_info($dbproc, $sqlite_db);
+    
+    $template2->param(pfam_var => $pfam);
+    
+    #$template->param(top => "under construction");
+    
+    print $template2->output;
+}
+sub goplot{
+    my ($dbproc, $sqlite_db) = @_;
+    
+    my $template2 = HTML::Template->new(filename => 'html/go.tmpl');
+        
+    my $pfam = &_get_go_info($dbproc, $sqlite_db);
+    
+    $template2->param(go_var => $pfam);
+    
+    #$template2->param(go_var => "under construction");
+    
+    print $template2->output;
+}
+    
 ####
 sub DE_panel_text {
     my ($dbproc, $sqlite_db) = @_;
@@ -269,6 +311,8 @@ sub multi_sample_cluster_text {
 
 ####
 sub _get_taxonomy_info {
+
+    
     my ($dbproc, $sqlite_db) = @_;
 
     my $query = "select t.TaxonomyValue, count(*) as count from TaxonomyIndex t, UniprotIndex u where u.AttributeType = 'T' and u.LinkID =  t.NCBITaxonomyAccession group by t.TaxonomyValue order by count desc limit 1000";
@@ -348,9 +392,10 @@ sub _get_taxonomy_info {
         my $col_data_aref = $column_data[$i];
         $column_data_hash{$level} = $col_data_aref;
     }
-
+    
+   
     my $taxonomy_sunburst = new CanvasXpress::Sunburst("taxonomy_sunburst");
-    my $plot_loader = new CanvasXpress::PlotOnLoader("taxonomy_$$");
+    #my $plot_loader = new CanvasXpress::PlotOnLoader("taxonomy_$$");
     $plot_loader->add_plot($taxonomy_sunburst);
     
     my %inputs = (title =>  "Taxonomic representation of gene-level top blastx matches",
@@ -364,8 +409,144 @@ sub _get_taxonomy_info {
 
     my $taxonomy_html = $taxonomy_sunburst->draw(%inputs);
 
-    $taxonomy_html .= $plot_loader->write_plot_loader();
+    #$taxonomy_html .= $plot_loader->write_plot_loader();
+    
+    #my $cgi = new CGI();
+
+    #print $cgi->start_html(-title => "Trinotate Report",
+                          # -onLoad => "taxonomy_$$();");
     
     return($taxonomy_html);
     
 }
+####
+sub _get_kegg_info {
+
+    my ($dbproc, $sqlite_db) = @_;
+
+    my $query = "select LinkID, count(*) as count from  UniprotIndex  where AttributeType = 'K' group by LinkId order by count desc limit 50;";
+    
+    my @vals;
+    my $counter = 0;
+    my $NUM_TOP_DOMAINS = 50;
+    my @results = &do_sql_2D($dbproc, $query);
+    
+    foreach my $result (@results) {
+        
+        my ($kegg, $count) = @$result;
+        
+        #my ($kegg, $count) = split(/\t/);
+        
+        push (@vals, [$kegg, $count]);
+        
+
+        
+    }
+    my $keggbarplot = new CanvasXpress::Barplot("keggbarplot");
+    #my $plot_loader = new CanvasXpress::PlotOnLoader("taxo_$$");
+    $plot_loader->add_plot($keggbarplot);
+    
+    my %inputs = ( orientation => 'horizontal',
+
+                   title => 'Top KEGG domains',
+
+                   var_name => 'kegg',
+
+                   data => [@vals],
+        );
+                  
+
+
+    my $kegg_html .= $keggbarplot->draw(%inputs);
+
+    #$kegg_html .= $plot_loader->write_plot_loader();
+    
+    #my $cgi= new CGI();
+
+    #print $cgi->start_html(-title => "Trinotate Report",
+                          # -onLoad => "kegg_$$();");
+    
+    
+    return($kegg_html); 
+
+}
+sub _get_pfam_info {
+    my ($dbproc, $sqlite_db) = @_;
+
+    my $query = "select LinkID, count(*) as count from  UniprotIndex  where AttributeType = 'K' group by LinkId order by count desc limit 50;";
+    
+    my @vals;
+    my @results = &do_sql_2D($dbproc, $query);
+    foreach my $result (@results) {
+        
+        my ($pfam_id, $count) = @$result;
+        
+        
+        push (@vals, [$pfam_id, $count]);
+     
+    }
+
+
+    my %inputs = ( orientation => 'horizontal',
+
+                   title => 'Top Pfam domains',
+
+                   var_name => 'Pfam',
+
+                   data => [@vals],
+        );
+
+    my $barplot = new CanvasXpress::Barplot("barplot");
+    $plot_loader->add_plot($barplot);
+
+    my $pfam_html .= $barplot->draw(%inputs);
+
+    return ($pfam_html);
+}
+###
+sub _get_go_info {
+    my ($dbproc, $sqlite_db) = @_;
+
+    my $query = "select id,name,namespace,def,count(*) as c from  go  group by id order by c  DESC  limit 50;;";
+    
+    my @vals;
+    my @results = &do_sql_2D($dbproc, $query);
+    my @column_names = ("go_class", "go_term");
+    my %column_data;
+    my @row_values;
+    foreach my $result (@results) {
+        
+        my ($go_class, $go_id, $go_term,$go_desc,
+         $count) = @$result;
+
+         
+        #if ($go_term =~ /^(biological_process|cellular_component|molecular_function)$/) { next; } # skip highest-level
+
+
+        #$go_id =~ s/:/_/g;
+
+        #$go_term = "$go_id $go_term";
+
+        push (@{$column_data{'go_class'}}, $go_class);
+        push (@{$column_data{'go_term'}}, $go_term);
+        push (@row_values, $count);
+    }
+  
+
+    my $GO_sunburst = new CanvasXpress::Sunburst("GO_sunburst");
+    $plot_loader->add_plot($GO_sunburst);
+
+    my %inputs = (title => "Gene Ontology Categories",
+
+                  column_names => [@column_names],
+
+                  column_contents => \%column_data,
+
+                  row_values => [@row_values] );
+
+    my $go_html = $GO_sunburst->draw(%inputs);
+
+
+    return $go_html;
+}
+####
