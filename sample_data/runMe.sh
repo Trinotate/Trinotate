@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -ex
 
 SWISSPROT_SQLITE_DB_URL="https://data.broadinstitute.org/Trinity/Trinotate_v3_RESOURCES_sample_data_only/Trinotate.sample_data_only_boilerplate.sqlite.gz";
 
@@ -76,11 +76,11 @@ echo "###########################"
 ../Trinotate ${sqlite_db} LOAD_signalp data/signalp.out
 
 
-echo "###########################"
-echo Loading RNAMMER results
-echo "###########################"
-
-../Trinotate ${sqlite_db} LOAD_rnammer data/Trinity.fasta.rnammer.gff
+#echo "###########################"
+#echo Loading RNAMMER results
+#echo "###########################"
+#
+#../Trinotate ${sqlite_db} LOAD_rnammer data/Trinity.fasta.rnammer.gff
 
 
 #################################################################
