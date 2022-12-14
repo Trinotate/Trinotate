@@ -1,2 +1,2 @@
 # Trinotate
-Trinotate source code
+Visit our [wiki](https://github.com/Trinotate/Trinotate/wiki) for documentation.
