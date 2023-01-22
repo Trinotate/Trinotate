@@ -1,5 +1,5 @@
 FROM --platform=linux/amd64 ubuntu:23.04
-MAINTAINER mbrown@broadinstitute.org
+
 ENV DEBIAN_FRONTEND=noninteractive
 
 #~~~~~~~~~~~~~~

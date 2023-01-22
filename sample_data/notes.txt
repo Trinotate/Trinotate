@@ -8,4 +8,9 @@ DeepTMHMM:
 
 
 SigP-6.0:
-    
+	can download/install software, but licensing required (free academics), so can't include in public docker
+
+	running locally:
+	    signalp6 --fastafile Trinity.fasta.transdecoder.pep --output_dir sigP6outdir --format none --organism euk --mode fast
+
+	
