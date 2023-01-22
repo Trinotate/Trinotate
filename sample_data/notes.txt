@@ -1,0 +1,11 @@
+DeepTMHMM:
+    run directly at website: https://dtu.biolib.com/DeepTMHMM, click 'download' once finsihed to access results.
+    or, local install:
+       pip3 install pybiolib
+       biolib run DTU/DeepTMHMM --fasta UP000002311_559292.fasta
+
+    (might be able to do this in docker, but would require doing some port mapping probably....)
+
+
+SigP-6.0:
+    
