@@ -14,3 +14,21 @@ SigP-6.0:
 	    signalp6 --fastafile Trinity.fasta.transdecoder.pep --output_dir sigP6outdir --format none --organism euk --mode fast
 
 	
+diamondblast:
+     diamond makedb --in mini_sprot.pep -d sprot
+     diamond blastp -d sprot -q ../Trinity.fasta.transdecoder.pep -p 2 -k 1 -e 1e-20 -o matches.m8 --outfmt 6
+
+
+
+rnammer update:
+	-deprecate it.
+    Use infernal instead:
+	https://docs.rfam.org/en/latest/genome-annotation.htm
+	https://docs.rfam.org/en/latest/genome-annotation.html#removing-lower-scoring-overlaps-from-a-tblout-file
+
+	cmscan -Z 5 --cut_ga --rfam --nohmmonly --tblout test.out --fmt 2 --clanin ~/DBs/Rfam.clanin ~/DBs/Rfam.cm Trinity.fasta > ladeda
+    also use --cpu 
+
+
+eggnog mapper:
+	
