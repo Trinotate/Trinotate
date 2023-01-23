@@ -68,7 +68,7 @@ my %commands = map { + $_ => 1 } qw(LOAD_swissprot_blastp LOAD_swissprot_blastx
                                     LOAD_pfam LOAD_deeptmhmm LOAD_signalp LOAD_infernal
                                     LOAD_EggnogMapper
                                     LOAD_custom_blast
-                                    report init);
+                                    report init create);
 
 unless (exists $commands{$command}) {
     die "$usage\nError, do not recognize command: $command\n";
@@ -76,6 +76,7 @@ unless (exists $commands{$command}) {
 
 my $util_dir = "$FindBin::RealBin/util";
 my $loaders_dir = "$util_dir/trinotateSeqLoader";
+my $admin_dir = "$util_dir/admin";
 
 unless (@ARGV) {
     @ARGV = (""); # to avoid error messages inusing $ARGV[0] below
@@ -107,6 +108,10 @@ my %command_to_params = (
 if (my $cmd = $command_to_params{$command}) {
     &process_cmd($cmd);
 }
+elsif ($command eq "create") {
+    # set up Trinotate database and data dir
+    &run_Trinotate_create($sqlite_db, @ARGV);
+}
 elsif ($command eq "report") {
     ## generate Trinotate report.
     my $cmd = "$FindBin::RealBin/util/Trinotate_report_writer.pl --sqlite $sqlite_db @ARGV";
@@ -137,4 +142,15 @@ sub process_cmd {
     }
 
     return;
+}
+
+
+####
+sub process_cmd {
+    my ($sqlite_db, $path_to_trinotate_db) = @_;
+
+    my $cmd = "$admin_dir/Build_Trinotate_Boilerplate_SQLite_db.pl 
+
+    
+
 }

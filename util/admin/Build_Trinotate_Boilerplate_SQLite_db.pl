@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 use FindBin;
-use lib ("$FindBin::RealBin/../PerlLib");
+use lib ("$FindBin::RealBin/../../PerlLib");
 use Pipeliner;
 
 my $usage = "\n\n\tusage: $0 Database_prefix [no_cleanup_flag]\n\n\n";
