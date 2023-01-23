@@ -26,7 +26,7 @@ my $usage = <<_EOUSAGE_;
           * Trinity transcript search results:
 
              LOAD_swissprot_blastx <file>
-             LOAD_rnammer <file>
+             LOAD_infernal <file>
              
 
           * Load custom blast results using any searchable database
@@ -84,7 +84,7 @@ my %command_to_params = (
                           # transcript-based
                           'LOAD_swissprot_blastx' => "$loaders_dir/Trinotate_BLAST_loader.pl --sqlite $sqlite_db --outfmt6 $ARGV[0] --prog blastx --dbtype Swissprot",
                           'LOAD_trembl_blastx' => "$loaders_dir/Trinotate_BLAST_loader.pl --sqlite $sqlite_db --outfmt6 $ARGV[0] --prog blastx --dbtype TrEMBL",
-                          'LOAD_rnammer' => "$loaders_dir/Trinotate_RNAMMER_loader.pl --sqlite $sqlite_db --rnammer $ARGV[0]",
+                          'LOAD_infernal' => "$loaders_dir/Trinotate_Infernal_loader.pl --sqlite $sqlite_db --infernal $ARGV[0]",
                           
                           # custom blast searches
                           'LOAD_custom_blast' => "$loaders_dir/Trinotate_BLAST_loader.pl --sqlite $sqlite_db @ARGV",

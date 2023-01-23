@@ -161,13 +161,15 @@ main: {
     &RunMod($dbproc,"create table ExprClusters(cluster_analysis_id, expr_cluster_id INT, feature_name)");
     &RunMod($dbproc,"create unique index expr_clusters_id_name_idx on ExprClusters(cluster_analysis_id, feature_name)");
     
-    
-    
-    # RNAMmer tables
+    # RNAMMmer table
     &RunMod($dbproc,"create table RNAMMERdata(TrinityQuerySequence,Featurestart INTEGER,Featureend INTEGER,Featurescore REAL, FeatureStrand, FeatureFrame, Featureprediction)");
     &RunMod($dbproc,"CREATE INDEX TrintiyQueryID ON RNAMMERdata(TrinityQuerySequence)");
     
-
+    # Infernal table
+    &RunMod($dbproc,"create table Infernal(query_acc, target_name, rfam_acc, clan_name, region_start, region_end, strand, score, evalue)");
+    &RunMod($dbproc,"CREATE INDEX InfernalQueryIdx ON Infernal(query_acc)");
+    
+    
     print STDERR "-done creating database $sqlite_db\n\n";
     
     
