@@ -2,10 +2,9 @@
 
 set -e
 
-#VERSION=`cat VERSION.txt`
+VERSION=`cat VERSION.txt`
 
-# docker build --no-cache -t mbrown/hlaminer:devel .
 
-docker build -t mbrown/test:devel .
+docker build -t trinityrnaseq/trinotate:$VERSION .
 
 

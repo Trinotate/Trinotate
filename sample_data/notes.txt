@@ -31,4 +31,6 @@ rnammer update:
 
 
 eggnog mapper:
-	
+	emapper.py  -i Trinity.fasta.transdecoder.pep -o eggnog
+
+
