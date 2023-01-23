@@ -12,33 +12,39 @@ my $usage = <<_EOUSAGE_;
 
      <commands>: 
 
+         * Initial creation of the Trinotate sqlite database and downloading of the required data sets
+              
+             Trinotate <sqlite.db> create /path/to/TRINOTATE_DATA_DIR
+
+                 The sqlite.db file is created as named and search databases are downloaded into /path/to/TRINOTATE_DATA_DIR
+                 (Note, if EggnogMapper is installed and env var EGGNOG_DATA_DIR is NOT set, will additionally download those data too into TRINOTATE_DATA_DIR !) 
+
          * Initial import of transcriptome and protein data:
 
-             init --gene_trans_map <file> --transcript_fasta <file> --transdecoder_pep <file>
+             Trinotate <sqlite.db> init --gene_trans_map <file> --transcript_fasta <file> --transdecoder_pep <file>
 
          * Transdecoder protein search results:
 
-             LOAD_swissprot_blastp <file>
-             LOAD_pfam <file>
-             LOAD_deeptmhmm <file>
-             LOAD_signalp <file>
-             LOAD_EggnogMapper <file>
+             Trinotate <sqlite.db> LOAD_swissprot_blastp <file>
+             Trinotate <sqlite.db> LOAD_pfam <file>
+             Trinotate <sqlite.db> LOAD_deeptmhmm <file>
+             Trinotate <sqlite.db> LOAD_signalp <file>
+             Trinotate <sqlite.db> LOAD_EggnogMapper <file>
 
           * Trinity transcript search results:
 
-             LOAD_swissprot_blastx <file>
-             LOAD_infernal <file>
+             Trinotate <sqlite.db> LOAD_swissprot_blastx <file>
+             Trinotate <sqlite.db> LOAD_infernal <file>
              
 
           * Load custom blast results using any searchable database
 
-
-             LOAD_custom_blast --outfmt6 <file> --prog <blastp|blastx> --dbtype <database_name>
+             Trinotate <sqlite.db> LOAD_custom_blast --outfmt6 <file> --prog <blastp|blastx> --dbtype <database_name>
 
 
           * report generation:
 
-             report [ -E (default: 1e-5) ] [--pfam_cutoff DNC|DGC|DTC|SNC|SGC|STC (default: DNC=domain noise cutoff)]
+             Trinotate <sqlite.db> report [ -E (default: 1e-5) ] [--pfam_cutoff DNC|DGC|DTC|SNC|SGC|STC (default: DNC=domain noise cutoff)]
 
 
 _EOUSAGE_
