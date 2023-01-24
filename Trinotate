@@ -3,6 +3,9 @@
 use strict;
 use warnings;
 use FindBin;
+use lib ("$FindBin::Bin/PerlLib");
+use Pipeliner;
+use Carp;
 
 my $usage = <<_EOUSAGE_;
 
@@ -56,7 +59,7 @@ unless (scalar @ARGV >= 2) { die $usage; }
 my $sqlite_db = shift @ARGV;
 my $command = shift @ARGV;
 
-unless (-s $sqlite_db) {
+unless ($command eq "create" || -s $sqlite_db) {
     die "Error, cannot locate $sqlite_db database file. Be sure it's in your current directory.";
 }
 
@@ -110,7 +113,11 @@ if (my $cmd = $command_to_params{$command}) {
 }
 elsif ($command eq "create") {
     # set up Trinotate database and data dir
-    &run_Trinotate_create($sqlite_db, @ARGV);
+    my $path_to_trinotate_db = shift @ARGV;
+    unless($path_to_trinotate_db) {
+        die "Error, the Trinotate create parameter requires a path to a destination data directory that will be created/populated";
+    }
+    &run_Trinotate_create($sqlite_db, $path_to_trinotate_db);
 }
 elsif ($command eq "report") {
     ## generate Trinotate report.
@@ -146,11 +153,87 @@ sub process_cmd {
 
 
 ####
-sub process_cmd {
+sub run_Trinotate_create {
     my ($sqlite_db, $path_to_trinotate_db) = @_;
 
-    my $cmd = "$admin_dir/Build_Trinotate_Boilerplate_SQLite_db.pl 
+    unless ($path_to_trinotate_db) {
+        confess("Error, require path_to_trinotate_db_param");
+    }
+    
+
+    if (! -d $path_to_trinotate_db) {
+        &process_cmd("mkdir -p $path_to_trinotate_db");
+    }
+
+    my $trin_db_build_checkpoint_dir = "$path_to_trinotate_db/__chckpts";
+    if (! -d $trin_db_build_checkpoint_dir) {
+        mkdir($trin_db_build_checkpoint_dir) or die "Error, cannot mkdir $trin_db_build_checkpoint_dir";
+    }
+    
+    my $pipeliner = new Pipeliner(-verbose => 2, -checkpoint_dir => $trin_db_build_checkpoint_dir);
+        
+    my $cmd = "$admin_dir/Build_Trinotate_Boilerplate_SQLite_db.pl TrinotateBoilerplate";
+    $pipeliner->add_commands(new Command($cmd, "build_boilerplate.ok"));
+
+
+    # copy boilerplate sqlite to data dir:
+    $cmd = "cp TrinotateBoilerplate.sqlite $path_to_trinotate_db/";
+    $pipeliner->add_commands(new Command($cmd, "copy_boilerplate_to_datadir.ok"));
+
+    $cmd = "mv TrinotateBoilerplate.sqlite $sqlite_db";
+    $pipeliner->add_commands(new Command($cmd, "relocate_trinotate_boilerplate_sqlite_to_targetname.ok"));
+    
+    $cmd = "makeblastdb -in uniprot_sprot.pep -dbtype prot";
+    $pipeliner->add_commands(new Command($cmd, "make_sprot_blast_db.ok"));
+            
+    # diamond is optional
+    if (`which diamond` =~ /\w/) {
+        $cmd = "diamond makedb --in uniprot_sprot.pep -d uniprot_sprot";
+        $pipeliner->add_commands(new Command($cmd, "make_diamond_sprot_db.ok"));
+    }
+    
+    $cmd = "mv uniprot_sprot* $path_to_trinotate_db/";
+    $pipeliner->add_commands(new Command($cmd, "relocate_sprot_db.ok"));
+    
+    $cmd = "gunzip Pfam-A.hmm.gz";
+    $pipeliner->add_commands(new Command($cmd, "gunzip_pfam.ok"));
+
+    $cmd = "hmmpress Pfam-A.hmm";
+    $pipeliner->add_commands(new Command($cmd, "hmmpress_pfam_db.ok"));
+
+    
+    $cmd = "mv Pfam-A.hmm* $path_to_trinotate_db/";
+    $pipeliner->add_commands(new Command($cmd, "relocate_pfam_db.ok"));
+
 
     
 
+    ## add EggnogMapper
+    if (`which emapper.py` =~ /\w/) {
+        ## integrate EggnogMapper database
+        
+
+    }
+
+    ## add Infernal
+    $cmd = "wget ftp://ftp.ebi.ac.uk/pub/databases/Rfam/CURRENT/Rfam.cm.gz";
+    $pipeliner->add_commands(new Command($cmd, "wget_Rfam.cm.gz"));
+
+    $cmd = "gunzip Rfam.cm.gz";
+    $pipeliner->add_commands(new Command($cmd, "gunzip_Rfam.cm.gz"));
+    
+    $cmd = "wget ftp://ftp.ebi.ac.uk/pub/databases/Rfam/CURRENT/Rfam.clanin";
+    $pipeliner->add_commands(new Command($cmd, "wget_clanin.cm.gz"));
+    
+    $cmd = "cmpress Rfam.cm";
+    $pipeliner->add_commands(new Command($cmd, "cmpress_Rfam_cm.ok"));
+    
+    $cmd = "mv Rfam.* $path_to_trinotate_db/";
+    $pipeliner->add_commands(new Command($cmd, "relocate_Rfam_db.ok"));
+
+
+
+    $pipeliner->run();
+    
+    
 }
