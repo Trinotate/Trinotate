@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 use FindBin;
-use lib ("$FindBin::RealBin/../../PerlLib");
+use lib ("$FindBin::RealBin/../../../PerlLib");
 use EMBL_parser;
 use Data::Dumper;
 

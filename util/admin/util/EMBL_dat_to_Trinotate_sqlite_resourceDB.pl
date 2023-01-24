@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 use FindBin;
-use lib ("$FindBin::RealBin/../../PerlLib");
+use lib ("$FindBin::RealBin/../../../PerlLib");
 use Sqlite_connect;
 use Getopt::Long qw(:config no_ignore_case bundling pass_through);
 use File::Basename;
