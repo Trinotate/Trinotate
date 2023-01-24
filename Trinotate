@@ -6,6 +6,9 @@ use FindBin;
 use lib ("$FindBin::Bin/PerlLib");
 use Pipeliner;
 use Carp;
+use Cwd 'abs_path';
+
+
 
 my $usage = <<_EOUSAGE_;
 
@@ -159,6 +162,8 @@ sub run_Trinotate_create {
     unless ($path_to_trinotate_db) {
         confess("Error, require path_to_trinotate_db_param");
     }
+
+    $path_to_trinotate_db = abs_path($path_to_trinotate_db);
     
     if (! -d $path_to_trinotate_db) {
         &process_cmd("mkdir -p $path_to_trinotate_db");
@@ -233,6 +238,17 @@ sub run_Trinotate_create {
 
 
     $pipeliner->run();
+
+
+
+    print "\n\n####################################################\n\n"
+        . "#  For future Trinotate execution, first set environment variable TRINOTATE_DATA_DIR like so:"
+        . "#\n"
+        . "#  export TRINOTATE_DATA_DIR=$path_to_trinotate_db\n\n"
+        . "#\n"
+        . "#      add the above export statement to your ~/.bashrc file to have it set automatically for all future sessions.\n\n"
+        . "########################################################\n\n";
+
     
-    
+    return;
 }
