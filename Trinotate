@@ -160,11 +160,10 @@ sub run_Trinotate_create {
         confess("Error, require path_to_trinotate_db_param");
     }
     
-
     if (! -d $path_to_trinotate_db) {
         &process_cmd("mkdir -p $path_to_trinotate_db");
     }
-
+    
     my $trin_db_build_checkpoint_dir = "$path_to_trinotate_db/__chckpts";
     if (! -d $trin_db_build_checkpoint_dir) {
         mkdir($trin_db_build_checkpoint_dir) or die "Error, cannot mkdir $trin_db_build_checkpoint_dir";
