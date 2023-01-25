@@ -46,7 +46,7 @@ main: {
     
 
     ## process Sprot dat file
-    $pipeliner->add_commands(new Command("wget \"$SPROT_DAT_URL\"", "wget_sprot_dat.ok") );
+    $pipeliner->add_commands(new Command("wget \"$SPROT_DAT_URL\" -O uniprot_sprot.dat.gz", "wget_sprot_dat.ok") );
 
     $pipeliner->add_commands(new Command("$UTILDIR/EMBL_swissprot_parser.pl uniprot_sprot.dat.gz $prefix", "parse_sprot_dat.ok"));
     
@@ -68,7 +68,7 @@ main: {
 
     ##########
     ## EGGNOG
-    $pipeliner->add_commands(new Command("wget \"$EGGNOG_DAT_URL\"", "eggnog_download.ok") );
+    $pipeliner->add_commands(new Command("wget \"$EGGNOG_DAT_URL\" -O NOG.annotations.tsv.gz", "eggnog_download.ok") );
     
     # extract fields
     $pipeliner->add_commands(new Command("gunzip -c NOG.annotations.tsv.gz | $UTILDIR/print.pl 1 5 > NOG.annotations.tsv.gz.bulk_load",
@@ -82,7 +82,7 @@ main: {
     ################
     ## Gene ontology
 
-    $pipeliner->add_commands(new Command("wget \"$GENE_ONTOLOGY_DAT_URL\"", "go_download.ok"));
+    $pipeliner->add_commands(new Command("wget \"$GENE_ONTOLOGY_DAT_URL\" -O go-basic.obo", "go_download.ok"));
 
     $pipeliner->add_commands(new Command("$UTILDIR/obo_to_tab.pl go-basic.obo > go-basic.obo.tab",
                                          "go_obo_to_tab.ok"));
@@ -96,7 +96,7 @@ main: {
     ##############
     ## Pfam
 
-    $pipeliner->add_commands(new Command("wget \"$PFAM_DAT_URL\"", "download_pfam.ok"));
+    $pipeliner->add_commands(new Command("wget \"$PFAM_DAT_URL\" -O Pfam-A.hmm.gz", "download_pfam.ok"));
     
     $pipeliner->add_commands(new Command("$UTILDIR/PFAM_dat_parser.pl Pfam-A.hmm.gz", "pfam_parsing.ok"));
     
@@ -107,7 +107,7 @@ main: {
     #############
     ## Pfam2Go
 
-    $pipeliner->add_commands(new Command("wget \"$PFAM2GO_DAT_URL\" ",
+    $pipeliner->add_commands(new Command("wget \"$PFAM2GO_DAT_URL\" pfam2go",
                                          "pfam2go_download.ok") );
 
     $pipeliner->add_commands(new Command("$UTILDIR/PFAMtoGoParser.pl pfam2go > pfam2go.tab",

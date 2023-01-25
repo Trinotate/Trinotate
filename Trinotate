@@ -7,77 +7,130 @@ use lib ("$FindBin::Bin/PerlLib");
 use Pipeliner;
 use Carp;
 use Cwd 'abs_path';
-
-
+use Getopt::Long qw(:config posix_default no_ignore_case bundling pass_through);
+use Data::Dumper;
 
 my $usage = <<_EOUSAGE_;
 
 
-   usage: $0 <sqlite.db> <command> <input> [...]
+              ___________      .__               __          __           
+              \__    ___/______|__| ____   _____/  |______ _/  |_  ____   
+                |    |  \_  __ \  |/    \ /  _ \   __\__  \\   __\/ __ \  
+                |    |   |  | \/  |   |  (  <_> )  |  / __ \|  | \  ___/  
+                |____|   |__|  |__|___|  /\____/|__| (____  /__|  \___  > 
+                                       \/                 \/          \/  
 
+     usage: $0 --db <sqlite.db> <--command ...>
+ 
 
      <commands>: 
 
          * Initial creation of the Trinotate sqlite database and downloading of the required data sets
               
-             Trinotate <sqlite.db> create /path/to/TRINOTATE_DATA_DIR
+             Trinotate --db <sqlite.db> --create --trinotate_data_dir /path/to/TRINOTATE_DATA_DIR
 
                  The sqlite.db file is created as named and search databases are downloaded into /path/to/TRINOTATE_DATA_DIR
-                 (Note, if EggnogMapper is installed and env var EGGNOG_DATA_DIR is NOT set, will additionally download those data too into TRINOTATE_DATA_DIR !) 
+                   (Note, if EggnogMapper is installed and env var EGGNOG_DATA_DIR is NOT set, 
+                    will additionally download those data too into TRINOTATE_DATA_DIR !) 
 
          * Initial import of transcriptome and protein data:
 
-             Trinotate <sqlite.db> init --gene_trans_map <file> --transcript_fasta <file> --transdecoder_pep <file>
+             Trinotate --db <sqlite.db> --init --gene_trans_map <file> --transcript_fasta <file> --transdecoder_pep <file>
 
          * Transdecoder protein search results:
 
-             Trinotate <sqlite.db> LOAD_swissprot_blastp <file>
-             Trinotate <sqlite.db> LOAD_pfam <file>
-             Trinotate <sqlite.db> LOAD_deeptmhmm <file>
-             Trinotate <sqlite.db> LOAD_signalp <file>
-             Trinotate <sqlite.db> LOAD_EggnogMapper <file>
+             Trinotate --db <sqlite.db> --LOAD_swissprot_blastp <file.outfmt6>
+             Trinotate --db <sqlite.db> --LOAD_pfam <file>
+             Trinotate --db <sqlite.db> --LOAD_deeptmhmm <file.gff3>
+             Trinotate --db <sqlite.db> --LOAD_signalp <file>
+             Trinotate --db <sqlite.db> --LOAD_EggnogMapper <file>
 
           * Trinity transcript search results:
 
-             Trinotate <sqlite.db> LOAD_swissprot_blastx <file>
-             Trinotate <sqlite.db> LOAD_infernal <file>
+             Trinotate --db <sqlite.db> --LOAD_swissprot_blastx <file.outfmt6>
+             Trinotate --db <sqlite.db> --LOAD_infernal <file>
              
 
           * Load custom blast results using any searchable database
 
-             Trinotate <sqlite.db> LOAD_custom_blast --outfmt6 <file> --prog <blastp|blastx> --dbtype <database_name>
-
+             Trinotate --db <sqlite.db> --LOAD_custom_blast <file.outfmt6> --blast_type <blastp|blastx> --custom_db_name <database_name>
+                    (The custom_db_name is used for the column name for that annotation in the final report.)
 
           * report generation:
 
-             Trinotate <sqlite.db> report [ -E (default: 1e-5) ] [--pfam_cutoff DNC|DGC|DTC|SNC|SGC|STC (default: DNC=domain noise cutoff)]
+             Trinotate --db <sqlite.db> --report [ -E (default: 1e-5) ] [--pfam_cutoff DNC|DGC|DTC|SNC|SGC|STC (default: DNC=domain noise cutoff)]
 
 
 _EOUSAGE_
 
 ;
 
-unless (scalar @ARGV >= 2) { die $usage; }
+                                        
 
-my $sqlite_db = shift @ARGV;
-my $command = shift @ARGV;
+                                        
+my $help_flag;
+my $sqlite_db;
+my ($CREATE_flag, 
+    $INIT_flag,
+    $REPORT_flag,
+    $RUN_flag);
 
-unless ($command eq "create" || -s $sqlite_db) {
-    die "Error, cannot locate $sqlite_db database file. Be sure it's in your current directory.";
+my ($LOAD_swissprot_blastp, $LOAD_pfam, $LOAD_deeptmhmm, $LOAD_signalp, 
+    $LOAD_EggnogMapper, $LOAD_swissprot_blastx, $LOAD_infernal,
+    $LOAD_custom_blast, $custom_db_name, $blast_type) = ("", "", "", "", "", "", "", "", "", "");
+
+my ($trinotate_data_dir, $transcript_fasta, $transdecoder_pep, $gene_trans_map);
+
+
+my %PARAMS = map { $_ => 1 } @ARGV;
+
+
+&GetOptions ( 
+    'h' => \$help_flag,
+    
+    'db=s' => \$sqlite_db,
+
+    # exec modes
+    'create' => \$CREATE_flag,
+    'init' => \$INIT_flag,
+    'report' => \$REPORT_flag,
+    'run' => \$RUN_flag,
+    
+    # loading modes
+    'LOAD_swissprot_blastp=s' => \$LOAD_swissprot_blastp,
+    'LOAD_pfam=s' => \$LOAD_pfam,
+    'LOAD_deeptmhmm=s' => \$LOAD_deeptmhmm,
+    'LOAD_signalp=s' => \$LOAD_signalp,
+    'LOAD_EggnogMapper=s' => \$LOAD_EggnogMapper,
+    'LOAD_swissprot_blastx=s' => \$LOAD_swissprot_blastx,
+    'LOAD_infernal=s' => \$LOAD_infernal,
+    'LOAD_custom_blast=s' => \$LOAD_custom_blast,
+    'custom_db_name=s' => \$custom_db_name,
+    'blast_type=s' => \$blast_type,
+
+    'trinotate_data_dir=s' => \$trinotate_data_dir,
+    'transcript_fasta=s' => \$transcript_fasta,
+    'transdecoder_pep=s' => \$transdecoder_pep,
+    'gene_trans_map=s' => \$gene_trans_map,
+    
+    );
+
+
+unless ($trinotate_data_dir) {
+    $trinotate_data_dir = $ENV{'TRINOTATE_DATA_DIR'};
 }
 
-if ($command ne 'report' && ! @ARGV) {
-    die $usage . "\n\nMissing parameter.\n\n";
+
+unless ($sqlite_db && 
+        ($CREATE_flag || $INIT_flag || $REPORT_flag || $RUN_flag ||
+         $LOAD_swissprot_blastp || $LOAD_pfam || $LOAD_deeptmhmm || $LOAD_signalp || 
+         $LOAD_EggnogMapper || $LOAD_swissprot_blastx || $LOAD_infernal || $LOAD_custom_blast) ) {
+
+    die $usage;
 }
 
-my %commands = map { + $_ => 1 } qw(LOAD_swissprot_blastp LOAD_swissprot_blastx 
-                                    LOAD_pfam LOAD_deeptmhmm LOAD_signalp LOAD_infernal
-                                    LOAD_EggnogMapper
-                                    LOAD_custom_blast
-                                    report init create);
-
-unless (exists $commands{$command}) {
-    die "$usage\nError, do not recognize command: $command\n";
+if ($LOAD_custom_blast && ! ($custom_db_name && $blast_type)) {
+    die "Error, must specify --custom_db_name and --blast_type values when loading custom blast results. This will be your report column header for these annotations.\n";
 }
 
 my $util_dir = "$FindBin::RealBin/util";
@@ -90,51 +143,69 @@ unless (@ARGV) {
 
 my %command_to_params = ( 
     # protein-based
-    'LOAD_swissprot_blastp' => "$loaders_dir/Trinotate_BLAST_loader.pl --sqlite $sqlite_db --outfmt6 $ARGV[0] --prog blastp --dbtype Swissprot",
-    'LOAD_trembl_blastp' => "$loaders_dir/Trinotate_BLAST_loader.pl --sqlite $sqlite_db --outfmt6 $ARGV[0] --prog blastp --dbtype TrEMBL",
-    'LOAD_pfam'  => "$loaders_dir/Trinotate_PFAM_loader.pl --sqlite $sqlite_db --pfam $ARGV[0]",
-    'LOAD_deeptmhmm' => "$loaders_dir/Trinotate_DeepTmHMM_loader.pl --sqlite $sqlite_db --tmhmm $ARGV[0]",
-    'LOAD_signalp' => "$loaders_dir/Trinotate_SIGNALP_loader.pl --sqlite $sqlite_db --signalp $ARGV[0]",
-    'LOAD_EggnogMapper' => "$loaders_dir/Trinotate_EggnogMapper_loader.pl --sqlite $sqlite_db --emapper $ARGV[0]",
+    '--LOAD_swissprot_blastp' => "$loaders_dir/Trinotate_BLAST_loader.pl --sqlite $sqlite_db --outfmt6 $LOAD_swissprot_blastp --prog blastp --dbtype Swissprot",
+    '--LOAD_pfam'  => "$loaders_dir/Trinotate_PFAM_loader.pl --sqlite $sqlite_db --pfam $LOAD_pfam",
+    '--LOAD_deeptmhmm' => "$loaders_dir/Trinotate_DeepTmHMM_loader.pl --sqlite $sqlite_db --deeptmhmm_gff3 $LOAD_deeptmhmm",
+    '--LOAD_signalp' => "$loaders_dir/Trinotate_SIGNALP_loader.pl --sqlite $sqlite_db --signalp $LOAD_signalp",
+    '--LOAD_EggnogMapper' => "$loaders_dir/Trinotate_EggnogMapper_loader.pl --sqlite $sqlite_db --emapper $LOAD_EggnogMapper",
     
     
     # transcript-based
-    'LOAD_swissprot_blastx' => "$loaders_dir/Trinotate_BLAST_loader.pl --sqlite $sqlite_db --outfmt6 $ARGV[0] --prog blastx --dbtype Swissprot",
-    'LOAD_trembl_blastx' => "$loaders_dir/Trinotate_BLAST_loader.pl --sqlite $sqlite_db --outfmt6 $ARGV[0] --prog blastx --dbtype TrEMBL",
-    'LOAD_infernal' => "$loaders_dir/Trinotate_Infernal_loader.pl --sqlite $sqlite_db --infernal $ARGV[0]",
+    '--LOAD_swissprot_blastx' => "$loaders_dir/Trinotate_BLAST_loader.pl --sqlite $sqlite_db --outfmt6 $LOAD_swissprot_blastx --prog blastx --dbtype Swissprot",
+    'LOAD_infernal' => "$loaders_dir/Trinotate_Infernal_loader.pl --sqlite $sqlite_db --infernal $LOAD_infernal",
     
     # custom blast searches
-    'LOAD_custom_blast' => "$loaders_dir/Trinotate_BLAST_loader.pl --sqlite $sqlite_db @ARGV",
+    '--LOAD_custom_blast' => "$loaders_dir/Trinotate_BLAST_loader.pl --sqlite $sqlite_db --outfmt6 $LOAD_custom_blast --prog $blast_type --dbtype $custom_db_name",
     
     
     );
 
 
 
-if (my $cmd = $command_to_params{$command}) {
+my @LOAD_cmds = grep { /^--LOAD_/ } keys %PARAMS;
+
+if ($CREATE_flag) {
+    # set up Trinotate database and data dir
+
+    print STDERR "-CREATING $sqlite_db and populating data dir: $trinotate_data_dir\n"; 
+    unless($trinotate_data_dir) {
+        die "Error, the Trinotate create parameter requires a path to a destination data directory via --trinotate_data_dir or env var TRINOTATE_DATA_DIR to indicate the area to be created/populated";
+    }
+
+    if (-e $sqlite_db) {
+        confess "Error, SQLITE database $sqlite_db already exists. Please rename or delete the file before running --create to instantiate a new one.\n";
+    }
+    
+    &run_Trinotate_create($sqlite_db, $trinotate_data_dir);
+}
+
+if ($INIT_flag) {
+    print STDERR "-INIT populating $sqlite_db with transcripts and proteins\n";
+    # populate sequence and gene/trans/orf data
+    unless ($gene_trans_map && $transcript_fasta && $transdecoder_pep) {
+        confess "Error, for 'init' the following are required:  --gene_trans_map, --transcript_fasta, and --transdecoder_pep ";
+    }
+    my $cmd = "$FindBin::RealBin/util/trinotateSeqLoader/TrinotateSeqLoader.pl --sqlite $sqlite_db --gene_trans_map $gene_trans_map --transcript_fasta $transcript_fasta --transdecoder_pep $transdecoder_pep --bulk_load";
     &process_cmd($cmd);
 }
-elsif ($command eq "create") {
-    # set up Trinotate database and data dir
-    my $path_to_trinotate_db = shift @ARGV;
-    unless($path_to_trinotate_db) {
-        die "Error, the Trinotate create parameter requires a path to a destination data directory that will be created/populated";
+
+if (@LOAD_cmds) {
+    foreach my $LOAD_cmd (@LOAD_cmds) {
+        my $cmd = $command_to_params{$LOAD_cmd};
+        unless ($cmd) {
+            confess "Error, cannot find a command for loading instruction: $LOAD_cmd ";
+        }
+        print STDERR "-LOADING as per $LOAD_cmd\n";
+        &process_cmd($cmd);
     }
-    &run_Trinotate_create($sqlite_db, $path_to_trinotate_db);
 }
-elsif ($command eq "report") {
+
+if ($REPORT_flag) {
+    print STDERR "-REPORT being generated.\n";
     ## generate Trinotate report.
     my $cmd = "$FindBin::RealBin/util/Trinotate_report_writer.pl --sqlite $sqlite_db @ARGV";
     &process_cmd($cmd);
     
-}
-elsif ($command eq "init") {
-    # populate sequence and gene/trans/orf data
-    my $cmd = "$FindBin::RealBin/util/trinotateSeqLoader/TrinotateSeqLoader.pl --sqlite $sqlite_db @ARGV --bulk_load";
-    &process_cmd($cmd);
-}
-else {
-    die "Error, do not recognize command: $command ";
 }
 
 
@@ -241,6 +312,29 @@ sub run_Trinotate_create {
 
 
 
+    ## Install EggnogMapper data dir if software is available but
+
+    if (`which download_eggnog_data.py` =~ /\w/ 
+        &&
+        `which emapper.py` =~ /\w/
+        &&
+        (! exists $ENV{EGGNOG_DATA_DIR})) {
+                
+        my $eggnog_data_dir = $ENV{EGGNOG_DATA_DIR} = "$path_to_trinotate_db/EGGNOG_DATA_DIR";
+        if (! -d $eggnog_data_dir) {
+            mkdir($eggnog_data_dir) or confess "Error, cannot mkdir $eggnog_data_dir";
+        }
+
+        print STDERR "-EGGNOG_MAPPER: installing eggnogmapper data at: $eggnog_data_dir\n";
+        
+        # populate it.
+        my $cmd = "download_eggnog_data.py --data_dir $eggnog_data_dir -y";
+        $pipeliner->add_commands(new Command($cmd, "eggnog_mapper_data_download.ok"));
+
+        $pipeliner->run();
+    }
+        
+    
     print "\n\n####################################################\n\n"
         . "#  For future Trinotate execution, first set environment variable TRINOTATE_DATA_DIR like so:"
         . "#\n"
