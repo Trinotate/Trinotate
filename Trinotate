@@ -460,7 +460,7 @@ sub Trinotate_RUN_annotators {
         $pipeliner->add_commands(new Command($cmd, "diamond.uniprot_sprot.blastp.ok"));
         
         # load results.
-        $cmd = "$0 --db $sqlite_db --LOAD_swissprot_blastp uniprot_sprot.diamond.blastp.outfmt6 --prog blastp --dbtype Swissprot";
+        $cmd = "$0 --db $sqlite_db --LOAD_swissprot_blastp uniprot_sprot.diamond.blastp.outfmt6";
         $pipeliner->add_commands(new Command($cmd, "diamond.uniprot_sprot.blastp.loaded.ok"));
         
     }
@@ -470,7 +470,7 @@ sub Trinotate_RUN_annotators {
         my $cmd = "blastp -query $transdecoder_pep -db $trinotate_data_dir/uniprot_sprot.pep -num_threads $CPU  -max_target_seqs 1 -outfmt 6 -evalue $EVALUE > uniprot_sprot.ncbi.blastp.outfmt6";
         $pipeliner->add_commands(new Command($cmd, "ncbi.uniprot_sprot.blastp.ok"));
     
-        $cmd = "$0 --db $sqlite_db --LOAD_swissprot_blastp uniprot_sprot.ncbi.blastp.outfmt6 --prog blastp --dbtype Swissprot";
+        $cmd = "$0 --db $sqlite_db --LOAD_swissprot_blastp uniprot_sprot.ncbi.blastp.outfmt6";
         $pipeliner->add_commands(new Command($cmd, "ncbi.uniprot_sprot.blastp.loaded.ok"));
 
     }
