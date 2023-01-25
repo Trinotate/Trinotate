@@ -107,7 +107,7 @@ main: {
     #############
     ## Pfam2Go
 
-    $pipeliner->add_commands(new Command("wget \"$PFAM2GO_DAT_URL\" pfam2go",
+    $pipeliner->add_commands(new Command("wget \"$PFAM2GO_DAT_URL\" -O pfam2go",
                                          "pfam2go_download.ok") );
 
     $pipeliner->add_commands(new Command("$UTILDIR/PFAMtoGoParser.pl pfam2go > pfam2go.tab",
