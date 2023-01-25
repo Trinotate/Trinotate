@@ -37,15 +37,33 @@ my $usage = <<_EOUSAGE_;
 
              Trinotate --db <sqlite.db> --init --gene_trans_map <file> --transcript_fasta <file> --transdecoder_pep <file>
 
-         * Transdecoder protein search results:
+         * Running annotation computes automatically including auto-loading of results.
+
+             * to run ALL supported computes:
+                   
+                   Trinotate --db <sqlite.db> --run ALL --CPU <int> --transcript_fasta <file> --transdecoder_pep <file> 
+
+             * or to run select supported computes, indicate which ones to run: 
+
+                   Trinotate --db <sqlite.db> --CPU <int> --transcript_fasta <file> --transdecoder_pep <file> \
+                                   --run "swissprot_blastp swissprot_blastx pfam deeptmhmm signalp6 infernal EggnogMapper" 
+
+                    Notes:
+                        -  when specifying run with multiple values, enclose the list in quotes as shown above.
+                        -  include --use_diamond if you would prefer to use diamond blast instead of ncbi (default) blast)
+                        -  include --trinotate_data_dir <path> unless you have TRINOTATE_DATA_DIR env var set. 
+                        -  if running using provided docker or singularity, signalp6 is not automatically included due to licensing restrictions)
+
+
+         * Transdecoder loading protein search results:
 
              Trinotate --db <sqlite.db> --LOAD_swissprot_blastp <file.outfmt6>
              Trinotate --db <sqlite.db> --LOAD_pfam <file>
              Trinotate --db <sqlite.db> --LOAD_deeptmhmm <file.gff3>
-             Trinotate --db <sqlite.db> --LOAD_signalp <file>
+             Trinotate --db <sqlite.db> --LOAD_signalp6 <file>
              Trinotate --db <sqlite.db> --LOAD_EggnogMapper <file>
 
-          * Trinity transcript search results:
+          * Trinity loading transcript search results:
 
              Trinotate --db <sqlite.db> --LOAD_swissprot_blastx <file.outfmt6>
              Trinotate --db <sqlite.db> --LOAD_infernal <file>
@@ -75,14 +93,21 @@ my ($CREATE_flag,
     $REPORT_flag,
     $RUN_flag);
 
+my $RUN_list = "";
+
 my ($LOAD_swissprot_blastp, $LOAD_pfam, $LOAD_deeptmhmm, $LOAD_signalp, 
     $LOAD_EggnogMapper, $LOAD_swissprot_blastx, $LOAD_infernal,
     $LOAD_custom_blast, $custom_db_name, $blast_type) = ("", "", "", "", "", "", "", "", "", "");
 
 my ($trinotate_data_dir, $transcript_fasta, $transdecoder_pep, $gene_trans_map);
 
+my $USE_DIAMOND_BLAST_flag = 0;
+my $CPU = 4;
 
 my %PARAMS = map { $_ => 1 } @ARGV;
+
+my $EVALUE = "1e-5";
+my $PFAM_CUTOFF = "DNC";
 
 
 &GetOptions ( 
@@ -94,7 +119,7 @@ my %PARAMS = map { $_ => 1 } @ARGV;
     'create' => \$CREATE_flag,
     'init' => \$INIT_flag,
     'report' => \$REPORT_flag,
-    'run' => \$RUN_flag,
+    'run=s' => \$RUN_list,
     
     # loading modes
     'LOAD_swissprot_blastp=s' => \$LOAD_swissprot_blastp,
@@ -112,14 +137,28 @@ my %PARAMS = map { $_ => 1 } @ARGV;
     'transcript_fasta=s' => \$transcript_fasta,
     'transdecoder_pep=s' => \$transdecoder_pep,
     'gene_trans_map=s' => \$gene_trans_map,
+
+    'use_diamond' => \$USE_DIAMOND_BLAST_flag,
     
+    'CPU=i' => \$CPU,
+    
+    'E|evalue=s' => \$EVALUE,
+    'PFAM_CUTOFF=s' => \$PFAM_CUTOFF,
     );
 
 
-unless ($trinotate_data_dir) {
+# env var TRINOTATE_DATA_DIR is set or re-set here.
+if ($trinotate_data_dir) {
+    $ENV{'TRINOTATE_DATA_DIR'} = $trinotate_data_dir; # setting or re-setting
+}
+else {
     $trinotate_data_dir = $ENV{'TRINOTATE_DATA_DIR'};
 }
 
+
+if ($RUN_list) {
+    $RUN_flag = 1;
+}
 
 unless ($sqlite_db && 
         ($CREATE_flag || $INIT_flag || $REPORT_flag || $RUN_flag ||
@@ -137,9 +176,11 @@ my $util_dir = "$FindBin::RealBin/util";
 my $loaders_dir = "$util_dir/trinotateSeqLoader";
 my $admin_dir = "$util_dir/admin";
 
-unless (@ARGV) {
-    @ARGV = (""); # to avoid error messages inusing $ARGV[0] below
+
+if (@ARGV) {
+    confess "Error, not recognizing parameters: [ @ARGV ] ";
 }
+
 
 my %command_to_params = ( 
     # protein-based
@@ -200,6 +241,39 @@ if (@LOAD_cmds) {
     }
 }
 
+
+if ($RUN_flag) {
+
+    print STDERR "-RUN mode indicated. Will process bioinformatics computes.\n";
+    
+    unless ($trinotate_data_dir) {
+        confess "Error, --trinotate_data_dir or env var TRINOTATE_DATA_DIR must be set.";
+    }
+
+    unless ($transcript_fasta && $transdecoder_pep) {
+        confess "Error, for 'run' the following are required:  --gene_trans_map, --transcript_fasta, and --transdecoder_pep ";
+    }
+
+    
+    my @supported = qw( ALL swissprot_blastp swissprot_blastx pfam deeptmhmm signalp6 infernal EggnogMapper );
+    my %supported_run_types = map { $_ => 1 } @supported;
+
+    my @unsupported = grep { ! exists $supported_run_types{$_} } @supported;
+    if (@unsupported) {
+        confess "Error, run types not recognized include [ @unsupported ].  Please edit or remove unsupported entries. Only the following are supported: [ @supported ]  ";
+    }
+
+    $RUN_list =~ s/^\s+|\s+$//g; # strip whitespace from ends.
+    my @run_types = split(/\s+/, $RUN_list);
+    if (grep { /^ALL$/i } @run_types) {
+        print STDERR "-found ALL among run types so running everything supported.\n";
+        @run_types = ("ALL");
+    }
+                              
+    &Trinotate_RUN_annotators($sqlite_db, \@run_types, $CPU, $trinotate_data_dir, $transcript_fasta, $transdecoder_pep);
+}
+
+
 if ($REPORT_flag) {
     print STDERR "-REPORT being generated.\n";
     ## generate Trinotate report.
@@ -230,6 +304,23 @@ sub process_cmd {
 sub run_Trinotate_create {
     my ($sqlite_db, $path_to_trinotate_db) = @_;
 
+    ## first, check for tools required for a successful build.
+    my @required_utilities = qw(makeblastdb hmmpress cmpress wget sqlite3);
+    if ($USE_DIAMOND_BLAST_flag) {
+        push(@required_utilities, 'diamond');
+    }
+    my $missing = 0;
+    for my $prog (@required_utilities) {
+        unless (`which $prog` =~ /\w/) {
+            $missing += 1;
+            print STDERR "-error, cannot locate required utility: $prog, be sure it is installed and available via your PATH env var setting\n";
+        }
+    }
+    if ($missing) {
+        confess "Error, missing at least one required utility. See above for specifics.\n";
+    }
+    
+    
     unless ($path_to_trinotate_db) {
         confess("Error, require path_to_trinotate_db_param");
     }
@@ -280,16 +371,6 @@ sub run_Trinotate_create {
     $cmd = "mv Pfam-A.hmm* $path_to_trinotate_db/";
     $pipeliner->add_commands(new Command($cmd, "relocate_pfam_db.ok"));
 
-
-    
-
-    ## add EggnogMapper
-    if (`which emapper.py` =~ /\w/) {
-        ## integrate EggnogMapper database
-        
-
-    }
-
     ## add Infernal
     $cmd = "wget ftp://ftp.ebi.ac.uk/pub/databases/Rfam/CURRENT/Rfam.cm.gz";
     $pipeliner->add_commands(new Command($cmd, "wget_Rfam.cm.gz"));
@@ -305,7 +386,6 @@ sub run_Trinotate_create {
     
     $cmd = "mv Rfam.* $path_to_trinotate_db/";
     $pipeliner->add_commands(new Command($cmd, "relocate_Rfam_db.ok"));
-
 
 
     $pipeliner->run();
@@ -345,4 +425,58 @@ sub run_Trinotate_create {
 
     
     return;
+}
+
+
+####
+sub Trinotate_RUN_annotators {
+    my ($sqlite_db, $run_types_aref, $CPU, $trinotate_data_dir, $transcript_fasta, $transdecoder_pep) = @_;
+
+    my @required_utilities = qw(blastp blastx hmmsearch cmscan sqlite3);
+    if ($USE_DIAMOND_BLAST_flag) {
+        push(@required_utilities, 'diamond');
+    }
+    my $missing = 0;
+    for my $prog (@required_utilities) {
+        unless (`which $prog` =~ /\w/) {
+            $missing += 1;
+            print STDERR "-error, cannot locate required utility: $prog, be sure it is installed and available via your PATH env var setting\n";
+        }
+    }
+    if ($missing) {
+        confess "Error, missing at least one required utility. See above for specifics.\n";
+    }
+
+
+
+    
+    # supported: ALL swissprot_blastp swissprot_blastx pfam deeptmhmm signalp6 infernal EggnogMapper
+
+    my $pipeliner = new Pipeliner(-verbose => 2, -checkpoint_dir => "__trinotate_run_checkpts");
+
+    # swissprot_blastp
+    if ($USE_DIAMOND_BLAST_flag) {
+        my $cmd = "diamond blastp -d $trinotate_data_dir/uniprot_sprot -q $transdecoder_pep -p $CPU -k 1 -e $EVALUE -o uniprot_sprot.diamond.blastp.outfmt6 --outfmt 6";
+        $pipeliner->add_commands(new Command($cmd, "diamond.uniprot_sprot.blastp.ok"));
+        
+        # load results.
+        $cmd = "$0 --db $sqlite_db --LOAD_swissprot_blastp uniprot_sprot.diamond.blastp.outfmt6 --prog blastp --dbtype Swissprot";
+        $pipeliner->add_commands(new Command($cmd, "diamond.uniprot_sprot.blastp.loaded.ok"));
+        
+    }
+    else {
+        # default, ncbi blastp
+
+        my $cmd = "blastp -query $transdecoder_pep -db $trinotate_data_dir/uniprot_sprot.pep -num_threads $CPU  -max_target_seqs 1 -outfmt 6 -evalue $EVALUE > uniprot_sprot.ncbi.blastp.outfmt6";
+        $pipeliner->add_commands(new Command($cmd, "ncbi.uniprot_sprot.blastp.ok"));
+    
+        $cmd = "$0 --db $sqlite_db --LOAD_swissprot_blastp uniprot_sprot.ncbi.blastp.outfmt6 --prog blastp --dbtype Swissprot";
+        $pipeliner->add_commands(new Command($cmd, "ncbi.uniprot_sprot.blastp.loaded.ok"));
+
+    }
+
+
+    $pipeliner->run();
+
+    
 }
