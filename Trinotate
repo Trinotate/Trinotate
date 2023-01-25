@@ -110,6 +110,7 @@ my $EVALUE = "1e-5";
 my $PFAM_CUTOFF = "DNC";
 
 
+
 &GetOptions ( 
     'h' => \$help_flag,
     
@@ -557,7 +558,53 @@ sub Trinotate_RUN_annotators {
         $pipeliner->add_commands(new Command($cmd, "pfam_hmmsearch_loading.ok"));
         
     }
+
+
+    #~~~~~~~~~~~~~~~~~~~~~
+    # DeepTmHMM
+    #~~~~~~~~~~~~~~~~~~~~~
+
     
+    if ($run_types{'ALL'} || $run_types{'deeptmhmm'}) {
+
+        &ensure_prog_exists('biolib');
+
+        my $biolib = `which biolib`;
+        chomp $biolib;
+        # why do this?  because biolib itself may have different python in shebang than the one we want to run here.
+        my $cmd = "python3 $biolib run DTU/DeepTMHMM --fasta $transdecoder_pep";
+        $pipeliner->add_commands(new Command($cmd, "deep_tmhmm.ok")); 
+
+        $cmd = "$0 --db $sqlite_db --LOAD_deeptmhmm biolib_results/TMRs.gff3";
+        $pipeliner->add_commands(new Command($cmd, "deep_tmhmm.loading.ok")); 
+    }
+    
+
+    #~~~~~~~~~~~~~~~~~~
+    # signalP6
+    #~~~~~~~~~~~~~~~~~
+
+    if ($run_types{'ALL'} || $run_types{'signalp6'}) {   
+
+        if (`which signalp6` =~ /\w/) {
+            
+            my $cmd = "signalp6 --fastafile $transdecoder_pep --output_dir sigP6outdir --format none --organism euk --mode fast";
+            $pipeliner->add_commands(new Command($cmd, "sigP6.ok"));
+
+            $cmd = "$0 --db $sqlite_db --LOAD_signalp sigP6outdir/output.gff3";
+            $pipeliner->add_commands(new Command($cmd, "sigP6.loading.ok"));
+            
+        }
+        else {
+            print STDERR "*** signalp6 not found installed, so skipping signalp6 computes ***\n";
+        }
+                
+        
+
+    }
+        
+
+    # Execute pipeline
     
     $pipeliner->run();
 
