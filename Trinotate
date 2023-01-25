@@ -181,11 +181,13 @@ if (@ARGV) {
     confess "Error, not recognizing parameters: [ @ARGV ] ";
 }
 
+&ensure_prog_exists("sqlite3");
+
 
 my %command_to_params = ( 
     # protein-based
     '--LOAD_swissprot_blastp' => "$loaders_dir/Trinotate_BLAST_loader.pl --sqlite $sqlite_db --outfmt6 $LOAD_swissprot_blastp --prog blastp --dbtype Swissprot",
-    '--LOAD_pfam'  => "$loaders_dir/Trinotate_PFAM_loader.pl --sqlite $sqlite_db --pfam $LOAD_pfam",
+    '--LOAD_pfam'  => "$loaders_dir/Trinotate_PFAM_hmmsearch_loader.pl --sqlite $sqlite_db --pfam $LOAD_pfam",
     '--LOAD_deeptmhmm' => "$loaders_dir/Trinotate_DeepTmHMM_loader.pl --sqlite $sqlite_db --deeptmhmm_gff3 $LOAD_deeptmhmm",
     '--LOAD_signalp' => "$loaders_dir/Trinotate_SIGNALP_loader.pl --sqlite $sqlite_db --signalp $LOAD_signalp",
     '--LOAD_EggnogMapper' => "$loaders_dir/Trinotate_EggnogMapper_loader.pl --sqlite $sqlite_db --emapper $LOAD_EggnogMapper",
@@ -305,7 +307,7 @@ sub run_Trinotate_create {
     my ($sqlite_db, $path_to_trinotate_db) = @_;
 
     ## first, check for tools required for a successful build.
-    my @required_utilities = qw(makeblastdb hmmpress cmpress wget sqlite3);
+    my @required_utilities = qw(makeblastdb hmmpress cmpress wget);
     if ($USE_DIAMOND_BLAST_flag) {
         push(@required_utilities, 'diamond');
     }
@@ -429,15 +431,11 @@ sub run_Trinotate_create {
 
 
 ####
-sub Trinotate_RUN_annotators {
-    my ($sqlite_db, $run_types_aref, $CPU, $trinotate_data_dir, $transcript_fasta, $transdecoder_pep) = @_;
-
-    my @required_utilities = qw(blastp blastx hmmsearch cmscan sqlite3);
-    if ($USE_DIAMOND_BLAST_flag) {
-        push(@required_utilities, 'diamond');
-    }
+sub ensure_prog_exists {
+    my (@progs) = @_;
+    
     my $missing = 0;
-    for my $prog (@required_utilities) {
+    for my $prog (@progs) {
         unless (`which $prog` =~ /\w/) {
             $missing += 1;
             print STDERR "-error, cannot locate required utility: $prog, be sure it is installed and available via your PATH env var setting\n";
@@ -447,35 +445,120 @@ sub Trinotate_RUN_annotators {
         confess "Error, missing at least one required utility. See above for specifics.\n";
     }
 
+    return;
+}
 
 
+####
+sub Trinotate_RUN_annotators {
+    my ($sqlite_db, $run_types_aref, $CPU, $trinotate_data_dir, $transcript_fasta, $transdecoder_pep) = @_;
     
-    # supported: ALL swissprot_blastp swissprot_blastx pfam deeptmhmm signalp6 infernal EggnogMapper
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    # Supported: 
+    #     ALL 
+    #     swissprot_blastp 
+    #     swissprot_blastx 
+    #     pfam 
+    #     deeptmhmm 
+    #     signalp6 
+    #     infernal 
+    #     EggnogMapper
+    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+    my %run_types = map { $_ => 1 } @$run_types_aref;
+    
+    
+    my @required_utilities = qw(blastp blastx hmmsearch cmscan sqlite3);
+    if ($USE_DIAMOND_BLAST_flag) {
+        push(@required_utilities, 'diamond');
+    }
+    &ensure_prog_exists(@required_utilities);
+    
     my $pipeliner = new Pipeliner(-verbose => 2, -checkpoint_dir => "__trinotate_run_checkpts");
 
+    ###################
     # swissprot_blastp
-    if ($USE_DIAMOND_BLAST_flag) {
-        my $cmd = "diamond blastp -d $trinotate_data_dir/uniprot_sprot -q $transdecoder_pep -p $CPU -k 1 -e $EVALUE -o uniprot_sprot.diamond.blastp.outfmt6 --outfmt 6";
-        $pipeliner->add_commands(new Command($cmd, "diamond.uniprot_sprot.blastp.ok"));
+    ###################
+
+
+    if ($run_types{'ALL'} || $run_types{'swissprot_blastp'}) {
+
+
+        if ($USE_DIAMOND_BLAST_flag) {
+            
+            &ensure_prog_exists('diamond');
+            
+            my $cmd = "diamond blastp -d $trinotate_data_dir/uniprot_sprot -q $transdecoder_pep -p $CPU -k 1 -e $EVALUE -o uniprot_sprot.diamond.blastp.outfmt6 --outfmt 6";
+            $pipeliner->add_commands(new Command($cmd, "diamond.uniprot_sprot.blastp.ok"));
+            
+            # load results.
+            $cmd = "$0 --db $sqlite_db --LOAD_swissprot_blastp uniprot_sprot.diamond.blastp.outfmt6";
+            $pipeliner->add_commands(new Command($cmd, "diamond.uniprot_sprot.blastp.loaded.ok"));
+            
+        }
+        else {
+            # default, ncbi blastp
+            &ensure_prog_exists('blastp');
+            
+            my $cmd = "blastp -query $transdecoder_pep -db $trinotate_data_dir/uniprot_sprot.pep -num_threads $CPU  -max_target_seqs 1 -outfmt 6 -evalue $EVALUE > uniprot_sprot.ncbi.blastp.outfmt6";
+            $pipeliner->add_commands(new Command($cmd, "ncbi.uniprot_sprot.blastp.ok"));
+            
+            $cmd = "$0 --db $sqlite_db --LOAD_swissprot_blastp uniprot_sprot.ncbi.blastp.outfmt6";
+            $pipeliner->add_commands(new Command($cmd, "ncbi.uniprot_sprot.blastp.loaded.ok"));
+            
+        }
+    }
         
-        # load results.
-        $cmd = "$0 --db $sqlite_db --LOAD_swissprot_blastp uniprot_sprot.diamond.blastp.outfmt6";
-        $pipeliner->add_commands(new Command($cmd, "diamond.uniprot_sprot.blastp.loaded.ok"));
+    ######################
+    # swissprot_blastx
+    ######################
+
+    if ($run_types{'ALL'} || $run_types{'swissprot_blastx'}) {
+        
+        if ($USE_DIAMOND_BLAST_flag) {
+
+            &ensure_prog_exists('diamond');
+            
+            my $cmd = "diamond blastx -d $trinotate_data_dir/uniprot_sprot -q $transcript_fasta -p $CPU -k 1 -e $EVALUE -o uniprot_sprot.diamond.blastx.outfmt6 --outfmt 6";
+            $pipeliner->add_commands(new Command($cmd, "diamond.uniprot_sprot.blastx.ok"));
+            
+            # load results.
+            $cmd = "$0 --db $sqlite_db --LOAD_swissprot_blastx uniprot_sprot.diamond.blastx.outfmt6";
+            $pipeliner->add_commands(new Command($cmd, "diamond.uniprot_sprot.blastx.loaded.ok"));
+            
+        }
+        else {
+            # default, ncbi blastx
+            
+            &ensure_prog_exists('blastx');
+            
+            my $cmd = "blastx -query $transcript_fasta -db $trinotate_data_dir/uniprot_sprot.pep -num_threads $CPU  -max_target_seqs 1 -outfmt 6 -evalue $EVALUE > uniprot_sprot.ncbi.blastx.outfmt6";
+            $pipeliner->add_commands(new Command($cmd, "ncbi.uniprot_sprot.blastx.ok"));
+            
+            $cmd = "$0 --db $sqlite_db --LOAD_swissprot_blastx uniprot_sprot.ncbi.blastx.outfmt6";
+            $pipeliner->add_commands(new Command($cmd, "ncbi.uniprot_sprot.blastx.loaded.ok"));
+            
+        }
         
     }
-    else {
-        # default, ncbi blastp
-
-        my $cmd = "blastp -query $transdecoder_pep -db $trinotate_data_dir/uniprot_sprot.pep -num_threads $CPU  -max_target_seqs 1 -outfmt 6 -evalue $EVALUE > uniprot_sprot.ncbi.blastp.outfmt6";
-        $pipeliner->add_commands(new Command($cmd, "ncbi.uniprot_sprot.blastp.ok"));
     
-        $cmd = "$0 --db $sqlite_db --LOAD_swissprot_blastp uniprot_sprot.ncbi.blastp.outfmt6";
-        $pipeliner->add_commands(new Command($cmd, "ncbi.uniprot_sprot.blastp.loaded.ok"));
+    #~~~~~~~~~~~~~~~~~~
+    # hmmpfam
+    #~~~~~~~~~~~~~~~~~
 
+    if ($run_types{'ALL'} || $run_types{'pfam'}) {
+
+        &ensure_prog_exists('hmmsearch');
+        
+        my $cmd = "hmmsearch --cpu $CPU --noali --domtblout TrinotatePFAM.out $trinotate_data_dir/Pfam-A.hmm $transdecoder_pep > pfam.log";
+        $pipeliner->add_commands(new Command($cmd, "pfam_hmmsearch.ok"));
+
+        $cmd = "$0 --db $sqlite_db --LOAD_pfam  TrinotatePFAM.out";
+        $pipeliner->add_commands(new Command($cmd, "pfam_hmmsearch_loading.ok"));
+        
     }
-
-
+    
+    
     $pipeliner->run();
 
     
