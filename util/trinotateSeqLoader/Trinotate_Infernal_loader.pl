@@ -58,7 +58,7 @@ main: {
     }
         
     my $dbh = DBI->connect( "dbi:SQLite:$sqlite_db" ) || die "Cannot connect: $DBI::errstr";
-    $dbh->do("delete from INFERNALdata") or die $!;
+    $dbh->do("delete from Infernal") or die $!;
     $dbh->disconnect();
     
     # CREATE TABLE INFERNALdata(TrinityQuerySequence,Featurestart INTEGER,Featureend INTEGER,Featurescore REAL, FeatureStrand, FeatureFrame, Featureprediction);

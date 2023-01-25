@@ -168,7 +168,7 @@ main: {
     # Infernal table
     &RunMod($dbproc,"create table Infernal(query_acc, target_name, rfam_acc, clan_name, region_start, region_end, strand, score, evalue)");
     &RunMod($dbproc,"CREATE INDEX InfernalQueryIdx ON Infernal(query_acc)");
-
+    
 
     # Eggnog-mapper table:
     &RunMod($dbproc,"create table EggnogMapper(query_acc, seed_ortholog, evalue, score, eggNOG_OGs, max_annot_lvl, COG_category, Description, Preferred_name, GOs, EC, KEGG_ko, KEGG_Pathway, KEGG_Module, KEGG_Reaction, KEGG_rclass, BRITE, KEGG_TC, CAZy, BiGG_Reaction, PFAMs)")

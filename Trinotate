@@ -9,6 +9,7 @@ use Carp;
 use Cwd 'abs_path';
 use Getopt::Long qw(:config posix_default no_ignore_case bundling pass_through);
 use Data::Dumper;
+use List::Util qw(max);
 
 my $usage = <<_EOUSAGE_;
 
@@ -196,7 +197,7 @@ my %command_to_params = (
     
     # transcript-based
     '--LOAD_swissprot_blastx' => "$loaders_dir/Trinotate_BLAST_loader.pl --sqlite $sqlite_db --outfmt6 $LOAD_swissprot_blastx --prog blastx --dbtype Swissprot",
-    'LOAD_infernal' => "$loaders_dir/Trinotate_Infernal_loader.pl --sqlite $sqlite_db --infernal $LOAD_infernal",
+    '--LOAD_infernal' => "$loaders_dir/Trinotate_Infernal_loader.pl --sqlite $sqlite_db --infernal $LOAD_infernal",
     
     # custom blast searches
     '--LOAD_custom_blast' => "$loaders_dir/Trinotate_BLAST_loader.pl --sqlite $sqlite_db --outfmt6 $LOAD_custom_blast --prog $blast_type --dbtype $custom_db_name",
@@ -602,8 +603,27 @@ sub Trinotate_RUN_annotators {
         
 
     }
-        
 
+    #~~~~~~~~~~~~~~~~
+    # Infernal
+    #~~~~~~~~~~~~~~~~
+
+    
+    if ($run_types{'ALL'} || $run_types{'infernal'}) {
+
+        &ensure_prog_exists('cmscan');
+
+        my $Z = max(5, int ( (-s $transcript_fasta)/1e6 + 0.5));
+        
+        my $cmd = "cmscan -Z $Z --cut_ga --rfam --nohmmonly --tblout infernal.out --fmt 2 --cpu $CPU --clanin $trinotate_data_dir/Rfam.clanin $trinotate_data_dir/Rfam.cm $transcript_fasta > infernal.log";
+        $pipeliner->add_commands(new Command($cmd, "infernal.ok"));
+
+        $cmd = "$0 --db $sqlite_db --LOAD_infernal infernal.out";
+        $pipeliner->add_commands(new Command($cmd, "infernal.loading.ok"));
+        
+    }
+    
+    
     # Execute pipeline
     
     $pipeliner->run();
