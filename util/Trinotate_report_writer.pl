@@ -261,8 +261,8 @@ sub get_TmHMM_info {
 
     if ($tmhmm_struct) {
         my $tmhmm_line = join("^",
-                              $tmhmm_struct->{Score},
-                              $tmhmm_struct->{PredHel},
+                              #$tmhmm_struct->{Score},
+                              "TMRs:" . $tmhmm_struct->{PredHel},
                               $tmhmm_struct->{Topology},
             );
         return($tmhmm_line);

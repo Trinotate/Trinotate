@@ -77,7 +77,10 @@ my $usage = <<_EOUSAGE_;
 
           * report generation:
 
-             Trinotate --db <sqlite.db> --report [ -E (default: 1e-5) ] [--pfam_cutoff DNC|DGC|DTC|SNC|SGC|STC (default: DNC=domain noise cutoff)]
+             Trinotate --db <sqlite.db> --report [ -E (default: 1e-5) ] \
+                                                 [--pfam_cutoff DNC|DGC|DTC|SNC|SGC|STC (default: DNC=domain noise cutoff)] \
+                                                 [--incl_pep] \
+                                                 [--incl_trans]
 
 
 _EOUSAGE_
@@ -109,6 +112,8 @@ my %PARAMS = map { $_ => 1 } @ARGV;
 
 my $EVALUE = "1e-5";
 my $PFAM_CUTOFF = "DNC";
+my $include_pep = 0;
+my $include_trans = 0;
 
 
 
@@ -146,6 +151,9 @@ my $PFAM_CUTOFF = "DNC";
     
     'E|evalue=s' => \$EVALUE,
     'PFAM_CUTOFF=s' => \$PFAM_CUTOFF,
+    'incl_pep' => \$include_pep,
+    'incl_trans' => \$include_trans,
+    
     );
 
 
@@ -281,7 +289,14 @@ if ($RUN_flag) {
 if ($REPORT_flag) {
     print STDERR "-REPORT being generated.\n";
     ## generate Trinotate report.
-    my $cmd = "$FindBin::RealBin/util/Trinotate_report_writer.pl --sqlite $sqlite_db @ARGV";
+    my $cmd = "$FindBin::RealBin/util/Trinotate_report_writer.pl --sqlite $sqlite_db -E $EVALUE --pfam_cutoff $PFAM_CUTOFF ";
+    if ($include_pep) {
+        $cmd .= " --incl_pep ";
+    }
+    if ($include_trans) {
+        $cmd .= " --incl_trans ";
+    }
+    
     &process_cmd($cmd);
     
 }

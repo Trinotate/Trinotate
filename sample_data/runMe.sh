@@ -52,7 +52,7 @@ echo "###########################"
 echo Generating report table
 echo "###########################"
 
-../Trinotate --db ${sqlite_db} --report > Trinotate_report.tsv
+../Trinotate --db ${sqlite_db} --report --incl_pep --incl_trans > Trinotate_report.tsv
 
 
 

@@ -71,9 +71,10 @@ main: {
         chomp;
         unless (/\w/) { next; }
         if (/^\#/) { next; }
-        my @x = split(/\s+/);
-        
-        my $query_prot_id = $x[0];
+        my @x = split(/\t/);
+
+        my @fasta_header_pts = split(/\s+/, $x[0]);
+        my $query_prot_id = $fasta_header_pts[0];
         my $start = $x[3];
         my $end = $x[4];
         my $score = $x[5];
