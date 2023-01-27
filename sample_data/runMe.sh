@@ -1,6 +1,7 @@
-#!/bin/bash -ex
+#!/bin/bash
 
-SWISSPROT_SQLITE_DB_URL="https://data.broadinstitute.org/Trinity/Trinotate_v3_RESOURCES_sample_data_only/Trinotate.sample_data_only_boilerplate.sqlite.gz";
+set -ex
+
 
 for file in data/*.gz
 do
@@ -18,14 +19,17 @@ if [ ! -d DESeq2_gene ]; then
 fi
 
 
-sqlite_db=myTrinotate
+sqlite_db=myTrinotate.sqlite
+trinotate_data_dir=`pwd`/TRINOTATE_DATA_DIR 
+
 
 echo "############################"
 echo "Trinotate create"
 echo "############################"
 
-../Trinotate --db $sqlite_db --create --trinotate_data_dir `pwd`/TRINOTATE_DATA_DIR
-
+if [ ! -s "$sqlite_db" ] & [ ! -d "$trinotate_data_dir" ]; then
+    ../Trinotate --db $sqlite_db --create --trinotate_data_dir `pwd`/TRINOTATE_DATA_DIR
+fi
 
 
 echo "###############################"
@@ -41,8 +45,7 @@ echo  Trinotate Run
 echo "##############################"
 
 
-../Trinotate --db ${sqlite_db} --run ALL
-
+../Trinotate --db ${sqlite_db} --run ALL --trinotate_data_dir `pwd`/TRINOTATE_DATA_DIR --transcript_fasta data/Trinity.fasta --transdecoder_pep data/Trinity.fasta.transdecoder.pep --use_diamond
 
 
 echo "###########################"
