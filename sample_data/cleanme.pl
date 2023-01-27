@@ -11,13 +11,14 @@ chdir $FindBin::RealBin or die "error, cannot cd to $FindBin::RealBin";
 
 
 
-my @files_to_keep = qw (cleanme.pl 
+my @files_to_keep = qw (
+cleanme.pl 
 runMe.sh
-
+runMe.add_expression_info.sh 
                         );
 
 unless (@ARGV) {
-    push (@files_to_keep, "Trinotate.boilerplate.sqlite");
+    push (@files_to_keep, "myTrinotate.sqlite");
     ## by default, retaining this sqlite file so dont have to re-download it.
 }
 
