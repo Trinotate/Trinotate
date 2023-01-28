@@ -644,6 +644,47 @@ sub Trinotate_RUN_annotators {
         
     }
     
+
+    #~~~~~~~~~~~~~~~
+    # EggnogMapper
+    #~~~~~~~~~~~~~~~
+
+    if ($run_types{'ALL'} || $run_types{'EggnogMapper'}) {
+
+        my $found_emapper = 1;
+        unless (`which emapper.py` =~ /\w/) {
+            $found_emapper = 0;
+            print STDERR "-cannot run EggnogMapper because can't locate emapper.py   Be sure egnnogmapper is installed and utilities are available via PATH env var\n";
+        }
+
+        my $eggnog_data_dir = undef;
+        
+        if ($found_emapper) {
+                        
+            if (exists $ENV{EGGNOG_DATA_DIR}) {
+                $eggnog_data_dir = $ENV{EGGNOG_DATA_DIR};
+            }
+            elsif (-d "$ENV{TRINOTATE_DATA_DIR}/EGGNOG_DATA_DIR") {
+                $eggnog_data_dir = "$ENV{TRINOTATE_DATA_DIR}/EGGNOG_DATA_DIR";
+            }
+            else {
+                print STDERR "-cannot run EggnogMapper because cannot locate EGGNOG_DATA_DIR\n";
+            }
+        }
+
+        if ($found_emapper && $eggnog_data_dir) {
+            # Run eggnogmapper:
+            my $cmd = "emapper.py -i $transdecoder_pep --cpu $CPU --data_dir $eggnog_data_dir -o eggnog_mapper";
+            $pipeliner->add_commands(new Command($cmd, "run_eggnogmapper.ok"));
+
+            $cmd = "$0 --db $sqlite_db --LOAD_EggnogMapper eggnog_mapper.emapper.annotations";
+            $pipeliner->add_commands(new Command($cmd, "load_eggnogmapper.ok"));
+            
+        }
+            
+        
+    }
+    
     
     # Execute pipeline
     
