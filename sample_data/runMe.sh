@@ -27,9 +27,8 @@ echo "############################"
 echo "Trinotate create"
 echo "############################"
 
-if [ ! -s "$sqlite_db" ] & [ ! -d "$trinotate_data_dir" ]; then
-    ../Trinotate --db $sqlite_db --create --trinotate_data_dir `pwd`/TRINOTATE_DATA_DIR
-fi
+
+../Trinotate --db $sqlite_db --create --trinotate_data_dir `pwd`/TRINOTATE_DATA_DIR
 
 
 echo "###############################"
