@@ -190,6 +190,14 @@ RUN git clone https://github.com/Trinotate/Trinotate.git && \
 
 RUN apt-get update && apt-get install -y sqlite3
 
+
+RUN cpanm install DB_File \
+                  URI::Escape \
+                  DBI \
+                  DBD::SQLite
+
+
+
 #################
 # clean up image:
 #RUN apt-get -qq -y remove automake build-essential cmake curl git gcc g++ wget && \
