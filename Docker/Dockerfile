@@ -175,6 +175,20 @@ RUN wget https://github.com/eggnogdb/eggnog-mapper/archive/refs/tags/2.1.9.tar.g
 
 
 
+#~~~~~~~~~~~~~~~~~~
+# Trinotate
+#~~~~~~~~~~~~~~~~~~
+
+RUN apt-get update && apt-get install -y lighttpd
+
+WORKDIR $SRC
+ENV TRINOTATE_CO=e0b11e39fd2742d7e39bb98ff174d760b76818a0
+
+RUN git clone https://github.com/Trinotate/Trinotate.git && \
+    cd Trinotate && \
+    git checkout $TRINOTATE_CO
+
+
 
 #################
 # clean up image:
