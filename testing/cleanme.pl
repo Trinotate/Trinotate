@@ -15,6 +15,8 @@ my @files_to_keep = qw (
 cleanme.pl 
 runMe.sh
 runMe.Docker.sh
+runMe.Singularity.sh
+
                         );
 
 
