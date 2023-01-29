@@ -96,7 +96,7 @@ TrinityQuerySequence = comp4913_c1_seq2
         my $evalue = $x[17];
         my $overlap_indicator = $x[19];
 
-        unless ($overlap_indicator eq "=") { next; }
+        if ($overlap_indicator eq "=") { next; }
         
         print $ofh join("\t", 
                         $query_acc, $target_name, $rfam_acc, $clan_name, $region_start, $region_end, $strand, $score, $evalue) . "\n";
