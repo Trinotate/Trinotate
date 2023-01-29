@@ -182,13 +182,13 @@ RUN wget https://github.com/eggnogdb/eggnog-mapper/archive/refs/tags/2.1.9.tar.g
 RUN apt-get update && apt-get install -y lighttpd
 
 WORKDIR $SRC
-ENV TRINOTATE_CO=e0b11e39fd2742d7e39bb98ff174d760b76818a0
+ENV TRINOTATE_CO=21927721a5c1a38fe4af57238fc1198c9a50d616
 
 RUN git clone https://github.com/Trinotate/Trinotate.git && \
     cd Trinotate && \
     git checkout $TRINOTATE_CO
 
-
+RUN apt-get update && apt-get install -y sqlite3
 
 #################
 # clean up image:
