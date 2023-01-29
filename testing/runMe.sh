@@ -38,7 +38,7 @@ echo "###############################"
 echo Trinotate Init
 echo "###############################"
 
-$TRINOTATE_HOME/Trinotate --db ${sqlite_db} --init --gene_trans_map data/Trinity.fasta.gene_to_trans_map --transcript_fasta data/Trinity.fasta --transdecoder_pep data/Trinity.fasta.transdecoder.pep
+$TRINOTATE_HOME/Trinotate --db ${sqlite_db} --init --gene_trans_map input_data/Trinity.fasta.gene_to_trans_map --transcript_fasta input_data/Trinity.fasta --transdecoder_pep input_data/Trinity.fasta.transdecoder.pep
 
 
 
@@ -47,7 +47,7 @@ echo  Trinotate Run
 echo "##############################"
 
 
-$TRINOTATE_HOME/Trinotate --db ${sqlite_db} --run ALL --trinotate_data_dir `pwd`/TRINOTATE_DATA_DIR --transcript_fasta data/Trinity.fasta --transdecoder_pep data/Trinity.fasta.transdecoder.pep --use_diamond
+$TRINOTATE_HOME/Trinotate --db ${sqlite_db} --run ALL --trinotate_data_dir `pwd`/TRINOTATE_DATA_DIR --transcript_fasta input_data/Trinity.fasta --transdecoder_pep input_data/Trinity.fasta.transdecoder.pep --use_diamond
 
 
 echo "###########################"

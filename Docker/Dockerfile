@@ -197,6 +197,10 @@ RUN cpanm install DB_File \
                   DBD::SQLite
 
 
+ENV PATH=${PATH}:$BIN/eggnog-mapper-2.1.9
+
+
+RUN pip install -r $BIN/eggnog-mapper-2.1.9/requirements.txt
 
 #################
 # clean up image:
