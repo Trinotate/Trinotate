@@ -14,7 +14,7 @@ chdir $FindBin::RealBin or die "error, cannot cd to $FindBin::RealBin";
 my @files_to_keep = qw (
 cleanme.pl 
 runMe.sh
-runMe.docker.sh
+runMe.Docker.sh
                         );
 
 
@@ -22,7 +22,9 @@ my %keep = map { + $_ => 1 } @files_to_keep;
 
 
 foreach my $file (<*>, <input_data/*>) {
-	
+
+    if (-d $file) { next; }
+    
 	if ( (! $keep{$file}) && $file !~ /\.t?gz$/) {
 		print STDERR "-removing file: $file\n";
 		unlink($file);
@@ -30,8 +32,13 @@ foreach my $file (<*>, <input_data/*>) {
 }
 
 
-`rm -rf edgeR_trans/ `;
-`rm -rf edgeR_genes`;
+`rm -rf ./DESeq2_trans/`;
+`rm -rf ./DESeq2_gene/`;
 
+`rm -rf ./biolib_results/`;
+`rm -rf ./__trinotate_run_checkpts/`;
+`rm -rf ./TRINOTATE_DATA_DIR/`;
+
+    
 
 exit(0);
