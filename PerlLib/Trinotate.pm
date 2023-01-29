@@ -442,4 +442,35 @@ sub get_RNAMMER_info {
 }
 
 
+####
+sub get_INFERNAL_info {
+    my ($dbproc, $trans_id) = @_;
+
+    my $query = "select target_name, rfam_acc, clan_name, region_start, region_end, strand, score, evalue "
+        . " from Infernal where query_acc = ? ";
+
+    my @results = &do_sql_2D($dbproc, $query, $trans_id);
+
+    my @structs;
+
+    foreach my $result (@results) {
+        my ($target_name, $rfam_acc, $clan_name, $region_start, $region_end, $strand, $score, $evalue) = @$result;
+        push (@structs, { target_name => $target_name,
+                          rfam_acc => $rfam_acc,
+                          clan_name => $clan_name,
+                          region_start => $region_start,
+                          region_end => $region_end,
+                          strand => $strand,
+                          score => $score,
+                          evalue => $evalue } );
+    }
+
+
+    return(@structs);
+}
+                              
+
+
+
+
 1; #EOM

@@ -102,7 +102,7 @@ main: {
         }
     }
     
-    my @header = ("#gene_id", "transcript_id", "sprot_Top_BLASTX_hit", "RNAMMER",
+    my @header = ("#gene_id", "transcript_id", "sprot_Top_BLASTX_hit", "infernal",
                   "prot_id", "prot_coords", "sprot_Top_BLASTP_hit");
 
     if (@custom_db_names) {
@@ -137,9 +137,12 @@ main: {
             $fields{"${custom_db_name}_BLASTX"} = $blastx_info;
         }
 
-        my $rnammer_txt = &get_RNAMMER_info($dbproc, $trans_id);
-        $fields{RNAMMER} = $rnammer_txt;
+        #my $rnammer_txt = &get_RNAMMER_info($dbproc, $trans_id);
+        #$fields{RNAMMER} = $rnammer_txt;
 
+        my $infernal_txt = &get_INFERNAL_info($dbproc, $trans_id);
+        $fields{infernal} = $infernal_txt;
+        
         my $trans_seq = ($include_trans) ? &get_transcript($dbproc, $trans_id) : ".";
         $fields{transcript} = $trans_seq;
 
@@ -558,6 +561,38 @@ sub get_RNAMMER_info {
         }
 
         my $result_line = join("`", @encoded_rnammer_hits);
+        return($result_line);
+    }
+    else {
+        return(".");
+    }
+}
+
+
+
+####
+sub get_INFERNAL_info {
+    my ($dbproc, $trans_id) = @_;
+
+    my @infernal_hits = &Trinotate::get_INFERNAL_info($dbproc, $trans_id);
+
+    if (@infernal_hits) {
+
+        my @encoded_infernal_hits;
+
+        foreach my $infernal_hit (@infernal_hits) {
+            my @fields = ($infernal_hit->{target_name},
+                          $infernal_hit->{rfam_acc},
+                          join("-", $infernal_hit->{region_start}, $infernal_hit->{region_end}),
+                          $infernal_hit->{strand},
+                          $infernal_hit->{score},
+                          $infernal_hit->{evalue});
+            
+            
+            push (@encoded_infernal_hits, join("^", @fields));
+        }
+        
+        my $result_line = join("`", @encoded_infernal_hits);
         return($result_line);
     }
     else {
