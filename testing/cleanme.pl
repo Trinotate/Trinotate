@@ -34,6 +34,7 @@ foreach my $file (<*>, <input_data/*>) {
 }
 
 
+print STDERR "-removing output directories... ";
 `rm -rf ./DESeq2_trans/`;
 `rm -rf ./DESeq2_gene/`;
 
@@ -41,6 +42,6 @@ foreach my $file (<*>, <input_data/*>) {
 `rm -rf ./__trinotate_run_checkpts/`;
 `rm -rf ./TRINOTATE_DATA_DIR/`;
 
-    
+print STDERR "Done.\n";
 
 exit(0);
