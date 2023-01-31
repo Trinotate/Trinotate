@@ -470,7 +470,63 @@ sub get_INFERNAL_info {
 }
                               
 
+####
+sub count_EggnogMapper_entries {
+    my ($dbproc) = @_;
 
+    my $query = "select count(*) from EggnogMapper";
+    my $count = &very_first_result_sql($dbproc, $query);
 
+    return($count);
+}
+
+####
+sub get_EggnogMapper_results {
+    my ($dbproc, $prot_id) = @_;
+
+    my $query = "select seed_ortholog, evalue, score, eggNOG_OGs, max_annot_lvl, "
+        . " COG_category, Description, Preferred_name, GOs, EC, KEGG_ko, KEGG_Pathway, "
+        . " KEGG_Module, KEGG_Reaction,KEGG_rclass, BRITE, KEGG_TC, CAZy, BiGG_Reaction, PFAMs "
+        . " from EggnogMapper where query_acc = ?";
+
+    my @results = &do_sql_2D($dbproc, $query, $prot_id);
+
+    if (@results) {
+        if (scalar (@results) > 1) {
+            print STDERR "WARNING - multiple EggnogMapper results stored for $prot_id .... only providing first entry encountered.\n";
+        }
+        my $result = shift @results;
+
+        my ($seed_ortholog, $evalue, $score, $eggNOG_OGs, $max_annot_lvl,
+            $COG_category, $Description, $Preferred_name, $GOs, $EC, $KEGG_ko, $KEGG_Pathway,
+            $KEGG_Module, $KEGG_Reaction, $KEGG_rclass, $BRITE, $KEGG_TC, $CAZy, $BiGG_Reaction, $PFAMs) = @$result;
+
+        my $struct = { 'EggNM.seed_ortholog' => $seed_ortholog,
+                           'EggNM.evalue' => $evalue,
+                           'EggNM.score' => $score,
+                           'EggNM.eggNOG_OGs' => $eggNOG_OGs,
+                           'EggNM.max_annot_lvl' => $max_annot_lvl,
+                           'EggNM.COG_category' => $COG_category,
+                           'EggNM.Description' => $Description,
+                           'EggNM.Preferred_name' => $Preferred_name,
+                           'EggNM.GOs' => $GOs,
+                           'EggNM.EC' => $EC,
+                           'EggNM.KEGG_ko' => $KEGG_ko,
+                           'EggNM.KEGG_Pathway' => $KEGG_Pathway,
+                           'EggNM.KEGG_Module' => $KEGG_Module,
+                           'EggNM.KEGG_Reaction' => $KEGG_Reaction,
+                           'EggNM.KEGG_rclass' => $KEGG_rclass,
+                           'EggNM.BRITE' => $BRITE,
+                           'EggNM.KEGG_TC' => $KEGG_TC,
+                           'EggNM.CAZy' => $CAZy,
+                           'EggNM.BiGG_Reaction' => $BiGG_Reaction,
+                           'EggNM.PFAMs' => $PFAMs };
+
+        return($struct);
+    }
+    else {
+        return undef;
+    }
+}
 
 1; #EOM

@@ -112,9 +112,24 @@ main: {
 
     push (@header, "Pfam", "SignalP", "TmHMM",
           "eggnog", "Kegg",
-          "gene_ontology_BLASTX", "gene_ontology_BLASTP", "gene_ontology_Pfam",
-          "transcript", "peptide");
+          "gene_ontology_BLASTX", "gene_ontology_BLASTP", "gene_ontology_Pfam");
 
+
+    my @EggNM_fields = ("EggNM.seed_ortholog", "EggNM.evalue", "EggNM.score", "EggNM.eggNOG_OGs",
+              "EggNM.max_annot_lvl", "EggNM.COG_category", "EggNM.Description",
+              "EggNM.Preferred_name", "EggNM.GOs", "EggNM.EC", "EggNM.KEGG_ko",
+              "EggNM.KEGG_Pathway", "EggNM.KEGG_Module", "EggNM.KEGG_Reaction",
+              "EggNM.KEGG_rclass", "EggNM.BRITE", "EggNM.KEGG_TC", "EggNM.CAZy",
+              "EggNM.BiGG_Reaction", "EggNM.PFAMs");
+
+    my $have_EggNM = &Trinotate::count_EggnogMapper_entries($dbproc);
+
+    if ($have_EggNM) {
+        push (@header, @EggNM_fields);
+    }
+        
+    push (@header, "transcript", "peptide");
+    
     my $tab_writer = new DelimParser::Writer(*STDOUT, "\t", \@header);
 
 
@@ -171,7 +186,14 @@ main: {
         $fields{prot_id} = '.';
         $fields{prot_coords} = '.';
         $fields{gene_ontology_BLASTP} = ".";
-        
+    
+        if ($have_EggNM) {
+            # init 
+            for my $fieldname (@EggNM_fields) {
+                $fields{$fieldname} = ".";
+            }
+        }
+    
         if (@orf_results) {
             foreach my $orf_result (@orf_results) {
                 my ($prot_id, $strand, $lend, $rend) = @$orf_result;
@@ -220,6 +242,19 @@ main: {
                 $prot_fields{prot_id} = $prot_id;
                 $prot_fields{prot_coords} = "$lend-$rend\[$strand]";
 
+
+                if ($have_EggNM) {
+                    my $eggNM_result = &Trinotate::get_EggnogMapper_results($dbproc, $prot_id);
+                    if ($eggNM_result) {
+                        foreach my $fieldname (keys %$eggNM_result) {
+                            my $val = $eggNM_result->{$fieldname};
+                            if ($val ne '-') {
+                                $prot_fields{$fieldname} = $val;
+                            }
+                        }
+                    }
+                }
+                                
                 $tab_writer->write_row(\%prot_fields);
 
             }
