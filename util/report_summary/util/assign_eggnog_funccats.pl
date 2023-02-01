@@ -45,17 +45,22 @@ main: {
     }
     close $fh;
 
-    my $pct_missing = sprintf("%.2f", $num_missing / ($num_missing + $num_assigned) * 100);
-    print STDERR "$num_assigned entries found with funcat mappings, $num_missing ($pct_missing\%)lacked assignments\n\n";
-
-    print join("\t", "funcat", "count") . "\n"; # table header 
-    foreach my $cat (reverse sort {$category_counts{$a}<=>$category_counts{$b}} keys %category_counts) {
-
-        my $count = $category_counts{$cat};
-        print join("\t", $cat, $funcat_descriptions{$cat}, $count) . "\n";
+    if ($num_missing || $num_assigned) {
+    
+        my $pct_missing = sprintf("%.2f", $num_missing / ($num_missing + $num_assigned) * 100);
+        print STDERR "$num_assigned entries found with funcat mappings, $num_missing ($pct_missing\%)lacked assignments\n\n";
+        
+        print join("\t", "funcat", "count") . "\n"; # table header 
+        foreach my $cat (reverse sort {$category_counts{$a}<=>$category_counts{$b}} keys %category_counts) {
+            
+            my $count = $category_counts{$cat};
+            print join("\t", $cat, $funcat_descriptions{$cat}, $count) . "\n";
+        }
+    }
+    else {
+        print STDERR "-no eggnog to report based on top swissprot matches here. Does not include EgggnogMapper currently - see those results separatel\n";
     }
     
-
     exit(0);
     
 }
