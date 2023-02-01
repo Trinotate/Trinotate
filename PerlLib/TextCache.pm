@@ -5,7 +5,7 @@ use strict;
 use warnings;
 use Carp;
 
-my $cache_dir = $ENV{WEBSERVER_TMP} || "tmp/tcache";
+my $cache_dir = $ENV{WEBSERVER_TMP} || $ENV{TMPDIR} || "/tmp/tcache";
 
 ## static method
 sub get_cached_page {

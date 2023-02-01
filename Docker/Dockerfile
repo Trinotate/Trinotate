@@ -181,13 +181,6 @@ RUN wget https://github.com/eggnogdb/eggnog-mapper/archive/refs/tags/2.1.9.tar.g
 
 RUN apt-get update && apt-get install -y lighttpd
 
-WORKDIR $SRC
-ENV TRINOTATE_CO=21927721a5c1a38fe4af57238fc1198c9a50d616
-
-RUN git clone https://github.com/Trinotate/Trinotate.git && \
-    cd Trinotate && \
-    git checkout $TRINOTATE_CO
-
 RUN apt-get update && apt-get install -y sqlite3
 
 
@@ -205,6 +198,15 @@ RUN pip install -r $BIN/eggnog-mapper-2.1.9/requirements.txt
 
 RUN cpanm install CGI
 RUN cpanm install HTML::Template
+
+
+WORKDIR $SRC
+ENV TRINOTATE_CO=ec9b45f465b226f379e53f3a2cde1ca5013ca7f2
+
+RUN git clone https://github.com/Trinotate/Trinotate.git && \
+    cd Trinotate && \
+    git checkout $TRINOTATE_CO
+
 
 #################
 # clean up image:
