@@ -76,6 +76,22 @@ main: {
         $query = "delete from ExprClusters";
         &RunMod($dbproc, $query);
     }
+    else {
+
+        # see if we need to replace this cluster_analysis_name
+        my $query = "select cluster_analysis_id from ExprClusterAnalyses where cluster_analysis_name = ?";
+        my $cluster_analysis_id = &very_first_result_sql($dbproc, $query, $analysis_name);
+        if ($cluster_analysis_id) {
+            print STDERR "- $analysis_name already loaded, so first removing earlier results before reloading.\n";
+            $query = "delete from ExprClusterAnalyses where cluster_analysis_id = ?";
+            &RunMod($dbproc, $query, $cluster_analysis_id);
+
+            $query = "delete from ExprClusters where cluster_analysis_id = ?";
+            &RunMod($dbproc, $query, $cluster_analysis_id);
+        }
+        
+        
+    }
     
 
     my $query = "insert into ExprClusterAnalyses(cluster_analysis_group, cluster_analysis_name) values (?,?)";
