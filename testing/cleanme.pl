@@ -41,6 +41,7 @@ print STDERR "-removing output directories... ";
 `rm -rf ./biolib_results/`;
 `rm -rf ./__trinotate_run_checkpts/`;
 `rm -rf ./TRINOTATE_DATA_DIR/`;
+`rm -rf ./sigP6outdir`;
 
 print STDERR "Done.\n";
 
