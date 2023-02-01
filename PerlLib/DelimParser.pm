@@ -178,7 +178,7 @@ sub get_row_val {
     my ($self, $row_href, $key) = @_;
 
     if (! exists $row_href->{$key}) {
-        confess "Error, row: " . Dumper($row_href) > " doesn't include key: [$key]";
+        confess "Error, row: " . Dumper($row_href) . " doesn't include key: [$key]";
     }
 
     return($row_href->{$key});

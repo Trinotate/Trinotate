@@ -12,7 +12,7 @@ use Storable qw (store retrieve freeze thaw dclone);
 use warnings;
 use Data::Dumper;
 use Carp qw (croak cluck confess);
-use URI::Escape;
+#use URI::Escape;
 
 =head1 NAME
 
@@ -2309,14 +2309,43 @@ sub has_UTRs {
 ####
 sub has_5prime_UTR {
     my $self = shift;
-    return (scalar ($self->get_5prime_UTR_coords()));
+    return ($self->get_5prime_UTR_length() > 2);
 }
 
 ####
 sub has_3prime_UTR {
     my $self = shift;
-    return(scalar ($self->get_3prime_UTR_coords()));
+    return($self->get_3prime_UTR_length() > 2);
 }
+
+
+####
+sub get_5prime_UTR_length {
+    my $self = shift;
+    my @prime5_UTR_coords = $self->get_5prime_UTR_coords();
+    
+    my $len = 0;
+    for my $coordset (@prime5_UTR_coords) {
+        my ($lend, $rend) = sort {$a<=>$b} @$coordset;
+        $len += ($rend - $lend) + 1;
+    }
+    return($len);
+}
+
+
+####
+sub get_3prime_UTR_length {
+    my $self = shift;
+    my @prime3_UTR_coords = $self->get_3prime_UTR_coords();
+    
+    my $len = 0;
+    for my $coordset (@prime3_UTR_coords) {
+        my ($lend, $rend) = sort {$a<=>$b} @$coordset;
+        $len += ($rend - $lend) + 1;
+    }
+    return($len);
+}
+    
 
 
 =over 4
@@ -3054,7 +3083,36 @@ sub to_GTF_format {
 	$com_name =~ s/[\"\']//g if $com_name;
 	
 	my $name_txt = ($com_name) ? "Name \"$com_name\";" : "";
-	
+
+
+    ## Gene record
+    unless ($preferences{'gene_record_already_done'}) {
+        
+        my ($gene_lend, $gene_rend) = sort {$a<=>$b} $gene_obj->get_gene_span();
+        
+        push (@gtf_text, [$seqname,
+                          $source,
+                          "gene",
+                          $gene_lend,
+                          $gene_rend,
+                          "0",
+                          $orientation,
+                          ".",
+                          "gene_id \"$gene_id\"; $name_txt"]);
+    }
+    
+    ## Transcript record
+    my ($trans_lend, $trans_rend) = sort {$a<=>$b} $gene_obj->get_transcript_span();
+    push (@gtf_text, [$seqname,
+                      $source,
+                      "transcript",
+                      $trans_lend,
+                      $trans_rend,
+                      "0",
+                      $orientation,
+                      ".",
+                      "gene_id \"$gene_id\"; transcript_id \"$transcript_id\"; $name_txt"]);
+    
     unless ($is_pseudogene) {
         $gene_obj->set_CDS_phases($genome_seq_ref);
     
@@ -3117,8 +3175,22 @@ sub to_GTF_format {
     
     }
     
-    ## report the CDS regions:
+    ## report the exons and CDS regions:
     foreach my $exon ($gene_obj_for_gtf->get_exons()) {
+
+        my ($exon_lend, $exon_rend) = sort {$a<=>$b} $exon->get_coords();
+        
+        push (@gtf_text, [$seqname,
+                          $source,
+                          "exon",
+                          $exon_lend,
+                          $exon_rend,
+                          "0",
+                          $orientation,
+                          ".",
+                          "gene_id \"$gene_id\"; transcript_id \"$transcript_id\"; $name_txt"]);
+        
+
         
         my $cds = ($is_pseudogene) ? $exon : $exon->get_CDS_exon_obj();
         
@@ -3191,7 +3263,9 @@ sub to_GTF_format {
     }
     
     foreach my $isoform ($gene_obj->get_additional_isoforms()) {
-        $GTF .= "\n" . $isoform->to_GTF_format($genome_seq_ref, %preferences);
+        my %iso_pref = %preferences;
+        $iso_pref{'gene_record_already_done'} = 1;
+        $GTF .= "\n" . $isoform->to_GTF_format($genome_seq_ref, %iso_pref);
     }
     
     return ($GTF);
@@ -3495,7 +3569,10 @@ sub to_GFF3_format {
     my ($gene_obj, %preferences) = @_;
     
     my $gene_id = $gene_obj->{TU_feat_name};
-   
+    if ($gene_id =~ /;/) {
+        $gene_id = "\"$gene_id\"";
+    }
+    
     my $strand = $gene_obj->get_orientation();
     
     my @noteText;
@@ -3508,13 +3585,10 @@ sub to_GFF3_format {
     my $asmbl_id = $preferences{seqid} || $gene_obj->{asmbl_id};
     my $source = $preferences{source} || $gene_obj->{source} || ".";
     
-    unless ($asmbl_id) {
-        if ($gene_id =~ /^(\d+)/) {
-            $asmbl_id = $1;
-        } else {
-            die "Error, no asmbl_id from gene_obj\n";
-        }
+    unless (defined $asmbl_id) {
+        confess "Error, no asmbl_id from gene_obj\n";
     }
+    
     
     my ($gene_lend, $gene_rend) = sort {$a<=>$b} $gene_obj->get_gene_span();
     my $com_name = $gene_obj->{com_name};
@@ -3523,10 +3597,18 @@ sub to_GFF3_format {
 	}
 	
 	if ($com_name) {
-		# uri escape it:
-		$com_name = uri_escape($com_name);
-	}
-
+        if ($preferences{uri_encode_name}) {
+            # uri escape it:
+            use URI::Escape;
+            $com_name = uri_escape($com_name);
+        }
+        else {
+            unless (substr($com_name,0,1) =~ /\'|\"/ && substr($com_name, -1, 1) =~ /\'|\"/) {
+                $com_name = "\"$com_name\"";
+            }
+        }
+    }
+    
 	my $gene_alias = "";
 	if (my $pub_locus = $gene_obj->{pub_locus}) {
 		$gene_alias = "Alias=$pub_locus;";
@@ -3544,6 +3626,10 @@ sub to_GFF3_format {
         foreach my $gene_obj ($gene_obj_ref, $gene_obj_ref->get_additional_isoforms() ) {
             
             my $model_id = $gene_obj->{Model_feat_name};
+            if ($model_id =~ /;/) {
+                $model_id = "\"$model_id\"";
+            }
+            
             my $model_alias = "";
             if (my $model_locus = $gene_obj->{Model_pub_locus}) {
 				$model_alias = "Alias=$model_locus;";
@@ -3575,7 +3661,7 @@ sub to_GFF3_format {
             
             
             ## annotate 5' utr
-            if ($gene_obj->has_CDS()) {
+            if ($gene_obj->has_CDS() && $gene_obj->has_5prime_UTR()) {
                 my @prime5_utr = $gene_obj->get_5prime_UTR_coords();
                 if (@prime5_utr) {
                     my $utr_count = 0;
@@ -3632,10 +3718,10 @@ sub to_GFF3_format {
 					
                     my $partial_text = "";
                     if ($prime5_partial && $cds_obj->{first_cds}) {
-                        $partial_text .= "; 5_prime_partial=true";
+                        $partial_text .= ";5_prime_partial=true";
                     }
                     if ($prime3_partial && $cds_obj->{last_cds}) {
-                        $partial_text .= "; 3_prime_partial=true";
+                        $partial_text .= ";3_prime_partial=true";
                     }
                     
                     $gff3_text .= "$asmbl_id\t$source\tCDS\t$cds_lend\t$cds_rend\t.\t$strand\t$phase\tID=${cds_ID_string};Parent=$model_id$partial_text\n";
@@ -3643,7 +3729,7 @@ sub to_GFF3_format {
             }
             
             ## annotate 3' utr
-            if ($gene_obj->has_CDS()) {
+            if ($gene_obj->has_CDS() && $gene_obj->has_3prime_UTR()) {
                 my @prime3_utr = $gene_obj->get_3prime_UTR_coords();
                 if (@prime3_utr) {
                     my $utr_count = 0;
@@ -3741,8 +3827,6 @@ sub to_BED_format {
     
 	my $strand = $self->get_strand();
 
-	my ($gene_lend, $gene_rend) = sort {$a<=>$b} $self->get_gene_span();
-
 	my ($coding_lend, $coding_rend) = sort {$a<=>$b} $self->get_CDS_span();
 	
 	my $scaffold = $self->{asmbl_id};
@@ -3750,7 +3834,7 @@ sub to_BED_format {
 	my $gene_id = $self->{TU_feat_name};
 	my $trans_id = $self->{Model_feat_name};
 	
-	my $com_name = $self->{com_name} || "no descripton";
+	my $com_name = $self->{com_name} || "";
 
     my $score = $params{score} || 0;
     
@@ -3759,24 +3843,41 @@ sub to_BED_format {
 	}
 	
 	
+    if ($gene_id) {
+        $com_name = "$gene_id;$com_name";
+    }
+    
 	if ($trans_id) {
 		$com_name = "ID=$trans_id;$com_name";
-	}	
-
+	}
+	else {
+        $com_name = "ID=$com_name";
+    }
+    
     if ($params{uri_encode}) {
         $com_name = uri_escape($com_name);
     }
     
 
 	my @exons = sort {$a->{end5}<=>$b->{end5}} $self->get_exons();
+
+    my @exon_coords;
+	foreach my $exon (@exons) {
+        
+		my ($exon_lend, $exon_rend) = sort {$a<=>$b} $exon->get_coords();
+        push (@exon_coords, [$exon_lend, $exon_rend]);
+    }
+    
 	
 	my @starts;
 	my @lengths;
 
-	foreach my $exon (@exons) {
-
-		my ($exon_lend, $exon_rend) = sort {$a<=>$b} $exon->get_coords();
-		
+    my $gene_lend = $exon_coords[0]->[0];
+    my $gene_rend = $exon_coords[$#exon_coords]->[1];
+    
+    foreach my $exon_coordset (@exon_coords) {
+        my ($exon_lend, $exon_rend) = @$exon_coordset;
+        
 		my $start = $exon_lend - $gene_lend;
 		push (@starts, $start);
 
@@ -3795,12 +3896,16 @@ sub to_BED_format {
 						$score, 
 						$strand,
 						$coding_lend-1, $coding_rend,
-						"0,0,0", # rgb info
+						"0", # rgb info - use '.' to allow user customization in IGV.   Need 0 for compatibility with UCSC browser.
 						scalar(@lengths),
 						join(",", @lengths),
 						join(",", @starts)
 						) . "\n";
-	
+
+    foreach my $isoform ($self->get_additional_isoforms()) {
+        $bed_line .= $isoform->to_BED_format(%params);
+    }
+    
 	return($bed_line);
 }
 
@@ -4431,22 +4536,33 @@ sub has_CDS {
 }
 
 
+####
+sub set_CDS_phases_from_init_phase {
+    my ($self, $init_phase) = @_;
+
+    my @exons = $self->get_exons();
+
+    my $curr_cds_len = $init_phase;
+    
+    foreach my $exon (@exons) {
+        if (my $cds = $exon->get_CDS_obj()) {
+            $cds->set_phase($curr_cds_len % 3);
+            my $cds_len = $cds->length();
+            $curr_cds_len += $cds_len;
+        }
+    }
+
+    return;
+}
+
+
 
 sub set_CDS_phases {
     my ($self, $genomic_seq_ref) = @_;
-    
-
-    if  ((! $self->is_pseudogene()) && (! $self->has_CDS()) ) {
-        die "Error, gene has no CDS " . $self->toString();
-    }
-    
-    if ($self->is_pseudogene() && (! $self->has_CDS()) ) {
-        return;
-    }
-    
+        
 
     my $start_pos = 1;
-    unless ($self->is_pseudogene()) {
+    if ($self->has_CDS() && ! $self->is_pseudogene()) {
      
         $self->create_all_sequence_types($genomic_seq_ref);
         
@@ -4468,31 +4584,68 @@ sub set_CDS_phases {
         }
         
         $start_pos = $self->_get_cds_start_pos($cds_sequence);
-	}
-    
-    my $first_phase = $start_pos - 1;
-    
-    my @exons = $self->get_exons();
-    my @cds_objs;
-    foreach my $exon (@exons) {
-        my $cds = $exon->get_CDS_obj();
-        if (ref $cds) {
-            push (@cds_objs, $cds);
+        
+        ## must set phase based on codon start position:
+        ## my definition of phase here is the actual codon position of the first base in the CDS sequence.
+        ##  (note this differs from the GFF3 spec, and is adjusted for in the to_GFF3_format() method.
+        ##
+                
+        my $first_phase;
+        if ($start_pos == 0) {
+            # ATG XXX ...
+            # 012 012 012
+            
+            $first_phase = 0;  
+        }
+        elsif ($start_pos == 1) {
+            # XAT GXX ...
+            # 201 201 201
+            
+            $first_phase = 2;
+        }
+        elsif ($start_pos == 2) {
+            # XXA TGX ...
+            # 120 120 120 
+
+            $first_phase = 1
+        }
+        else {
+            confess "Error, start pos: $start_pos doesn't make sense here... must be a bug.";
+        }
+
+        my @exons = $self->get_exons();
+        my @cds_objs;
+        foreach my $exon (@exons) {
+            my $cds = $exon->get_CDS_obj();
+            if (ref $cds) {
+                push (@cds_objs, $cds);
+            }
+        }
+        
+        my $cds_obj = shift @cds_objs;
+        $cds_obj->{phase} = $first_phase;
+        my $cds_length = abs ($cds_obj->{end3} - $cds_obj->{end5}) + 1;
+
+        if ($first_phase != 0) {
+            # and now I understand why the GFF3 phase definition differs from mine. :-)  
+            if ($first_phase == 1) {
+                $cds_length -= 2;
+            }
+            elsif ($first_phase == 2) {
+                $cds_length -= 1;
+            }
+            else {
+                confess "Error, first phase set to: $first_phase, which is nonsensical";
+            }
+        }
+                
+        while (@cds_objs) {
+            my $next_cds_obj = shift @cds_objs;
+            $next_cds_obj->{phase} = $cds_length % 3;
+            $cds_length += abs ($next_cds_obj->{end3} - $next_cds_obj->{end5}) + 1;
         }
     }
-
-    my $cds_obj = shift @cds_objs;
-    $cds_obj->{phase} = $first_phase;
-    my $cds_length = abs ($cds_obj->{end3} - $cds_obj->{end5}) + 1;
-    $cds_length -= $first_phase;
     
-    while (@cds_objs) {
-        my $next_cds_obj = shift @cds_objs;
-        $next_cds_obj->{phase} = $cds_length % 3;
-        $cds_length += abs ($next_cds_obj->{end3} - $next_cds_obj->{end5}) + 1;
-    }
-
-
     foreach my $isoform ($self->get_additional_isoforms()) {
         $isoform->set_CDS_phases($genomic_seq_ref);
     }
@@ -4531,10 +4684,9 @@ sub _get_cds_start_pos {
 	unless (ref $longest_orf) {
 		die "No longest ORF found in sequence";
 	}
-	
+
 	## examine the first three ORFs, prefer long orf with stop codon.
     my $orfPos = $longest_orf->{start}; #init to first, longest orf.
-	
 	unless (defined $orfPos) {
 		die "Error, orfPos not defined! " . Dumper ($longest_orf);
 	}
@@ -4564,6 +4716,10 @@ sub _get_cds_start_pos {
         confess "Error, longest ORF is found at position $orfPos, and should be between 1 and 3.  What's wrong with your gene?" . $self->toString();
     }
     $codon_start = $orfPos;
+
+    #longest orf apparently using 1-based rather than 0-based coordinates.
+        
+    $codon_start -= 1;  
     
     return ($codon_start);
 }
