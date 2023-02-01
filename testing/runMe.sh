@@ -56,7 +56,15 @@ echo "###########################"
 
 $TRINOTATE_HOME/Trinotate --db ${sqlite_db} --report --incl_pep --incl_trans > Trinotate_report.tsv
 
+##################
+## Misc value adds
+##################
 
+# Extract GO terms
+${TRINOTATE_HOME}/util/extract_GO_assignments_from_Trinotate_xls.pl  --Trinotate_xls Trinotate_report.tsv -G -I > Trinotate_report.xls.gene_ontology
+
+# Generate trinotate report summary statistics
+${TRINOTATE_HOME}/util/report_summary/trinotate_report_summary.pl Trinotate_report.tsv Trinotate_report_stats
 
 echo "##########################"
 echo done.  See annotation summary file:  Trinotate_report.tsv

@@ -16,7 +16,7 @@ cleanme.pl
 runMe.sh
 runMe.Docker.sh
 runMe.Singularity.sh
-runMe.add_expression_info.sh
+runMe.add_expression_prep_TrinotateWeb.sh
                         );
 
 
