@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use FindBin;
 use lib ("$FindBin::RealBin/../PerlLib");
-use Fasta_reader;
+#use Fasta_reader;
 use GTF_utils;
 use GFF3_utils;
 use Getopt::Long qw(:config no_ignore_case bundling pass_through);
@@ -71,9 +71,9 @@ main: {
         $scaffold_to_genes_href = GFF3_utils::index_GFF3_gene_objs($annot_file, $gene_obj_indexer_href);
     }
         
-    my $fasta_reader = new Fasta_reader($genome_fasta_file);
+    #my $fasta_reader = new Fasta_reader($genome_fasta_file);
     
-    my %genome_seqs = $fasta_reader->retrieve_all_seqs_hash();
+    #my %genome_seqs = $fasta_reader->retrieve_all_seqs_hash();
 
 
     ## prep outputs:
@@ -92,13 +92,20 @@ main: {
     open(my $gene_trans_map_ofh, ">$gene_trans_map_file") or die "Error, cannot write to $gene_trans_map_file";
 
     
+    my $total_entries = 0;
+    my $problem_entries = 0;
     
     foreach my $scaffold (keys %$scaffold_to_genes_href) {
+     
         
+   
         my @gene_ids = @{$scaffold_to_genes_href->{$scaffold}};
         
-        my $chr_seq = $genome_seqs{$scaffold};
+        #my $chr_seq = $genome_seqs{$scaffold};
 
+        my $chr_seq = &get_contig_seq($scaffold, $genome_fasta_file);
+
+        
         foreach my $gene_id (@gene_ids) {
             
             my $gene_obj = $gene_obj_indexer_href->{$gene_id} or die "Error, cannot locate gene_obj for $gene_id";
@@ -121,22 +128,37 @@ main: {
                 my $transcript_id = $model_id; # alias
                 
                 print $transcripts_ofh ">$model_id $gene_id\n$transcript_seq\n";
+                $total_entries++;
                 
                 if (my $protein_seq = $trans_obj->get_protein_sequence()) {
                     my $prot_len = length($protein_seq);
                     my $cds_seq = $trans_obj->get_CDS_sequence();
                     my $cds_rel_start = index($transcript_seq, $cds_seq);
-                    if ($cds_rel_start < 0) { 
-                        die "Error, cannot map cds within cdna sequence";
+
+                    eval {
+                        if ($cds_rel_start < 0) { 
+                            die "Error, cannot map cds within cdna sequence:\n"
+                                . "CDS: $cds_seq\n"
+                                . "CDNA: $transcript_seq\n" 
+                                . "gene: " . $trans_obj->toString() . "\n";
+                        }
+                        
+                        if ($protein_seq =~ /\*[^\*]/) {
+                            die "Error, peptide $protein_seq doesn't translate w/o intervening stops.\n"
+                                . "gene: " . $trans_obj->toString() . "\n";
+                        }
+                        
+                        $cds_rel_start += 1; # make 1-based coords
+                        
+                        my $cds_rel_end = $cds_rel_start + length($cds_seq) - 1;
+                        
+                        print $proteins_ofh ">$transcript_id.pep $gene_id ${transcript_id}:${cds_rel_start}-${cds_rel_end}\(+)\n$protein_seq\n";
+                    };
+                    if ($@) {
+                        print STDERR $@;
+                        $problem_entries++;
                     }
-                    $cds_rel_start += 1; # make 1-based coords
-                    
-                    my $cds_rel_end = $cds_rel_start + length($cds_seq) - 1;
-                                        
-                    print $proteins_ofh ">$transcript_id.pep $gene_id ${transcript_id}:${cds_rel_start}-${cds_rel_end}\(+)\n$protein_seq\n";
-                }
-                                
-                
+                }                
             }
         }
     }
@@ -148,7 +170,26 @@ main: {
         
     print STDERR "\ndone.\n";
 
+    print STDERR "total entries: $total_entries, problem entries: $problem_entries = " . ($problem_entries /$total_entries) . " fraction problematic and will be missing from translations.\n";
+    
     exit(0);
     
 }
 
+####
+sub get_contig_seq {
+    my ($acc, $genome_fa_filename) = @_;
+
+    my $fasta_entry = `samtools faidx $genome_fa_filename $acc`;
+
+    if ($?) {
+        die "Error, [samtools faidx $genome_fa_filename $acc] failed with ret $? $! ";
+    }
+    
+    my @lines = split(/\n/, $fasta_entry);
+    shift @lines;
+    my $seq = join("", @lines);
+    $seq =~ s/\s+//g;
+
+    return($seq);
+}
