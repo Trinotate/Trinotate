@@ -202,6 +202,10 @@ ENV PATH=${PATH}:$BIN/eggnog-mapper-2.1.9
 
 RUN pip install -r $BIN/eggnog-mapper-2.1.9/requirements.txt
 
+
+RUN cpanm install CGI
+RUN cpanm install HTML::Template
+
 #################
 # clean up image:
 #RUN apt-get -qq -y remove automake build-essential cmake curl git gcc g++ wget && \

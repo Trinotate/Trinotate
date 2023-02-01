@@ -19,6 +19,8 @@ my $port_no = $ARGV[0] or die $usage;
 ##        sudo netstat -tulpn
 
 
+my $TMPDIR = $ENV{TMPDIR} || "/tmp";
+
 
  main: {
 
@@ -37,22 +39,24 @@ my $port_no = $ARGV[0] or die $usage;
      my $document_root = "$FindBin::RealBin/TrinotateWeb";
      my $conf_file_template = "$FindBin::RealBin/TrinotateWeb.conf/lighttpd.conf.template";
      
-     my $conf_file = "$FindBin::RealBin/TrinotateWeb.conf/lighttpd.conf.port$port_no";
-     unless (-s $conf_file) {
-         my $template = `cat $conf_file_template`;
-         $template =~ s/__DOCUMENT_ROOT__/$document_root/ or die "Error, could not replace __DOCUMENT_ROOT__ in $conf_file_template";
-         $template =~ s/__PORT_NO__/$port_no/ or die "Error, could not replace __PORT_NO__ in $conf_file_template";
+     my $conf_file = "$TMPDIR/lighttpd.conf.port$port_no";
+     
+     # write conf file for lighttpd
+     my $template = `cat $conf_file_template`;
+     $template =~ s/__DOCUMENT_ROOT__/$document_root/ or die "Error, could not replace __DOCUMENT_ROOT__ in $conf_file_template";
+     $template =~ s/__PORT_NO__/$port_no/ or die "Error, could not replace __PORT_NO__ in $conf_file_template";
+     
+     $template =~ s/__PERL_PATH__/$perl_path/g or die "Error, could not replace __PERL_PATH__ in $conf_file_template with $perl_path";
+     
+     my $perl5lib = $ENV{PERL5LIB} || "";
+     $template =~ s/__PERL5LIB__/$perl5lib/;
+     
+     open (my $ofh, ">$conf_file") or die "Error, cannot write to $conf_file";
+     print $ofh $template;
+     close $ofh;
 
-         $template =~ s/__PERL_PATH__/$perl_path/g or die "Error, could not replace __PERL_PATH__ in $conf_file_template with $perl_path";
 
-         my $perl5lib = $ENV{PERL5LIB} || "";
-         $template =~ s/__PERL5LIB__/$perl5lib/;
-                  
-         open (my $ofh, ">$conf_file") or die "Error, cannot write to $conf_file";
-         print $ofh $template;
-         close $ofh;
-     }
-
+     # run lighttpd
      my $cmd = "$lighttpd_prog -D -f $conf_file";
      print STDERR "$cmd\n";
      my $ret = system($cmd);
