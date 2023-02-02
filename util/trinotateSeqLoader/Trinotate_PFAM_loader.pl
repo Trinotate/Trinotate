@@ -4,8 +4,7 @@ use strict;
 use warnings;
 use FindBin;
 use lib ("$FindBin::RealBin/../../PerlLib");
-use Fasta_reader;
-
+use Carp;
 use DBI;
 use Sqlite_connect;
 use Getopt::Long qw(:config no_ignore_case bundling pass_through);
@@ -69,6 +68,7 @@ main: {
     open (my $fh, $pfam_output) or die $!;
     while (<$fh>) {
         chomp;
+        my $ln = $_;
         unless (/\w/) { next; }
         if (/^\#/) { next; }
         my @x = split(/\s+/);
@@ -78,10 +78,46 @@ main: {
             next;
         }
         
-        my $QueryProtID = $x[3];
-        my $pfam_id = $x[1];
-        my $HMMERDomain = $x[0];
-        my $HMMERTDomainDescription = join(" ", @x[22..$#x]);
+
+        # hmmscan format:
+        #0       Fe-ADH_2
+        #1       PF13685.5
+        #2       250
+        #3       CUFF.50.1.p1
+        #4       -
+
+        # hmmsearch format:
+        #0       CUFF.50.1.p1
+        #1       -
+        #2       423
+        #3       Fe-ADH_2
+        #4       PF13685.5
+        #5       250
+
+        
+        next unless $x[3];  # domtbl
+
+        my $QueryProtID;
+        my $pfam_id;
+        my $HMMERDomain;
+
+        
+        if ($x[1] =~ /^PF\d+/) {
+            # hmmscan formatting 
+            $QueryProtID = $x[3]; # CUFF.50.1.p1
+            $HMMERDomain = $x[0]; # Fe-ADH_2
+            $pfam_id = $x[1]; # PF13685.5
+        }
+        elsif ($x[4] =~ /^PF\d+/) {
+            # hmmsearch formatting:
+            $QueryProtID = $x[0]; # CUFF.50.1.p1
+            $HMMERDomain = $x[3]; # Fe-ADH_2
+            $pfam_id = $x[4]; # PF13685.5
+        }
+        else {
+            confess "Error, cannot decipher pfam hit formatting: $ln ";
+        }
+
         my $QueryStartAlign = $x[17];
         my $QueryEndAlign = $x[18];
         my $PFAMStartAlign = $x[15];
@@ -91,7 +127,7 @@ main: {
         my $FullSeqScore = $x[7];
         my $FullDomainScore = $x[13];
 
-        print $ofh join("\t", $QueryProtID, $pfam_id, $HMMERDomain, $HMMERTDomainDescription,
+        print $ofh join("\t", $QueryProtID, $pfam_id, $HMMERDomain, "NULL",
                         $QueryStartAlign, $QueryEndAlign, $PFAMStartAlign, $PFAMEndAlign,
                         $FullSeqEvalue, $ThisDomainEvalue, $FullSeqScore, $FullDomainScore) . "\n";
         

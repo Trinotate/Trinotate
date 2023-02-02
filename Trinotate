@@ -198,7 +198,7 @@ if (@ARGV) {
 my %command_to_params = ( 
     # protein-based
     '--LOAD_swissprot_blastp' => "$loaders_dir/Trinotate_BLAST_loader.pl --sqlite $sqlite_db --outfmt6 $LOAD_swissprot_blastp --prog blastp --dbtype Swissprot",
-    '--LOAD_pfam'  => "$loaders_dir/Trinotate_PFAM_hmmsearch_loader.pl --sqlite $sqlite_db --pfam $LOAD_pfam",
+    '--LOAD_pfam'  => "$loaders_dir/Trinotate_PFAM_loader.pl --sqlite $sqlite_db --pfam $LOAD_pfam",
     '--LOAD_deeptmhmm' => "$loaders_dir/Trinotate_DeepTmHMM_loader.pl --sqlite $sqlite_db --deeptmhmm_gff3 $LOAD_deeptmhmm",
     '--LOAD_signalp' => "$loaders_dir/Trinotate_SIGNALP_loader.pl --sqlite $sqlite_db --signalp $LOAD_signalp",
     '--LOAD_EggnogMapper' => "$loaders_dir/Trinotate_EggnogMapper_loader.pl --sqlite $sqlite_db --emapper $LOAD_EggnogMapper",
