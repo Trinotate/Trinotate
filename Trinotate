@@ -48,22 +48,22 @@ my $usage = <<_EOUSAGE_;
              * or to run select supported computes, indicate which ones to run: 
 
                    Trinotate --db <sqlite.db> --CPU <int> --transcript_fasta <file> --transdecoder_pep <file> \
-                                   --run "swissprot_blastp swissprot_blastx pfam deeptmhmm signalp6 infernal EggnogMapper" 
+                                   --run "swissprot_blastp swissprot_blastx pfam signalp6 infernal EggnogMapper" 
 
                     Notes:
                         -  when specifying run with multiple values, enclose the list in quotes as shown above.
                         -  include --use_diamond if you would prefer to use diamond blast instead of ncbi (default) blast)
                         -  include --trinotate_data_dir <path> unless you have TRINOTATE_DATA_DIR env var set. 
                         -  if running using provided docker or singularity, signalp6 is not automatically included due to licensing restrictions)
-
+                        -  deeptmhmm must be run separately from Trinotate and then loaded using Trinotate --LOAD_deeptmhmm
 
          * Transdecoder loading protein search results:
 
              Trinotate --db <sqlite.db> --LOAD_swissprot_blastp <file.outfmt6>
              Trinotate --db <sqlite.db> --LOAD_pfam <file>
-             Trinotate --db <sqlite.db> --LOAD_deeptmhmm <file.gff3>
              Trinotate --db <sqlite.db> --LOAD_signalp6 <file>
              Trinotate --db <sqlite.db> --LOAD_EggnogMapper <file>
+             Trinotate --db <sqlite.db> --LOAD_deeptmhmm <file.gff3>
 
           * Trinity loading transcript search results:
 
@@ -268,7 +268,7 @@ if ($RUN_flag) {
     }
 
     
-    my @supported = qw( ALL swissprot_blastp swissprot_blastx pfam deeptmhmm signalp6 infernal EggnogMapper );
+    my @supported = qw( ALL swissprot_blastp swissprot_blastx pfam signalp6 infernal EggnogMapper );
     my %supported_run_types = map { $_ => 1 } @supported;
 
     my @unsupported = grep { ! exists $supported_run_types{$_} } @supported;
@@ -483,7 +483,6 @@ sub Trinotate_RUN_annotators {
     #     swissprot_blastp 
     #     swissprot_blastx 
     #     pfam 
-    #     deeptmhmm 
     #     signalp6 
     #     infernal 
     #     EggnogMapper
@@ -587,20 +586,25 @@ sub Trinotate_RUN_annotators {
     # DeepTmHMM
     #~~~~~~~~~~~~~~~~~~~~~
 
+    # can run it locally like so:
+    # biolib run --local DTU/DeepTMHMM --fasta Trinity.fasta.transdecoder.pep
+    # but it uses docker, and so should be run separately from here (where here may already be in a docker or singularity image)
+
     
-    if ($run_types{'ALL'} || $run_types{'deeptmhmm'}) {
-
-        &ensure_prog_exists('biolib');
-
-        my $biolib = `which biolib`;
-        chomp $biolib;
-        # why do this?  because biolib itself may have different python in shebang than the one we want to run here.
-        my $cmd = "python3 $biolib run DTU/DeepTMHMM --fasta $transdecoder_pep";
-        $pipeliner->add_commands(new Command($cmd, "deep_tmhmm.ok")); 
-
-        $cmd = "$0 --db $sqlite_db --LOAD_deeptmhmm biolib_results/TMRs.gff3";
-        $pipeliner->add_commands(new Command($cmd, "deep_tmhmm.loading.ok")); 
-    }
+    #if ($run_types{'ALL'} || $run_types{'deeptmhmm'}) {
+    #
+    #
+    #    &ensure_prog_exists('biolib');
+    #
+    #    my $biolib = `which biolib`;
+    #    chomp $biolib;
+    #    # why do this?  because biolib itself may have different python in shebang than the one we want to run here.
+    #    my $cmd = "python3 $biolib run DTU/DeepTMHMM --fasta $transdecoder_pep";
+    #    $pipeliner->add_commands(new Command($cmd, "deep_tmhmm.ok")); 
+    #
+    #    $cmd = "$0 --db $sqlite_db --LOAD_deeptmhmm biolib_results/TMRs.gff3";
+    #    $pipeliner->add_commands(new Command($cmd, "deep_tmhmm.loading.ok")); 
+    #}
     
 
     #~~~~~~~~~~~~~~~~~~
