@@ -24,7 +24,7 @@ echo "###################################################"
 ${TRINOTATE_HOME}/util/transcript_expression/import_expression_and_DE_results.pl --sqlite ${sqlite_db} --gene_mode \
         --samples_file input_data/samples.txt \
         --count_matrix input_data/Trinity_genes.counts.matrix \
-        --fpkm_matrix input_data/Trinity_genes.TMM.EXPR.matrix 
+        --expr_matrix input_data/Trinity_genes.TMM.EXPR.matrix 
 
 # DE results load for genes
 ${TRINOTATE_HOME}/util/transcript_expression/import_expression_and_DE_results.pl --sqlite ${sqlite_db} --gene_mode \
@@ -40,7 +40,7 @@ echo "##################################################"
 ${TRINOTATE_HOME}/util/transcript_expression/import_expression_and_DE_results.pl --sqlite ${sqlite_db} --transcript_mode \
         --samples_file input_data/samples.txt \
         --count_matrix input_data/Trinity_trans.counts.matrix \
-        --fpkm_matrix input_data/Trinity_trans.TMM.EXPR.matrix
+        --expr_matrix input_data/Trinity_trans.TMM.EXPR.matrix
 
 # DE results load for transcripts
 ${TRINOTATE_HOME}/util/transcript_expression/import_expression_and_DE_results.pl --sqlite ${sqlite_db} --transcript_mode \

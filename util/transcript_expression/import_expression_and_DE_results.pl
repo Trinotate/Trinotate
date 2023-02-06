@@ -23,7 +23,7 @@ my $usage = <<__EOUSAGE__;
 #  Expression loading:
 #
 #  --count_matrix <string>        raw fragment counts matrix
-#  --fpkm_matrix <string>         fpkm normalized expression value matrix
+#  --expr_matrix <string>         normalized expression value matrix
 #
 #  DE-results loading:
 #
@@ -51,7 +51,7 @@ __EOUSAGE__
 
 my $sqlite;
 my $count_matrix_file;
-my $fpkm_matrix_file;
+my $expr_matrix_file;
 my $DE_dir;
 my $transcript_mode = 0;
 my $gene_mode = 0;
@@ -68,7 +68,7 @@ my $max_FDR = 0.1;
                'samples_file=s' => \$samples_file,
 
                'count_matrix=s' => \$count_matrix_file,
-               'fpkm_matrix=s' => \$fpkm_matrix_file,
+               'expr_matrix=s' => \$expr_matrix_file,
                'DE_dir=s' => \$DE_dir,
                
                'transcript_mode' => \$transcript_mode,
@@ -88,7 +88,7 @@ unless ($sqlite
         &&
         $samples_file
         &&
-        ($count_matrix_file && $fpkm_matrix_file ||  $DE_dir) 
+        ($count_matrix_file && $expr_matrix_file ||  $DE_dir) 
         && ($transcript_mode || $gene_mode) ) {
     die $usage;
 }
@@ -115,16 +115,16 @@ main: {
     
     print STDERR "Sample and replicate database identifiers: " . Dumper(\%samples_n_reps_to_ID);
     
-    if ($count_matrix_file && $fpkm_matrix_file) {
+    if ($count_matrix_file && $expr_matrix_file) {
         
         print STDERR "-parsing counts matrix: $count_matrix_file\n";
         my %counts_matrix = &parse_matrix($count_matrix_file, \%samples_n_reps_to_ID);
         
-        print STDERR "-parsing fpkm matrix: $fpkm_matrix_file\n";
-        my %fpkm_matrix = &parse_matrix($fpkm_matrix_file, \%samples_n_reps_to_ID);
+        print STDERR "-parsing expr matrix: $expr_matrix_file\n";
+        my %expr_matrix = &parse_matrix($expr_matrix_file, \%samples_n_reps_to_ID);
         
         print STDERR "-populating Expression table\n";
-        &populate_expression_table($dbproc, \%samples_n_reps_to_ID, \%counts_matrix, \%fpkm_matrix, $feature_type);
+        &populate_expression_table($dbproc, \%samples_n_reps_to_ID, \%counts_matrix, \%expr_matrix, $feature_type);
     }
         
     
@@ -412,7 +412,7 @@ sub parse_matrix {
 
 ####
 sub populate_expression_table {
-    my ($dbproc, $samples_n_reps_to_ID_href, $counts_matrix_href, $fpkm_matrix_href, $feature_type) = @_;
+    my ($dbproc, $samples_n_reps_to_ID_href, $counts_matrix_href, $expr_matrix_href, $feature_type) = @_;
 
     ## clear out any earlier results
     my $query = "delete from Expression where feature_type = ?";
@@ -435,14 +435,14 @@ sub populate_expression_table {
             
             unless ($frag_count > 0) { next; }
 
-            my $fpkm = $fpkm_matrix_href->{$feature}->{$replicate};
-            unless (defined $fpkm) {
-                die "Error, no fpkm measurement for $feature, $replicate";
+            my $expr = $expr_matrix_href->{$feature}->{$replicate};
+            unless (defined $expr) {
+                die "Error, no expr measurement for $feature, $replicate";
             }
             
-            my $query = "insert into Expression (feature_name, feature_type, replicate_id, frag_count, fpkm) "
+            my $query = "insert into Expression (feature_name, feature_type, replicate_id, frag_count, fpkm) " # keep fpkm here to avoid changing db schema
                 . " values (?,?,?,?,?)";
-            &do_sql($dbproc, $query, $feature, $feature_type, $rep_id, $frag_count, $fpkm);
+            &do_sql($dbproc, $query, $feature, $feature_type, $rep_id, $frag_count, $expr);
         
             $counter++;
             print STDERR "\r[$counter]  ";
