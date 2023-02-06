@@ -48,7 +48,7 @@ my $usage = <<_EOUSAGE_;
              * or to run select supported computes, indicate which ones to run: 
 
                    Trinotate --db <sqlite.db> --CPU <int> --transcript_fasta <file> --transdecoder_pep <file> \
-                                   --run "swissprot_blastp swissprot_blastx pfam signalp6 infernal EggnogMapper" 
+                                   --run "swissprot_blastp swissprot_blastx pfam signalp6 tmhmmv2 infernal EggnogMapper" 
 
                     Notes:
                         -  when specifying run with multiple values, enclose the list in quotes as shown above.
@@ -63,7 +63,8 @@ my $usage = <<_EOUSAGE_;
              Trinotate --db <sqlite.db> --LOAD_pfam <file>
              Trinotate --db <sqlite.db> --LOAD_signalp6 <file>
              Trinotate --db <sqlite.db> --LOAD_EggnogMapper <file>
-             Trinotate --db <sqlite.db> --LOAD_deeptmhmm <file.gff3>
+             Trinotate --db <sqlite.db> --LOAD_tmhmmv2 <file>  or Trinotate --db <sqlite.db> --LOAD_deeptmhmm <file.gff3>
+
 
           * Trinity loading transcript search results:
 
@@ -101,7 +102,7 @@ my ($CREATE_flag,
 my $RUN_list = "";
 
 my ($LOAD_swissprot_blastp, $LOAD_pfam, $LOAD_deeptmhmm, $LOAD_signalp, 
-    $LOAD_EggnogMapper, $LOAD_swissprot_blastx, $LOAD_infernal,
+    $LOAD_EggnogMapper, $LOAD_swissprot_blastx, $LOAD_infernal, $LOAD_tmhmmv2,
     $LOAD_custom_blast, $custom_db_name, $blast_type) = ("", "", "", "", "", "", "", "", "", "");
 
 my ($trinotate_data_dir, $transcript_fasta, $transdecoder_pep, $gene_trans_map);
@@ -138,6 +139,7 @@ my $include_trans = 0;
     'LOAD_swissprot_blastx=s' => \$LOAD_swissprot_blastx,
     'LOAD_infernal=s' => \$LOAD_infernal,
     'LOAD_custom_blast=s' => \$LOAD_custom_blast,
+    'LOAD_tmhmmv2=s' => \$LOAD_tmhmmv2,
     'custom_db_name=s' => \$custom_db_name,
     'blast_type=s' => \$blast_type,
 
@@ -173,7 +175,7 @@ if ($RUN_list) {
 
 unless ($sqlite_db && 
         ($CREATE_flag || $INIT_flag || $REPORT_flag || $RUN_flag ||
-         $LOAD_swissprot_blastp || $LOAD_pfam || $LOAD_deeptmhmm || $LOAD_signalp || 
+         $LOAD_swissprot_blastp || $LOAD_pfam || $LOAD_deeptmhmm || $LOAD_signalp || $LOAD_tmhmmv2 ||
          $LOAD_EggnogMapper || $LOAD_swissprot_blastx || $LOAD_infernal || $LOAD_custom_blast) ) {
 
     die $usage;
@@ -202,7 +204,7 @@ my %command_to_params = (
     '--LOAD_deeptmhmm' => "$loaders_dir/Trinotate_DeepTmHMM_loader.pl --sqlite $sqlite_db --deeptmhmm_gff3 $LOAD_deeptmhmm",
     '--LOAD_signalp' => "$loaders_dir/Trinotate_SIGNALP_loader.pl --sqlite $sqlite_db --signalp $LOAD_signalp",
     '--LOAD_EggnogMapper' => "$loaders_dir/Trinotate_EggnogMapper_loader.pl --sqlite $sqlite_db --emapper $LOAD_EggnogMapper",
-    
+    '--LOAD_tmhmmv2' => "$loaders_dir/Trinotate_TmHMMv2_loader.pl --sqlite $sqlite_db --tmhmm $LOAD_tmhmmv2",
     
     # transcript-based
     '--LOAD_swissprot_blastx' => "$loaders_dir/Trinotate_BLAST_loader.pl --sqlite $sqlite_db --outfmt6 $LOAD_swissprot_blastx --prog blastx --dbtype Swissprot",
@@ -486,6 +488,7 @@ sub Trinotate_RUN_annotators {
     #     signalp6 
     #     infernal 
     #     EggnogMapper
+    #     tmhmmv2
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     my %run_types = map { $_ => 1 } @$run_types_aref;
@@ -607,6 +610,23 @@ sub Trinotate_RUN_annotators {
     #}
     
 
+    if ($run_types{'ALL'} || $run_types{'tmhmmv2'}) {
+        if (`which tmhmm` =~ /\w/) {
+
+            my $cmd = "tmhmm --short $transdecoder_pep > tmhmm.v2.out";
+            $pipeliner->add_commands(new Command($cmd, "tmhmm.v2.ok"));
+
+            $cmd = "$0 --db $sqlite_db --LOAD_tmhmmv2 tmhmm.v2.out";
+            $pipeliner->add_commands(new Command($cmd, "tmhmm.v2.loading.ok"));
+                        
+        }
+        else {
+            print STDERR "-WARNING: cannot run tmhmm as cannot find it in your PATH setting. Please review tmhmm v2 installation procedures.\n";
+            
+        }
+    }
+    
+    
     #~~~~~~~~~~~~~~~~~~
     # signalP6
     #~~~~~~~~~~~~~~~~~
