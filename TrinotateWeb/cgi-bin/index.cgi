@@ -513,7 +513,13 @@ sub _get_pfam_info {
 sub _get_go_info {
     my ($dbproc, $sqlite_db) = @_;
 
-    my $query = "select id,name,namespace,def,count(*) as c from  go  group by id order by c  DESC  limit 50;;";
+    my $top_num_categories = 100;
+    
+    my $query = "select g.namespace, g.name, count(*) as c from Transcript t, Orf o, UniprotIndex ui, go g, BlastDbase b " .
+        " where t.transcript_id = o.transcript_id and o.orf_id = b.TrinityID and b.UniprotSearchString = ui.Accession and ui.AttributeType = 'G' and ui.LinkId = g.id "
+        . " group by g.namespace, name order by c DESC limit $top_num_categories";
+    
+    #my $query = "select namespace, name, count(*) as c from  go  group by namespace, name order by c  DESC  limit 50;";
     
     my @vals;
     my @results = &do_sql_2D($dbproc, $query);
@@ -522,10 +528,8 @@ sub _get_go_info {
     my @row_values;
     foreach my $result (@results) {
         
-        my ($go_class, $go_id, $go_term,$go_desc,
-         $count) = @$result;
-
-         
+        my ($go_class, $go_term, $count) = @$result;
+                 
         #if ($go_term =~ /^(biological_process|cellular_component|molecular_function)$/) { next; } # skip highest-level
 
 
