@@ -220,6 +220,8 @@ my %command_to_params = (
 
 my @LOAD_cmds = grep { /^--LOAD_/ } keys %PARAMS;
 
+
+
 if ($CREATE_flag) {
     # set up Trinotate database and data dir
 
@@ -235,14 +237,19 @@ if ($CREATE_flag) {
     &run_Trinotate_create($sqlite_db, $trinotate_data_dir);
 }
 
+
 if ($INIT_flag) {
-    print STDERR "-INIT populating $sqlite_db with transcripts and proteins\n";
-    # populate sequence and gene/trans/orf data
-    unless ($gene_trans_map && $transcript_fasta && $transdecoder_pep) {
-        confess "Error, for 'init' the following are required:  --gene_trans_map, --transcript_fasta, and --transdecoder_pep ";
+    my $init_checkpt = "__init.ok";
+    if (! -e $init_checkpt) {
+        print STDERR "-INIT populating $sqlite_db with transcripts and proteins\n";
+        # populate sequence and gene/trans/orf data
+        unless ($gene_trans_map && $transcript_fasta && $transdecoder_pep) {
+            confess "Error, for 'init' the following are required:  --gene_trans_map, --transcript_fasta, and --transdecoder_pep ";
+        }
+        my $cmd = "$FindBin::RealBin/util/trinotateSeqLoader/TrinotateSeqLoader.pl --sqlite $sqlite_db --gene_trans_map $gene_trans_map --transcript_fasta $transcript_fasta --transdecoder_pep $transdecoder_pep --bulk_load";
+        &process_cmd($cmd);
+        &process_cmd("touch $init_checkpt");
     }
-    my $cmd = "$FindBin::RealBin/util/trinotateSeqLoader/TrinotateSeqLoader.pl --sqlite $sqlite_db --gene_trans_map $gene_trans_map --transcript_fasta $transcript_fasta --transdecoder_pep $transdecoder_pep --bulk_load";
-    &process_cmd($cmd);
 }
 
 if (@LOAD_cmds) {
