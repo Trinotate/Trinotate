@@ -34,14 +34,9 @@ main: {
     my $sqlite_db = $params{sqlite_db};
     
     my $header_template = HTML::Template->new(filename => 'html/header.tmpl');
+    print "<!-- Header Template -->\n";
     print $header_template->output;
-    
-    my $nav_template = HTML::Template->new(filename => 'html/topnav.tmpl');
-    $nav_template->param(SQLITE_DB => $sqlite_db);
-    print $nav_template->output;
-    
-    my $dashboard_header_template = HTML::Template->new(filename => 'html/dashboard-header.tmpl');
-    print $dashboard_header_template->output;
+
     
      
     eval {
@@ -50,12 +45,23 @@ main: {
             if (! -s $sqlite_db) {
                 die "Error, cannot locate $sqlite_db";
             }
+            print "<body onload=\"load_plots();\">\n";
+
+            print "<!-- Nav Template -->\n";
+            my $nav_template = HTML::Template->new(filename => 'html/topnav.tmpl');
+            $nav_template->param(SQLITE_DB => $sqlite_db);
+            print $nav_template->output;
+            
+            print "<!-- Dashboard Header -->\n";
+            my $dashboard_header_template = HTML::Template->new(filename => 'html/dashboard-header.tmpl');
+            print $dashboard_header_template->output;
+            
             &TrinotateWebMain(\%params, $sqlite_db);
             
         }
         else {
             
-            print "<h2>Need database info</h2>\n";
+            print "<body>\n<h2>Need database info</h2>\n";
             
             &print_get_sqlite_db_path_form();
             
@@ -112,10 +118,10 @@ sub TrinotateWebMain {
     my $cgi = new CGI();
 
     
-    print $cgi->start_html(-title => "Trinotate Report",
-                           -onLoad => "load_plots();");
+    #print $cgi->start_html(-title => "Trinotate Report",
+    #                       -onLoad => "load_plots();");
     
-
+    
 
     ## Load up the panels tied to the selector tabs:
     

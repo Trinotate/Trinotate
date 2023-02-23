@@ -53,12 +53,15 @@ sub draw {
 
 
     if ($ENV{LOCAL_JS}) {
-        $html .= "<script type=\"text/javascript\" src=\"https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/29.0/canvasXpress.min.js\"></script>\n";
+        #$html .= "<script type=\"text/javascript\" src=\"https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/29.0/canvasXpress.min.js\"></script>\n";
+        $html .= "<script type=\"text/javascript\" src=\"/js/canvasXpress.min.js\"></script>\n";
     }
     else {
-        $html .= "<script type=\"text/javascript\" src=\"https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/29.0/canvasXpress.min.js\"></script>\n";
-    }
+        $html .= "<link rel=\"stylesheet\" href=\"https://www.canvasxpress.org/dist/canvasXpress.css\"type=\"text/css\"/>\n"
+            . "<script type=\"text/javascript\"src=\"https://www.canvasxpress.org/dist/canvasXpress.min.js\"></script>\n";
 
+    }
+    
     #$html .= "<script type=\"text/javascript\" src=\"/cgi-bin/js/datadumper.js\"></script>\n";
 
     $html .= "<script>\n";
