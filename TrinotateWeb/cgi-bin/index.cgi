@@ -23,6 +23,9 @@ use CanvasXpress::PlotOnLoader;
 use CanvasXpress::Piechart;
 use CanvasXpress::Barplot;
 
+
+our $RESET_FLAG = 0;
+
 my $plot_loader = new CanvasXpress::PlotOnLoader("load_plots");
 main: {
     
@@ -32,7 +35,10 @@ main: {
     my %params = $cgi->Vars();
 
     my $sqlite_db = $params{sqlite_db};
+
+    $RESET_FLAG = $params{RESET} || 0;
     
+        
     my $header_template = HTML::Template->new(filename => 'html/header.tmpl');
     print "<!-- Header Template -->\n";
     print $header_template->output;
@@ -140,11 +146,15 @@ sub TrinotateWebMain {
     pfamplot($dbproc, $sqlite_db);
     
     goplot($dbproc, $sqlite_db);
+
+    write_plot_loader($plot_loader, $sqlite_db);
     
-    print $plot_loader->write_plot_loader();
     
     return;
 }
+
+
+
 
 ####
 sub overview_panel_text {
@@ -152,31 +162,32 @@ sub overview_panel_text {
 
 
     my $html_cache_token = "$sqlite_db-overview_panel_text";
-    if (my $html = &TextCache::get_cached_page($html_cache_token)) {
-        print $html;
-    }
-    else {
-        
-        my $query = "select count(distinct gene_id) from Transcript";
-        my $gene_count = &very_first_result_sql($dbproc, $query);
-        
-        $query = "select count(distinct transcript_id) from Transcript";
-        my $transcript_count = &very_first_result_sql($dbproc, $query);
-        
-        
-
-        
-        my $template = HTML::Template->new(filename => 'html/overview.tmpl');
-        $template->param(GENE_COUNT => $gene_count);
-        $template->param(TRANSCRIPT_COUNT => $transcript_count);
-        my $html = $template->output;
-        
-        &TextCache::cache_page($html_cache_token, $html);
-        
-        print $html;
+    unless ($RESET_FLAG) {
+        if (my $html = &TextCache::get_cached_page($html_cache_token)) {
+            print $html;
+            return;
+        }
     }
 
-
+            
+    my $query = "select count(distinct gene_id) from Transcript";
+    my $gene_count = &very_first_result_sql($dbproc, $query);
+    
+    $query = "select count(distinct transcript_id) from Transcript";
+    my $transcript_count = &very_first_result_sql($dbproc, $query);
+    
+    
+    my $template = HTML::Template->new(filename => 'html/overview.tmpl');
+    $template->param(GENE_COUNT => $gene_count);
+    $template->param(TRANSCRIPT_COUNT => $transcript_count);
+    my $html = $template->output;
+    
+    print $html;
+    
+    $html = &add_cache_resetter($html, $sqlite_db);
+    
+    &TextCache::cache_page($html_cache_token, $html);
+    
     return;
 }
 
@@ -208,8 +219,6 @@ sub TaxonomyBestHit_text {
     
     $template->param(TAXONOMY_HTML => $taxonomy_html);
 
-    #$template->param(TAXONOMY_HTML => "under construction");
-    
     print $template->output;
 }
 ###
@@ -221,8 +230,6 @@ sub keggplot {
     my $kegg = &_get_kegg_info($dbproc, $sqlite_db);
     
     $template2->param(top => $kegg);
-    
-    #$template->param(top => "under construction");
     
     print $template2->output;
 }
@@ -236,53 +243,80 @@ sub pfamplot{
     
     $template2->param(pfam_var => $pfam);
     
-    #$template->param(top => "under construction");
-    
     print $template2->output;
 }
 sub goplot{
     my ($dbproc, $sqlite_db) = @_;
+
+    my $html_cache_token = "$sqlite_db-GeneOntology_text";
+    unless ($RESET_FLAG) {
+        if (my $html = &TextCache::get_cached_page($html_cache_token)) {
+            print $html;
+            return;
+        }
+    }
     
     my $template2 = HTML::Template->new(filename => 'html/go.tmpl');
         
-    my $pfam = &_get_go_info($dbproc, $sqlite_db);
+    my $go_info = &_get_go_info($dbproc, $sqlite_db);
     
-    $template2->param(go_var => $pfam);
+    $template2->param(go_var => $go_info);
     
-    #$template2->param(go_var => "under construction");
+    my $go_html = $template2->output;
+
+    my $cached_go_html = &add_cache_resetter($go_html, $sqlite_db);
     
-    print $template2->output;
+    &TextCache::cache_page($html_cache_token, $cached_go_html);
+    
+    print $go_html;
+    
 }
     
 ####
 sub DE_panel_text {
     my ($dbproc, $sqlite_db) = @_;
+
+    my $html_cache_token = "$sqlite_db-DE_panel";
+    if (my $html = &TextCache::get_cached_page($html_cache_token)) {
+        print $html;
+    }
+    else {
     
-    ## get list of pairs:
-    my $query = "select sample_name from Samples";
-    my @results = &do_sql($dbproc, $query);
+        ## get list of pairs:
+        my $query = "select sample_name from Samples";
+        my @results = &do_sql($dbproc, $query);
+        
+        my $template = HTML::Template->new(filename => 'html/DE.tmpl');
+        
+        #format result array into array of hashes for HTML::Template
+        my @samples = ();
+        while (@results) {
+            my %row_data; # get a fresh hash for the row data 
+            $row_data{SAMPLE} = shift @results;
+            push(@samples, \%row_data);
+        }
+        
+        $template->param(SAMPLES => \@samples);
+        $template->param(CLUSTER_HTML => &multi_sample_cluster_text($dbproc, $sqlite_db));
 
-    my $template = HTML::Template->new(filename => 'html/DE.tmpl');
-
-    #format result array into array of hashes for HTML::Template
-    my @samples = ();
-    while (@results) {
-        my %row_data; # get a fresh hash for the row data 
-        $row_data{SAMPLE} = shift @results;
-        push(@samples, \%row_data);
+        
+        my $html = $template->output;
+        &TextCache::cache_page($html_cache_token, $html);
+        print $html;
     }
 
-    $template->param(SAMPLES => \@samples);
-    $template->param(CLUSTER_HTML => &multi_sample_cluster_text($dbproc, $sqlite_db));
-
-    print $template->output;
 }
-
 
 ####
 sub multi_sample_cluster_text {
     my ($dbproc, $sqlite_db) = @_;
-    
+
+    my $html_cache_token = "$sqlite_db-multi_sample_cluster_text";
+    if (my $html = &TextCache::get_cached_page($html_cache_token)) {
+        return($html);
+    }
+
+                
     ## get cluster analyses
     my $query = "select ECA.cluster_analysis_id, ECA.cluster_analysis_group, ECA.cluster_analysis_name, count(distinct EC.expr_cluster_id) "
         . " from ExprClusterAnalyses ECA, ExprClusters EC "
@@ -290,10 +324,10 @@ sub multi_sample_cluster_text {
         . " group by ECA.cluster_analysis_id, ECA.cluster_analysis_group, ECA.cluster_analysis_name order by ECA.cluster_analysis_group";
     
     #print $query;
-
+    
     my @results = &do_sql_2D($dbproc, $query);
     my $cluster_html = '';
-
+    
     if (@results) {
         $cluster_html .= "<ul>Analyses of clusters of expression profiles:\n";
         
@@ -308,8 +342,10 @@ sub multi_sample_cluster_text {
         $cluster_html .= "<p>No expression profile clusters defined yet.\n";
     }
     
+    &TextCache::cache_page($html_cache_token, $cluster_html);
     
     return $cluster_html;
+    
 }
 
 
@@ -317,9 +353,13 @@ sub multi_sample_cluster_text {
 
 ####
 sub _get_taxonomy_info {
-
-    
     my ($dbproc, $sqlite_db) = @_;
+
+
+    my $html_cache_token = "$sqlite_db-taxonomy_info_text";
+    if (my $html = &TextCache::get_cached_page($html_cache_token)) {
+        return($html);
+    }
 
     my $query = "select t.TaxonomyValue, count(*) as count from TaxonomyIndex t, UniprotIndex u where u.AttributeType = 'T' and u.LinkID =  t.NCBITaxonomyAccession group by t.TaxonomyValue order by count desc limit 1000";
     
@@ -401,7 +441,7 @@ sub _get_taxonomy_info {
     
    
     my $taxonomy_sunburst = new CanvasXpress::Sunburst("taxonomy_sunburst");
-    #my $plot_loader = new CanvasXpress::PlotOnLoader("taxonomy_$$");
+
     $plot_loader->add_plot($taxonomy_sunburst);
     
     my %inputs = (title =>  "Taxonomic representation of gene-level top blastx matches",
@@ -415,21 +455,22 @@ sub _get_taxonomy_info {
 
     my $taxonomy_html = $taxonomy_sunburst->draw(%inputs);
 
-    #$taxonomy_html .= $plot_loader->write_plot_loader();
-    
-    #my $cgi = new CGI();
-
-    #print $cgi->start_html(-title => "Trinotate Report",
-                          # -onLoad => "taxonomy_$$();");
+    &TextCache::cache_page($html_cache_token, $taxonomy_html);
     
     return($taxonomy_html);
     
 }
+
+
 ####
 sub _get_kegg_info {
-
     my ($dbproc, $sqlite_db) = @_;
 
+    my $html_cache_token = "$sqlite_db-kegg_info_text";
+    if (my $html = &TextCache::get_cached_page($html_cache_token)) {
+        return($html);
+    }
+    
     my $query = "select LinkID, count(*) as count from  UniprotIndex  where AttributeType = 'K' group by LinkId order by count desc limit 50;";
     
     my @vals;
@@ -441,15 +482,12 @@ sub _get_kegg_info {
         
         my ($kegg, $count) = @$result;
         
-        #my ($kegg, $count) = split(/\t/);
-        
         push (@vals, [$kegg, $count]);
         
-
-        
     }
+    
     my $keggbarplot = new CanvasXpress::Barplot("keggbarplot");
-    #my $plot_loader = new CanvasXpress::PlotOnLoader("taxo_$$");
+
     $plot_loader->add_plot($keggbarplot);
     
     my %inputs = ( orientation => 'horizontal',
@@ -465,13 +503,7 @@ sub _get_kegg_info {
 
     my $kegg_html .= $keggbarplot->draw(%inputs);
 
-    #$kegg_html .= $plot_loader->write_plot_loader();
-    
-    #my $cgi= new CGI();
-
-    #print $cgi->start_html(-title => "Trinotate Report",
-                          # -onLoad => "kegg_$$();");
-    
+    &TextCache::cache_page($html_cache_token, $kegg_html);
     
     return($kegg_html); 
 
@@ -479,6 +511,13 @@ sub _get_kegg_info {
 sub _get_pfam_info {
     my ($dbproc, $sqlite_db) = @_;
 
+    my $html_cache_token = "$sqlite_db-pfam_info_text";
+    if (my $html = &TextCache::get_cached_page($html_cache_token)) {
+        return($html);
+    }
+    
+
+        
     my $query = "select LinkID, count(*) as count from  UniprotIndex  where AttributeType = 'K' group by LinkId order by count desc limit 50;";
     
     my @vals;
@@ -507,6 +546,8 @@ sub _get_pfam_info {
 
     my $pfam_html .= $barplot->draw(%inputs);
 
+    &TextCache::cache_page($html_cache_token, $pfam_html);
+        
     return ($pfam_html);
 }
 ###
@@ -519,8 +560,7 @@ sub _get_go_info {
         " where t.transcript_id = o.transcript_id and o.orf_id = b.TrinityID and b.UniprotSearchString = ui.Accession and ui.AttributeType = 'G' and ui.LinkId = g.id "
         . " group by g.namespace, name order by c DESC limit $top_num_categories";
     
-    #my $query = "select namespace, name, count(*) as c from  go  group by namespace, name order by c  DESC  limit 50;";
-    
+        
     my @vals;
     my @results = &do_sql_2D($dbproc, $query);
     my @column_names = ("go_class", "go_term");
@@ -530,13 +570,6 @@ sub _get_go_info {
         
         my ($go_class, $go_term, $count) = @$result;
                  
-        #if ($go_term =~ /^(biological_process|cellular_component|molecular_function)$/) { next; } # skip highest-level
-
-
-        #$go_id =~ s/:/_/g;
-
-        #$go_term = "$go_id $go_term";
-
         push (@{$column_data{'go_class'}}, $go_class);
         push (@{$column_data{'go_term'}}, $go_term);
         push (@row_values, $count);
@@ -547,16 +580,37 @@ sub _get_go_info {
     $plot_loader->add_plot($GO_sunburst);
 
     my %inputs = (title => "Gene Ontology Categories",
-
                   column_names => [@column_names],
-
                   column_contents => \%column_data,
-
                   row_values => [@row_values] );
 
     my $go_html = $GO_sunburst->draw(%inputs);
 
-
     return $go_html;
 }
+
+
 ####
+sub write_plot_loader {
+    my ($plot_loader, $sqlite_db) = @_;
+    
+    my $html_cache_token = "$sqlite_db-plot_loader_text";
+    if (my $html = &TextCache::get_cached_page($html_cache_token)) {
+        print $html;
+    }
+    else {
+        my $html = $plot_loader->write_plot_loader();
+        &TextCache::cache_page($html_cache_token, $html);
+        print $html;
+    }
+}
+
+####
+sub add_cache_resetter {
+    my ($html, $sqlite_db) = @_;
+
+    $html =~ s|not_cached|<a href="/cgi-bin/index.cgi?RESET=1&sqlite_db=$sqlite_db">Cached page. Click to recompute.</a>|;
+
+    return($html);
+}
+
