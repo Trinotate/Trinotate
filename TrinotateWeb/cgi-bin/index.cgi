@@ -236,15 +236,35 @@ sub keggplot {
 ###
 sub pfamplot{
     my ($dbproc, $sqlite_db) = @_;
+
+    my $html_cache_token = "$sqlite_db-pfam_info_text";
+    unless ($RESET_FLAG) {
+        if (my $html = &TextCache::get_cached_page($html_cache_token)) {
+            print $html;
+            return;
+        }
+    }
+    
     
     my $template2 = HTML::Template->new(filename => 'html/pfam.tmpl');
         
-    my $pfam = &_get_pfam_info($dbproc, $sqlite_db);
+    my $pfam_html = &_get_pfam_info($dbproc, $sqlite_db);
     
-    $template2->param(pfam_var => $pfam);
+    $template2->param(pfam_var => $pfam_html);
     
-    print $template2->output;
+    $pfam_html = $template2->output;
+
+    my $cached_pfam_html = &add_cache_resetter($pfam_html, $sqlite_db);
+    
+
+    &TextCache::cache_page($html_cache_token, $cached_pfam_html);
+    
+    print $pfam_html;
+    
 }
+
+
+
 sub goplot{
     my ($dbproc, $sqlite_db) = @_;
 
@@ -508,34 +528,31 @@ sub _get_kegg_info {
     return($kegg_html); 
 
 }
+
 sub _get_pfam_info {
     my ($dbproc, $sqlite_db) = @_;
 
-    my $html_cache_token = "$sqlite_db-pfam_info_text";
-    if (my $html = &TextCache::get_cached_page($html_cache_token)) {
-        return($html);
-    }
-    
-
-        
-    my $query = "select LinkID, count(*) as count from  UniprotIndex  where AttributeType = 'K' group by LinkId order by count desc limit 50;";
-    
+    my $query = "select h.pfam_id, h.HMMERDomain, count(*) as c "
+        . " from HMMERDbase h, PFAMreference p "
+        . " where h.pfam_id = p.pfam_accession and h.FullDomainScore >= p.Domain_NoiseCutOff and h.ThisDomainEvalue <= 1e-5 "
+        . " group by h.pfam_id, h.HMMERDomain "
+        . " order by c DESC limit 50";
+            
     my @vals;
     my @results = &do_sql_2D($dbproc, $query);
     foreach my $result (@results) {
         
-        my ($pfam_id, $count) = @$result;
-        
-        
-        push (@vals, [$pfam_id, $count]);
+        my ($pfam_id, $domain, $count) = @$result;
+                
+        push (@vals, ["$pfam_id^$domain", $count]);
      
     }
 
-
+    
     my %inputs = ( orientation => 'horizontal',
 
-                   title => 'Top Pfam domains',
-
+                   title => 'Top 50 Pfam domains (DNC, e<=1e-5)',
+                   
                    var_name => 'Pfam',
 
                    data => [@vals],
@@ -546,10 +563,10 @@ sub _get_pfam_info {
 
     my $pfam_html .= $barplot->draw(%inputs);
 
-    &TextCache::cache_page($html_cache_token, $pfam_html);
         
     return ($pfam_html);
 }
+
 ###
 sub _get_go_info {
     my ($dbproc, $sqlite_db) = @_;
