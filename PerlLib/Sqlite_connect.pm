@@ -13,6 +13,7 @@ use Carp;
 use strict;
 use Data::Dumper;
 use DBI;
+use Process_cmd;
 
 our @ISA = qw(Exporter);
 
@@ -177,6 +178,12 @@ sub AutoCommit {
 sub bulk_load_sqlite {
     my ($sqlite_db, $table, $bulk_load_file) = @_;
 
+    if ($bulk_load_file =~ /\.gz/) {
+        my $uncompressed_file = "$table.uncompressed";
+        &process_cmd("gunzip -c $bulk_load_file > $uncompressed_file");
+        $bulk_load_file = $uncompressed_file;
+    }
+    
     my $cmd = "echo \""
         . "pragma journal_mode=memory;\n"
         . "pragma synchronous=0;\n"

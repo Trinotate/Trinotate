@@ -94,8 +94,12 @@ main: {
     # go_slim
     $pipeliner->add_commands(new Command("$UTILDIR/EMBL_dat_to_Trinotate_sqlite_resourceDB.pl --sqlite $sqlite_db --go_slim_tab $RESOURCES_DIR/go/goslim_generic.obo.tab",
                                          "go_slim_obo_load.ok"));
-    
 
+    # go slim mappings
+    $pipeliner->add_commands(new Command("$UTILDIR/EMBL_dat_to_Trinotate_sqlite_resourceDB.pl --sqlite $sqlite_db --go_slim_mappings $RESOURCES_DIR/go/go_slim_mappings.tsv.gz",
+                                         "go_slim_mappings_load.ok"));
+    
+    
 
     ##############
     ## Pfam

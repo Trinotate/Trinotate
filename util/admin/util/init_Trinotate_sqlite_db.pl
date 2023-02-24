@@ -119,7 +119,7 @@ main: {
 
     ## go slim to go id mappings:
     &RunMod($dbproc, "CREATE TABLE go_slim_mapping (go_id varchar(20), slim_id varchar(20))");
-    &RunMod($dbproc, "CREATE UNIQUE INDEX mapped_go_id_idx ON go_slim_mapping(go_id)");
+    &RunMod($dbproc, "CREATE INDEX mapped_go_id_idx ON go_slim_mapping(go_id)");
     &RunMod($dbproc, "CREATE INDEX mapped_slim_id_idx ON go_slim_mapping(slim_id)");
     &RunMod($dbproc, "CREATE UNIQUE INDEX mapped_slim_ids_idx ON go_slim_mapping(go_id, slim_id)");
     
