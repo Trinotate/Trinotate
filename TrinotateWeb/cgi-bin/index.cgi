@@ -211,13 +211,31 @@ sub gene_search_panel {
 sub TaxonomyBestHit_text {
     my ($dbproc, $sqlite_db) = @_;
     
+    my $html_cache_token = "$sqlite_db-taxonomy_info_text";
+
+    unless ($RESET_FLAG) {
+        if (my $html = &TextCache::get_cached_page($html_cache_token)) {
+            print($html);
+            return;
+        }
+    }
+    
     my $template = HTML::Template->new(filename => 'html/taxonomy_best_hit.tmpl');
         
     my $taxonomy_html = &_get_taxonomy_info($dbproc, $sqlite_db);
     
     $template->param(TAXONOMY_HTML => $taxonomy_html);
 
-    print $template->output;
+    $taxonomy_html = $template->output;
+
+    my $cached_taxonomy_html = &add_cache_resetter($taxonomy_html, $sqlite_db); 
+    
+    &TextCache::cache_page($html_cache_token, $cached_taxonomy_html);
+
+    print($taxonomy_html);
+
+    return;
+    
 }
 
 
@@ -396,12 +414,12 @@ sub _get_taxonomy_info {
     my ($dbproc, $sqlite_db) = @_;
 
 
-    my $html_cache_token = "$sqlite_db-taxonomy_info_text";
-    if (my $html = &TextCache::get_cached_page($html_cache_token)) {
-        return($html);
-    }
-
-    my $query = "select t.TaxonomyValue, count(*) as count from TaxonomyIndex t, UniprotIndex u where u.AttributeType = 'T' and u.LinkID =  t.NCBITaxonomyAccession group by t.TaxonomyValue order by count desc limit 1000";
+    my $query = "select t.TaxonomyValue, count(*) as count from TaxonomyIndex t, UniprotIndex u, BlastDbase b, Transcript "
+        . " where u.AttributeType = 'T' and u.LinkID =  t.NCBITaxonomyAccession and  u.accession = b.UniprotSearchString and Transcript.transcript_id = b.TrinityID "
+        . " group by t.TaxonomyValue "
+        . " order by count DESC limit 1000";
+    
+    
     
     my %taxonomy_counter;
     my %species_counter;
@@ -484,7 +502,7 @@ sub _get_taxonomy_info {
 
     $plot_loader->add_plot($taxonomy_sunburst);
     
-    my %inputs = (title =>  "Taxonomic representation of gene-level top blastx matches",
+    my %inputs = (title =>  "Taxonomic representation of transcript-level top blastx matches",
 
                   column_names => [@levels],
 
@@ -495,7 +513,6 @@ sub _get_taxonomy_info {
 
     my $taxonomy_html = $taxonomy_sunburst->draw(%inputs);
 
-    &TextCache::cache_page($html_cache_token, $taxonomy_html);
     
     return($taxonomy_html);
     
@@ -642,14 +659,17 @@ sub write_plot_loader {
     my ($plot_loader, $sqlite_db) = @_;
     
     my $html_cache_token = "$sqlite_db-plot_loader_text";
-    if (my $html = &TextCache::get_cached_page($html_cache_token)) {
-        print $html;
+    unless($RESET_FLAG) {
+        if (my $html = &TextCache::get_cached_page($html_cache_token)) {
+            print $html;
+            return;
+        }
     }
-    else {
-        my $html = $plot_loader->write_plot_loader();
-        &TextCache::cache_page($html_cache_token, $html);
-        print $html;
-    }
+   
+    my $html = $plot_loader->write_plot_loader();
+    &TextCache::cache_page($html_cache_token, $html);
+    print $html;
+    
 }
 
 ####
