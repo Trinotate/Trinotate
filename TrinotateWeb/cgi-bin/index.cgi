@@ -554,13 +554,17 @@ sub _get_pfam_info {
 sub _get_go_info {
     my ($dbproc, $sqlite_db) = @_;
 
-    my $top_num_categories = 100;
+    my $query = "select gs.namespace, gs.name, count(*) as c "
+        . " from Transcript t, Orf o, UniprotIndex ui, go g, go_slim gs, go_slim_mapping gsm, BlastDbase b " 
+        . " where t.transcript_id = o.transcript_id and "
+        . " o.orf_id = b.TrinityID and "
+        . " b.UniprotSearchString = ui.Accession and "
+        . " ui.AttributeType = 'G' and ui.LinkId = g.id and "
+        . " g.id = gsm.go_id and gsm.slim_id = gs.id "
+        . " group by gs.namespace, gs.name order by c DESC";
     
-    my $query = "select g.namespace, g.name, count(*) as c from Transcript t, Orf o, UniprotIndex ui, go g, BlastDbase b " .
-        " where t.transcript_id = o.transcript_id and o.orf_id = b.TrinityID and b.UniprotSearchString = ui.Accession and ui.AttributeType = 'G' and ui.LinkId = g.id "
-        . " group by g.namespace, name order by c DESC limit $top_num_categories";
+    #print $query;
     
-        
     my @vals;
     my @results = &do_sql_2D($dbproc, $query);
     my @column_names = ("go_class", "go_term");

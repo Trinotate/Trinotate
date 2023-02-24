@@ -89,6 +89,13 @@ sub add_entry {
 
     my $namespace = $curr_entry_href->{'namespace:'} or die "Error, no namespace: field for " . Dumper($curr_entry_href);
 
+    if ($name eq $namespace) {
+        # top root category.
+        # skipping.
+        return;
+    }
+    
+    
     my $def = $curr_entry_href->{'def:'} or die "Error, no def field for " . Dumper($curr_entry_href);
     $def =~ s/\t/ /g; # just in case
     
