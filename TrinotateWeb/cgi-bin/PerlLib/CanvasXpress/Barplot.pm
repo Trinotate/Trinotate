@@ -5,6 +5,7 @@ package CanvasXpress::Barplot;
 use strict;
 use warnings;
 use Carp;
+use List::Util qw(max);
 
 sub new {
     my $packagename = shift;
@@ -90,11 +91,15 @@ sub draw {
 
     $html .= "\"data\": [ [\n";
 
+    my @all_vals;
     foreach my $data_pt (@{$inputs{data}}) {
         my $bar_val = $data_pt->[1];
         $html .= "$bar_val, ";
+        push(@all_vals, $bar_val);
     }
 
+    my $max_val = max(@all_vals);
+    
     $html .= " ]  ]\n";
     $html .= "} \n"
         . "}, \n"
