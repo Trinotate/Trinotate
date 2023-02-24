@@ -27,6 +27,12 @@ sub dump_DAG {
     return;
 }
 
+sub get_all_ids {
+    my ($self) = shift;
+
+    my @ids = keys %DAG;
+    return (@ids);
+}
 
 
 sub node_exists {
