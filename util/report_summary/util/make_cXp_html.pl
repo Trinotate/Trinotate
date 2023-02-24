@@ -60,18 +60,18 @@ main: {
     print"<div class=\"main \">\n"; 
     print"   <hr><div class=\"title\"><center><h2> Trinotate:Transcriptome Functional Annotation and Analysis </h2></center></div><hr>\n";
       
-    print"    <div id=\"mydiv\"><h4>Taxonomy</h4><p style=\"font-size:15px\">This aplot that means the</p>\n";
+    print"    <div id=\"mydiv\"><h4>Taxonomy</h4><p style=\"font-size:15px\">Taxonomic representation of top swissprot matches</p>\n";
     print"      <hr class=\"w3-clear\"><br>";
     print"      <canvas id=\"taxonomy_sunburst\" width=\"800\" height=\"500\"></canvas></div>\n";
-    print"    <hr><div id=\"mydiv1\"><h4>Top species</h4><p style=\"font-size:15px\">This aplot that means the</p>\n";
+    print"    <hr><div id=\"mydiv1\"><h4>Top species</h4><p style=\"font-size:15px\">Most abundant species represneted by top swissprot blast matches</p>\n";
     print"      <hr class=\"w3-clear\"><br> <canvas id=\"top_species_piechart\" width=\"800\" height=\"500\"></canvas></div>\n";
-    print"    <hr><div id=\"mydiv2\"><h4>Gene Ontology</h4><p style=\"font-size:15px\">This aplot that means the</p>\n";
+    print"    <hr><div id=\"mydiv2\"><h4>Gene Ontology</h4><p style=\"font-size:15px\">Gene ontology slim category assignments based on swissprot blast matches</p>\n";
     print"      <hr class=\"w3-clear\"><br> <canvas id=\"GO_sunburst\" width=\"800\" height=\"500\"></canvas></div>\n";
-    print"    <hr><div id=\"mydiv3\"><h4>Top Pfam</h4><p style=\"font-size:15px\">This aplot that means the</p>\n";
+    print"    <hr><div id=\"mydiv3\"><h4>Top Pfam</h4><p style=\"font-size:15px\">Most abundant pfam domains based on protein searches</p>\n";
     print"      <hr class=\"w3-clear\"><br> <canvas id=\"Pfam_barplot\" width=\"800\" height=\"500\"></canvas></div>\n";
-    print"    <hr><div id=\"mydiv4\"> <h4>Functional Category</h4><p style=\"font-size:15px\">This aplot that means the</p>\n";
+    print"    <hr><div id=\"mydiv4\"> <h4>Functional Category</h4><p style=\"font-size:15px\">Most abundant Eggnog functional categories based on top swissprot matches</p>\n";
     print"      <hr class=\"w3-clear\"><br><canvas id=\"funccat_barplot\" width=\"800\" height=\"500\"></canvas></div>\n";
-    print"    <hr><div id=\"mydiv5\"><h4>Top KEGG</h4><p style=\"font-size:15px\">This aplot that means the</p>\n";
+    print"    <hr><div id=\"mydiv5\"><h4>Top KEGG</h4><p style=\"font-size:15px\">Most abundant KEGG assignments based on top swissprot matches</p>\n";
     print"      <hr class=\"w3-clear\"><br> <canvas id=\"kegg_barplot\" width=\"800\" height=\"500\"></canvas></div>\n";
 
     print"</div>\n\n";
