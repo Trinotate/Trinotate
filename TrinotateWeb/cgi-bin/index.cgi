@@ -141,8 +141,6 @@ sub TrinotateWebMain {
 
     TaxonomyBestHit_text($dbproc, $sqlite_db);
 
-    keggplot($dbproc, $sqlite_db);
-    
     pfamplot($dbproc, $sqlite_db);
     
     goplot($dbproc, $sqlite_db);
@@ -221,18 +219,40 @@ sub TaxonomyBestHit_text {
 
     print $template->output;
 }
+
+
+=keggplot
 ###
 sub keggplot {
-     my ($dbproc, $sqlite_db) = @_;
-    
-    my $template2 = HTML::Template->new(filename => 'html/topsp.tmpl');
+    my ($dbproc, $sqlite_db) = @_;
+
+    my $html_cache_token = "$sqlite_db-kegg_info_text";
+    unless ($RESET_FLAG) {
+        if (my $html = &TextCache::get_cached_page($html_cache_token)) {
+            print($html);
+            return;
+        }
+    }
+    my $template2 = HTML::Template->new(filename => 'html/kegg.tmpl');
         
-    my $kegg = &_get_kegg_info($dbproc, $sqlite_db);
+    my $kegg_html = &_get_kegg_info($dbproc, $sqlite_db);
     
-    $template2->param(top => $kegg);
+    $template2->param(kegg => $kegg_html);
     
-    print $template2->output;
+    
+    $kegg_html = $template2->output;
+
+    my $cached_kegg_html = &add_cache_resetter($kegg_html, $sqlite_db);
+    
+    &TextCache::cache_page($html_cache_token, $cached_kegg_html);
+
+    print $kegg_html;
+
+    return;
+
 }
+=cut
+
 ###
 sub pfamplot{
     my ($dbproc, $sqlite_db) = @_;
@@ -482,20 +502,25 @@ sub _get_taxonomy_info {
 }
 
 
+=eggnog
+
 ####
-sub _get_kegg_info {
+sub _get_eggnog_info {
     my ($dbproc, $sqlite_db) = @_;
 
-    my $html_cache_token = "$sqlite_db-kegg_info_text";
-    if (my $html = &TextCache::get_cached_page($html_cache_token)) {
-        return($html);
-    }
+
+    my $NUM_TOP_EGGNOG = 50;
     
-    my $query = "select LinkID, count(*) as count from  UniprotIndex  where AttributeType = 'K' group by LinkId order by count desc limit 50;";
+    my $query = "select e.eggNOGIndexTerm, count(*) as count from eggNOGIndex e, UniprotIndex u, BlastDbase b "
+        . " where e.eggNOGIndexTerm = u.LinkId and u.accession = b.UniprotSearchString and u.AttributeType = 'E' "
+        . " group by e.eggNOGIndexTerm "
+        . " order by count DESC limit $NUM_TOP_KEGG";
+
+    print $query;
     
     my @vals;
     my $counter = 0;
-    my $NUM_TOP_DOMAINS = 50;
+
     my @results = &do_sql_2D($dbproc, $query);
     
     foreach my $result (@results) {
@@ -512,7 +537,7 @@ sub _get_kegg_info {
     
     my %inputs = ( orientation => 'horizontal',
 
-                   title => 'Top KEGG domains',
+                   title => 'Top 50 KEGG domains',
 
                    var_name => 'kegg',
 
@@ -522,12 +547,13 @@ sub _get_kegg_info {
 
 
     my $kegg_html .= $keggbarplot->draw(%inputs);
-
-    &TextCache::cache_page($html_cache_token, $kegg_html);
+        
     
     return($kegg_html); 
 
 }
+
+=cut
 
 sub _get_pfam_info {
     my ($dbproc, $sqlite_db) = @_;
