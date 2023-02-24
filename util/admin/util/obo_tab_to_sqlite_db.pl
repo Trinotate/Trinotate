@@ -5,25 +5,29 @@ use warnings;
 
 use DBI;
 
-my $usage = "usage: $0 sqlite.db obo.tab\n\n";
+my $usage = "usage: $0 sqlite.db [go|go_slim] obo.tab\n\n";
 
 my $sqlite_db = $ARGV[0] or die $usage;
-my $obo_tab_file = $ARGV[1] or die $usage;
+my $tablename = $ARGV[1] or die $usage;
+my $obo_tab_file = $ARGV[2] or die $usage;
+
+unless ($tablename eq "go" || $tablename eq "go_slim") {
+    die "Error, tablename must be 'go' or 'go_slim'";
+}
 
 main: {
-
     
     my $dbh = DBI->connect( "dbi:SQLite:$sqlite_db" ) || die "Cannot connect: $DBI::errstr";
     
     $dbh->do("PRAGMA synchronous=OFF");
     
-    $dbh->do("delete from go");
+    $dbh->do("delete from $tablename");
     
     $dbh->{AutoCommit} = 0;
     
 
     my $insert_entry_dml = qq {
-        INSERT INTO go
+        INSERT INTO $tablename
         VALUES (?,?,?,?)
     };
     

@@ -108,9 +108,21 @@ main: {
     &RunMod($dbproc, "CREATE UNIQUE INDEX eggNOGUniIndex ON eggNOGIndex(eggNOGIndexTerm)");
     
     
-    ## gene ontology
+    ## gene ontology FULL
     &RunMod($dbproc, "CREATE TABLE go (id varchar(20), name TEXT, namespace varchar(30), def TEXT)");
     &RunMod($dbproc, "CREATE UNIQUE INDEX id_idx ON go(id)");
+
+
+    ## gene ontology SLIM
+    &RunMod($dbproc, "CREATE TABLE go_slim (id varchar(20), name TEXT, namespace varchar(30), def TEXT)");
+    &RunMod($dbproc, "CREATE UNIQUE INDEX slim_id_idx ON go_slim(id)");
+
+    ## go slim to go id mappings:
+    &RunMod($dbproc, "CREATE TABLE go_slim_mapping (go_id varchar(20), slim_id varchar(20))");
+    &RunMod($dbproc, "CREATE UNIQUE INDEX mapped_go_id_idx ON go_slim_mapping(go_id)");
+    &RunMod($dbproc, "CREATE INDEX mapped_slim_id_idx ON go_slim_mapping(slim_id)");
+    &RunMod($dbproc, "CREATE UNIQUE INDEX mapped_slim_ids_idx ON go_slim_mapping(go_id, slim_id)");
+    
     
     ## pfam2go
     &RunMod($dbproc, "create table pfam2go(pfam_acc varchar(30), go_id varchar(30))");

@@ -27,6 +27,8 @@ my $usage = <<__EOUSAGE__;
 #
 # --go_obo_tab <string>             gene ontology obo tab file
 #
+# --go_slim_tab <string>        gene ontology SLIM tab file
+#
 # --pfam2go <string>            pfam2go data file
 #
 ##################################################################################
@@ -46,6 +48,7 @@ my $help_flag;
 my $create_flag;
 my $sqlite_db;
 my $pfam2go_file;
+my $go_slim_file;
 
 &GetOptions('h' => \$help_flag,
             'sqlite=s' => \$sqlite_db,
@@ -56,7 +59,8 @@ my $pfam2go_file;
             'eggnog=s' => \$eggnog_file,
             'go_obo_tab=s' => \$go_obo_tab_file,
             'pfam2go=s' => \$pfam2go_file,
-            );
+            'go_slim_tab=s' => \$go_slim_file,
+    );
 
 
 if (@ARGV) {
@@ -70,7 +74,7 @@ unless ($sqlite_db) {
     die $usage . "\n SQLITE database name required\n";
 }
 
-unless ($create_flag || $uniprot_index || $taxonomy_index || $pfam_file || $eggnog_file || $go_obo_tab_file || $pfam2go_file) {
+unless ($create_flag || $uniprot_index || $taxonomy_index || $pfam_file || $eggnog_file || $go_obo_tab_file || $pfam2go_file || $go_slim_file) {
     die $usage . "\n\n select an action to perform.\n";
 }
 
@@ -127,10 +131,16 @@ if ($pfam2go_file) {
 # import gene ontology
 if ($go_obo_tab_file) {
     
-    my $cmd = "$FindBin::RealBin/obo_tab_to_sqlite_db.pl $sqlite_db $go_obo_tab_file"; ## TODO: make bulk load like everything else here.
+    my $cmd = "$FindBin::RealBin/obo_tab_to_sqlite_db.pl $sqlite_db go $go_obo_tab_file"; ## TODO: make bulk load like everything else here.
     &process_cmd($cmd);
     
 }
+
+if ($go_slim_file) {
+    my $cmd = "$FindBin::RealBin/obo_tab_to_sqlite_db.pl $sqlite_db go_slim $go_slim_file"; ## TODO: make bulk load like everything else here.
+    &process_cmd($cmd);
+}
+
 
 exit(0);
 
