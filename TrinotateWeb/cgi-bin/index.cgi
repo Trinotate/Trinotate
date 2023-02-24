@@ -414,13 +414,10 @@ sub _get_taxonomy_info {
     my ($dbproc, $sqlite_db) = @_;
 
 
-    my $query = "select t.TaxonomyValue, count(*) as count from TaxonomyIndex t, UniprotIndex u, BlastDbase b, Transcript "
-        . " where u.AttributeType = 'T' and u.LinkID =  t.NCBITaxonomyAccession and  u.accession = b.UniprotSearchString and Transcript.transcript_id = b.TrinityID "
-        . " group by t.TaxonomyValue "
-        . " order by count DESC limit 1000";
+    my $query = "select distinct Transcript.gene_id, t.TaxonomyValue from TaxonomyIndex t, UniprotIndex u, BlastDbase b, Transcript "
+        . " where u.AttributeType = 'T' and u.LinkID =  t.NCBITaxonomyAccession and  u.accession = b.UniprotSearchString and Transcript.transcript_id = b.TrinityID ";
     
-    
-    
+        
     my %taxonomy_counter;
     my %species_counter;
 
@@ -428,7 +425,7 @@ sub _get_taxonomy_info {
     
     my @results = &do_sql_2D($dbproc, $query);
     foreach my $result (@results) {
-        my ($taxonomy, $count) = @$result;
+        my ($gene_id, $taxonomy) = @$result;
         
         my @tax_levels = split(/;\s*/, $taxonomy);
         my $species = pop @tax_levels;
@@ -441,11 +438,10 @@ sub _get_taxonomy_info {
         
         my $top_tax_level = join("\t", @top_tax_levels);
         #print STDERR "$top_tax_level -> $species\n" if $DEBUG;
-        $taxonomy_counter{$top_tax_level} += $count;
-        $species_counter{$species} = $count;
-        
+        $taxonomy_counter{$top_tax_level} += 1;
+        $species_counter{$species} += 1;
     }
-
+    
     ###################################
     ## reorganize the data for plotting
         
@@ -502,7 +498,7 @@ sub _get_taxonomy_info {
 
     $plot_loader->add_plot($taxonomy_sunburst);
     
-    my %inputs = (title =>  "Taxonomic representation of transcript-level top blastx matches",
+    my %inputs = (title =>  "Taxonomic representation of gene-level top blastx matches",
 
                   column_names => [@levels],
 
@@ -575,17 +571,29 @@ sub _get_eggnog_info {
 sub _get_pfam_info {
     my ($dbproc, $sqlite_db) = @_;
 
-    my $query = "select h.pfam_id, h.HMMERDomain, count(*) as c "
-        . " from HMMERDbase h, PFAMreference p "
-        . " where h.pfam_id = p.pfam_accession and h.FullDomainScore >= p.Domain_NoiseCutOff and h.ThisDomainEvalue <= 1e-5 "
-        . " group by h.pfam_id, h.HMMERDomain "
-        . " order by c DESC limit 50";
-            
+    my $query = "select distinct T.gene_id, h.pfam_id, h.HMMERDomain "
+        . " from HMMERDbase h, PFAMreference p, Transcript T, Orf O "
+        . " where h.pfam_id = p.pfam_accession and h.FullDomainScore >= p.Domain_NoiseCutOff "
+        . " and h.QueryProtID = O.orf_id and O.transcript_id = T.transcript_id ";
+        
+
+    my %domain_counter;
     my @vals;
     my @results = &do_sql_2D($dbproc, $query);
     foreach my $result (@results) {
+        my ($gene_id, $pfam_id, $domain) = @$result;
+        my $token = join("$;", $pfam_id, $domain);
+        $domain_counter{$token} += 1;
         
-        my ($pfam_id, $domain, $count) = @$result;
+    }
+
+    my @sorted_domains = reverse sort {$domain_counter{$a}<=>$domain_counter{$b}} keys %domain_counter;
+
+    @sorted_domains = @sorted_domains[0..50];
+    
+    foreach my $domain_info (@sorted_domains) {
+        my ($pfam_id, $domain) = split(/$;/, $domain_info);
+        my $count = $domain_counter{$domain_info};
                 
         push (@vals, ["$pfam_id^$domain", $count]);
      
@@ -614,15 +622,19 @@ sub _get_pfam_info {
 sub _get_go_info {
     my ($dbproc, $sqlite_db) = @_;
 
-    my $query = "select gs.namespace, gs.name, count(*) as c "
+    ##
+    ## //FIXME: need to include pfam2go assignments
+    ##
+    
+    
+    my $query = "select distinct T.gene_id, gs.namespace, gs.name "
         . " from Transcript t, Orf o, UniprotIndex ui, go g, go_slim gs, go_slim_mapping gsm, BlastDbase b " 
         . " where t.transcript_id = o.transcript_id and "
         . " o.orf_id = b.TrinityID and "
         . " b.UniprotSearchString = ui.Accession and "
         . " ui.AttributeType = 'G' and ui.LinkId = g.id and "
-        . " g.id = gsm.go_id and gsm.slim_id = gs.id "
-        . " group by gs.namespace, gs.name order by c DESC";
-    
+        . " g.id = gsm.go_id and gsm.slim_id = gs.id ";
+        
     #print $query;
     
     my @vals;
@@ -630,15 +642,29 @@ sub _get_go_info {
     my @column_names = ("go_class", "go_term");
     my %column_data;
     my @row_values;
+
+
+    my %go_class_term_counter;
+    
     foreach my $result (@results) {
         
-        my ($go_class, $go_term, $count) = @$result;
-                 
+        my ($gene_id, $go_class, $go_term) = @$result;
+
+        my $token = join("$;", $go_class, $go_term);
+        $go_class_term_counter{$token} += 1;
+    }
+
+    my @sorted_tokens = reverse sort {$go_class_term_counter{$a}<=>$go_class_term_counter{$b}} keys %go_class_term_counter;
+
+    foreach my $token (@sorted_tokens) {
+        my ($go_class, $go_term) = split(/$;/, $token);
+        
         push (@{$column_data{'go_class'}}, $go_class);
         push (@{$column_data{'go_term'}}, $go_term);
+        my $count = $go_class_term_counter{$token};
         push (@row_values, $count);
     }
-  
+    
 
     my $GO_sunburst = new CanvasXpress::Sunburst("GO_sunburst");
     $plot_loader->add_plot($GO_sunburst);
