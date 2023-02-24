@@ -178,7 +178,7 @@ sub AutoCommit {
 sub bulk_load_sqlite {
     my ($sqlite_db, $table, $bulk_load_file) = @_;
 
-    if ($bulk_load_file =~ /\.gz/) {
+    if ($bulk_load_file =~ /\.gz$/) {
         my $uncompressed_file = "$table.uncompressed";
         &process_cmd("gunzip -c $bulk_load_file > $uncompressed_file");
         $bulk_load_file = $uncompressed_file;
