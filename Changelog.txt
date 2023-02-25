@@ -1,3 +1,16 @@
+## Trinotate Release v4.0.0 (Feb 24, 2022)
+- support for DeepTmHMM and SignalPv6
+- restructured CLI to simplify most all execution through the Trinotate driver. 
+   - support for full auto mode with --run ALL
+   - a --create mode for creating the database.
+   - an --init mode for initial population of the database
+- support for starting from ref genome and ref annotation in GTF or GFF3 format.
+- Docker and Singularity images with all software (sans TmHMM and SignalPv6 due to licensing issues - must install/run separately)
+- revised TrinotateWeb with Docker and Singularity support.
+- test/example performs full Trinotate on sample data including installation of a full boilerplate sqlite and companion TRINOTATE_DATA_DIR
+- EggnogMapper support (weakly integrated - automated execution with outputs only integrated into the Trinotate report)
+
+
 ## Trinotate Release v3.2.1 (Apr 9, 2020)
 -updated eggnog url to a fixed resource as per PR
 
