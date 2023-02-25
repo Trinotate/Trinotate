@@ -9,6 +9,8 @@
 - revised TrinotateWeb with Docker and Singularity support.
 - test/example performs full Trinotate on sample data including installation of a full boilerplate sqlite and companion TRINOTATE_DATA_DIR
 - EggnogMapper support (weakly integrated - automated execution with outputs only integrated into the Trinotate report)
+- uses diamond blast when --use_diamond is employed
+- infernal replaces rnammer for rRNA and other noncoding RNA annotations.
 
 
 ## Trinotate Release v3.2.1 (Apr 9, 2020)
