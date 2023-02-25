@@ -201,7 +201,8 @@ RUN cpanm install HTML::Template
 
 
 WORKDIR $SRC
-ENV TRINOTATE_CO=2582be63fc28300094d17b2369577ec4dcccae71
+ENV TRINOTATE_CO=8764c2d78550728a4d87bcc838234ba7e0dbb5f6
+ENV TRINOTATE_VERSION=4.0.0
 
 RUN git clone https://github.com/Trinotate/Trinotate.git && \
     cd Trinotate && \
