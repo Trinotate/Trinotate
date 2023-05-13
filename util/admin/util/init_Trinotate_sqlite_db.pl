@@ -80,8 +80,8 @@ main: {
     
     
     ## MaxQuantGFFtoTrinity table (not using yet)
-    &RunMod($dbproc, "create table MaxQuantGFFtoTrinity(MaxQuantQueryID,MaxQuantQueryParentID,MaxQuantProteinMatchStart REAL,MaxQuantProteinMatchend REAL,MaxQuantStrand,MaxQuantTrinityMatchID,MaxQuantscoreFKPMValue REAL,MaxQuantPeptideValue REAL,MaxQuantPeptideScore REAL,MaxQuantExonValue REAL);");
-    &RunMod($dbproc, "CREATE INDEX TrinityID ON MaxQuantGFFtoTrinity(MaxQuantQueryID)");;
+    #&RunMod($dbproc, "create table MaxQuantGFFtoTrinity(MaxQuantQueryID,MaxQuantQueryParentID,MaxQuantProteinMatchStart REAL,MaxQuantProteinMatchend REAL,MaxQuantStrand,MaxQuantTrinityMatchID,MaxQuantscoreFKPMValue REAL,MaxQuantPeptideValue REAL,MaxQuantPeptideScore REAL,MaxQuantExonValue REAL);");
+    #&RunMod($dbproc, "CREATE INDEX TrinityID ON MaxQuantGFFtoTrinity(MaxQuantQueryID)");;
     
     ## SignalP table
     &RunMod($dbproc, "create table SignalP(query_prot_id,start REAL,end REAL,score REAL,prediction);");
