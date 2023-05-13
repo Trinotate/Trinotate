@@ -103,7 +103,7 @@ my $RUN_list = "";
 
 my ($LOAD_swissprot_blastp, $LOAD_pfam, $LOAD_deeptmhmm, $LOAD_signalp, 
     $LOAD_EggnogMapper, $LOAD_swissprot_blastx, $LOAD_infernal, $LOAD_tmhmmv2,
-    $LOAD_custom_blast, $custom_db_name, $blast_type) = ("", "", "", "", "", "", "", "", "", "");
+    $LOAD_custom_blast, $custom_db_name, $blast_type) = ("", "", "", "", "", "", "", "", "", "", "");
 
 my ($trinotate_data_dir, $transcript_fasta, $transdecoder_pep, $gene_trans_map);
 
