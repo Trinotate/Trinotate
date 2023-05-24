@@ -208,6 +208,14 @@ RUN git clone https://github.com/Trinotate/Trinotate.git && \
     cd Trinotate && \
     git checkout $TRINOTATE_CO
 
+## Samtools
+ENV SAMTOOLS_VERSION 1.13
+RUN wget https://github.com/samtools/samtools/releases/download/${SAMTOOLS_VERSION}/samtools-${SAMTOOLS_VERSION}.tar.bz2 && \
+    tar xvf samtools-${SAMTOOLS_VERSION}.tar.bz2 && \
+    cd samtools-${SAMTOOLS_VERSION} && \
+    ./configure && make && make install
+
+
 
 #################
 # clean up image:
