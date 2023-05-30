@@ -194,6 +194,17 @@ if (@ARGV) {
     confess "Error, not recognizing parameters: [ @ARGV ] ";
 }
 
+## Trinotate working directory and Trinotate data dir should be distinct paths.
+
+if (Cwd::abs_path(Cwd::getcwd()) eq Cwd::abs_path($trinotate_data_dir)) {
+
+    confess "Error, your TRINOTATE_DATA_DIR must be distinct from your Trinotate working directory.  The TRINOTATE_DATA_DIR should only house resource files, not Trinoate outputs";
+    
+}
+
+
+
+
 &ensure_prog_exists("sqlite3");
 
 
