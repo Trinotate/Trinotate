@@ -275,15 +275,10 @@ if ($RUN_flag) {
     unless ($transcript_fasta && $transdecoder_pep) {
         confess "Error, for 'run' the following are required:  --gene_trans_map, --transcript_fasta, and --transdecoder_pep ";
     }
-
     
-    my @supported = qw( ALL swissprot_blastp swissprot_blastx pfam signalp6 infernal EggnogMapper );
+    my @supported = qw( ALL swissprot_blastp swissprot_blastx pfam signalp6 tmhmmv2 infernal EggnogMapper );
     my %supported_run_types = map { $_ => 1 } @supported;
-
-    my @unsupported = grep { ! exists $supported_run_types{$_} } @supported;
-    if (@unsupported) {
-        confess "Error, run types not recognized include [ @unsupported ].  Please edit or remove unsupported entries. Only the following are supported: [ @supported ]  ";
-    }
+    
 
     $RUN_list =~ s/^\s+|\s+$//g; # strip whitespace from ends.
     my @run_types = split(/\s+/, $RUN_list);
@@ -291,6 +286,13 @@ if ($RUN_flag) {
         print STDERR "-found ALL among run types so running everything supported.\n";
         @run_types = ("ALL");
     }
+    
+    
+    my @unsupported = grep { ! exists $supported_run_types{$_} } @run_types;
+    if (@unsupported) {
+        confess "Error, run types not recognized include [ @unsupported ].  Please edit or remove unsupported entries. Only the following are supported: [ @supported ]  ";
+    }
+    
                               
     &Trinotate_RUN_annotators($sqlite_db, \@run_types, $CPU, $trinotate_data_dir, $transcript_fasta, $transdecoder_pep);
 }
