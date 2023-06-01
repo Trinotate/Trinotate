@@ -200,20 +200,23 @@ RUN cpanm install CGI
 RUN cpanm install HTML::Template
 
 
-WORKDIR $SRC
-ENV TRINOTATE_CO=8764c2d78550728a4d87bcc838234ba7e0dbb5f6
-ENV TRINOTATE_VERSION=4.0.0
-
-RUN git clone https://github.com/Trinotate/Trinotate.git && \
-    cd Trinotate && \
-    git checkout $TRINOTATE_CO
-
 ## Samtools
 ENV SAMTOOLS_VERSION 1.13
 RUN wget https://github.com/samtools/samtools/releases/download/${SAMTOOLS_VERSION}/samtools-${SAMTOOLS_VERSION}.tar.bz2 && \
     tar xvf samtools-${SAMTOOLS_VERSION}.tar.bz2 && \
     cd samtools-${SAMTOOLS_VERSION} && \
     ./configure && make && make install
+
+
+
+## Trinotate
+WORKDIR $SRC
+ENV TRINOTATE_CO=2b1984a79a78d12d6225f889f496bd845afb00b4
+ENV TRINOTATE_VERSION=4.0.1
+
+RUN git clone https://github.com/Trinotate/Trinotate.git && \
+    cd Trinotate && \
+    git checkout $TRINOTATE_CO
 
 
 

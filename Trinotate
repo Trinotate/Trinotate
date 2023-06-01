@@ -165,7 +165,7 @@ if ($trinotate_data_dir) {
     $ENV{'TRINOTATE_DATA_DIR'} = $trinotate_data_dir; # setting or re-setting
 }
 else {
-    $trinotate_data_dir = $ENV{'TRINOTATE_DATA_DIR'};
+    $trinotate_data_dir = $ENV{'TRINOTATE_DATA_DIR'} || "";
 }
 
 
