@@ -61,7 +61,7 @@ my $usage = <<_EOUSAGE_;
 
              Trinotate --db <sqlite.db> --LOAD_swissprot_blastp <file.outfmt6>
              Trinotate --db <sqlite.db> --LOAD_pfam <file>
-             Trinotate --db <sqlite.db> --LOAD_signalp6 <file>
+             Trinotate --db <sqlite.db> --LOAD_signalp <file>
              Trinotate --db <sqlite.db> --LOAD_EggnogMapper <file>
              Trinotate --db <sqlite.db> --LOAD_tmhmmv2 <file>  or Trinotate --db <sqlite.db> --LOAD_deeptmhmm <file.gff3>
 
