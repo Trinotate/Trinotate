@@ -1,3 +1,7 @@
+## Trinotate Release v4.0.2 (Sept 8, 2023)
+- changed ftp urls to https for uniprot and pfam downloads
+
+
 ## Trinotate Release v4.0.1 (May 31, 2023)
 - ensure trinotate data dir and working dir are distinct
 - check RUN commands selected and error if not recognized
