@@ -1,3 +1,11 @@
+## Trinotate Release v4.0.1 (May 31, 2023)
+- ensure trinotate data dir and working dir are distinct
+- check RUN commands selected and error if not recognized
+- dealt with warning Use of uninitialized value $blast_type
+- added samtools to docker img
+
+
+
 ## Trinotate Release v4.0.0 (Feb 24, 2023)
 - support for DeepTmHMM and SignalPv6
 - restructured CLI to simplify most all execution through the Trinotate driver. 
