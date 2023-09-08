@@ -158,8 +158,8 @@ RUN wget eddylab.org/infernal/infernal-1.1.2.tar.gz && \
 #~~~~~~~~~~~~~~~~~~~
 
 WORKDIR $SRC
-RUN wget http://eddylab.org/software/hmmer/hmmer.tar.gz && \
-    tar xvf hmmer.tar.gz && \
+RUN wget http://eddylab.org/software/hmmer/hmmer-3.3.2.tar.gz && \
+    tar xvf hmmer-3.3.2.tar.gz && \
     cd hmmer-3.3.2 && \
     ./configure && \
     make && make install
@@ -211,8 +211,8 @@ RUN wget https://github.com/samtools/samtools/releases/download/${SAMTOOLS_VERSI
 
 ## Trinotate
 WORKDIR $SRC
-ENV TRINOTATE_CO=3728540a9129cf5d33e058e458ff133eb2cae5fb
-ENV TRINOTATE_VERSION=4.0.1
+ENV TRINOTATE_CO=7bb59f995dcc4343b222a1af6b183abae5e14730
+ENV TRINOTATE_VERSION=4.0.2
 
 RUN git clone https://github.com/Trinotate/Trinotate.git && \
     cd Trinotate && \
