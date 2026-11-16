@@ -184,18 +184,23 @@ sub bulk_load_sqlite {
         $bulk_load_file = $uncompressed_file;
     }
     
-    my $cmd = "echo \""
-        . "pragma journal_mode=memory;\n"
+    # Note: '.mode ascii' with tab/newline separators is used instead of '.mode tabs'
+    # because tabs mode applies CSV-style quote parsing: a field beginning with a
+    # double-quote (eg. eggNOG description '"FY-rich" domain') would swallow all
+    # subsequent rows into a single field, silently dropping data.
+    my $sqlite_cmds = "pragma journal_mode=memory;\n"
         . "pragma synchronous=0;\n"
         . "pragma cache_size=4000000;\n"
-        . ".mode tabs\n"
-        . ".import $bulk_load_file $table\""
-        . " | sqlite3 $sqlite_db";
+        . ".mode ascii\n"
+        . ".separator \"\\t\" \"\\n\"\n"
+        . ".import $bulk_load_file $table\n";
 
-    print STDERR "CMD: $cmd\n";
-    my $ret = system($cmd);
-    if ($ret) {
-        confess "Error, cmd: $cmd died with ret $ret";
+    my $cmd = "sqlite3 $sqlite_db";
+    print STDERR "CMD: $cmd <<\n$sqlite_cmds\n";
+    open(my $ofh, "| $cmd") or confess "Error, cannot launch: $cmd";
+    print $ofh $sqlite_cmds;
+    unless (close $ofh) {
+        confess "Error, cmd: $cmd died with ret $? while bulk loading $bulk_load_file into $table";
     }
     return;
 }

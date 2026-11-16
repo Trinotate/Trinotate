@@ -70,7 +70,13 @@ sub get_pfam_info {
         . " p.Sequence_NoiseCutoff, p.Sequence_GatheringCutOff, p.Sequence_TrustedCutOff "
         . " from HMMERDbase h, PFAMreference p"
         . " where QueryProtID = ? "
-        . " and p.pfam_accession = h.pfam_id ";
+        # Match on the core Pfam accession (PFxxxxx), ignoring the version suffix (.NN),
+        # so hits from a Pfam-A.hmm release that differs from the one used to build
+        # the boilerplate PFAMreference table still resolve (see github issue #131).
+        # Expressed as a range so the unique index on pfam_accession is still used:
+        # '/' sorts immediately after '.' in ASCII.
+        . " and p.pfam_accession >= (substr(h.pfam_id, 1, 7) || '.') "
+        . " and p.pfam_accession <  (substr(h.pfam_id, 1, 7) || '/') ";
     
     if ($pfam_cutoff) {
         if ($pfam_cutoff eq "DNC") {

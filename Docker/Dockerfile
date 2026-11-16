@@ -169,9 +169,9 @@ RUN wget http://eddylab.org/software/hmmer/hmmer-3.3.2.tar.gz && \
 # Eggnog Mapper
 #~~~~~~~~~~~~~~~~~~~~
 WORKDIR $SRC
-RUN wget https://github.com/eggnogdb/eggnog-mapper/archive/refs/tags/2.1.9.tar.gz && \
-    tar xvf 2.1.9.tar.gz && \
-    cp -r eggnog-mapper-2.1.9 $BIN/
+RUN wget https://github.com/eggnogdb/eggnog-mapper/archive/refs/tags/v2.1.14.tar.gz && \
+    tar xvf v2.1.14.tar.gz && \
+    cp -r eggnog-mapper-2.1.14 $BIN/
 
 
 
@@ -190,10 +190,10 @@ RUN cpanm install DB_File \
                   DBD::SQLite
 
 
-ENV PATH=${PATH}:$BIN/eggnog-mapper-2.1.9
+ENV PATH=${PATH}:$BIN/eggnog-mapper-2.1.14
 
 
-RUN pip install -r $BIN/eggnog-mapper-2.1.9/requirements.txt
+RUN pip install -r $BIN/eggnog-mapper-2.1.14/requirements.txt
 
 
 RUN cpanm install CGI

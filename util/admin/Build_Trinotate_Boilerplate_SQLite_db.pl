@@ -20,7 +20,8 @@ my $RESOURCES_DIR = "$FindBin::RealBin/../../resources";
 
 ## Resources:
 my $SPROT_DAT_URL = "https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.dat.gz"; #"ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.dat.gz";
-my $EGGNOG_DAT_URL = "http://eggnogdb.embl.de/download/eggnog_4.5/data/NOG/NOG.annotations.tsv.gz";
+# eggNOG v5 OG annotations: SwissProt eggNOG cross-refs now use eggNOG v5 ids (COG/KOG/arCOG/ENOG502*)
+my $EGGNOG_DAT_URL = "https://eggnog5.embl.de/download/eggnog_5.0/e5.og_annotations.tsv";
 my $GENE_ONTOLOGY_DAT_URL = "http://purl.obolibrary.org/obo/go/go-basic.obo";
 my $PFAM_DAT_URL = "https://ftp.ebi.ac.uk/pub/databases/Pfam/current_release/Pfam-A.hmm.gz"; #"ftp://ftp.ebi.ac.uk/pub/databases/Pfam/current_release/Pfam-A.hmm.gz";
 my $PFAM2GO_DAT_URL = "http://current.geneontology.org/ontology/external2go/pfam2go";
@@ -69,14 +70,14 @@ main: {
 
     ##########
     ## EGGNOG
-    $pipeliner->add_commands(new Command("wget \"$EGGNOG_DAT_URL\" -O NOG.annotations.tsv.gz", "eggnog_download.ok") );
+    $pipeliner->add_commands(new Command("wget \"$EGGNOG_DAT_URL\" -O e5.og_annotations.tsv && gzip -f e5.og_annotations.tsv", "eggnog5_download.ok") );
     
-    # extract fields
-    $pipeliner->add_commands(new Command("gunzip -c NOG.annotations.tsv.gz | $UTILDIR/print.pl 1 5 > NOG.annotations.tsv.gz.bulk_load",
-                                         "eggnog_field_extraction.ok") );  # note, had set -eou pipefail, but this generated errors on certain flavors and/or versions of linux
+    # extract fields:  eggNOG_id (uniprot-style) <tab> description
+    $pipeliner->add_commands(new Command("$UTILDIR/eggNOG5_og_annotations_parser.pl e5.og_annotations.tsv.gz > e5.og_annotations.bulk_load",
+                                         "eggnog5_field_extraction.ok") );
     # load 
-    $pipeliner->add_commands(new Command("$UTILDIR/EMBL_dat_to_Trinotate_sqlite_resourceDB.pl --sqlite $sqlite_db --eggnog NOG.annotations.tsv.gz.bulk_load",
-                                         "eggnog.load.ok") );
+    $pipeliner->add_commands(new Command("$UTILDIR/EMBL_dat_to_Trinotate_sqlite_resourceDB.pl --sqlite $sqlite_db --eggnog e5.og_annotations.bulk_load",
+                                         "eggnog5.load.ok") );
     
     
     
@@ -137,7 +138,7 @@ main: {
         ## cleaning up:
         my @tmpfiles = qw(                          
                           
-                          NOG.annotations.tsv.gz.bulk_load
+                          e5.og_annotations.bulk_load
                           go-basic.obo.tab
                           Pfam-A.hmm.gz.pfam_sqlite_bulk_load
 
