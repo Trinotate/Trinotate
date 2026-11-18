@@ -75,7 +75,7 @@ sub do_sql_2D {
         ## Use $QUERYFAIL Global variable to detect query failures.
         $QUERYFAIL = 0; #initialize
         print STDERR "QUERY: $query\tVALUES: @values\n" if($::DEBUG||$::SEE);
-        $statementHandle = $dbproc->prepare($query);
+        $statementHandle = $dbproc->prepare_cached($query);
         if ( !defined $statementHandle) {
             print STDERR "Cannot prepare statement: $DBI::errstr\n";
             $QUERYFAIL = 1;

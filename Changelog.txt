@@ -2,6 +2,7 @@
 - fixed `Trinotate --create` failure: eggNOG annotations were downloaded from eggnogdb.embl.de, which no longer resolves (#132)
 - eggNOG annotations now come from eggNOG v5 (e5.og_annotations.tsv). UniProt SwissProt eggNOG cross-references now use eggNOG v5 ids (KOG, ENOG502*), so with the old eggNOG 4.5 table the report's eggnog column was empty for essentially all eukaryotic hits.
 - fixed silent data loss in sqlite bulk loading (all loaders): a field beginning with a double-quote was parsed as CSV quoting and swallowed all subsequent rows into a single field. Bulk loads now use sqlite '.mode ascii' with tab/newline separators.
+- report generation ~35x faster on network filesystems (NFS): the report is now read within a single sqlite read transaction instead of taking a file lock per query (687-transcript test: 35s -> 1s, identical output)
 - Rfam downloads now use https instead of ftp (ftp is blocked on many clusters/containers) (#129)
 - Pfam report column no longer comes out empty when the Pfam-A.hmm release used for hmmsearch differs from the one used to build the boilerplate db; Pfam hits are now matched on the unversioned accession (#131)
 - Docker: eggnog-mapper updated 2.1.9 -> 2.1.14 (its data downloader uses the live eggnog5.embl.de host)

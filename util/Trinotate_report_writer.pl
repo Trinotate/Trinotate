@@ -83,6 +83,10 @@ main: {
     }
 
     my $dbproc = &connect_to_db($sqlite_db);
+    # Read the whole report inside a single read transaction: otherwise each of the
+    # ~85 queries per transcript takes and releases its own sqlite file lock, which
+    # is very slow on network filesystems (NFS): 35s -> 1s on the 687-transcript test set.
+    $dbproc->do("BEGIN");
 
     my @results = &do_sql_2D($dbproc, "select gene_id, transcript_id from Transcript");
 
