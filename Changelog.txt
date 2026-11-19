@@ -1,3 +1,7 @@
+## Trinotate Release v4.0.4 (Nov 19, 2026)
+- fixed `Trinotate --create` not creating the sqlite db when an existing TRINOTATE_DATA_DIR is reused for another project with the same db name (eg. myTrinotate.sqlite); `--init` then failed with 'cannot locate the ... database file'. The boilerplate copy was checkpointed in the shared data dir and so skipped on reuse.
+
+
 ## Trinotate Release v4.0.3 (Nov 18, 2026)
 - fixed `Trinotate --create` failure: eggNOG annotations were downloaded from eggnogdb.embl.de, which no longer resolves (#132)
 - eggNOG annotations now come from eggNOG v5 (e5.og_annotations.tsv). UniProt SwissProt eggNOG cross-references now use eggNOG v5 ids (KOG, ENOG502*), so with the old eggNOG 4.5 table the report's eggnog column was empty for essentially all eukaryotic hits.
