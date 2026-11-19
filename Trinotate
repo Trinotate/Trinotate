@@ -388,15 +388,6 @@ sub run_Trinotate_create {
     $cmd = "mv TrinotateBoilerplate.sqlite pfam2go go-basic.obo pfam2go.tab e5.og_annotations.tsv.gz $path_to_trinotate_db/";
     $pipeliner->add_commands(new Command($cmd, "copy_boilerplate_to_datadir.ok"));
 
-    if (-s $sqlite_db) {
-        print STDERR "-sqlite db $sqlite_db already exists and is not being replaced. If a new boilerplate is required, copy db from: $path_to_trinotate_db/TrinotateBoilerplate.sqlite\n";
-    }
-    else {
-        $cmd = "cp $path_to_trinotate_db/TrinotateBoilerplate.sqlite $sqlite_db";
-        my $bname_sqlite = basename($sqlite_db);
-        $pipeliner->add_commands(new Command($cmd, "cp_trinotate_boilerplate_sqlite_to_$bname_sqlite.ok"));
-    }
-    
     $cmd = "makeblastdb -in uniprot_sprot.pep -dbtype prot";
     $pipeliner->add_commands(new Command($cmd, "make_sprot_blast_db.ok"));
             
@@ -438,6 +429,15 @@ sub run_Trinotate_create {
 
     $pipeliner->run();
 
+    # Copy the boilerplate into the user's sqlite db. Not checkpointed: the checkpoint dir
+    # lives in the (shared, reusable) data dir, so a checkpoint would wrongly skip the copy
+    # when the same data dir is reused for another project with the same db name.
+    if (-s $sqlite_db) {
+        print STDERR "-sqlite db $sqlite_db already exists and is not being replaced. If a new boilerplate is required, copy db from: $path_to_trinotate_db/TrinotateBoilerplate.sqlite\n";
+    }
+    else {
+        &process_cmd("cp $path_to_trinotate_db/TrinotateBoilerplate.sqlite $sqlite_db");
+    }
 
 
     ## Install EggnogMapper data dir if software is available but
