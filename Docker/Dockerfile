@@ -211,12 +211,16 @@ RUN wget https://github.com/samtools/samtools/releases/download/${SAMTOOLS_VERSI
 
 ## Trinotate
 WORKDIR $SRC
-ENV TRINOTATE_CO=Trinotate-v4.0.4
-ENV TRINOTATE_VERSION=4.0.4
+ENV TRINOTATE_CO=Trinotate-v4.0.5
+ENV TRINOTATE_VERSION=4.0.5
 
 RUN git clone https://github.com/Trinotate/Trinotate.git && \
     cd Trinotate && \
     git checkout $TRINOTATE_CO
+
+# put the Trinotate driver on PATH (eg. 'apptainer exec trinotate.simg Trinotate ...') (#125)
+ENV TRINOTATE_HOME=$SRC/Trinotate
+ENV PATH=$TRINOTATE_HOME:$PATH
 
 
 

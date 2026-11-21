@@ -1,3 +1,13 @@
+## Trinotate Release v4.0.5 (Nov 21, 2026)
+- fixed headers-only reports caused by `--init` being silently skipped: `--init` wrote a `__init.ok` checkpoint to the current directory, so any later `--init` from that directory (even for a different database) did nothing. `--init` now always runs (re-running is safe; it clears the Transcript/ORF tables first) and removes a stale `__init.ok` (#126, #105)
+- `--report` now stops with a clear error when the Transcript table is empty (ie. `--init` was not run on that database) instead of writing a headers-only report (#126)
+- `--pfam_cutoff` (as documented in the usage) is now accepted; previously only `--PFAM_CUTOFF` worked and the documented form failed with 'not recognizing parameters' (#121)
+- infernal cmscan `-Z` is now computed per the Infernal/Rfam definition (total nucleotides x 2 strands / 1e6) instead of from the fasta file size including headers (#123)
+- report summary: eggNOG functional categories are now assigned using an eggNOG v5 mapping (resources/eggnog/5.0, built by util/admin/util/eggNOG5_funccat_mapping.pl), as the report's eggnog ids are eggNOG v5 since v4.0.3; the eggNOG 3.0 mapping is still used as a fallback
+- clear error message when the TRINOTATE_DATA_DIR path cannot be resolved for `--create`/`--run` (eg. its parent is not mounted in a container), instead of an 'uninitialized value' / bare `mkdir -p` failure (#115)
+- Docker: the Trinotate driver is now on PATH and TRINOTATE_HOME is set in the image (#125)
+
+
 ## Trinotate Release v4.0.4 (Nov 19, 2026)
 - fixed `Trinotate --create` not creating the sqlite db when an existing TRINOTATE_DATA_DIR is reused for another project with the same db name (eg. myTrinotate.sqlite); `--init` then failed with 'cannot locate the ... database file'. The boilerplate copy was checkpointed in the shared data dir and so skipped on reuse.
 
