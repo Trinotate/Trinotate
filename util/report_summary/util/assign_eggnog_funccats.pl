@@ -9,12 +9,17 @@ my $usage = "usage: $0 file.eggnog_counts\n\n";
 
 my $inputfile = $ARGV[0] or die $usage;
 
+# eggNOG v5 mappings (ids as used in the report since Trinotate v4.0.3), with the older
+# eggNOG 3.0 COG/KOG/NOG mappings filling in any ids not found there.
+my $funcat_file_v5 = "$FindBin::Bin/../../../resources/eggnog/5.0/eggnog5_sprot.funccat.txt";
 my $funcat_file = "$FindBin::Bin/../../../resources/eggnog/3.0/COG_KOG_NOG.funccat.txt";
 my $descr_file = "$FindBin::Bin/../../../resources/eggnog/3.0/fun.txt";
 
 main: {
         
     my %funcat_mappings = &get_funcat_mappings($funcat_file);
+    my %funcat_mappings_v5 = &get_funcat_mappings($funcat_file_v5);
+    %funcat_mappings = (%funcat_mappings, %funcat_mappings_v5); # v5 takes precedence
     my %funcat_descriptions = &parse_funcat_descriptions($descr_file);
     
     my ($num_assigned, $num_missing) = (0,0);
@@ -28,7 +33,7 @@ main: {
     while (<$fh>) {
         chomp;
         my ($eggnog_acc, $count) = split(/\t/);
-        my @acc_pts = split(/\^/);
+        my @acc_pts = split(/\^/, $eggnog_acc);
         my $acc = shift @acc_pts;
 
         my $category = $funcat_mappings{$acc};

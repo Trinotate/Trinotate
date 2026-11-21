@@ -1,0 +1,7 @@
+eggnog5_sprot.funccat.txt: eggNOG v5 id -> COG functional category letters, restricted to the eggNOG ids
+cross-referenced by SwissProt. Built from https://eggnog5.embl.de/download/eggnog_5.0/e5.og_annotations.tsv
+and uniprot_sprot.dat.gz (Nov 2026) with:
+
+  util/admin/util/eggNOG5_funccat_mapping.pl e5.og_annotations.tsv.gz uniprot_sprot.dat.gz > eggnog5_sprot.funccat.txt
+
+Category descriptions come from ../3.0/fun.txt (same COG category letters).
