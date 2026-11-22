@@ -211,8 +211,8 @@ RUN wget https://github.com/samtools/samtools/releases/download/${SAMTOOLS_VERSI
 
 ## Trinotate
 WORKDIR $SRC
-ENV TRINOTATE_CO=Trinotate-v4.0.5
-ENV TRINOTATE_VERSION=4.0.5
+ENV TRINOTATE_CO=Trinotate-v4.0.6
+ENV TRINOTATE_VERSION=4.0.6
 
 RUN git clone https://github.com/Trinotate/Trinotate.git && \
     cd Trinotate && \

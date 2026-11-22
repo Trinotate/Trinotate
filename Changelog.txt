@@ -1,3 +1,10 @@
+## Trinotate Release v4.0.6 (Nov 22, 2026)
+- security (TrinotateWeb): fixed SQL injection in TrinotateWeb CGI scripts. Request parameters (feature_name, cluster_analysis_id, feature_type, min_FC, max_FDR, expr_cluster_id) were interpolated into SQLite queries, allowing an unauthenticated visitor to read the annotation database. All are now bound query parameters and validated. Reported by Santosh Kumar Puppala (https://github.com/Santoshkumarpuppala).
+- security (TrinotateWeb): request values echoed into pages are now HTML-escaped (reflected XSS)
+- TrinotateWeb (run_TrinotateWebserver.pl) now listens on 127.0.0.1 by default since it has no authentication; set env var TRINOTATE_WEB_BIND=0.0.0.0 to listen on all interfaces (or use an ssh tunnel). The Docker launcher publishes the port on the host's localhost only.
+- the Trinotate annotation pipeline (--create/--init/--run/--LOAD_*/--report) is unchanged.
+
+
 ## Trinotate Release v4.0.5 (Nov 21, 2026)
 - fixed headers-only reports caused by `--init` being silently skipped: `--init` wrote a `__init.ok` checkpoint to the current directory, so any later `--init` from that directory (even for a different database) did nothing. `--init` now always runs (re-running is safe; it clears the Transcript/ORF tables first) and removes a stale `__init.ok` (#126, #105)
 - `--report` now stops with a clear error when the Transcript table is empty (ie. `--init` was not run on that database) instead of writing a headers-only report (#126)
