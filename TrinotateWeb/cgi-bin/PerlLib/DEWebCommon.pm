@@ -48,6 +48,28 @@ sub get_expression_data {
     my $feature_type = $params_href->{feature_type};
     
     my $include_transcript_isoforms = $params_href->{include_transcript_isoforms}; # if gene feature, also retrieves that genes transcripts.
+
+    ## validate values that come from CGI request parameters; string values are passed as bound
+    ## placeholders below, never interpolated into the SQL text.
+    if (defined($feature_type) && $feature_type !~ /^[GT]$/) {
+        confess "Error, feature_type must be G or T";
+    }
+    foreach my $num_param ([min_FC => $min_FC], [max_FDR => $max_FDR]) {
+        my ($pname, $pval) = @$num_param;
+        if (defined($pval) && $pval !~ /^(\d+\.?\d*|\.\d+)([eE][-+]?\d+)?$/) {
+            confess "Error, $pname must be a non-negative number";
+        }
+    }
+    if (defined($min_FC) && $min_FC <= 0) {
+        confess "Error, min_FC must be > 0";
+    }
+    foreach my $int_param ([expr_cluster_id => $expr_cluster_id], [max_select => $params_href->{max_select}]) {
+        my ($pname, $pval) = @$int_param;
+        if (defined($pval) && $pval !~ /^\d+$/) {
+            confess "Error, $pname must be an integer";
+        }
+    }
+    my @bind_values;
     
     
     # expression values
@@ -103,11 +125,12 @@ sub get_expression_data {
         #@where_conditions = (" e.feature_name in (T.gene_id, T.transcript_id) and T.gene_id = \"$feature_name\" ");
         @where_conditions = (   
               " ( \n"
-            . "   (e.feature_name = T.gene_id and T.gene_id = \"$feature_name\" )\n"
+            . "   (e.feature_name = T.gene_id and T.gene_id = ? )\n"
             . "    or \n"
-            . "   (e.feature_name = T.transcript_id and T.gene_id = \"$feature_name\" ) \n"
+            . "   (e.feature_name = T.transcript_id and T.gene_id = ? ) \n"
             . " )\n"
             );
+        push (@bind_values, $feature_name, $feature_name);
         
                                 
     }
@@ -122,7 +145,8 @@ sub get_expression_data {
         
 
         if ($feature_name) {
-            push (@where_conditions, "e.feature_name = \"$feature_name\" ");
+            push (@where_conditions, "e.feature_name = ? ");
+            push (@bind_values, $feature_name);
         }
     }
     
@@ -133,7 +157,8 @@ sub get_expression_data {
         push (@tables, "Diff_expression d");
         push (@where_conditions, "e.feature_name = d.feature_name");
         if ($feature_type) {
-            push (@where_conditions, "e.feature_type = d.feature_type", "e.feature_type = \"$feature_type\"");
+            push (@where_conditions, "e.feature_type = d.feature_type", "e.feature_type = ?");
+            push (@bind_values, $feature_type);
         }
     }
     
@@ -145,11 +170,13 @@ sub get_expression_data {
         $sampleB = $sample_name_to_sample_id{$sampleB} or confess "Error, no sample_id for $sampleB";
         
 
-        push (@where_conditions, " d.sample_id_A in (\"$sampleA\", \"$sampleB\") and d.sample_id_B in(\"$sampleB\", \"$sampleA\")  ");
+        push (@where_conditions, " d.sample_id_A in (?, ?) and d.sample_id_B in (?, ?)  ");
+        push (@bind_values, $sampleA, $sampleB, $sampleB, $sampleA);
     
         if ($restrict_to_sample_pair_flag) {
             push (@tables, "Samples s", "Replicates r");
-            push (@where_conditions, " s.sample_id in (\"$sampleA\", \"$sampleB\") and s.sample_id = r.sample_id and r.replicate_id = e.replicate_id");
+            push (@where_conditions, " s.sample_id in (?, ?) and s.sample_id = r.sample_id and r.replicate_id = e.replicate_id");
+            push (@bind_values, $sampleA, $sampleB);
         }
     }
     
@@ -179,9 +206,9 @@ sub get_expression_data {
             $query = "insert into tmp_cache_table "
                 . " select distinct feature_name, feature_type "
                 . " from Diff_expression d "
-                . " where abs(d.log_fold_change) >= " . log($min_FC)/log(2)
-                . " and d.fdr <= $max_FDR";
-            &RunMod($dbproc, $query);
+                . " where abs(d.log_fold_change) >= CAST(? AS REAL) "
+                . " and d.fdr <= CAST(? AS REAL) ";
+            &RunMod($dbproc, $query, log($min_FC)/log(2), $max_FDR);
             
 
         }
@@ -206,8 +233,9 @@ sub get_expression_data {
 
         push (@where_conditions, "e.feature_name = EC.feature_name ",
               "EC.cluster_analysis_id = ECA.cluster_analysis_id",
-              "ECA.cluster_analysis_id = \"$cluster_analysis_id\" ",
-              "EC.expr_cluster_id = $expr_cluster_id ");
+              "ECA.cluster_analysis_id = ? ",
+              "EC.expr_cluster_id = CAST(? AS INTEGER) ");
+        push (@bind_values, $cluster_analysis_id, $expr_cluster_id);
     }
 
 
@@ -235,7 +263,7 @@ sub get_expression_data {
 
     print STDERR "$query\n";
     my $start = time();
-    @results = &do_sql_2D($dbproc, $query);
+    @results = &do_sql_2D($dbproc, $query, @bind_values);
     my $end = time();
     my $query_time = $end - $start;
     print STDERR "Query took: $query_time seconds.\n";

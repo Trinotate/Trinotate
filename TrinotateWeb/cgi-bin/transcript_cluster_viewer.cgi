@@ -33,8 +33,8 @@ main: {
 
     my $dbproc = DBI->connect( "dbi:SQLite:$sqlite_db" ) || die "Cannot connect: $DBI::errstr";
     
-    my $query = "select cluster_analysis_group, cluster_analysis_name from ExprClusterAnalyses where cluster_analysis_id = \"$cluster_analysis_id\"";
-    my $result = &do_sql_first_row($dbproc, $query);
+    my $query = "select cluster_analysis_group, cluster_analysis_name from ExprClusterAnalyses where cluster_analysis_id = ?";
+    my $result = &do_sql_first_row($dbproc, $query, $cluster_analysis_id);
     my ($analysis_group, $analysis_name) = split(/\t/, $result);
     
     my $title = "Transcriptional Cluster Report for $analysis_group\::$analysis_name";

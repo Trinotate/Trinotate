@@ -17,8 +17,8 @@
       </input>
     </label>
     <input type="submit" class="btn btn-default" value="Go"/>
-    <input type="hidden" name="sqlite" value="<TMPL_VAR NAME="SQLITE">" />
-    <input type="hidden" name="sample_pair" value="<TMPL_VAR NAME="SAMPLE_PAIR">"/>
+    <input type="hidden" name="sqlite" value="<TMPL_VAR NAME="SQLITE" ESCAPE=HTML>" />
+    <input type="hidden" name="sample_pair" value="<TMPL_VAR NAME="SAMPLE_PAIR" ESCAPE=HTML>"/>
   </fieldset>
 </form>
 
@@ -35,14 +35,14 @@
 <TMPL_ELSE>
 
   <div class="well well-sm DE-plot-container">
-  <h3>MA plot: <TMPL_VAR NAME="SAMPLE_A"> vs. <TMPL_VAR NAME="SAMPLE_B"></h3>
+  <h3>MA plot: <TMPL_VAR NAME="SAMPLE_A" ESCAPE=HTML> vs. <TMPL_VAR NAME="SAMPLE_B" ESCAPE=HTML></h3>
   <TMPL_VAR NAME="MA_PLOT_DRAW">
   </div>
 
   <hr style="clear:both;" />
 
   <div class="well well-sm DE-plot-container">
-  <h3>Volcano plot: <TMPL_VAR NAME="SAMPLE_A"> vs. <TMPL_VAR NAME="SAMPLE_B"></h3>
+  <h3>Volcano plot: <TMPL_VAR NAME="SAMPLE_A" ESCAPE=HTML> vs. <TMPL_VAR NAME="SAMPLE_B" ESCAPE=HTML></h3>
   <TMPL_VAR NAME="VOLCANO_PLOT_DRAW">
   </div>
 

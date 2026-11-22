@@ -6,13 +6,13 @@
                     <select id="expression-sample1">
                       <option disabled selected>Sample 1</option>
                       <TMPL_LOOP NAME="SAMPLES">
-                        <option><TMPL_VAR NAME="SAMPLE"></option>
+                        <option><TMPL_VAR NAME="SAMPLE" ESCAPE=HTML></option>
                       </TMPL_LOOP>
                     </select>
                     <select id="expression-sample2">
                       <option disabled selected>Sample 2</option>
                       <TMPL_LOOP NAME="SAMPLES">
-                        <option><TMPL_VAR NAME="SAMPLE"></option>
+                        <option><TMPL_VAR NAME="SAMPLE" ESCAPE=HTML></option>
                       </TMPL_LOOP>
                     </select>
 

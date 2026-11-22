@@ -12,7 +12,7 @@
           <TMPL_VAR NAME="HEATMAP_PLOT">
           <TMPL_VAR NAME="LINE_PLOT">
         <TMPL_ELSE>
-          <p>Sorry, no expression data stored for: <TMPL_VAR NAME="FEATURE_NAME"></p>
+          <p>Sorry, no expression data stored for: <TMPL_VAR NAME="FEATURE_NAME" ESCAPE=HTML></p>
         </TMPL_IF>
       </div>
     </div>

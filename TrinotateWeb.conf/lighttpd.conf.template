@@ -140,8 +140,9 @@ static-file.exclude-extensions = ( ".php", ".pl", ".fcgi", ".cgi" )
 ## bind to port (default: 80)
 server.port                = __PORT_NO__
 
-## bind to localhost (default: all interfaces)
-#server.bind                = "grisu.home.kneschke.de"
+## bind address: set by run_TrinotateWebserver.pl (default 127.0.0.1 = this machine only;
+## TrinotateWeb has no authentication, so don't expose it on a network you don't trust)
+server.bind                = "__BIND_ADDR__"
 
 ## error-handler for status 404
 #server.error-handler-404   = "/error-handler.html"

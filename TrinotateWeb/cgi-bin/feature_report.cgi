@@ -36,7 +36,8 @@ main: {
     
 
     my $header_template = HTML::Template->new(filename => 'html/header.tmpl');
-    $header_template->param(SUBTITLE => "- $feature_name");
+    my $feature_name_html = CGI::escapeHTML($feature_name);
+    $header_template->param(SUBTITLE => "- $feature_name"); # escaped by the template
     print $header_template->output;
     
     my $nav_template = HTML::Template->new(filename => 'html/topnav.tabless.tmpl');
@@ -49,26 +50,26 @@ main: {
     my $dbproc = DBI->connect( "dbi:SQLite:$sqlite_db" ) || die "Cannot connect: $DBI::errstr";
     
     my $feature_report_header_template = HTML::Template->new(filename => 'html/feature_report_header.tmpl');
-    $feature_report_header_template->param(FEATURE_NAME => $feature_name);
+    $feature_report_header_template->param(FEATURE_NAME => $feature_name); # escaped by the template
     print $feature_report_header_template->output;
 
 
     ## determine if gene or transcript:
-    my $query = "select rowid from Transcript where gene_id = \"$feature_name\"";
-    my $is_gene = &very_first_result_sql($dbproc, $query);
+    my $query = "select rowid from Transcript where gene_id = ?";
+    my $is_gene = &very_first_result_sql($dbproc, $query, $feature_name);
     my $feature_type;
     if ($is_gene) {
         $feature_type = 'G';
     }
     else {
         ## ensure we have a transcript row:
-        my $query = "select rowid from Transcript where transcript_id = \"$feature_name\" ";
-        my $is_trans = &very_first_result_sql($dbproc, $query);
+        my $query = "select rowid from Transcript where transcript_id = ? ";
+        my $is_trans = &very_first_result_sql($dbproc, $query, $feature_name);
         if ($is_trans) {
             $feature_type = 'T';
         }
         else {
-            print "No gene or transcript feature found with id = $feature_name";
+            print "No gene or transcript feature found with id = $feature_name_html";
             my $footer_template = HTML::Template->new(filename => 'html/footer.tmpl');
             print $footer_template->output;            
             exit();

@@ -1,4 +1,4 @@
-<h3><TMPL_VAR NAME="TITLE"></h3>
+<h3><TMPL_VAR NAME="TITLE" ESCAPE=HTML></h3>
 
 <div id="control_box">
   <form id=":control_form" method="get" action="HeatmapNav.cgi" >
@@ -7,27 +7,27 @@
 
         <li>
           <label for="min_FC">min_FC:</label>
-          <input type="text" name="min_FC" value="<TMPL_VAR NAME="MIN_FC">" />
+          <input type="text" name="min_FC" value="<TMPL_VAR NAME="MIN_FC" ESCAPE=HTML>" />
         </li>
 
         <li>
           <label for="max_FDR">max_FDR:</label>
-          <input type="text" name="max_FDR" value="<TMPL_VAR NAME="MAX_FDR">" />
+          <input type="text" name="max_FDR" value="<TMPL_VAR NAME="MAX_FDR" ESCAPE=HTML>" />
         </li>
 
         <li>
           <label for="min_any_feature_expr">min_any_expr_per_gene:</label>
-          <input type="text" name="min_any_feature_expr" value="<TMPL_VAR NAME="MIN_ANY_FEATURE_EXPR">" />
+          <input type="text" name="min_any_feature_expr" value="<TMPL_VAR NAME="MIN_ANY_FEATURE_EXPR" ESCAPE=HTML>" />
         </li>
 
         <li>
           <label for="min_sum_feature_expr">min_sum_feature_expr:</label>
-          <input type="text" name="min_sum_feature_expr" value="<TMPL_VAR NAME="MIN_SUM_FEATURE_EXPR">" />
+          <input type="text" name="min_sum_feature_expr" value="<TMPL_VAR NAME="MIN_SUM_FEATURE_EXPR" ESCAPE=HTML>" />
         </li>
       
         <li>
           <label for="scale_range">Heatmap scale range:</label>
-          <input type="text" name="scale_range" value="<TMPL_VAR NAME="SCALE_RANGE">" size="8" /> 
+          <input type="text" name="scale_range" value="<TMPL_VAR NAME="SCALE_RANGE" ESCAPE=HTML>" size="8" /> 
         </li>
       
         <li>
@@ -88,7 +88,7 @@
         </li>
 
         <TMPL_IF NAME="SAMPLE_PAIR">
-          <input type="hidden" name="sample_pair" value="<TMPL_VAR NAME="SAMPLE_PAIR">" />
+          <input type="hidden" name="sample_pair" value="<TMPL_VAR NAME="SAMPLE_PAIR" ESCAPE=HTML>" />
           
           <li>
             <label>
@@ -101,13 +101,13 @@
 
         <li>
           <label for="max_genes_show">Max genes to show:</label>
-          <input type="text" name="max_genes_show" value="<TMPL_VAR NAME="MAX_GENES_SHOW">" size="4" />
+          <input type="text" name="max_genes_show" value="<TMPL_VAR NAME="MAX_GENES_SHOW" ESCAPE=HTML>" size="4" />
         </li>
         <li><input type="submit" class="btn btn-default"/></li>
       </ul>
     </fieldset>
 
-    <input type="hidden" name="sqlite" value="<TMPL_VAR NAME="SQLITE_DB">"  />
+    <input type="hidden" name="sqlite" value="<TMPL_VAR NAME="SQLITE_DB" ESCAPE=HTML>"  />
         
   </form>
 </div>

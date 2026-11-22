@@ -5,7 +5,11 @@ use warnings;
 
 use FindBin;
 
-my $usage = "usage: $0 [port_no=8080]\n\n";
+my $usage = "usage: $0 [port_no=8080]\n\n"
+    . "  By default the server only listens on 127.0.0.1 (this machine). TrinotateWeb has no\n"
+    . "  authentication, so to reach it from another machine prefer an ssh tunnel:\n"
+    . "     ssh -L 8080:localhost:8080 user\@server\n"
+    . "  To listen on all interfaces anyway, set env var TRINOTATE_WEB_BIND=0.0.0.0\n\n";
 
 my $port_no = $ARGV[0] or die $usage;
 
@@ -45,6 +49,17 @@ my $TMPDIR = $ENV{TMPDIR} || "/tmp";
      my $template = `cat $conf_file_template`;
      $template =~ s/__DOCUMENT_ROOT__/$document_root/ or die "Error, could not replace __DOCUMENT_ROOT__ in $conf_file_template";
      $template =~ s/__PORT_NO__/$port_no/ or die "Error, could not replace __PORT_NO__ in $conf_file_template";
+
+     my $bind_addr = $ENV{TRINOTATE_WEB_BIND} || "127.0.0.1";
+     unless ($bind_addr =~ /^[\w.:-]+$/) {
+         die "Error, invalid TRINOTATE_WEB_BIND value: $bind_addr";
+     }
+     $template =~ s/__BIND_ADDR__/$bind_addr/ or die "Error, could not replace __BIND_ADDR__ in $conf_file_template";
+     if ($bind_addr ne "127.0.0.1" && $bind_addr ne "localhost") {
+         print STDERR "WARNING: TrinotateWeb is listening on $bind_addr:$port_no. It has no authentication; "
+             . "anyone who can reach this address can browse the databases this server can read.\n";
+     }
+     print STDERR "TrinotateWeb: http://$bind_addr:$port_no/cgi-bin/index.cgi\n";
      
      $template =~ s/__PERL_PATH__/$perl_path/g or die "Error, could not replace __PERL_PATH__ in $conf_file_template with $perl_path";
      

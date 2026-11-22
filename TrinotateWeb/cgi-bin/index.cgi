@@ -702,7 +702,8 @@ sub write_plot_loader {
 sub add_cache_resetter {
     my ($html, $sqlite_db) = @_;
 
-    $html =~ s|not_cached|<a href="/cgi-bin/index.cgi?RESET=1&sqlite_db=$sqlite_db">Cached page. Click to recompute.</a>|;
+    my $sqlite_db_url = uri_escape($sqlite_db);
+    $html =~ s|not_cached|<a href="/cgi-bin/index.cgi?RESET=1&sqlite_db=$sqlite_db_url">Cached page. Click to recompute.</a>|;
 
     return($html);
 }
